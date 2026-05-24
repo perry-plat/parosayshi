@@ -82,6 +82,9 @@
     <script>
       (() => {
         const editorSelectors = [
+          '#__framer-editorbar-button',
+          '[id*="framer-editorbar"]',
+          '[id*="__framer-editorbar"]',
           '[class*="__framer-editorbar"]',
           '[class*="framer-editorbar"]',
           '[aria-label="Edit Framer Content"]',
@@ -100,6 +103,8 @@
         };
 
         removeEditorBar();
+        const cleanupTimer = window.setInterval(removeEditorBar, 250);
+        window.setTimeout(() => window.clearInterval(cleanupTimer), 10000);
         new MutationObserver(removeEditorBar).observe(document.documentElement, {
           childList: true,
           subtree: true
