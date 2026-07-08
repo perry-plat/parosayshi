@@ -438,14 +438,14 @@ a {
 
 .brand-mark::before {
   background-color: var(--logo-border);
-  mask-image: url("../assets/new/parosayshi-wordmark-border.svg");
-  -webkit-mask-image: url("../assets/new/parosayshi-wordmark-border.svg");
+  mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
 }
 
 .brand-mark::after {
   background-color: var(--page-table);
-  mask-image: url("../assets/new/parosayshi-wordmark-fill.svg");
-  -webkit-mask-image: url("../assets/new/parosayshi-wordmark-fill.svg");
+  mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
 }
 
 .brand-mark:hover {
@@ -1131,14 +1131,14 @@ a {
 
 .slip-case-brand::before {
   background-color: var(--logo-border);
-  mask-image: url("../assets/new/parosayshi-wordmark-border.svg");
-  -webkit-mask-image: url("../assets/new/parosayshi-wordmark-border.svg");
+  mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
 }
 
 .slip-case-brand::after {
   background-color: var(--page-table);
-  mask-image: url("../assets/new/parosayshi-wordmark-fill.svg");
-  -webkit-mask-image: url("../assets/new/parosayshi-wordmark-fill.svg");
+  mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
 }
 
 .slip-case-mark {

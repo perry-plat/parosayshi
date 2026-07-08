@@ -1,21 +1,35 @@
 # Paro Says Hi
 
-Static portfolio starter for `parosayshi.com`, rebuilt from the existing Framer homepage content.
+React + TypeScript newspaper portfolio for `parosayshi.com`.
+
+The current site lives at `/`. The previous Framer export is archived at `/old`.
+
+## Code map
+
+See [`COMPONENT_MAP.md`](./COMPONENT_MAP.md) for the component tree, data flow, route map, CSS contracts, and update checklist.
 
 ## Local preview
 
 ```sh
-python3 -m http.server 3002
+npm install
+npm run dev
 ```
 
-Open `http://localhost:3002`.
+Open the local URL printed by Vite.
+
+To test the production bundle locally:
+
+```sh
+npm run build
+npm run preview
+```
 
 ## Deploy
 
-This site is static, so it can deploy on Vercel, Netlify, Cloudflare Pages, or GitHub Pages.
+This site builds to `dist/`.
 
-- Vercel: import this folder/repo, set the framework preset to "Other", and add `parosayshi.com` in Project Settings -> Domains.
-- Netlify: publish this folder with publish directory `.` and add `parosayshi.com` under Domain management.
-- GitHub Pages: push these files to a GitHub repo and enable Pages. The included `CNAME` points Pages to `parosayshi.com`.
+- Vercel: import this folder/repo. `vercel.json` handles clean URLs, `/old`, and asset caching.
+- Netlify: `netlify.toml` runs `npm run build` and publishes `dist`.
+- The included `public/CNAME` is copied into `dist/CNAME`.
 
 After deployment, point the domain's DNS to whichever host you choose.

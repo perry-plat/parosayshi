@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/old",
+      "destination": "/old/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
