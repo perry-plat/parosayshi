@@ -147,10 +147,14 @@ a {
   place-items: start center;
   padding: 31px 16px 0;
   overflow: hidden;
-  background: var(--page-table);
+  background: #2f2b28;
   opacity: 1;
   pointer-events: auto;
   transition: opacity 420ms ease, visibility 420ms ease;
+}
+
+.is-loading .paper-loader {
+  animation: loader-table-reveal 2350ms ease both;
 }
 
 .is-loaded .paper-loader {
@@ -176,11 +180,11 @@ a {
 }
 
 .loader-roll.is-active {
-  animation: loader-newspaper-journey 2900ms ease both;
+  animation: loader-newspaper-journey 2350ms ease both;
 }
 
 .loader-roll.is-active .loader-fold {
-  animation: loader-fold-stage 2700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: loader-fold-stage 2200ms cubic-bezier(0.2, 0.75, 0.24, 1) both;
 }
 
 .loader-sheet {
@@ -223,7 +227,17 @@ a {
   background-size: 240px 240px;
   content: "";
   mix-blend-mode: multiply;
-  opacity: 0.1;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+.fold-face::before {
+  position: absolute;
+  inset: 0;
+  z-index: 19;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.13), transparent 9%, transparent 88%, rgb(255 255 255 / 0.12));
+  content: "";
+  opacity: 0.42;
   pointer-events: none;
 }
 
@@ -300,6 +314,10 @@ a {
   transform: rotateX(180deg) translateZ(0.5px);
 }
 
+.loader-large-flap .fold-face::before {
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.18), transparent 12%, transparent 88%, rgb(255 255 255 / 0.1));
+}
+
 .loader-large-flap .loader-sheet {
   top: -100%;
   height: 200%;
@@ -346,36 +364,36 @@ a {
 
 .loader-roll.is-active .loader-side-flap {
   animation:
-    loader-open-side 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
-    loader-side-layer-clear 1050ms ease 1420ms both;
+    loader-open-side 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
+    loader-side-layer-clear 850ms ease 1100ms both;
 }
 
 .loader-roll.is-active .loader-top-back {
-  animation: loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both;
+  animation: loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both;
 }
 
 .loader-roll.is-active .loader-large-flap {
   animation:
-    loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
-    loader-open-down 1050ms cubic-bezier(0.2, 0.72, 0.24, 1) 1420ms both;
+    loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
+    loader-open-down 850ms cubic-bezier(0.18, 0.72, 0.22, 1) 1100ms both;
 }
 
 .loader-roll.is-active .loader-side-flap .fold-back {
-  animation: loader-side-message-fade 760ms ease 420ms both;
+  animation: loader-side-message-fade 600ms ease 300ms both;
 }
 
 .loader-roll.is-active .loader-final-page {
-  animation: loader-final-page-reveal 1050ms ease 1420ms both;
+  animation: loader-final-page-reveal 850ms ease 1100ms both;
 }
 
 .loader-roll.is-active .loader-top-back {
   animation:
-    loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
-    loader-top-back-clear 1050ms ease 1420ms both;
+    loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
+    loader-top-back-clear 850ms ease 1100ms both;
 }
 
 .loader-roll.is-active .loader-large-flap .fold-front {
-  animation: loader-front-ink-reveal 1050ms ease 1420ms both;
+  animation: loader-front-ink-reveal 850ms ease 1100ms both;
 }
 
 /* Noise layer disabled for now.
@@ -536,19 +554,38 @@ a {
   }
 }
 
+@keyframes loader-table-reveal {
+  0%,
+  42% {
+    background-color: #2f2b28;
+  }
+
+  68% {
+    background-color: color-mix(in srgb, #2f2b28 42%, var(--page-table));
+  }
+
+  88%,
+  100% {
+    background-color: var(--page-table);
+  }
+}
+
 @keyframes loader-fold-stage {
   0%,
   14% {
+    filter: drop-shadow(0 14px 15px rgb(0 0 0 / 0.24));
     transform: translate(25%, 25%) scale(0.96) rotate(-1.2deg);
   }
 
   44%,
   50% {
+    filter: drop-shadow(0 18px 20px rgb(0 0 0 / 0.2));
     transform: translate(0, 25%) scale(0.985) rotate(-0.45deg);
   }
 
   84%,
   100% {
+    filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.08));
     transform: translate(0, 0) scale(1) rotate(0deg);
   }
 }
@@ -561,6 +598,11 @@ a {
 
   48% {
     filter: brightness(0.9);
+  }
+
+  84% {
+    filter: brightness(1.015);
+    transform: rotateY(2.4deg);
   }
 
   100% {
@@ -587,6 +629,11 @@ a {
 
   52% {
     filter: brightness(0.9);
+  }
+
+  86% {
+    filter: brightness(1.01);
+    transform: rotateX(-2deg);
   }
 
   100% {
