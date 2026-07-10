@@ -73,21 +73,15 @@ function PaperLoader() {
           <div className="loader-final-page">
             <LoaderFrontPage />
           </div>
-          <div className="loader-top-back">
-            <span className="fold-ink-ghost">PAROSAYSHI · PRODUCT DESIGN · BENGALURU</span>
-          </div>
+          <div className="loader-top-back" />
           <div className="loader-large-flap">
             <div className="fold-face fold-front">
               <LoaderFrontPage />
             </div>
-            <div className="fold-face fold-back">
-              <span className="fold-ink-ghost">INDEPENDENT JOURNAL · VOL. 05</span>
-            </div>
+            <div className="fold-face fold-back" />
           </div>
           <div className="loader-side-flap">
-            <div className="fold-face fold-front">
-              <span className="fold-ink-ghost">NOTES FROM THE MARGINS</span>
-            </div>
+            <div className="fold-face fold-front" />
             <div className="fold-face fold-back">
               <div className="fold-cover-copy">
                 <span>VOL. 05 · JUL '26</span>
