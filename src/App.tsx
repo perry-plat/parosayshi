@@ -65,7 +65,7 @@ function PaperLoader() {
               </figure>
             </div>
           </div>
-          <div className="fold-panel fold-panel-one"><span>PAROSAYSHI</span></div>
+          <div className="fold-panel fold-panel-one" />
           <div className="fold-panel fold-panel-two" />
           <div className="fold-panel fold-panel-three" />
           <div className="fold-panel fold-panel-four" />
