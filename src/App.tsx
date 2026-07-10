@@ -35,27 +35,33 @@ function PaperLoader() {
   return (
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
-        <div className="loader-band">
-          <span>PAROSAYSHI</span>
-          <span>VOL. 05 / FRESH EDITION</span>
-        </div>
-        <div className="loader-sheet">
-          <div className="loader-mast">
-            <span>
-              05
+        <div className="loader-fold">
+          <div className="loader-sheet">
+            <div className="loader-mast">
+              <span>
+                05
+                <br />
+                JUL
+              </span>
+              <strong>PAROSAYSHI</strong>
+              <span>'26</span>
+            </div>
+            <div className="loader-rule" />
+            <p>
+              FRESH
               <br />
-              JUL
-            </span>
-            <strong>PAROSAYSHI</strong>
-            <span>'26</span>
+              OFF THE PRESS
+            </p>
+            <div className="loader-photo" />
           </div>
-          <div className="loader-rule" />
-          <p>
-            FRESH
-            <br />
-            OFF THE PRESS
-          </p>
-          <div className="loader-photo" />
+          <div className="fold-panel fold-panel-left" />
+          <div className="fold-panel fold-panel-right" />
+          <div className="fold-panel fold-panel-top" />
+          <div className="fold-panel fold-panel-bottom" />
+          <div className="loader-core">
+            <span>PARO</span>
+            <span>SAYSHI</span>
+          </div>
         </div>
       </div>
     </div>
