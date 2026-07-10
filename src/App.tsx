@@ -72,7 +72,20 @@ function PaperLoader() {
         <div className="loader-fold">
           {(["one", "two", "three", "four"] as const).map((panel) => (
             <div className={`fold-panel fold-panel-${panel}`} key={panel}>
-              <LoaderFrontPage />
+              <div className="fold-face fold-front">
+                <LoaderFrontPage />
+              </div>
+              <div className="fold-face fold-back">
+                {panel === "two" ? (
+                  <div className="fold-cover-copy">
+                    <span>VOL. 05 · JUL '26</span>
+                    <strong>PAROSAYSHI</strong>
+                    <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
+                  </div>
+                ) : (
+                  <span className="fold-ink-ghost">PAROSAYSHI · PRODUCT DESIGN · BENGALURU</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
