@@ -219,6 +219,17 @@ a {
   box-shadow: 0 18px 30px rgb(0 0 0 / 0.14);
 }
 
+.loader-fold-node,
+.loader-fold-inner,
+.loader-next-fold {
+  transform-style: preserve-3d;
+}
+
+.loader-fold-inner {
+  position: absolute;
+  inset: 0;
+}
+
 .fold-face::after {
   position: absolute;
   inset: 0;
@@ -257,10 +268,18 @@ a {
 
 .loader-final-page,
 .loader-top-back,
-.loader-large-flap,
-.loader-side-flap {
+.loader-large-flap {
   position: absolute;
   transform-style: preserve-3d;
+}
+
+.loader-next-fold {
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
 }
 
 .loader-final-page {
@@ -283,7 +302,7 @@ a {
     var(--paper-surface);
   border: 1px solid rgb(var(--rule-rgb) / 0.14);
   box-shadow: 0 18px 30px rgb(0 0 0 / 0.12);
-  clip-path: inset(0 50% 0 0);
+  clip-path: inset(0);
 }
 
 .loader-top-back::after,
@@ -305,7 +324,7 @@ a {
   z-index: 4;
   width: 100%;
   height: 50%;
-  clip-path: inset(0 50% 0 0);
+  clip-path: inset(0);
   transform: rotateX(179deg);
   transform-origin: center top;
 }
@@ -363,23 +382,23 @@ a {
 }
 
 .loader-roll.is-active .loader-side-flap {
-  animation:
-    loader-open-side 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
-    loader-side-layer-clear 850ms ease 1100ms both;
+  animation: loader-open-side 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both;
 }
 
-.loader-roll.is-active .loader-top-back {
-  animation: loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both;
+.loader-roll.is-active .loader-next-fold {
+  animation: loader-child-reveal 180ms ease 760ms both;
 }
 
 .loader-roll.is-active .loader-large-flap {
-  animation:
-    loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
-    loader-open-down 850ms cubic-bezier(0.18, 0.72, 0.22, 1) 1100ms both;
+  animation: loader-open-down 850ms cubic-bezier(0.18, 0.72, 0.22, 1) 1100ms both;
 }
 
 .loader-roll.is-active .loader-side-flap .fold-back {
   animation: loader-side-message-fade 600ms ease 300ms both;
+}
+
+.loader-roll.is-active .loader-side-flap > .loader-fold-inner {
+  animation: loader-side-layer-clear 850ms ease 1100ms both;
 }
 
 .loader-roll.is-active .loader-final-page {
@@ -387,9 +406,7 @@ a {
 }
 
 .loader-roll.is-active .loader-top-back {
-  animation:
-    loader-stack-width 600ms cubic-bezier(0.18, 0.72, 0.22, 1) 300ms both,
-    loader-top-back-clear 850ms ease 1100ms both;
+  animation: loader-top-back-clear 850ms ease 1100ms both;
 }
 
 .loader-roll.is-active .loader-large-flap .loader-sheet {
@@ -618,6 +635,17 @@ a {
 
   100% {
     clip-path: inset(0);
+  }
+}
+
+@keyframes loader-child-reveal {
+  0%,
+  38% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

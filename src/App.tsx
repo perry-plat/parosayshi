@@ -70,23 +70,29 @@ function PaperLoader() {
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-fold">
-          <div className="loader-final-page">
-            <LoaderFrontPage />
-          </div>
-          <div className="loader-top-back" />
-          <div className="loader-large-flap">
-            <div className="fold-face fold-front">
-              <LoaderFrontPage />
+          <div className="loader-fold-node loader-side-flap">
+            <div className="loader-fold-inner">
+              <div className="fold-face fold-front" />
+              <div className="fold-face fold-back">
+                <div className="fold-cover-copy">
+                  <span>VOL. 05 · JUL '26</span>
+                  <strong>PAROSAYSHI</strong>
+                  <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
+                </div>
+              </div>
             </div>
-            <div className="fold-face fold-back" />
-          </div>
-          <div className="loader-side-flap">
-            <div className="fold-face fold-front" />
-            <div className="fold-face fold-back">
-              <div className="fold-cover-copy">
-                <span>VOL. 05 · JUL '26</span>
-                <strong>PAROSAYSHI</strong>
-                <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
+            <div className="loader-next-fold">
+              <div className="loader-final-page">
+                <LoaderFrontPage />
+              </div>
+              <div className="loader-top-back" />
+              <div className="loader-fold-node loader-large-flap">
+                <div className="loader-fold-inner">
+                  <div className="fold-face fold-front">
+                    <LoaderFrontPage />
+                  </div>
+                  <div className="fold-face fold-back" />
+                </div>
               </div>
             </div>
           </div>
