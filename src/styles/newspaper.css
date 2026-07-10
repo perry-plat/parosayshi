@@ -164,30 +164,33 @@ a {
   width: min(877px, 100%);
   height: calc(100svh - 31px);
   min-height: 640px;
+  perspective: 1600px;
   transform-origin: center;
 }
 
 .loader-fold {
   position: absolute;
   inset: 0;
-  filter: drop-shadow(0 22px 26px rgb(0 0 0 / 0.16));
+  transform-style: preserve-3d;
   transform-origin: center;
 }
 
 .loader-roll.is-active {
-  animation: loader-newspaper-journey 2600ms ease both;
+  animation: loader-newspaper-journey 2900ms ease both;
 }
 
 .loader-roll.is-active .loader-fold {
-  animation: loader-fold-stage 2450ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: loader-fold-stage 2700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .loader-sheet {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
   isolation: isolate;
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 200%;
+  height: 200%;
   flex-direction: column;
   gap: 40px;
   overflow: hidden;
@@ -200,6 +203,66 @@ a {
   opacity: 1;
   transform: translateZ(0);
   transform-origin: center;
+}
+
+.fold-panel {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  background: var(--paper-surface);
+  backface-visibility: hidden;
+  box-shadow: 0 18px 30px rgb(0 0 0 / 0.12);
+  transform-style: preserve-3d;
+}
+
+.fold-panel-one {
+  left: 0;
+  top: 0;
+  z-index: 4;
+}
+
+.fold-panel-two {
+  right: 0;
+  top: 0;
+  z-index: 3;
+  transform: rotateY(-179deg);
+  transform-origin: left center;
+}
+
+.fold-panel-three {
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  transform: rotateX(179deg);
+  transform-origin: center top;
+}
+
+.fold-panel-four {
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  transform: rotateX(179deg);
+  transform-origin: center top;
+}
+
+.fold-panel-two .loader-sheet,
+.fold-panel-four .loader-sheet {
+  left: -100%;
+}
+
+.fold-panel-three .loader-sheet,
+.fold-panel-four .loader-sheet {
+  top: -100%;
+}
+
+.loader-roll.is-active .fold-panel-two {
+  animation: loader-open-side 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both;
+}
+
+.loader-roll.is-active .fold-panel-three,
+.loader-roll.is-active .fold-panel-four {
+  animation: loader-open-down 900ms cubic-bezier(0.2, 0.72, 0.24, 1) 1320ms both;
 }
 
 /* Noise layer disabled for now.
@@ -362,21 +425,50 @@ a {
 
 @keyframes loader-fold-stage {
   0%,
-  13% {
-    clip-path: inset(0 50% 50% 0);
+  14% {
     transform: translate(25%, 25%) scale(0.96) rotate(-1.2deg);
   }
 
-  39%,
-  49% {
-    clip-path: inset(0 0 50% 0);
+  44%,
+  50% {
     transform: translate(0, 25%) scale(0.985) rotate(-0.45deg);
   }
 
-  82%,
+  84%,
   100% {
-    clip-path: inset(0);
     transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes loader-open-side {
+  0% {
+    filter: brightness(0.82);
+    transform: rotateY(-179deg);
+  }
+
+  48% {
+    filter: brightness(0.9);
+  }
+
+  100% {
+    filter: brightness(1);
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes loader-open-down {
+  0% {
+    filter: brightness(0.8);
+    transform: rotateX(179deg);
+  }
+
+  52% {
+    filter: brightness(0.9);
+  }
+
+  100% {
+    filter: brightness(1);
+    transform: rotateX(0deg);
   }
 }
 

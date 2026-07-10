@@ -7,6 +7,40 @@ import { useTheme } from "./hooks/useTheme";
 import { ProjectSlip } from "./components/ProjectSlip";
 import type { ProjectId } from "./types/project";
 
+function LoaderFrontPage() {
+  return (
+    <div className="loader-sheet">
+      <div className="loader-snapshot-masthead">
+        <div className="issue-date">
+          <strong>05</strong>
+          <span>JUL '26</span>
+        </div>
+        <span className="loader-snapshot-brand" />
+        <span className="loader-snapshot-resume">RESUME</span>
+      </div>
+      <div className="loader-snapshot-edition">
+        <span>VOL. 05</span>
+        <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
+        <span>BENGALURU, INDIA</span>
+      </div>
+      <div className="rule" />
+      <div className="loader-snapshot-hero">
+        <div className="headline-block">
+          <p className="hero-kicker">THE LEAD STORY</p>
+          <h1>“I will keep designing for fun even in this economy”</h1>
+          <p>
+            says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
+          </p>
+        </div>
+        <figure className="hero-image">
+          <img src="/assets/new/hero.png" alt="" />
+          <figcaption>~ Shangarh, Himachal Pradesh, India</figcaption>
+        </figure>
+      </div>
+    </div>
+  );
+}
+
 function PaperLoader() {
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -36,35 +70,11 @@ function PaperLoader() {
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-fold">
-          <div className="loader-sheet">
-            <div className="loader-snapshot-masthead">
-              <div className="issue-date">
-                <strong>05</strong>
-                <span>JUL '26</span>
-              </div>
-              <span className="loader-snapshot-brand" />
-              <span className="loader-snapshot-resume">RESUME</span>
+          {(["one", "two", "three", "four"] as const).map((panel) => (
+            <div className={`fold-panel fold-panel-${panel}`} key={panel}>
+              <LoaderFrontPage />
             </div>
-            <div className="loader-snapshot-edition">
-              <span>VOL. 05</span>
-              <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
-              <span>BENGALURU, INDIA</span>
-            </div>
-            <div className="rule" />
-            <div className="loader-snapshot-hero">
-              <div className="headline-block">
-                <p className="hero-kicker">THE LEAD STORY</p>
-                <h1>“I will keep designing for fun even in this economy”</h1>
-                <p>
-                  says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
-                </p>
-              </div>
-              <figure className="hero-image">
-                <img src="/assets/new/hero.png" alt="" />
-                <figcaption>~ Shangarh, Himachal Pradesh, India</figcaption>
-              </figure>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
