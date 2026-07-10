@@ -392,7 +392,7 @@ a {
     loader-top-back-clear 850ms ease 1100ms both;
 }
 
-.loader-roll.is-active .loader-large-flap .fold-front {
+.loader-roll.is-active .loader-large-flap .loader-sheet {
   animation: loader-front-ink-reveal 850ms ease 1100ms both;
 }
 
