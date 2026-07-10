@@ -130,6 +130,7 @@ export type ProjectBodyBlock =
   | string;
 
 export interface ProjectData {
+  edition?: "case-file" | "field-note" | "dispatch" | "prototype" | "margin-note";
   figmaLayout?: "frame32" | string;
   mastheadDate?: string;
   mastheadBrand?: string;

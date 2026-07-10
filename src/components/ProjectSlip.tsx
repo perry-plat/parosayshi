@@ -38,6 +38,7 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
       aria-describedby="project-slip-kicker"
       tabIndex={-1}
       data-layout={project?.figmaLayout || "default"}
+      data-edition={project?.edition || "case-file"}
     >
       <div className="slip-content">
         <div className="slip-header">
@@ -50,6 +51,7 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
             <span className="slip-case-mark">{project?.mastheadBrand || ""}</span>
           </div>
           <div className="slip-title-group">
+            <p className="slip-edition">{(project?.edition || "case-file").replace("-", " ")}</p>
             <p className="eyebrow" id="project-slip-kicker">
               {project?.kicker || "CASE FILE"}
             </p>

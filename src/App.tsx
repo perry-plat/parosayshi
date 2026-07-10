@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -29,23 +29,26 @@ function PaperLoader() {
 
   return (
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
-      <div className="loader-sheet" aria-hidden="true">
-        <div className="loader-mast">
-          <span>
-            05
+      <div className="loader-roll" aria-hidden="true">
+        <div className="loader-twine"><span /></div>
+        <div className="loader-sheet">
+          <div className="loader-mast">
+            <span>
+              05
+              <br />
+              JUL
+            </span>
+            <strong>PAROSAYSHI</strong>
+            <span>'26</span>
+          </div>
+          <div className="loader-rule" />
+          <p>
+            FRESH
             <br />
-            JUL
-          </span>
-          <strong>PAROSAYSHI</strong>
-          <span>'26</span>
+            OFF THE PRESS
+          </p>
+          <div className="loader-photo" />
         </div>
-        <div className="loader-rule" />
-        <p>
-          DESIGNING
-          <br />
-          FOR FUN
-        </p>
-        <div className="loader-photo" />
       </div>
     </div>
   );
@@ -55,35 +58,42 @@ function Masthead() {
   const { cycleTheme, theme } = useTheme();
 
   return (
-    <header className="masthead section-reveal">
-      <div className="issue-date" aria-label="Issue date">
-        <strong>05</strong>
-        <span>JUL '26</span>
+    <>
+      <header className="masthead section-reveal">
+        <div className="issue-date" aria-label="Issue date">
+          <strong>05</strong>
+          <span>JUL '26</span>
+        </div>
+        <a className="brand-mark" href="/" aria-label="Parosayshi home" />
+        <div className="masthead-actions">
+          <button
+            className="theme-randomizer"
+            type="button"
+            aria-label="Cycle color theme"
+            title="Cycle color theme"
+            data-theme={theme}
+            onClick={cycleTheme}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />
+            </svg>
+          </button>
+          <a
+            className="resume-link"
+            href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            RESUME
+          </a>
+        </div>
+      </header>
+      <div className="edition-line section-reveal" aria-label="Publication details">
+        <span>VOL. 05</span>
+        <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
+        <span>BENGALURU, INDIA</span>
       </div>
-      <a className="brand-mark" href="/" aria-label="Parosayshi home" />
-      <div className="masthead-actions">
-        <button
-          className="theme-randomizer"
-          type="button"
-          aria-label="Cycle color theme"
-          title="Cycle color theme"
-          data-theme={theme}
-          onClick={cycleTheme}
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-            <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />
-          </svg>
-        </button>
-        <a
-          className="resume-link"
-          href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          RESUME
-        </a>
-      </div>
-    </header>
+    </>
   );
 }
 
@@ -91,6 +101,7 @@ function Hero() {
   return (
     <section className="hero section-reveal">
       <div className="headline-block">
+        <p className="hero-kicker">THE LEAD STORY</p>
         <h1>“I will keep designing for fun even in this economy”</h1>
         <p>
           says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
@@ -115,20 +126,44 @@ function IntroColumns() {
         currently at [@airtribe]
       </p>
       <p>
-        A <strong>technical product designer</strong> wanting to make sense to himself goes all out on platforms like i
-        ask, i explore, i tinker&mdash; designing to make technology feel more human.
+        <span className="intro-label">IN THIS EDITION</span>
+        Product strategy, systems thinking, slightly obsessive prototyping, and a few notes from the margins.
         <br />
-        currently at [@airtribe]
+        <strong>Open a dispatch</strong> to read the full story.
       </p>
     </section>
   );
 }
 
 function WorkSection({ openSlip }: { openSlip: (card: HTMLElement) => void }) {
+  const filters = ["All", "Case file", "Dispatch", "Field note", "Prototype", "Margin note"] as const;
+  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");
+  const cards = activeFilter === "All" ? workCards : workCards.filter((card) => card.edition === activeFilter);
+
   return (
     <section className="work-section section-reveal" aria-label="Selected work">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">SELECTED DISPATCHES</p>
+          <h2>Things I helped make clearer, kinder, or more useful.</h2>
+        </div>
+        <p>Open any story</p>
+      </div>
+      <div className="edition-index" aria-label="Reader's index">
+        {filters.map((filter) => (
+          <button
+            className="edition-index-button"
+            type="button"
+            aria-pressed={activeFilter === filter}
+            key={filter}
+            onClick={() => setActiveFilter(filter)}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
       <div className="work-rail" tabIndex={0} aria-label="Horizontally scrollable selected work cards">
-        {workCards.map((card) => (
+        {cards.map((card) => (
           <article
             className="work-card project-card"
             role="button"
@@ -136,6 +171,7 @@ function WorkSection({ openSlip }: { openSlip: (card: HTMLElement) => void }) {
             aria-haspopup="dialog"
             aria-expanded="false"
             data-project={card.id}
+            data-edition={card.edition.toLowerCase().replace(" ", "-")}
             data-slip-tilt={card.tilt}
             key={card.id}
             onClick={(event) => openSlip(event.currentTarget)}
@@ -146,6 +182,7 @@ function WorkSection({ openSlip }: { openSlip: (card: HTMLElement) => void }) {
               }
             }}
           >
+            <div className="card-edition" aria-hidden="true">{card.edition}</div>
             <h3>{card.title}</h3>
             <figure className="work-card-image">
               <img src={card.image} alt={card.alt} />
@@ -164,7 +201,7 @@ function ExperienceSection() {
     <section className="experience section-reveal" aria-label="Experience">
       <div className="experience-head">
         <p className="eyebrow">EXPERIENCE</p>
-        <h2>“I will keep designing for fun even in this economy”</h2>
+        <h2>Notes from the working desk.</h2>
       </div>
 
       <div className="experience-stack">

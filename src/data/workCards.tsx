@@ -3,6 +3,7 @@ import type { ProjectId } from "../types/project";
 
 export interface WorkCardData {
   id: ProjectId;
+  edition: "Case file" | "Dispatch" | "Field note" | "Prototype" | "Margin note";
   title: string;
   image: string;
   alt: string;
@@ -13,6 +14,7 @@ export interface WorkCardData {
 export const workCards: WorkCardData[] = [
   {
     id: "wiz-commerce",
+    edition: "Case file",
     title: "WizCommerce product touchpoints",
     image: "/assets/new/wizcommerce-frame32/hero-dashboard.png",
     alt: "WizCommerce product touchpoints and dashboard surfaces",
@@ -25,6 +27,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "wiz-sales-data",
+    edition: "Dispatch",
     title: "Helping sales reps make better decisions with data",
     image: "/assets/case-studies/f2MFjaGV3u8MAIXdzRO9fHE2wc.png",
     alt: "WizCommerce sales data case study cover",
@@ -33,6 +36,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "wiz-email-flows",
+    edition: "Field note",
     title: "Anything and everything about automating emails",
     image: "/assets/case-studies/7pNOxoU2UIQLghgLPRTMAgwU1AE.png",
     alt: "WizCommerce email automation case study cover",
@@ -41,6 +45,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "uber-kids",
+    edition: "Case file",
     title: "Designing a safer Uber Kids onboarding",
     image: "/assets/new/uber-kids/invite-hero.png",
     alt: "Uber Kids child entering a ride illustration",
@@ -49,6 +54,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "kriyadex",
+    edition: "Dispatch",
     title: "KriyaDex",
     image: "/assets/kAPxEEfqmcF1Prw6YnmQHHaYVpY.png",
     alt: "KriyaDex brand mark",
@@ -65,6 +71,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "farevv",
+    edition: "Margin note",
     title: "Farevv.",
     image: "/assets/4tXbamARId1GtIkEXTPtvkZgry8.png",
     alt: "Farevv fashion product exploration",
@@ -73,6 +80,7 @@ export const workCards: WorkCardData[] = [
   },
   {
     id: "curo",
+    edition: "Prototype",
     title: "Curo.",
     image: "/assets/lREVKnbZDxTdgCdlTMAcEQXvxE.png",
     alt: "Curo learning resources interface",

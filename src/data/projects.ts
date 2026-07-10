@@ -2,6 +2,7 @@ import type { ProjectsMap } from "../types/project";
 
 export const projects = {
         "wiz-commerce": {
+          edition: "case-file",
           figmaLayout: "frame32",
           mastheadDate: "05",
           mastheadBrand: "WIZCOMMERCE",
@@ -253,6 +254,7 @@ export const projects = {
           ]
         },
         "wiz-sales-data": {
+          edition: "dispatch",
           kicker: "WIZORDER / SALES DATA",
           title: "Helping sales reps make better decisions with data",
           deck: "Simplifying B2B product cards & recommendations to surface decision-critical data for sales reps.",
@@ -437,6 +439,7 @@ export const projects = {
           ]
         },
         "wiz-email-flows": {
+          edition: "field-note",
           kicker: "WIZORDER / COMMUNICATION",
           title: "Anything and everything about automating emails",
           deck: "Communication through email shapes the B2B wholesale experience in WizOrder.",
@@ -627,6 +630,7 @@ export const projects = {
           ]
         },
         "uber-kids": {
+          edition: "case-file",
           kicker: "UBER KIDS / CHILD ONBOARDING",
           title: "Designing a safer Uber Kids onboarding",
           deck: "A child-facing onboarding concept that explains who is in control, where the child can go, and what to do when a ride feels unsafe.",
@@ -770,6 +774,7 @@ export const projects = {
           ]
         },
         "kriyadex": {
+          edition: "dispatch",
           kicker: "KRIYADEX / FREELANCE",
           title: "Logo design, branding, and a V0-MVP for KriyaDex",
           deck: "A compact freelance build from Jan 2023: brand direction, logo language, and the first product shell for KriyaDex.",
@@ -802,6 +807,7 @@ export const projects = {
           ]
         },
         "farevv": {
+          edition: "margin-note",
           kicker: "FAREVV / ANTI-PORTFOLIO",
           title: "The next fashion revolution",
           deck: "An anti-portfolio entry: less polished case-study, more directional note for a fashion product idea still asking to become real.",
@@ -831,6 +837,7 @@ export const projects = {
           ]
         },
         "curo": {
+          edition: "prototype",
           kicker: "CURO / MVP IN PROGRESS",
           title: "Your AI Learning Companion",
           deck: "A learning-product MVP around paths, resources, and AI-guided understanding.",
