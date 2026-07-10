@@ -54,14 +54,10 @@ function PaperLoader() {
             </p>
             <div className="loader-photo" />
           </div>
-          <div className="fold-panel fold-panel-left" />
-          <div className="fold-panel fold-panel-right" />
-          <div className="fold-panel fold-panel-top" />
-          <div className="fold-panel fold-panel-bottom" />
-          <div className="loader-core">
-            <span>PARO</span>
-            <span>SAYSHI</span>
-          </div>
+          <div className="fold-panel fold-panel-one"><span>PAROSAYSHI</span></div>
+          <div className="fold-panel fold-panel-two" />
+          <div className="fold-panel fold-panel-three" />
+          <div className="fold-panel fold-panel-four" />
         </div>
       </div>
     </div>

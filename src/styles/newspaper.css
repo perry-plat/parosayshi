@@ -161,6 +161,7 @@ a {
 .loader-roll {
   position: relative;
   width: min(560px, 76vw);
+  aspect-ratio: 0.78;
   perspective: 1400px;
   transform-origin: 50% 50%;
 }
@@ -172,7 +173,11 @@ a {
 }
 
 .loader-roll.is-active {
-  animation: loader-newspaper-journey 1560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: loader-newspaper-journey 2100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loader-roll.is-active .loader-fold {
+  animation: loader-fold-stage 1850ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .loader-sheet {
@@ -194,7 +199,7 @@ a {
 }
 
 .loader-roll.is-active .loader-sheet {
-  animation: loader-sheet-reveal 650ms cubic-bezier(0.22, 1, 0.36, 1) 900ms both;
+  animation: loader-sheet-reveal 560ms cubic-bezier(0.22, 1, 0.36, 1) 1460ms both;
 }
 
 .fold-panel {
@@ -209,83 +214,62 @@ a {
   pointer-events: none;
 }
 
-.fold-panel-left,
-.fold-panel-right {
-  top: 0;
+.fold-panel-one,
+.fold-panel-two,
+.fold-panel-three,
+.fold-panel-four {
   width: 50%;
-  height: 100%;
-}
-
-.fold-panel-left {
-  left: 0;
-  transform-origin: right center;
-  transform: rotateY(88deg);
-}
-
-.fold-panel-right {
-  right: 0;
-  transform-origin: left center;
-  transform: rotateY(-88deg);
-}
-
-.fold-panel-top,
-.fold-panel-bottom {
-  left: 0;
-  width: 100%;
   height: 50%;
 }
 
-.fold-panel-top {
+.fold-panel-one {
+  left: 0;
   top: 0;
-  transform-origin: center bottom;
-  transform: rotateX(-88deg);
-}
-
-.fold-panel-bottom {
-  bottom: 0;
-  transform-origin: center top;
-  transform: rotateX(88deg);
-}
-
-.loader-roll.is-active .fold-panel-left {
-  animation: fold-open-left 720ms cubic-bezier(0.22, 1, 0.36, 1) 280ms both;
-}
-
-.loader-roll.is-active .fold-panel-right {
-  animation: fold-open-right 720ms cubic-bezier(0.22, 1, 0.36, 1) 280ms both;
-}
-
-.loader-roll.is-active .fold-panel-top {
-  animation: fold-open-top 650ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
-}
-
-.loader-roll.is-active .fold-panel-bottom {
-  animation: fold-open-bottom 650ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
-}
-
-.loader-core {
-  position: absolute;
-  left: 50%;
-  top: 50%;
   z-index: 3;
   display: grid;
-  width: 34%;
-  aspect-ratio: 1 / 1.18;
-  place-content: center;
-  gap: 1px;
-  background: var(--ink);
-  box-shadow: 0 16px 28px rgb(0 0 0 / 0.24);
-  color: var(--paper-surface);
+  place-items: center;
+  color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(15px, 3vw, 27px);
+  font-size: clamp(18px, 3.4vw, 32px);
   letter-spacing: -0.08em;
-  line-height: 0.76;
-  text-align: center;
-  transform: translate(-50%, -50%) rotate(-4deg);
 }
 
-.loader-roll.is-active .loader-core {
-  animation: loader-core-release 540ms cubic-bezier(0.22, 1, 0.36, 1) 600ms both;
+.fold-panel-two {
+  right: 0;
+  top: 0;
+  transform: rotateY(-178deg);
+  transform-origin: left center;
+}
+
+.fold-panel-three {
+  left: 0;
+  bottom: 0;
+  transform: rotateX(178deg);
+  transform-origin: center top;
+}
+
+.fold-panel-four {
+  right: 0;
+  bottom: 0;
+  transform: rotateX(178deg);
+  transform-origin: center top;
+}
+
+.loader-roll.is-active .fold-panel-two {
+  animation:
+    fold-open-side 650ms cubic-bezier(0.22, 1, 0.36, 1) 380ms both,
+    fold-panels-clear 320ms ease 1680ms both;
+}
+
+.loader-roll.is-active .fold-panel-three,
+.loader-roll.is-active .fold-panel-four {
+  animation:
+    fold-open-down 700ms cubic-bezier(0.22, 1, 0.36, 1) 960ms both,
+    fold-panels-clear 320ms ease 1680ms both;
+}
+
+.loader-roll.is-active .fold-panel-one {
+  animation: fold-panels-clear 320ms ease 1680ms both;
 }
 
 /* Noise layer disabled for now.
@@ -366,15 +350,15 @@ a {
 @keyframes loader-newspaper-journey {
   0% {
     opacity: 0;
-    transform: scale(0.62) rotateX(18deg) rotateY(-18deg);
+    transform: scale(0.86) rotateX(8deg) rotateY(-10deg);
   }
 
-  18% {
+  12% {
     opacity: 1;
-    transform: scale(0.72) rotateX(12deg) rotateY(-12deg);
+    transform: scale(0.9) rotateX(6deg) rotateY(-8deg);
   }
 
-  72% {
+  78% {
     opacity: 1;
     transform: scale(1.01) rotateX(0deg) rotateY(0deg);
   }
@@ -382,6 +366,20 @@ a {
   100% {
     opacity: 1;
     transform: scale(1) rotateX(0deg) rotateY(0deg);
+  }
+}
+
+@keyframes loader-fold-stage {
+  0%, 16% {
+    transform: translate(25%, 25%) scale(0.78) rotate(-3deg);
+  }
+
+  48% {
+    transform: translate(0, 25%) scale(0.88) rotate(-1.5deg);
+  }
+
+  82%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
 }
 
@@ -397,85 +395,50 @@ a {
   }
 }
 
-@keyframes fold-open-left {
+@keyframes fold-open-side {
   0% {
     opacity: 1;
-    transform: rotateY(88deg);
+    transform: rotateY(-178deg);
   }
 
-  72% {
+  82% {
     opacity: 1;
     transform: rotateY(0deg);
   }
 
   100% {
-    opacity: 0;
-    transform: rotateY(0deg);
-  }
-}
-
-@keyframes fold-open-right {
-  0% {
-    opacity: 1;
-    transform: rotateY(-88deg);
-  }
-
-  72% {
     opacity: 1;
     transform: rotateY(0deg);
   }
-
-  100% {
-    opacity: 0;
-    transform: rotateY(0deg);
-  }
 }
 
-@keyframes fold-open-top {
+@keyframes fold-open-down {
   0% {
     opacity: 1;
-    transform: rotateX(-88deg);
+    transform: rotateX(178deg);
   }
 
-  72% {
+  82% {
     opacity: 1;
     transform: rotateX(0deg);
   }
 
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: rotateX(0deg);
   }
 }
 
-@keyframes fold-open-bottom {
+@keyframes fold-panels-clear {
   0% {
     opacity: 1;
-    transform: rotateX(88deg);
-  }
-
-  72% {
-    opacity: 1;
-    transform: rotateX(0deg);
   }
 
   100% {
     opacity: 0;
-    transform: rotateX(0deg);
   }
 }
 
-@keyframes loader-core-release {
-  0%, 42% {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(-4deg) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) rotate(-4deg) scale(0.76);
-  }
-}
 
 @keyframes paper-return-settle {
   0% {
