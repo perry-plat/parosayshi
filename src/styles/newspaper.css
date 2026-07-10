@@ -144,8 +144,8 @@ a {
   inset: 0;
   z-index: 100;
   display: grid;
-  place-items: start center;
-  padding: 31px 16px 0;
+  place-items: center;
+  padding: 24px 16px;
   overflow: hidden;
   background: #2f2b28;
   opacity: 1;
@@ -154,7 +154,7 @@ a {
 }
 
 .is-loading .paper-loader {
-  animation: loader-table-reveal 2350ms ease both;
+  animation: loader-table-reveal 1350ms ease both;
 }
 
 .is-loaded .paper-loader {
@@ -166,8 +166,8 @@ a {
 .loader-roll {
   position: relative;
   width: min(877px, 100%);
-  height: calc(100svh - 31px);
-  min-height: 640px;
+  height: min(820px, calc(100svh - 48px));
+  min-height: min(640px, calc(100svh - 48px));
   perspective: 1600px;
   transform-origin: center;
 }
@@ -180,11 +180,11 @@ a {
 }
 
 .loader-roll.is-active {
-  animation: loader-newspaper-journey 2350ms ease both;
+  animation: loader-newspaper-journey 1350ms ease both;
 }
 
 .loader-roll.is-active .loader-fold {
-  animation: loader-fold-stage 2200ms cubic-bezier(0.2, 0.75, 0.24, 1) both;
+  animation: loader-fold-stage 1200ms cubic-bezier(0.2, 0.75, 0.24, 1) both;
 }
 
 .loader-sheet {
@@ -390,7 +390,7 @@ a {
 }
 
 .loader-roll.is-active .loader-large-flap {
-  animation: loader-open-down 850ms cubic-bezier(0.18, 0.72, 0.22, 1) 1100ms both;
+  animation: loader-open-down 950ms cubic-bezier(0.18, 0.72, 0.22, 1) 100ms both;
 }
 
 .loader-roll.is-active .loader-side-flap .fold-back {
@@ -402,15 +402,15 @@ a {
 }
 
 .loader-roll.is-active .loader-final-page {
-  animation: loader-final-page-reveal 850ms ease 1100ms both;
+  animation: loader-final-page-reveal 950ms ease 100ms both;
 }
 
 .loader-roll.is-active .loader-top-back {
-  animation: loader-top-back-clear 850ms ease 1100ms both;
+  animation: loader-top-back-clear 950ms ease 100ms both;
 }
 
 .loader-roll.is-active .loader-large-flap .loader-sheet {
-  animation: loader-front-ink-reveal 850ms ease 1100ms both;
+  animation: loader-front-ink-reveal 950ms ease 100ms both;
 }
 
 /* Noise layer disabled for now.
@@ -573,15 +573,15 @@ a {
 
 @keyframes loader-table-reveal {
   0%,
-  42% {
+  34% {
     background-color: #2f2b28;
   }
 
-  68% {
+  62% {
     background-color: color-mix(in srgb, #2f2b28 42%, var(--page-table));
   }
 
-  88%,
+  90%,
   100% {
     background-color: var(--page-table);
   }
@@ -589,31 +589,20 @@ a {
 
 @keyframes loader-fold-stage {
   0%,
-  14% {
+  8% {
     filter: drop-shadow(0 14px 15px rgb(0 0 0 / 0.24));
-    transform: translate(25%, 25%) scale(0.96) rotate(-1.2deg);
+    transform: translateY(25%) scale(0.97) rotate(-0.7deg);
   }
 
-  28% {
-    filter: drop-shadow(0 17px 18px rgb(0 0 0 / 0.22));
-    transform: translate(12.5%, 25%) scale(0.972) rotate(-0.8deg);
-  }
-
-  44%,
-  50% {
+  52% {
     filter: drop-shadow(0 18px 20px rgb(0 0 0 / 0.2));
-    transform: translate(0, 25%) scale(0.985) rotate(-0.45deg);
+    transform: translateY(12.5%) scale(0.985) rotate(-0.3deg);
   }
 
-  69% {
-    filter: drop-shadow(0 13px 16px rgb(0 0 0 / 0.16));
-    transform: translate(0, 12.5%) scale(0.992) rotate(-0.22deg);
-  }
-
-  89%,
+  92%,
   100% {
     filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.08));
-    transform: translate(0, 0) scale(1) rotate(0deg);
+    transform: translateY(0) scale(1) rotate(0deg);
   }
 }
 

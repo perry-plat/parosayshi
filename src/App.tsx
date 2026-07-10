@@ -56,8 +56,26 @@ function PaperLoader() {
       return;
     }
 
-    const frame = window.requestAnimationFrame(() => setHasStarted(true));
-    return () => window.cancelAnimationFrame(frame);
+    const hero = new Image();
+    let frame = 0;
+    let isCancelled = false;
+    const start = () => {
+      if (isCancelled) return;
+      frame = window.requestAnimationFrame(() => setHasStarted(true));
+    };
+
+    hero.src = "/assets/new/hero.png";
+    if (hero.complete) {
+      void hero.decode().catch(() => undefined).finally(start);
+    } else {
+      hero.addEventListener("load", start, { once: true });
+      hero.addEventListener("error", start, { once: true });
+    }
+
+    return () => {
+      isCancelled = true;
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const completeArrival = (event: AnimationEvent<HTMLDivElement>) => {
@@ -70,28 +88,20 @@ function PaperLoader() {
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-fold">
-          <div className="loader-fold-node loader-side-flap">
+          <div className="loader-final-page">
+            <LoaderFrontPage />
+          </div>
+          <div className="loader-top-back" />
+          <div className="loader-fold-node loader-large-flap">
             <div className="loader-fold-inner">
-              <div className="fold-face fold-front" />
+              <div className="fold-face fold-front">
+                <LoaderFrontPage />
+              </div>
               <div className="fold-face fold-back">
                 <div className="fold-cover-copy">
                   <span>VOL. 05 · JUL '26</span>
                   <strong>PAROSAYSHI</strong>
                   <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
-                </div>
-              </div>
-            </div>
-            <div className="loader-next-fold">
-              <div className="loader-final-page">
-                <LoaderFrontPage />
-              </div>
-              <div className="loader-top-back" />
-              <div className="loader-fold-node loader-large-flap">
-                <div className="loader-fold-inner">
-                  <div className="fold-face fold-front">
-                    <LoaderFrontPage />
-                  </div>
-                  <div className="fold-face fold-back" />
                 </div>
               </div>
             </div>
