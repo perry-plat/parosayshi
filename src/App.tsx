@@ -52,7 +52,7 @@ function PaperLoader() {
 }
 
 function Masthead() {
-  const { randomizeTheme, theme } = useTheme();
+  const { cycleTheme, theme } = useTheme();
 
   return (
     <header className="masthead section-reveal">
@@ -65,10 +65,10 @@ function Masthead() {
         <button
           className="theme-randomizer"
           type="button"
-          aria-label="Randomize theme"
-          title="Randomize theme"
+          aria-label="Cycle color theme"
+          title="Cycle color theme"
           data-theme={theme}
-          onClick={randomizeTheme}
+          onClick={cycleTheme}
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
             <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="classic">
+<html lang="en" data-theme="peach">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +15,7 @@
       (() => {
         try {
           const theme = localStorage.getItem("parosayshi:new-theme");
-          if (["classic", "plum", "pine"].includes(theme)) {
+          if (["peach", "mint", "lilac"].includes(theme)) {
             document.documentElement.dataset.theme = theme;
           }
         } catch (_) {}
