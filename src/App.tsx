@@ -37,22 +37,33 @@ function PaperLoader() {
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-fold">
           <div className="loader-sheet">
-            <div className="loader-mast">
-              <span>
-                05
-                <br />
-                JUL
-              </span>
-              <strong>PAROSAYSHI</strong>
-              <span>'26</span>
+            <div className="loader-snapshot-masthead">
+              <div className="issue-date">
+                <strong>05</strong>
+                <span>JUL '26</span>
+              </div>
+              <span className="loader-snapshot-brand" />
+              <span className="loader-snapshot-resume">RESUME</span>
             </div>
-            <div className="loader-rule" />
-            <p>
-              FRESH
-              <br />
-              OFF THE PRESS
-            </p>
-            <div className="loader-photo" />
+            <div className="loader-snapshot-edition">
+              <span>VOL. 05</span>
+              <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
+              <span>BENGALURU, INDIA</span>
+            </div>
+            <div className="rule" />
+            <div className="loader-snapshot-hero">
+              <div className="headline-block">
+                <p className="hero-kicker">THE LEAD STORY</p>
+                <h1>“I will keep designing for fun even in this economy”</h1>
+                <p>
+                  says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
+                </p>
+              </div>
+              <figure className="hero-image">
+                <img src="/assets/new/hero.png" alt="" />
+                <figcaption>~ Shangarh, Himachal Pradesh, India</figcaption>
+              </figure>
+            </div>
           </div>
           <div className="fold-panel fold-panel-one"><span>PAROSAYSHI</span></div>
           <div className="fold-panel fold-panel-two" />

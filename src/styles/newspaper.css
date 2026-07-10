@@ -144,9 +144,10 @@ a {
   inset: 0;
   z-index: 100;
   display: grid;
-  place-items: center;
+  place-items: start center;
+  padding: 31px 16px 0;
   overflow: hidden;
-  background: #2f2b28;
+  background: var(--page-table);
   opacity: 1;
   pointer-events: auto;
   transition: opacity 420ms ease, visibility 420ms ease;
@@ -160,8 +161,9 @@ a {
 
 .loader-roll {
   position: relative;
-  width: min(560px, 76vw);
-  aspect-ratio: 0.78;
+  width: min(877px, 100%);
+  height: calc(100svh - 31px);
+  min-height: 640px;
   perspective: 1400px;
   transform-origin: 50% 50%;
 }
@@ -183,15 +185,17 @@ a {
 .loader-sheet {
   position: relative;
   isolation: isolate;
-  display: grid;
+  display: flex;
   width: 100%;
-  aspect-ratio: 0.78;
-  align-content: start;
-  gap: clamp(16px, 3vw, 28px);
-  padding: clamp(22px, 4vw, 38px);
+  height: 100%;
+  flex-direction: column;
+  gap: 40px;
+  overflow: hidden;
+  padding: 32px;
   background-color: var(--paper-surface);
-  border: 1px solid rgba(38, 38, 38, 0.16);
-  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.24);
+  border: 1px solid var(--line-subtle);
+  border-radius: 8px 8px 0 0;
+  box-shadow: none;
   z-index: 1;
   opacity: 0;
   transform: translateZ(0);
@@ -291,6 +295,78 @@ a {
   z-index: 1;
 }
 
+.loader-snapshot-masthead {
+  position: relative;
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.loader-snapshot-brand {
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: min(344px, calc(100% - 188px));
+  aspect-ratio: 344 / 70;
+  transform: translateX(-50%);
+}
+
+.loader-snapshot-brand::before,
+.loader-snapshot-brand::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.loader-snapshot-brand::before {
+  background-color: var(--logo-border);
+  mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-border.svg");
+}
+
+.loader-snapshot-brand::after {
+  background-color: var(--page-table);
+  mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
+  -webkit-mask-image: url("/assets/new/parosayshi-wordmark-fill.svg");
+}
+
+.loader-snapshot-resume {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.loader-snapshot-edition {
+  display: flex;
+  min-height: 22px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--soft-text);
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.loader-snapshot-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.loader-snapshot-hero .hero-image {
+  pointer-events: none;
+}
+
+/* Legacy compact loader typography retained for folded faces only. */
 .loader-mast {
   display: grid;
   grid-template-columns: 52px 1fr 52px;
@@ -350,12 +426,13 @@ a {
 @keyframes loader-newspaper-journey {
   0% {
     opacity: 0;
-    transform: scale(0.86) rotateX(8deg) rotateY(-10deg);
+    transform: scale(0.36) rotateX(8deg) rotateY(-10deg);
+    transform-origin: 0 0;
   }
 
   12% {
     opacity: 1;
-    transform: scale(0.9) rotateX(6deg) rotateY(-8deg);
+    transform: scale(0.4) rotateX(6deg) rotateY(-8deg);
   }
 
   78% {
@@ -371,11 +448,11 @@ a {
 
 @keyframes loader-fold-stage {
   0%, 16% {
-    transform: translate(25%, 25%) scale(0.78) rotate(-3deg);
+    transform: translate(8%, 8%) rotate(-3deg);
   }
 
   48% {
-    transform: translate(0, 25%) scale(0.88) rotate(-1.5deg);
+    transform: translate(3%, 4%) rotate(-1.5deg);
   }
 
   82%, 100% {
@@ -2209,16 +2286,35 @@ a {
 }
 
 @media (max-width: 760px) {
+  .paper-loader {
+    padding: 0;
+  }
+
   .loader-roll {
-    width: min(430px, 82vw);
+    width: 100%;
+    height: 100svh;
+    min-height: 580px;
   }
 
   .loader-sheet {
-    transform: rotate(-10deg) translateY(10px) scale(0.96);
+    padding: 24px 16px;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
   }
 
-  .loader-mast {
-    grid-template-columns: 38px 1fr 38px;
+  .loader-snapshot-edition {
+    min-height: 30px;
+    font-size: 8px;
+  }
+
+  .loader-snapshot-edition span:nth-child(2) {
+    max-width: 145px;
+    text-align: center;
+  }
+
+  .loader-snapshot-brand {
+    width: min(270px, calc(100% - 132px));
   }
 
   .newspaper-shell {
@@ -2566,7 +2662,7 @@ a {
   }
 
   .loader-sheet {
-    transform: rotate(-8deg) translateY(0) scale(0.96);
+    transform: none;
   }
 
   .loader-roll,
