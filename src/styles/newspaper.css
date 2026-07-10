@@ -189,8 +189,8 @@ a {
   top: 0;
   isolation: isolate;
   display: flex;
-  width: 200%;
-  height: 200%;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
   gap: 40px;
   overflow: hidden;
@@ -203,13 +203,6 @@ a {
   opacity: 1;
   transform: translateZ(0);
   transform-origin: center;
-}
-
-.fold-panel {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  transform-style: preserve-3d;
 }
 
 .fold-face {
@@ -249,47 +242,80 @@ a {
     var(--paper-surface);
 }
 
-.fold-panel-one {
-  left: 0;
-  top: 0;
-  z-index: 4;
+.loader-final-page,
+.loader-top-back,
+.loader-large-flap,
+.loader-side-flap {
+  position: absolute;
+  transform-style: preserve-3d;
 }
 
-.fold-panel-two {
+.loader-final-page {
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.loader-top-back {
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  height: 50%;
+  place-items: center;
+  overflow: hidden;
+  background: var(--paper-surface);
+  border: 1px solid rgb(var(--rule-rgb) / 0.14);
+  box-shadow: 0 18px 30px rgb(0 0 0 / 0.12);
+  clip-path: inset(0 50% 0 0);
+}
+
+.loader-top-back::after,
+.loader-final-page::after {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background-image: var(--noise-image);
+  background-size: 240px 240px;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.loader-large-flap {
+  left: 0;
+  bottom: 0;
+  z-index: 4;
+  width: 100%;
+  height: 50%;
+  clip-path: inset(0 50% 0 0);
+  transform: rotateX(179deg);
+  transform-origin: center top;
+}
+
+.loader-large-flap .fold-back {
+  transform: rotateX(180deg) translateZ(0.5px);
+}
+
+.loader-large-flap .loader-sheet {
+  top: -100%;
+  height: 200%;
+}
+
+.loader-side-flap {
   right: 0;
   top: 0;
-  z-index: 5;
+  z-index: 6;
+  width: 50%;
+  height: 50%;
   transform: rotateY(-179deg);
   transform-origin: left center;
 }
 
-.fold-panel-three {
-  left: 0;
-  bottom: 0;
-  z-index: 2;
-  transform: rotateX(179deg);
-  transform-origin: center top;
-}
-
-.fold-panel-four {
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  transform: rotateX(179deg);
-  transform-origin: center top;
-}
-
-.fold-panel-two .fold-back {
+.loader-side-flap .fold-back {
   transform: rotateY(180deg) translateZ(0.5px);
-}
-
-.fold-panel-one .fold-back {
-  display: none;
-}
-
-.fold-panel-three .fold-back,
-.fold-panel-four .fold-back {
-  transform: rotateX(180deg) translateZ(0.5px);
 }
 
 .fold-cover-copy {
@@ -328,41 +354,38 @@ a {
   transform: scaleX(-1) rotate(-2deg);
 }
 
-.fold-panel-two .loader-sheet,
-.fold-panel-four .loader-sheet {
-  left: -100%;
+.loader-roll.is-active .loader-side-flap {
+  animation:
+    loader-open-side 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
+    loader-side-layer-clear 1050ms ease 1420ms both;
 }
 
-.fold-panel-three .loader-sheet,
-.fold-panel-four .loader-sheet {
-  top: -100%;
+.loader-roll.is-active .loader-top-back {
+  animation: loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both;
 }
 
-.loader-roll.is-active .fold-panel-two {
-  animation: loader-open-side 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both;
+.loader-roll.is-active .loader-large-flap {
+  animation:
+    loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
+    loader-open-down 1050ms cubic-bezier(0.2, 0.72, 0.24, 1) 1420ms both;
 }
 
-.loader-roll.is-active .fold-panel-two .fold-back {
-  animation: loader-back-ink-fade 760ms ease 420ms both;
+.loader-roll.is-active .loader-side-flap .fold-back {
+  animation: loader-side-message-fade 760ms ease 420ms both;
 }
 
-.loader-roll.is-active .fold-panel-two .fold-front {
-  animation: loader-front-ink-reveal 760ms ease 420ms both;
+.loader-roll.is-active .loader-final-page {
+  animation: loader-final-page-reveal 1050ms ease 1420ms both;
 }
 
-.loader-roll.is-active .fold-panel-three,
-.loader-roll.is-active .fold-panel-four {
-  animation: loader-open-down 900ms cubic-bezier(0.2, 0.72, 0.24, 1) 1320ms both;
+.loader-roll.is-active .loader-top-back {
+  animation:
+    loader-stack-width 760ms cubic-bezier(0.2, 0.72, 0.24, 1) 420ms both,
+    loader-top-back-clear 1050ms ease 1420ms both;
 }
 
-.loader-roll.is-active .fold-panel-three .fold-back,
-.loader-roll.is-active .fold-panel-four .fold-back {
-  animation: loader-back-ink-fade 900ms ease 1320ms both;
-}
-
-.loader-roll.is-active .fold-panel-three .fold-front,
-.loader-roll.is-active .fold-panel-four .fold-front {
-  animation: loader-front-ink-reveal 900ms ease 1320ms both;
+.loader-roll.is-active .loader-large-flap .fold-front {
+  animation: loader-front-ink-reveal 1050ms ease 1420ms both;
 }
 
 /* Noise layer disabled for now.
@@ -556,6 +579,16 @@ a {
   }
 }
 
+@keyframes loader-stack-width {
+  0% {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  100% {
+    clip-path: inset(0);
+  }
+}
+
 @keyframes loader-open-down {
   0% {
     filter: brightness(0.8);
@@ -569,6 +602,57 @@ a {
   100% {
     filter: brightness(1);
     transform: rotateX(0deg);
+  }
+}
+
+@keyframes loader-side-message-fade {
+  0%,
+  32% {
+    opacity: 1;
+  }
+
+  74%,
+  100% {
+    opacity: 0.22;
+  }
+}
+
+@keyframes loader-side-layer-clear {
+  0%,
+  14% {
+    opacity: 1;
+  }
+
+  72%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-top-back-clear {
+  0%,
+  18% {
+    opacity: 1;
+  }
+
+  64%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-final-page-reveal {
+  0%,
+  18% {
+    opacity: 0.08;
+  }
+
+  62% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

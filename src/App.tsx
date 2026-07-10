@@ -70,24 +70,32 @@ function PaperLoader() {
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-fold">
-          {(["one", "two", "three", "four"] as const).map((panel) => (
-            <div className={`fold-panel fold-panel-${panel}`} key={panel}>
-              <div className="fold-face fold-front">
-                <LoaderFrontPage />
-              </div>
-              <div className="fold-face fold-back">
-                {panel === "two" ? (
-                  <div className="fold-cover-copy">
-                    <span>VOL. 05 · JUL '26</span>
-                    <strong>PAROSAYSHI</strong>
-                    <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
-                  </div>
-                ) : (
-                  <span className="fold-ink-ghost">PAROSAYSHI · PRODUCT DESIGN · BENGALURU</span>
-                )}
+          <div className="loader-final-page">
+            <LoaderFrontPage />
+          </div>
+          <div className="loader-top-back">
+            <span className="fold-ink-ghost">PAROSAYSHI · PRODUCT DESIGN · BENGALURU</span>
+          </div>
+          <div className="loader-large-flap">
+            <div className="fold-face fold-front">
+              <LoaderFrontPage />
+            </div>
+            <div className="fold-face fold-back">
+              <span className="fold-ink-ghost">INDEPENDENT JOURNAL · VOL. 05</span>
+            </div>
+          </div>
+          <div className="loader-side-flap">
+            <div className="fold-face fold-front">
+              <span className="fold-ink-ghost">NOTES FROM THE MARGINS</span>
+            </div>
+            <div className="fold-face fold-back">
+              <div className="fold-cover-copy">
+                <span>VOL. 05 · JUL '26</span>
+                <strong>PAROSAYSHI</strong>
+                <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
