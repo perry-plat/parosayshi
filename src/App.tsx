@@ -35,7 +35,10 @@ function PaperLoader() {
   return (
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
-        <div className="loader-twine"><span /></div>
+        <div className="loader-band">
+          <span>PAROSAYSHI</span>
+          <span>VOL. 05 / FRESH EDITION</span>
+        </div>
         <div className="loader-sheet">
           <div className="loader-mast">
             <span>
