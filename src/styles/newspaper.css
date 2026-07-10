@@ -162,6 +162,36 @@ a {
   position: relative;
   width: min(560px, 76vw);
   perspective: 1200px;
+  transform: translate3d(-82vw, -76vh, 0) rotate(-24deg) scale(0.38);
+  transform-origin: 50% 50%;
+}
+
+.loader-roll::before,
+.loader-roll::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--paper-surface);
+  border: 1px solid rgb(var(--rule-rgb) / 0.16);
+  content: "";
+  opacity: 0;
+}
+
+.loader-roll::before {
+  transform: translate(16px, 13px) rotate(3deg);
+}
+
+.loader-roll::after {
+  transform: translate(-10px, 19px) rotate(-2deg);
+}
+
+.loader-roll.is-active {
+  animation: loader-newspaper-journey 1320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loader-roll.is-active::before,
+.loader-roll.is-active::after {
+  animation: loader-paper-edges 760ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
 }
 
 .loader-twine {
@@ -169,13 +199,16 @@ a {
   left: 50%;
   top: 50%;
   z-index: 2;
-  width: 108%;
+  width: 76%;
   height: 18px;
   border-top: 2px solid color-mix(in srgb, var(--accent) 68%, white);
   border-bottom: 2px solid color-mix(in srgb, var(--accent) 68%, white);
-  opacity: 0;
+  opacity: 1;
   transform: translate(-50%, -50%) rotate(-13deg);
-  animation: loader-twine-release 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loader-roll.is-active .loader-twine {
+  animation: loader-twine-release 430ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
 }
 
 .loader-twine span {
@@ -201,9 +234,13 @@ a {
   background-color: var(--paper-surface);
   border: 1px solid rgba(38, 38, 38, 0.16);
   box-shadow: 0 34px 80px rgba(0, 0, 0, 0.24);
-  transform: rotate(-14deg) translateY(12px) scale(0.96);
+  clip-path: inset(0 28% 0 28% round 12px);
+  transform: rotate(-14deg) translateY(12px) scaleX(0.45) scaleY(0.7);
   transform-origin: 50% 58%;
-  animation: paper-unfurl 780ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loader-roll.is-active .loader-sheet {
+  animation: paper-unfurl 760ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
 }
 
 /* Noise layer disabled for now.
@@ -281,33 +318,63 @@ a {
     #d8d6d1;
 }
 
+@keyframes loader-newspaper-journey {
+  0% {
+    transform: translate3d(-82vw, -76vh, 0) rotate(-24deg) scale(0.42);
+  }
+
+  42% {
+    transform: translate3d(-13vw, -7vh, 0) rotate(-13deg) scale(0.7);
+  }
+
+  66% {
+    transform: translate3d(2vw, 1vh, 0) rotate(-6deg) scale(1.015);
+  }
+
+  82% {
+    transform: translate3d(-0.5vw, 0, 0) rotate(-8.5deg) scale(0.99);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-7deg) scale(1);
+  }
+}
+
 @keyframes paper-unfurl {
-  from {
-    opacity: 0;
-    clip-path: inset(0 42% 0 42% round 12px);
-    transform: rotate(-13deg) translateY(32px) scaleX(0.16) scaleY(0.62);
+  0% {
+    clip-path: inset(0 28% 0 28% round 12px);
+    transform: rotate(-14deg) translateY(12px) scaleX(0.45) scaleY(0.7);
   }
 
-  64% {
-    opacity: 1;
+  72% {
     clip-path: inset(0 0 0 0 round 0);
-    transform: rotate(-14deg) translateY(12px) scaleX(1.02) scaleY(0.96);
+    transform: rotate(-14deg) translateY(12px) scaleX(1.025) scaleY(0.97);
   }
 
-  to {
+  100% {
     clip-path: inset(0 0 0 0 round 0);
     transform: rotate(-14deg) translateY(12px) scale(0.96);
   }
 }
 
+@keyframes loader-paper-edges {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
 @keyframes loader-twine-release {
-  0%, 30% {
+  0%, 18% {
     opacity: 1;
   }
 
-  56% {
+  72% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(-13deg) scaleX(1.18);
+    transform: translate(-50%, -50%) rotate(-13deg) scaleX(1.24);
   }
 
   to {
@@ -2442,5 +2509,11 @@ a {
 
   .loader-sheet {
     transform: rotate(-8deg) translateY(0) scale(0.96);
+  }
+
+  .loader-roll,
+  .loader-roll.is-active {
+    animation: none;
+    transform: none;
   }
 }

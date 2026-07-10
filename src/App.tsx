@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { type AnimationEvent, useEffect, useRef, useState } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -8,28 +8,33 @@ import { ProjectSlip } from "./components/ProjectSlip";
 import type { ProjectId } from "./types/project";
 
 function PaperLoader() {
-  useEffect(() => {
-    const startedAt = performance.now();
-    const finish = () => {
-      const remaining = Math.max(0, 760 - (performance.now() - startedAt));
-      window.setTimeout(() => {
-        document.body.classList.remove("is-loading");
-        document.body.classList.add("is-loaded");
-      }, remaining);
-    };
+  const [hasStarted, setHasStarted] = useState(false);
 
-    if (document.readyState === "complete") {
-      finish();
-    } else {
-      window.addEventListener("load", finish, { once: true });
+  useEffect(() => {
+    const complete = () => {
+      document.body.classList.remove("is-loading");
+      document.body.classList.add("is-loaded");
+    };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      complete();
+      return;
     }
 
-    return () => window.removeEventListener("load", finish);
+    const frame = window.requestAnimationFrame(() => setHasStarted(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  const completeArrival = (event: AnimationEvent<HTMLDivElement>) => {
+    if (event.animationName !== "loader-newspaper-journey") return;
+    document.body.classList.remove("is-loading");
+    document.body.classList.add("is-loaded");
+  };
 
   return (
     <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
-      <div className="loader-roll" aria-hidden="true">
+      <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
         <div className="loader-twine"><span /></div>
         <div className="loader-sheet">
           <div className="loader-mast">
