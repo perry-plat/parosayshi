@@ -55,6 +55,17 @@ function PaperLoader() {
       <strong className="loader-title">PAROSAYSHI</strong>
       <div className="loader-shutter loader-shutter-top" aria-hidden="true" />
       <div className="loader-shutter loader-shutter-bottom" aria-hidden="true" />
+      <div className="loader-front-page" aria-hidden="true">
+        <div className="loader-front-mast">
+          <span>05<br />JUL</span>
+          <strong>PAROSAYSHI</strong>
+          <span>2026</span>
+        </div>
+        <div className="loader-front-rule" />
+        <div className="loader-front-headline">I WILL KEEP DESIGNING<br />FOR FUN EVEN IN THIS<br />ECONOMY</div>
+        <img src="/assets/new/hero.png" alt="" />
+        <p>Independent Product Design Journal · Bengaluru, India</p>
+      </div>
     </div>
   );
 }

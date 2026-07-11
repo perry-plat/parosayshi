@@ -196,7 +196,80 @@ a {
 }
 
 .paper-loader.is-active {
-  animation: dispatch-loader-clear 650ms ease 1850ms both;
+  animation: dispatch-loader-clear 400ms ease 2250ms both;
+}
+
+.loader-front-page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  display: flex;
+  width: min(800px, 55vw);
+  height: calc(100svh - 60px);
+  flex-direction: column;
+  gap: clamp(14px, 2.2vh, 24px);
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 34px);
+  color: #2d2b29;
+  background: #f4f0ea;
+  border: 1px solid rgb(45 43 41 / 0.18);
+  box-shadow: 0 28px 70px rgb(0 0 0 / 0.3);
+  opacity: 0;
+  transform: translate(-50%, 42vh) scale(0.38) rotate(-16deg);
+  transform-origin: center;
+}
+
+.loader-front-mast {
+  display: grid;
+  grid-template-columns: 54px 1fr 54px;
+  align-items: start;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.loader-front-mast strong {
+  justify-self: center;
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+}
+
+.loader-front-mast span:last-child {
+  text-align: right;
+}
+
+.loader-front-rule {
+  height: 1px;
+  background: rgb(45 43 41 / 0.26);
+}
+
+.loader-front-headline {
+  font-family: var(--display);
+  font-size: clamp(34px, 5.7vw, 82px);
+  font-weight: 700;
+  line-height: 0.88;
+}
+
+.loader-front-page img {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: var(--image-filter);
+}
+
+.loader-front-page p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.paper-loader.is-active .loader-front-page {
+  animation: dispatch-front-page-arrival 1450ms cubic-bezier(0.7, 0, 0.3, 1) 900ms both;
 }
 
 .is-loaded .paper-loader {
@@ -236,7 +309,7 @@ body.is-loading .paper .section-reveal {
 }
 
 body.is-entering .newspaper-shell > .paper {
-  animation: dispatch-paper-arrival 1450ms cubic-bezier(0.7, 0, 0.3, 1) 880ms both;
+  animation: dispatch-paper-handoff 360ms cubic-bezier(0.22, 1, 0.36, 1) 2160ms both;
 }
 
 @keyframes dispatch-loader-title {
@@ -267,6 +340,37 @@ body.is-entering .newspaper-shell > .paper {
 @keyframes dispatch-loader-clear {
   0%, 35% { background-color: #51493f; }
   100% { background-color: var(--page-table); }
+}
+
+@keyframes dispatch-front-page-arrival {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 42vh) scale(0.38) rotate(-16deg);
+  }
+
+  12% { opacity: 1; }
+
+  72% {
+    opacity: 1;
+    transform: translate(-50%, -52%) scale(1.035) rotate(1.2deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes dispatch-paper-handoff {
+  from {
+    opacity: 0;
+    transform: scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes dispatch-paper-arrival {
@@ -2877,6 +2981,16 @@ body.is-entering .newspaper-shell > .paper {
 @media (max-width: 760px) {
   .paper-loader {
     padding: 0;
+  }
+
+  .loader-front-page {
+    width: calc(100% - 24px);
+    height: calc(100svh - 24px);
+    padding: 20px 16px;
+  }
+
+  .loader-front-headline {
+    font-size: clamp(34px, 11vw, 54px);
   }
 
   .loader-roll {
