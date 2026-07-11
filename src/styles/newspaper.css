@@ -311,11 +311,14 @@ body.is-loading .newspaper-shell {
   position: fixed;
   inset: 0;
   z-index: 103;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
 }
 
 body.is-loading .newspaper-shell > .paper {
+  height: calc(100svh - 62px);
+  min-height: 0;
+  overflow: hidden;
   opacity: 0;
 }
 
@@ -371,6 +374,11 @@ body.is-entering .newspaper-shell {
   }
 
   10% { opacity: 1; }
+
+  82% {
+    opacity: 1;
+    transform: scale(0.74);
+  }
 
   100% {
     opacity: 1;
