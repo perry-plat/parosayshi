@@ -32,7 +32,7 @@ function PaperLoader() {
       frame = window.requestAnimationFrame(() => {
         document.body.classList.add("is-entering");
         setHasStarted(true);
-        completionTimer = window.setTimeout(completeArrival, 3500);
+        completionTimer = window.setTimeout(completeArrival, 3250);
       });
     };
 
@@ -53,16 +53,6 @@ function PaperLoader() {
   return (
     <div className={`paper-loader${hasStarted ? " is-active" : ""}`} role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <strong className="loader-title">PAROSAYSHI</strong>
-      <div className="loader-front-scale" aria-hidden="true">
-        <div className="loader-front-spin">
-          <article className="loader-front-page">
-            <Masthead />
-            <div className="rule" />
-            <Hero />
-            <IntroColumns />
-          </article>
-        </div>
-      </div>
     </div>
   );
 }
