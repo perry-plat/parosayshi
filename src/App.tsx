@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -32,7 +32,7 @@ function PaperLoader() {
       frame = window.requestAnimationFrame(() => {
         document.body.classList.add("is-entering");
         setHasStarted(true);
-        completionTimer = window.setTimeout(completeArrival, 2650);
+        completionTimer = window.setTimeout(completeArrival, 3050);
       });
     };
 
@@ -53,8 +53,6 @@ function PaperLoader() {
   return (
     <div className={`paper-loader${hasStarted ? " is-active" : ""}`} role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
       <strong className="loader-title">PAROSAYSHI</strong>
-      <div className="loader-shutter loader-shutter-top" aria-hidden="true" />
-      <div className="loader-shutter loader-shutter-bottom" aria-hidden="true" />
       <div className="loader-front-page" aria-hidden="true">
         <div className="loader-front-mast">
           <span>05<br />JUL</span>
@@ -65,6 +63,9 @@ function PaperLoader() {
         <div className="loader-front-headline">I WILL KEEP DESIGNING<br />FOR FUN EVEN IN THIS<br />ECONOMY</div>
         <img src="/assets/new/hero.png" alt="" />
         <p>Independent Product Design Journal · Bengaluru, India</p>
+      </div>
+      <div className="loader-reveal-grid" aria-hidden="true">
+        {Array.from({ length: 6 }, (_, index) => <span style={{ "--tile-delay": `${2440 + index * 38}ms` } as CSSProperties} key={index} />)}
       </div>
     </div>
   );
