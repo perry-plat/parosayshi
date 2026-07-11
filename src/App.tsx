@@ -1,4 +1,4 @@
-import { type AnimationEvent, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -7,106 +7,38 @@ import { useTheme } from "./hooks/useTheme";
 import { ProjectSlip } from "./components/ProjectSlip";
 import type { ProjectId } from "./types/project";
 
-function LoaderFrontPage() {
-  return (
-    <div className="loader-sheet">
-      <div className="loader-snapshot-masthead">
-        <div className="issue-date">
-          <strong>05</strong>
-          <span>JUL '26</span>
-        </div>
-        <span className="loader-snapshot-brand" />
-        <span className="loader-snapshot-resume">RESUME</span>
-      </div>
-      <div className="loader-snapshot-edition">
-        <span>VOL. 05</span>
-        <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
-        <span>BENGALURU, INDIA</span>
-      </div>
-      <div className="rule" />
-      <div className="loader-snapshot-hero">
-        <div className="headline-block">
-          <p className="hero-kicker">THE LEAD STORY</p>
-          <h1>“I will keep designing for fun even in this economy”</h1>
-          <p>
-            says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
-          </p>
-        </div>
-        <figure className="hero-image">
-          <img src="/assets/new/hero.png" alt="" />
-          <figcaption>~ Shangarh, Himachal Pradesh, India</figcaption>
-        </figure>
-      </div>
-    </div>
-  );
-}
+const PaperUnfoldLoader = lazy(() =>
+  import("./components/PaperUnfoldLoader").then((module) => ({ default: module.PaperUnfoldLoader })),
+);
 
 function PaperLoader() {
   const [hasStarted, setHasStarted] = useState(false);
 
-  useEffect(() => {
-    const complete = () => {
-      document.body.classList.remove("is-loading");
-      document.body.classList.add("is-loaded");
-    };
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reducedMotion) {
-      complete();
-      return;
-    }
-
-    const hero = new Image();
-    let frame = 0;
-    let isCancelled = false;
-    const start = () => {
-      if (isCancelled) return;
-      frame = window.requestAnimationFrame(() => setHasStarted(true));
-    };
-
-    hero.src = "/assets/new/hero.png";
-    if (hero.complete) {
-      void hero.decode().catch(() => undefined).finally(start);
-    } else {
-      hero.addEventListener("load", start, { once: true });
-      hero.addEventListener("error", start, { once: true });
-    }
-
-    return () => {
-      isCancelled = true;
-      window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  const completeArrival = (event: AnimationEvent<HTMLDivElement>) => {
-    if (event.animationName !== "loader-newspaper-journey") return;
+  const completeArrival = useCallback(() => {
     document.body.classList.remove("is-loading");
     document.body.classList.add("is-loaded");
-  };
+  }, []);
+
+  const startArrival = useCallback(() => {
+    window.requestAnimationFrame(() => setHasStarted(true));
+  }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fallback = window.setTimeout(completeArrival, 5000);
+
+    if (reducedMotion) {
+      completeArrival();
+    }
+    return () => window.clearTimeout(fallback);
+  }, [completeArrival]);
 
   return (
-    <div className="paper-loader" role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
-      <div className={`loader-roll${hasStarted ? " is-active" : ""}`} aria-hidden="true" onAnimationEnd={completeArrival}>
-        <div className="loader-fold">
-          <div className="loader-final-page">
-            <LoaderFrontPage />
-          </div>
-          <div className="loader-top-back" />
-          <div className="loader-fold-node loader-large-flap">
-            <div className="loader-fold-inner">
-              <div className="fold-face fold-front">
-                <LoaderFrontPage />
-              </div>
-              <div className="fold-face fold-back">
-                <div className="fold-cover-copy">
-                  <span>VOL. 05 · JUL '26</span>
-                  <strong>PAROSAYSHI</strong>
-                  <small>INDEPENDENT PRODUCT DESIGN JOURNAL</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className={`paper-loader${hasStarted ? " is-unfolding" : ""}`} role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
+      <div className="loader-roll" aria-hidden="true">
+        <Suspense fallback={null}>
+          <PaperUnfoldLoader active={hasStarted} onComplete={completeArrival} onReady={startArrival} />
+        </Suspense>
       </div>
     </div>
   );

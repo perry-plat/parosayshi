@@ -153,7 +153,7 @@ a {
   transition: opacity 420ms ease, visibility 420ms ease;
 }
 
-.is-loading .paper-loader {
+.paper-loader.is-unfolding {
   animation: loader-table-reveal 1900ms ease both;
 }
 
@@ -170,6 +170,11 @@ a {
   min-height: min(640px, calc(100svh - 48px));
   perspective: 1600px;
   transform-origin: center;
+}
+
+.paper-webgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .loader-fold {
