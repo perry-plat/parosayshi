@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -7,46 +7,93 @@ import { useTheme } from "./hooks/useTheme";
 import { ProjectSlip } from "./components/ProjectSlip";
 import type { ProjectId } from "./types/project";
 
-const PaperUnfoldLoader = lazy(() =>
-  import("./components/PaperUnfoldLoader").then((module) => ({ default: module.PaperUnfoldLoader })),
-);
-
 function PaperLoader() {
   const [hasStarted, setHasStarted] = useState(false);
 
   const completeArrival = useCallback(() => {
     document.body.classList.remove("is-loading");
+    document.body.classList.remove("is-entering");
     document.body.classList.add("is-loaded");
-  }, []);
-
-  const startArrival = useCallback(() => {
-    window.requestAnimationFrame(() => setHasStarted(true));
   }, []);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fallback = window.setTimeout(completeArrival, 5000);
-
     if (reducedMotion) {
       completeArrival();
+      return;
     }
-    return () => window.clearTimeout(fallback);
+
+    const hero = new Image();
+    let completionTimer = 0;
+    let frame = 0;
+    let cancelled = false;
+    const start = () => {
+      if (cancelled) return;
+      frame = window.requestAnimationFrame(() => {
+        document.body.classList.add("is-entering");
+        setHasStarted(true);
+        completionTimer = window.setTimeout(completeArrival, 2650);
+      });
+    };
+
+    hero.src = "/assets/new/hero.png";
+    if (hero.complete) void hero.decode().catch(() => undefined).finally(start);
+    else {
+      hero.addEventListener("load", start, { once: true });
+      hero.addEventListener("error", start, { once: true });
+    }
+
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(completionTimer);
+    };
   }, [completeArrival]);
 
   return (
-    <div className={`paper-loader${hasStarted ? " is-unfolding" : ""}`} role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
-      <div className="loader-roll" aria-hidden="true">
-        <Suspense fallback={null}>
-          <PaperUnfoldLoader active={hasStarted} onComplete={completeArrival} onReady={startArrival} />
-        </Suspense>
-      </div>
+    <div className={`paper-loader${hasStarted ? " is-active" : ""}`} role="status" aria-live="polite" aria-label="Loading Parosayshi newspaper">
+      <strong className="loader-title">PAROSAYSHI</strong>
+      <div className="loader-shutter loader-shutter-top" aria-hidden="true" />
+      <div className="loader-shutter loader-shutter-bottom" aria-hidden="true" />
     </div>
   );
 }
 
-function Masthead() {
+function PageRails() {
   const { cycleTheme, theme } = useTheme();
+  const themeButton = (
+    <button className="rail-theme" type="button" aria-label="Cycle color theme" title="Cycle color theme" data-theme={theme} onClick={cycleTheme}>
+      <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+        <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />
+      </svg>
+    </button>
+  );
 
+  return (
+    <>
+      <aside className="page-rail page-rail-left" aria-label="Issue controls">
+        <span className="rail-stamp">PS</span>
+        <span className="rail-date">05 JUL<br />2026</span>
+        {themeButton}
+      </aside>
+      <aside className="page-rail page-rail-right" aria-label="Portfolio links">
+        <div>
+          <strong>AVAILABLE FOR</strong>
+          <span>PRODUCT DESIGN<br />&amp; AI PROTOTYPING</span>
+        </div>
+        <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME</a>
+        <a href="mailto:hello@parosayshi.com">SAY HELLO</a>
+      </aside>
+      <nav className="mobile-action-bar" aria-label="Portfolio actions">
+        <a href="mailto:hello@parosayshi.com">HELLO</a>
+        {themeButton}
+        <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME</a>
+      </nav>
+    </>
+  );
+}
+
+function Masthead() {
   return (
     <>
       <header className="masthead section-reveal">
@@ -55,28 +102,7 @@ function Masthead() {
           <span>JUL '26</span>
         </div>
         <a className="brand-mark" href="/" aria-label="Parosayshi home" />
-        <div className="masthead-actions">
-          <button
-            className="theme-randomizer"
-            type="button"
-            aria-label="Cycle color theme"
-            title="Cycle color theme"
-            data-theme={theme}
-            onClick={cycleTheme}
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-              <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />
-            </svg>
-          </button>
-          <a
-            className="resume-link"
-            href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            RESUME
-          </a>
-        </div>
+        <span className="masthead-folio">PRODUCT DESIGN FOLIO</span>
       </header>
       <div className="edition-line section-reveal" aria-label="Publication details">
         <span>VOL. 05</span>
@@ -264,6 +290,7 @@ export default function App() {
   return (
     <>
       <PaperLoader />
+      <PageRails />
       <main className="newspaper-shell">
         <article className="paper" aria-label="Parosayshi newspaper homepage" ref={paperRef}>
           <Masthead />
