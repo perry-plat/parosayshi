@@ -1,11 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
 import { useSlip } from "./hooks/useSlip";
-import { useTheme } from "./hooks/useTheme";
+import { PaperSurface } from "./components/PaperSurface";
+import { NotebookSlip } from "./components/NotebookSlip";
 import { ProjectSlip } from "./components/ProjectSlip";
+import { Sketchbook } from "./components/Sketchbook";
 import type { ProjectId } from "./types/project";
+
+function getIssueDate() {
+  const now = new Date();
+  const month = new Intl.DateTimeFormat("en", { month: "short" }).format(now).toUpperCase();
+
+  return {
+    day: String(now.getDate()).padStart(2, "0"),
+    label: `${month} '${String(now.getFullYear()).slice(-2)}`,
+  };
+}
 
 function PaperLoader() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -57,57 +69,60 @@ function PaperLoader() {
   );
 }
 
-function PageRails() {
-  const { cycleTheme, theme } = useTheme();
-  const themeButton = (
-    <button className="rail-theme" type="button" aria-label="Cycle color theme" title="Cycle color theme" data-theme={theme} onClick={cycleTheme}>
-      <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-        <path d="M5 12h14M14 7l5 5-5 5M9 7l-4 5 4 5" />
-      </svg>
-    </button>
-  );
+const stoneCanvasOptions = [
+  { label: "Chalk", value: "#f0efeb" },
+  { label: "Warm limestone", value: "#ece4d9" },
+  { label: "Quiet stone", value: "#e6e3dd" },
+  { label: "Weathered stone", value: "#d6d2cb" },
+  { label: "Concrete", value: "#c8c5be" },
+];
 
+const defaultCanvas = stoneCanvasOptions[1].value;
+
+function PageRails({ canvas, setCanvas }: { canvas: string; setCanvas: (canvas: string) => void }) {
   return (
     <>
       <aside className="page-rail page-rail-left" aria-label="Issue controls">
-        <span className="rail-stamp">PS</span>
-        <span className="rail-date">05 JUL<br />2026</span>
-        {themeButton}
+        <a className="rail-stamp" href="/" aria-label="Parosayshi home">PS</a>
+        <div className="canvas-switcher" role="group" aria-label="Test page background">
+          {stoneCanvasOptions.map((option) => (
+            <button
+              aria-label={`Set background to ${option.label}`}
+              aria-pressed={canvas === option.value}
+              className="canvas-swatch"
+              key={option.value}
+              onClick={() => setCanvas(option.value)}
+              style={{ "--swatch-color": option.value } as CSSProperties}
+              title={option.label}
+              type="button"
+            />
+          ))}
+        </div>
       </aside>
       <aside className="page-rail page-rail-right" aria-label="Portfolio links">
-        <div>
-          <strong>AVAILABLE FOR</strong>
-          <span>PRODUCT DESIGN<br />&amp; AI PROTOTYPING</span>
-        </div>
-        <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME</a>
+        <a className="rail-resume" href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
         <a href="mailto:hello@parosayshi.com">SAY HELLO</a>
       </aside>
       <nav className="mobile-action-bar" aria-label="Portfolio actions">
         <a href="mailto:hello@parosayshi.com">HELLO</a>
-        {themeButton}
-        <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME</a>
+        <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
       </nav>
     </>
   );
 }
 
 function Masthead() {
+  const issueDate = getIssueDate();
+
   return (
-    <>
-      <header className="masthead section-reveal">
-        <div className="issue-date" aria-label="Issue date">
-          <strong>05</strong>
-          <span>JUL '26</span>
-        </div>
-        <a className="brand-mark" href="/" aria-label="Parosayshi home" />
-        <span className="masthead-folio">PRODUCT DESIGN FOLIO</span>
-      </header>
-      <div className="edition-line section-reveal" aria-label="Publication details">
-        <span>VOL. 05</span>
-        <span>INDEPENDENT PRODUCT DESIGN JOURNAL</span>
-        <span>BENGALURU, INDIA</span>
+    <header className="masthead section-reveal">
+      <div className="issue-date" aria-label="Issue date">
+        <strong>{issueDate.day}</strong>
+        <span>{issueDate.label}</span>
       </div>
-    </>
+      <span className="brand-mark" aria-label="Parosayshi" />
+      <span className="masthead-folio">PRODUCT DESIGN FOLIO</span>
+    </header>
   );
 }
 
@@ -115,10 +130,9 @@ function Hero() {
   return (
     <section className="hero section-reveal">
       <div className="headline-block">
-        <p className="hero-kicker">THE LEAD STORY</p>
         <h1>“I will keep designing for fun even in this economy”</h1>
         <p>
-          says Parth Jha, an AI optimist, who believes <strong>intentmaxxxing</strong> is the solution
+          says Parth Jha, an AI optimist, <span className="hero-highlight">who believes <strong>intentmaxxxing</strong> is the solution</span>
         </p>
       </div>
 
@@ -140,7 +154,6 @@ function IntroColumns() {
         currently at [@airtribe]
       </p>
       <p>
-        <span className="intro-label">IN THIS EDITION</span>
         Product strategy, systems thinking, slightly obsessive prototyping, and a few notes from the margins.
         <br />
         <strong>Open a dispatch</strong> to read the full story.
@@ -150,34 +163,10 @@ function IntroColumns() {
 }
 
 function WorkSection({ openSlip }: { openSlip: (card: HTMLElement) => void }) {
-  const filters = ["All", "Case file", "Dispatch", "Field note", "Prototype", "Margin note"] as const;
-  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");
-  const cards = activeFilter === "All" ? workCards : workCards.filter((card) => card.edition === activeFilter);
-
   return (
     <section className="work-section section-reveal" aria-label="Selected work">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">SELECTED DISPATCHES</p>
-          <h2>Things I helped make clearer, kinder, or more useful.</h2>
-        </div>
-        <p>Open any story</p>
-      </div>
-      <div className="edition-index" aria-label="Reader's index">
-        {filters.map((filter) => (
-          <button
-            className="edition-index-button"
-            type="button"
-            aria-pressed={activeFilter === filter}
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
-          >
-            {filter}
-          </button>
-        ))}
-      </div>
       <div className="work-rail" tabIndex={0} aria-label="Horizontally scrollable selected work cards">
-        {cards.map((card) => (
+        {workCards.map((card) => (
           <article
             className="work-card project-card"
             role="button"
@@ -196,7 +185,6 @@ function WorkSection({ openSlip }: { openSlip: (card: HTMLElement) => void }) {
               }
             }}
           >
-            <div className="card-edition" aria-hidden="true">{card.edition}</div>
             <h3>{card.title}</h3>
             <figure className="work-card-image">
               <img src={card.image} alt={card.alt} />
@@ -214,7 +202,6 @@ function ExperienceSection() {
   return (
     <section className="experience section-reveal" aria-label="Experience">
       <div className="experience-head">
-        <p className="eyebrow">EXPERIENCE</p>
         <h2>Notes from the working desk.</h2>
       </div>
 
@@ -239,10 +226,6 @@ function ExperienceSection() {
 function ExperimentsSection() {
   return (
     <>
-      <section className="experiments section-reveal" aria-label="Experiments">
-        <p className="eyebrow">EXPERIMENTS</p>
-      </section>
-
       <div className="rule" aria-hidden="true" />
 
       <section className="image-placeholder section-reveal" aria-label="Experiment image placeholder">
@@ -252,34 +235,33 @@ function ExperimentsSection() {
   );
 }
 
-function stateClass(slipState: string) {
-  if (slipState === "prepping") return "is-prepping";
-  if (slipState === "open") return "is-open";
-  if (slipState === "closing") return "is-closing";
-  return "";
-}
-
 function isProjectId(id: string | undefined): id is ProjectId {
   return Boolean(id && Object.prototype.hasOwnProperty.call(projects, id));
 }
 
 export default function App() {
   const paperRef = useRef<HTMLElement | null>(null);
-  const overlayRef = useRef<HTMLDivElement | null>(null);
   const slipRef = useRef<HTMLElement | null>(null);
+  const [canvas, setCanvas] = useState(defaultCanvas);
   const reducedMotion = useReducedMotion();
-  const { activeProject, closeSlip, openSlip, slipState } = useSlip({
+  const { activeProject, closeSlip, finishClose, openSlip, slipState } = useSlip({
     paperRef,
-    overlayRef,
     slipRef,
     reducedMotion,
   });
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--page-table", canvas);
+    return () => {
+      document.documentElement.style.removeProperty("--page-table");
+    };
+  }, [canvas]);
+
+  useEffect(() => {
     const id = window.location.hash.slice(1);
     if (!isProjectId(id)) return;
     const frame = window.requestAnimationFrame(() => {
-      const card = document.querySelector<HTMLElement>(`.project-card[data-project="${id}"]`);
+      const card = document.querySelector<HTMLElement>(`[data-project="${id}"]`);
       if (card) openSlip(card, false);
     });
     return () => window.cancelAnimationFrame(frame);
@@ -288,15 +270,18 @@ export default function App() {
   return (
     <>
       <PaperLoader />
-      <PageRails />
+      <PageRails canvas={canvas} setCanvas={setCanvas} />
       <main className="newspaper-shell">
         <article className="paper" aria-label="Parosayshi newspaper homepage" ref={paperRef}>
+          <PaperSurface />
           <Masthead />
           <div className="rule" aria-hidden="true" />
           <Hero />
           <IntroColumns />
           <div className="rule" aria-hidden="true" />
           <WorkSection openSlip={openSlip} />
+          <div className="rule" aria-hidden="true" />
+          <Sketchbook openSlip={openSlip} />
           <div className="rule" aria-hidden="true" />
           <ExperienceSection />
           <div className="rule" aria-hidden="true" />
@@ -305,14 +290,27 @@ export default function App() {
         </article>
       </main>
 
-      <div className="slip-overlay" hidden={slipState === "closed"} ref={overlayRef}>
-        <div className="slip-scrim" data-slip-close aria-hidden="true" onClick={() => closeSlip()} />
-        <ProjectSlip
-          ref={slipRef}
-          project={activeProject ? projects[activeProject] : null}
-          stateClass={stateClass(slipState)}
-        />
-      </div>
+      {slipState !== "closed" && activeProject ? (
+        <div className="slip-overlay">
+          <div className="slip-scrim" data-slip-close aria-hidden="true" onClick={() => closeSlip()} />
+          {activeProject === "notebook" ? (
+            <NotebookSlip
+              ref={slipRef}
+              reducedMotion={reducedMotion}
+              slipState={slipState}
+              onCloseAnimationComplete={finishClose}
+            />
+          ) : (
+            <ProjectSlip
+              ref={slipRef}
+              project={projects[activeProject]}
+              reducedMotion={reducedMotion}
+              slipState={slipState}
+              onCloseAnimationComplete={finishClose}
+            />
+          )}
+        </div>
+      ) : null}
     </>
   );
 }

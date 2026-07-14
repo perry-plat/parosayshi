@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Fluxum - Events Reconstruction</title>
+    <style>
+      :root {
+        --ink: #111;
+        --muted: #8f8f8f;
+        --rule: #8c8c8c;
+        --paper: #f6f6f2;
+        --stage: #fff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: #fff;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body {
+        color: var(--ink);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .stage {
+        width: 820px;
+        height: 820px;
+        display: grid;
+        justify-items: center;
+        align-items: start;
+        padding-top: 50.4px;
+        background: var(--stage);
+        border-radius: 6.8px;
+        position: relative;
+        transform-origin: top left;
+      }
+
+      .poster {
+        width: 584.25px;
+        height: 719.2px;
+        background: var(--paper);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .masthead {
+        height: 172.5px;
+        position: relative;
+      }
+
+      .brand {
+        position: absolute;
+        top: 14.5px;
+        left: 15.4px;
+        font-size: 13.7px;
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+
+      .brand span {
+        display: block;
+      }
+
+      .icons {
+        position: absolute;
+        top: 15.4px;
+        right: 15.4px;
+        display: flex;
+        align-items: center;
+        gap: 7.2px;
+        color: #777;
+      }
+
+      .icon {
+        width: 10px;
+        height: 10px;
+        display: block;
+      }
+
+      .season {
+        height: 61.5px;
+        display: grid;
+        grid-template-columns: 189.6px 1fr;
+        align-items: end;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .section-label {
+        align-self: end;
+        padding: 0 0 7.7px 16.2px;
+        color: #222;
+        font-size: 10.25px;
+        line-height: 1;
+        font-weight: 700;
+      }
+
+      .season-title {
+        margin: 0;
+        justify-self: end;
+        padding: 0 13.7px 6.8px 0;
+        font-size: 34.2px;
+        line-height: 0.95;
+        font-weight: 400;
+      }
+
+      .event {
+        height: 85.4px;
+        display: grid;
+        grid-template-columns: 189.6px 189.6px 1fr;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .event:last-child {
+        border-bottom: 0;
+      }
+
+      .event-visual {
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        column-gap: 53px;
+        padding: 13.7px 12px 12.8px 15.4px;
+        border-right: 1px solid var(--rule);
+      }
+
+      .thumb {
+        width: 56.4px;
+        height: 58.1px;
+        display: block;
+        background: #d9d9d9;
+      }
+
+      .date {
+        text-align: right;
+        font-size: 15.4px;
+        line-height: 1.02;
+        font-weight: 700;
+      }
+
+      .date span {
+        display: block;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .event-title {
+        padding: 12px 13.7px 10.25px 13.7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .event-title h2 {
+        margin: 0;
+        font-size: 17.1px;
+        line-height: 1.03;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.6px;
+      }
+
+      .tag {
+        border: 1px solid #999;
+        border-radius: 1px;
+        padding: 1.7px 3.4px 0.9px;
+        font-size: 4.3px;
+        line-height: 1;
+        color: #111;
+        background: #fff;
+      }
+
+      .event-copy {
+        padding: 12.8px 15.4px 10.25px 13.7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .event-copy p {
+        margin: 0;
+        max-width: 174.25px;
+        font-size: 6.8px;
+        line-height: 1.13;
+        font-weight: 600;
+      }
+
+      .venue {
+        font-size: 4.3px;
+        line-height: 1;
+        color: #111;
+      }
+
+      .past-heading {
+        height: 58.1px;
+        display: grid;
+        grid-template-columns: 189.6px 1fr;
+        align-items: end;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .past-heading .section-label {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .past-year {
+        justify-self: end;
+        padding: 0 12.8px 4.3px 0;
+        color: var(--muted);
+        font-size: 32.5px;
+        line-height: 1;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Fluxum events poster reconstruction">
+      <section class="poster">
+        <header class="masthead">
+          <div class="brand" aria-label="Name">
+            <span>NAME</span>
+          </div>
+
+          <nav class="icons" aria-label="Menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="M15 15l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7l4 4 4-4M12 17l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7h10M7 12h10M7 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </nav>
+        </header>
+
+        <div class="season">
+          <div class="section-label">Evénements à venir</div>
+          <h1 class="season-title">Janv-Sept 2023</h1>
+        </div>
+
+        <article class="event">
+          <div class="event-visual">
+          <div class="thumb" aria-hidden="true"></div>
+            <div class="date">02.06<span>23</span></div>
+          </div>
+          <div class="event-title">
+            <h2>Citizens -<br />Christian Lutz</h2>
+            <div class="tags"><span class="tag">Exposition</span></div>
+          </div>
+          <div class="event-copy">
+            <p>A l’occasion du FIFDH, le Flux Laboratory présente l’exposition Citizens de l’artiste photographe suisse Christian Lutz.</p>
+            <div class="venue">Flux Laboratory Genève</div>
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="date">28.06<span>23</span></div>
+          </div>
+          <div class="event-title">
+            <h2>Looming - Marius<br />Barthaux</h2>
+            <div class="tags"><span class="tag">Performance</span><span class="tag">Film</span></div>
+          </div>
+          <div class="event-copy">
+            <p>Dernier résident de la saison 21-22, Marius Barthaux poursuit sa recherche autour d’expérimentations sensorielles et matérielles qu’il développe depuis trois ans.</p>
+            <div class="venue">Flux Laboratory Genève</div>
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="date">16.07<span>23</span></div>
+          </div>
+          <div class="event-title">
+            <h2>Scultografie</h2>
+            <div class="tags"><span class="tag">Performance</span><span class="tag">Exposition</span></div>
+          </div>
+          <div class="event-copy">
+            <p>La performance s’est déroulée autour de l’œuvre Scultografie de Daniele Papuli dans la Chiesa dell’Immacolata.</p>
+            <div class="venue">Flux Laboratory Genève</div>
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="date">28.08<span>23</span></div>
+          </div>
+          <div class="event-title">
+            <h2>Holy Synthetic<br />Meteor</h2>
+            <div class="tags"><span class="tag">Exposition</span><span class="tag">Discussion</span></div>
+          </div>
+          <div class="event-copy">
+            <p>Le projet Holy Synthetic Meteor est une visite sur une météorite. Une météorite faite de différentes matières qui peuvent être soit naturelles soit synthétiques.</p>
+            <div class="venue">Centre des arts de l’Ecole Internationale</div>
+          </div>
+        </article>
+
+        <div class="past-heading">
+          <div class="section-label">Evénements passés</div>
+          <div class="past-year">2022</div>
+        </div>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="date">23.01<span>22</span></div>
+          </div>
+          <div class="event-title">
+            <h2>Tout Goude</h2>
+            <div class="tags"><span class="tag">Exposition</span></div>
+          </div>
+          <div class="event-copy">
+            <p>Jean-Paul Goude, magicien de l’image, était au Flux Laboratory pour le lancement de son livre : Tout Goude. Le film a été présenté auparavant à la Cinémathèque de la Danse.</p>
+            <div class="venue">Flux Laboratory Genève</div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script>
+      (function () {
+        var page = document.querySelector(".stage");
+        var DESIGN_W = 820;
+
+        function fit() {
+          var s = window.innerWidth / DESIGN_W;
+          var vh = window.innerHeight;
+          var sheetH = page.offsetHeight * s;
+          var ty = sheetH < vh ? (vh - sheetH) / 2 : 0;
+
+          page.style.transform = "translateY(" + ty + "px) scale(" + s + ")";
+          document.body.style.width = window.innerWidth + "px";
+          document.body.style.height = Math.max(vh, sheetH) + "px";
+        }
+
+        window.addEventListener("resize", fit);
+        window.addEventListener("load", fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+        fit();
+      })();
+    </script>
+  </body>
+</html>

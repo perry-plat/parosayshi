@@ -1,4 +1,5 @@
 export type ProjectId =
+  | "notebook"
   | "wiz-commerce"
   | "wiz-sales-data"
   | "wiz-email-flows"

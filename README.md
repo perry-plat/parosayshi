@@ -8,6 +8,8 @@ The current site lives at `/`. The previous Framer export is archived at `/old`.
 
 See [`COMPONENT_MAP.md`](./COMPONENT_MAP.md) for the component tree, data flow, route map, CSS contracts, and update checklist.
 
+See [`DESIGN_REFERENCES.md`](./DESIGN_REFERENCES.md) for the visual reference ledger, interaction principles, and where each influence belongs in the folio.
+
 ## Local preview
 
 ```sh

@@ -1,45 +1,76 @@
 import { forwardRef } from "react";
+import { motion } from "motion/react";
+import { CaseStudyTexture } from "./CaseStudyTexture";
 import { LeadMedia, SlipBody } from "./SlipBody";
+import type { SlipState } from "../hooks/useSlip";
 import type { ProjectData } from "../types/project";
 
 interface ProjectSlipProps {
-  project: ProjectData | null;
-  stateClass: string;
+  project: ProjectData;
+  reducedMotion: boolean;
+  slipState: SlipState;
+  onCloseAnimationComplete: () => void;
 }
 
 export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function ProjectSlip(
-  { project, stateClass },
+  { project, reducedMotion, slipState, onCloseAnimationComplete },
   ref,
 ) {
-  const firstImage = project?.body.find(
+  const firstImage = project.body.find(
     (block) => typeof block !== "string" && block.type === "image",
   );
-  const leadImage = project?.leadImage || firstImage || null;
+  const leadImage = project.leadImage || firstImage || null;
   const leadBlock =
-    leadImage && project
+    leadImage
       ? {
           ...leadImage,
           caption: project.leadCaption || leadImage.caption || "",
         }
       : null;
   const fallbackIntro =
-    project?.body.filter((block): block is string => typeof block === "string").slice(0, 2) || [];
-  const introColumns = (project?.introColumns?.length ? project.introColumns : fallbackIntro).slice(0, 2);
+    project.body.filter((block): block is string => typeof block === "string").slice(0, 2);
+  const introColumns = (project.introColumns?.length ? project.introColumns : fallbackIntro).slice(0, 2);
   const bodyBlocks =
-    project && firstImage ? project.body.filter((block) => block !== firstImage) : project?.body || [];
+    firstImage ? project.body.filter((block) => block !== firstImage) : project.body;
+  const isClosing = slipState === "closing";
+  const airborne = {
+    rotate: -4.2,
+    scale: 0.985,
+    y: "-120vh",
+  };
+  const landed = {
+    rotate: 0,
+    scale: 1,
+    y: "0vh",
+  };
 
   return (
-    <aside
+    <motion.aside
       ref={ref}
-      className={`project-slip ${stateClass}`}
+      className={`project-slip is-${slipState}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-slip-title"
-      aria-describedby="project-slip-kicker"
       tabIndex={-1}
-      data-layout={project?.figmaLayout || "default"}
-      data-edition={project?.edition || "case-file"}
+      data-layout={project.figmaLayout || "default"}
+      data-edition={project.edition || "case-file"}
+      initial={reducedMotion ? false : airborne}
+      animate={reducedMotion ? landed : isClosing ? airborne : landed}
+      transition={
+        reducedMotion
+          ? { duration: 0 }
+          : {
+              type: "spring",
+              stiffness: isClosing ? 175 : 150,
+              damping: isClosing ? 25 : 22,
+              mass: isClosing ? 0.82 : 0.9,
+            }
+      }
+      onAnimationComplete={() => {
+        if (isClosing) onCloseAnimationComplete();
+      }}
     >
+      <CaseStudyTexture />
       <div className="slip-content">
         <div className="slip-header">
           <div className="slip-case-masthead" aria-hidden="true" hidden={project?.figmaLayout !== "frame32"}>
@@ -51,10 +82,6 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
             <span className="slip-case-mark">{project?.mastheadBrand || ""}</span>
           </div>
           <div className="slip-title-group">
-            <p className="slip-edition">{(project?.edition || "case-file").replace("-", " ")}</p>
-            <p className="eyebrow" id="project-slip-kicker">
-              {project?.kicker || "CASE FILE"}
-            </p>
             <h2 id="project-slip-title">{project?.title || ""}</h2>
           </div>
           <div className="slip-summary-group">
@@ -71,6 +98,6 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
         </div>
         <SlipBody blocks={bodyBlocks} />
       </div>
-    </aside>
+    </motion.aside>
   );
 });

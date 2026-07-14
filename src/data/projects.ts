@@ -1,6 +1,13 @@
 import type { ProjectsMap } from "../types/project";
 
 export const projects = {
+        "notebook": {
+          edition: "field-note",
+          kicker: "FIELD NOTEBOOK / ONGOING",
+          title: "Things that stayed in the notebook",
+          deck: "",
+          body: []
+        },
         "wiz-commerce": {
           edition: "case-file",
           figmaLayout: "frame32",

@@ -9,6 +9,8 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "0.0.77",
+    "motion": "^12.42.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

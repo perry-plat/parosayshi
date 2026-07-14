@@ -20,6 +20,7 @@ flowchart TD
   Paper --> Hero["Hero"]
   Paper --> Intro["IntroColumns"]
   Paper --> Work["WorkSection"]
+  Paper --> Sketchbook["Sketchbook"]
   Paper --> Experience["ExperienceSection"]
   Paper --> Experiments["ExperimentsSection"]
 
@@ -51,6 +52,7 @@ flowchart TD
 | `src/main.tsx` | React root bootstrapping and global CSS import | `index.html` |
 | `src/App.tsx` | Page composition, local sections, slip overlay wiring, deep-link effect | `src/main.tsx` |
 | `src/components/ProjectSlip.tsx` | Dialog shell for case studies: masthead, title/deck, lead media, intro columns, body | `App` |
+| `src/components/Sketchbook.tsx` | StPageFlip lifecycle, physical notebook pages, responsive orientation, and navigation | `App` |
 | `src/components/SlipBody.tsx` | All case-study body block renderers | `ProjectSlip` |
 | `src/data/workCards.tsx` | Homepage work rail card content and project IDs | `WorkSection` in `App` |
 | `src/data/projects.ts` | Full case-study content keyed by project ID | `ProjectSlip`, `useSlip`, deep links |
@@ -88,6 +90,7 @@ All homepage section components currently live inside `src/App.tsx`.
 | `Hero` | Headline and hero photo | `.hero`, `.headline-block`, `.hero-image` |
 | `IntroColumns` | Two-column intro copy | `.intro-columns` |
 | `WorkSection` | Horizontal project card rail | `.work-section`, `.work-rail`, `.work-card`, `.project-card` |
+| `Sketchbook` | Corner-driven soft-page notebook for photos and working material | `.sketchbook-section`, `.sketchbook-engine`, `.notebook-page` |
 | `ExperienceSection` | Experience/sticker area | `.experience`, `.experience-stack`, `.experience-card` |
 | `ExperimentsSection` | Experiment placeholder area | `.experiments`, `.image-placeholder` |
 

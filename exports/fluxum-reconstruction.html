@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Event Schedule Template</title>
+    <style>
+      :root {
+        --ink: #111;
+        --muted: #969696;
+        --rule: #a9a9a2;
+        --paper: #f6f6f2;
+        --stage: #fff;
+        --type-meta: 5px;
+        --type-copy: 10px;
+        --type-label: 10px;
+        --type-brand: 12px;
+        --type-main: 15px;
+        --type-display: 31px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: #fff;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body {
+        color: var(--ink);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .stage {
+        width: 820px;
+        height: 820px;
+        display: grid;
+        justify-items: center;
+        align-items: start;
+        padding-top: 50.4px;
+        background: var(--stage);
+        border-radius: 6.8px;
+        position: relative;
+        transform-origin: top left;
+      }
+
+      .poster {
+        width: 584.25px;
+        height: 719.2px;
+        background: var(--paper);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .masthead {
+        height: 172.5px;
+        position: relative;
+      }
+
+      .brand {
+        position: absolute;
+        top: 14.5px;
+        left: 15.4px;
+        font-size: var(--type-brand);
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+
+      .brand span {
+        display: block;
+      }
+
+      .icons {
+        position: absolute;
+        top: 15.4px;
+        right: 15.4px;
+        display: flex;
+        align-items: center;
+        gap: 7.2px;
+        color: #777;
+      }
+
+      .icon {
+        width: 10px;
+        height: 10px;
+        display: block;
+      }
+
+      .season {
+        height: 61.5px;
+        display: grid;
+        grid-template-columns: 158px 1fr;
+        align-items: end;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .section-label {
+        align-self: end;
+        padding: 0 0 7.7px 16.2px;
+        color: #222;
+        font-size: var(--type-label);
+        line-height: 1;
+        font-weight: 600;
+      }
+
+      .season-title {
+        margin: 0;
+        justify-self: end;
+        padding: 0 15.4px 7px 0;
+        font-size: var(--type-display);
+        line-height: 1;
+        font-weight: 400;
+      }
+
+      .event {
+        height: 85.4px;
+        display: grid;
+        grid-template-columns: 158px 196px 1fr;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .event:last-child {
+        border-bottom: 0;
+      }
+
+      .event-visual {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        column-gap: 18px;
+        padding: 13.7px 11px 12.8px 15.4px;
+        border-right: 1px solid var(--rule);
+      }
+
+      .thumb {
+        width: 42px;
+        height: 44px;
+        display: block;
+        background: #d9d9d9;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .thumb-citizens {
+        background-image:
+          radial-gradient(circle at 76% 50%, #6d58a8 0 6%, transparent 7%),
+          linear-gradient(145deg, rgba(255, 255, 255, 0) 0 48%, rgba(91, 56, 36, 0.52) 49% 56%, rgba(255, 255, 255, 0) 57%),
+          radial-gradient(circle at 36% 24%, #ffe6d2 0 18%, transparent 19%),
+          linear-gradient(155deg, #ef9a8f 0 45%, #f4d3a7 46% 72%, #ede2c6 73% 100%);
+      }
+
+      .thumb-looming {
+        background-image:
+          radial-gradient(ellipse at 50% 25%, #ead9c7 0 12%, transparent 13%),
+          linear-gradient(100deg, transparent 0 36%, #111 37% 58%, transparent 59%),
+          linear-gradient(160deg, #f2eee8 0 45%, #d3c8be 46% 100%);
+      }
+
+      .thumb-scultografie {
+        background-image:
+          linear-gradient(74deg, transparent 0 44%, rgba(40, 40, 40, 0.78) 45% 50%, transparent 51%),
+          radial-gradient(ellipse at 54% 20%, #191919 0 9%, transparent 10%),
+          repeating-linear-gradient(105deg, #f2f0ec 0 9px, #d7d1ca 10px 11px, #f8f6f2 12px 23px);
+      }
+
+      .thumb-meteor {
+        background-image:
+          radial-gradient(ellipse at 50% 74%, #f7e5d3 0 13%, transparent 14%),
+          linear-gradient(180deg, transparent 0 42%, #232f38 43% 100%),
+          linear-gradient(90deg, #afc4c3 0 30%, #d7e3de 31% 68%, #8ba7a8 69% 100%);
+      }
+
+      .thumb-goude {
+        background-image:
+          radial-gradient(circle at 52% 38%, #f5cbba 0 9%, transparent 10%),
+          radial-gradient(ellipse at 50% 63%, #d0478f 0 15%, transparent 16%),
+          linear-gradient(12deg, transparent 0 42%, rgba(40, 40, 40, 0.44) 43% 46%, transparent 47%),
+          linear-gradient(180deg, #d8cfb3 0 100%);
+      }
+
+      .date {
+        text-align: right;
+        font-size: 11px;
+        line-height: 1;
+        font-weight: 400;
+        padding-top: 1px;
+        white-space: nowrap;
+      }
+
+      .event-title {
+        padding: 13.2px 14px 10.8px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .event-title h2 {
+        margin: 0;
+        font-size: var(--type-main);
+        line-height: 1.12;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.6px;
+      }
+
+      .tag {
+        border: 1px solid #aaa;
+        border-radius: 1px;
+        padding: 1.7px 3.4px 0.9px;
+        font-size: var(--type-meta);
+        line-height: 1;
+        color: #111;
+        background: #fff;
+      }
+
+      .event-copy {
+        padding: 13.2px 18px 10.8px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .event-copy p {
+        margin: 0;
+        max-width: 210px;
+        font-size: var(--type-copy);
+        line-height: 1.2;
+        font-weight: 400;
+        text-wrap: pretty;
+      }
+
+      .venue {
+        font-size: var(--type-meta);
+        line-height: 1;
+        color: #4f4f4a;
+      }
+
+      .past-heading {
+        height: 58.1px;
+        display: grid;
+        grid-template-columns: 158px 1fr;
+        align-items: end;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .past-heading .section-label {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .past-year {
+        justify-self: end;
+        padding: 0 12.8px 4.3px 0;
+        color: var(--muted);
+        font-size: var(--type-display);
+        line-height: 1;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Event schedule template">
+      <section class="poster">
+        <header class="masthead">
+          <div class="brand" aria-label="Name">
+            <span>NAME</span>
+          </div>
+
+          <nav class="icons" aria-label="Menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="M15 15l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7l4 4 4-4M12 17l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7h10M7 12h10M7 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </nav>
+        </header>
+
+        <div class="season">
+          <div class="section-label">Upcoming events</div>
+          <h1 class="season-title">Jan-Sept 2027</h1>
+        </div>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb thumb-citizens" aria-hidden="true"></div>
+            <div class="date">02.06.27</div>
+          </div>
+          <div class="event-title">
+            <h2>Opening<br />Reception</h2>
+            <!-- <div class="tags"><span class="tag">Exposition</span></div> -->
+          </div>
+          <div class="event-copy">
+            <p>An evening launch with invited guests, a short introduction, and an informal reception for the season program.</p>
+            <!-- <div class="venue">Flux Laboratory Genève</div> -->
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb thumb-looming" aria-hidden="true"></div>
+            <div class="date">28.06.27</div>
+          </div>
+          <div class="event-title">
+            <h2>Artist Talk</h2>
+            <!-- <div class="tags"><span class="tag">Performance</span><span class="tag">Film</span></div> -->
+          </div>
+          <div class="event-copy">
+            <p>A conversation with the invited artist about process, research, collaboration, and the work currently on view.</p>
+            <!-- <div class="venue">Flux Laboratory Genève</div> -->
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb thumb-scultografie" aria-hidden="true"></div>
+            <div class="date">16.07.27</div>
+          </div>
+          <div class="event-title">
+            <h2>Film Screening</h2>
+            <!-- <div class="tags"><span class="tag">Performance</span><span class="tag">Exposition</span></div> -->
+          </div>
+          <div class="event-copy">
+            <p>A focused screening program followed by a moderated discussion and audience questions.</p>
+            <!-- <div class="venue">Flux Laboratory Genève</div> -->
+          </div>
+        </article>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb thumb-meteor" aria-hidden="true"></div>
+            <div class="date">28.08.27</div>
+          </div>
+          <div class="event-title">
+            <h2>Material<br />Workshop</h2>
+            <!-- <div class="tags"><span class="tag">Exposition</span><span class="tag">Discussion</span></div> -->
+          </div>
+          <div class="event-copy">
+            <p>A hands-on session exploring form, material experiments, and shared methods through guided exercises.</p>
+            <!-- <div class="venue">Centre des arts de l’Ecole Internationale</div> -->
+          </div>
+        </article>
+
+        <div class="past-heading">
+          <div class="section-label">Past events</div>
+          <div class="past-year">2026</div>
+        </div>
+
+        <article class="event">
+          <div class="event-visual">
+            <div class="thumb thumb-goude" aria-hidden="true"></div>
+            <div class="date">23.01.26</div>
+          </div>
+          <div class="event-title">
+            <h2>Annual<br />Showcase</h2>
+            <!-- <div class="tags"><span class="tag">Exposition</span></div> -->
+          </div>
+          <div class="event-copy">
+            <p>A selected presentation of completed projects, notes from the program, and documentation from the year.</p>
+            <!-- <div class="venue">Flux Laboratory Genève</div> -->
+          </div>
+        </article>
+      </section>
+    </main>
+    <script>
+      (function () {
+        var page = document.querySelector(".stage");
+        var DESIGN_W = 820;
+
+        function fit() {
+          var s = window.innerWidth / DESIGN_W;
+          var vh = window.innerHeight;
+          var sheetH = page.offsetHeight * s;
+          var ty = sheetH < vh ? (vh - sheetH) / 2 : 0;
+
+          page.style.transform = "translateY(" + ty + "px) scale(" + s + ")";
+          document.body.style.width = window.innerWidth + "px";
+          document.body.style.height = Math.max(vh, sheetH) + "px";
+        }
+
+        window.addEventListener("resize", fit);
+        window.addEventListener("load", fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+        fit();
+      })();
+    </script>
+  </body>
+</html>
