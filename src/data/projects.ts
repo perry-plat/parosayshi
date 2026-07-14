@@ -19,8 +19,9 @@ export const projects = {
           deck: "",
           meta: ["WizPay", "WizAI", "Modifiers", "Visual systems"],
           leadImage: {
-            type: "image-slot",
-            label: "Hero export",
+            type: "image",
+            src: "/assets/new/wizcommerce-frame32/hero-dashboard.png",
+            alt: "WizCommerce product dashboard and commerce operations interface",
             caption: " ~ Wizcommerce , 2023-2025"
           },
           leadCaption: " ~ Wizcommerce , 2023-2025",

@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@paper-design/shaders-react": "0.0.77",
+    "@types/three": "^0.185.1",
     "motion": "^12.42.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.2",

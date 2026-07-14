@@ -33,10 +33,12 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         width: window.innerWidth,
       };
     }
-    const width = Math.min(isMobile ? 877 : 800, window.innerWidth - gutter * 2);
-    const height = isMobile
-      ? Math.max(360, window.innerHeight - gutter * 2)
-      : Math.max(540, Math.min(880, Math.round(window.innerHeight * 0.94)));
+    const availableWidth = window.innerWidth - gutter * 2;
+    const availableHeight = window.innerHeight - gutter * 2;
+    const width = isMobile
+      ? Math.min(877, availableWidth)
+      : Math.min(1120, availableWidth, Math.round(availableHeight * 1.44));
+    const height = isMobile ? availableHeight : Math.round(width / 1.44);
     return {
       height,
       left: Math.round((window.innerWidth - width) / 2),
@@ -111,12 +113,17 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
 
   const finishClose = useCallback(() => {
     document.body.classList.remove("slip-is-returning");
-    activeCard.current?.focus({ preventScroll: true });
+    const returningProject = activeCard.current?.dataset.project;
     window.scrollTo(0, lockedScrollY.current);
     document.body.style.removeProperty("--slip-document-height");
     activeCard.current = null;
     setActiveProject(null);
     setSlipState("closed");
+    if (returningProject) {
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>(`.book-object[data-project="${returningProject}"]`)?.focus({ preventScroll: true });
+      });
+    }
   }, []);
 
   const closeSlip = useCallback(

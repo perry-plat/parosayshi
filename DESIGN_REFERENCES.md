@@ -4,15 +4,72 @@ This is the working visual and interaction reference set for Parosayshi. Referen
 
 ## Current synthesis
 
-The folio should feel like a personal publication assembled from real working material:
+The folio should feel like a small publishing house after a very productive deadline:
 
-- **Structure:** a calm newspaper page with clear editorial hierarchy.
-- **Movement:** physical sheets, page turns, and objects arriving into the composition.
-- **Material:** occasional torn edges, imperfect masks, scans, annotations, and visible construction.
-- **Identity:** mostly warm paper and dark ink, interrupted by one assertive blue.
-- **Restraint:** analog collage is a featured moment, not a texture pasted across every section.
+- **Structure:** case studies are distinct book objects scattered over a quieter catalog sheet.
+- **Movement:** objects lift and reveal their depth; the work is available immediately, without a loading performance.
+- **Material:** covers, spines, page blocks, print registration marks, notes, and visible construction.
+- **Identity:** every project gets its own cover color while the underlying publishing system stays consistent.
+- **Restraint:** the table can be unruly, but each book cover and opened case study must remain legible.
 
 ## Interaction references
+
+### Stripe Press
+
+- Reference: [press.stripe.com](https://press.stripe.com/) and [Yuin Chien's design notes](https://yuinchien.com/p/stripe-press)
+- Contribution: books are treated as tactile, dimensional interfaces rather than thumbnail cards. Their covers and spines create identity before any synopsis is read.
+- Use here: each case study becomes a bound edition with its own color, cover hierarchy, page depth, and physical hover behavior.
+- Deliberate divergence: Stripe Press uses a controlled black shelf. Parosayshi uses a top-down working table where editions overlap, rotate, and cross the catalog sheet.
+- Avoid: reproducing Stripe Press's stack, lighting, or dark palette literally.
+
+### Codrops 3D book studies
+
+- Reference: [3D Book Showcase](https://tympanus.net/codrops/2013/01/08/3d-book-showcase/) and [Animated Books with CSS 3D Transforms](https://tympanus.net/codrops/2013/07/11/animated-books-with-css-3d-transforms/)
+- Contribution: convincing book depth comes from separate cover, spine, page block, and edge planes sharing one perspective—not from a heavy drop shadow alone.
+- Use here: shallow 3D cover lift, visible fore-edge and bottom pages, a darker spine plane, and a restrained hover tilt.
+- Avoid: fully opening every book on hover or letting the 3D treatment delay access to the case study.
+
+### Three.js focused book object
+
+- Reference: [transparent WebGL canvas](https://threejs.org/manual/en/tips.html#making-the-canvas-transparent), [WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer.html), and [RoundedBoxGeometry](https://threejs.org/docs/pages/RoundedBoxGeometry.html).
+- Contribution: the selected case-study cover is rendered as actual front and back boards, a page block, spine, and edge planes while the renderer remains fully transparent.
+- Use here: Three.js owns only the focused closed-book moment; the table remains accessible HTML/CSS and the case-study reader remains DOM content.
+- Avoid: a floor plane, scene background, shadow receiver, or one WebGL context per book on the table.
+
+### Poly Haven wood table
+
+- Reference: [Wood Table](https://polyhaven.com/a/wood_table)
+- Contribution: broad tonal variation, fine linear grain, occasional knots, and quiet seams make a surface read as wood without competing with the objects on it.
+- Use here: low-contrast layered grain and board seams generated in CSS so the table remains lightweight and subordinate to the books.
+- Avoid: photorealistic knots or high-contrast planks underneath cover typography.
+
+### Holographic sticker treatments
+
+- Reference: [Effect.Labs CSS holographic study](https://effect-labs.com/en/pages/blog/effet-holographique-css.html) and [StickerApp's material guide](https://stickerapp.ca/blog/sticker-academy/design-holographic-stickers-that-stand-out)
+- Contribution: layered gradients and moving highlights can suggest iridescent foil, but solid high-contrast artwork should control where the shine appears.
+- Use here: the existing Parosayshi wordmark SVG remains readable while a masked, low-opacity spectrum moves only inside its sticker silhouette.
+- Avoid: a full-width rainbow header or shine strong enough to wash out the wordmark.
+
+### Folding the DOM / tri-fold mechanics
+
+- Reference: [Josh Comeau's *Folding the DOM*](https://www.joshwcomeau.com/react/folding-the-dom/) and [Adobe's tri-fold layer explanation](https://community.adobe.com/questions-529/how-to-make-trifold-page-turn-animation-52453)
+- Contribution: convincing folds come from separate panels with perspective and transform origins placed on the physical hinges.
+- Use here: the catalog arrives as three equal paper panels; the right and left leaves unfold around the center before the printed content appears.
+- Avoid: bringing back a blocking loader or rotating the whole tabletop during the interaction.
+
+### Re:Structure / the book as a performative object
+
+- Reference: [Bianca Graphic Design](https://bianca-graphic-design.com/projects/restructure)
+- Contribution: a digital book should change how the reader approaches and navigates the content, not merely decorate a link with a cover.
+- Use here: the object is the invitation to the case study; lifting a book, opening it, and returning it to the table form one continuous interaction.
+- Avoid: making dimensionality more important than legibility or keyboard access.
+
+### Stages / a monograph in many formats
+
+- Reference: [David Kohn Architects' *Stages*](https://www.wallpaper.com/architecture/david-kohn-architects-book-stages-uk)
+- Contribution: one portfolio can be a coherent publication while letting each project take on its own format, scale, and visual voice.
+- Use here: consistent publisher marks, numbering, and cover anatomy hold the library together while individual projects get distinct proportions and palettes.
+- Avoid: forcing every case study into an identical card or book size.
 
 ### Daily Dispatch
 
@@ -90,7 +147,7 @@ The folio should feel like a personal publication assembled from real working ma
 
 | Folio area | Reference influence | Intended treatment |
 | --- | --- | --- |
-| Homepage sheet | Newspaper references | Calm editorial grid and warm paper |
+| Homepage table | Stripe Press + working-desk references | Distinct book editions scattered over a catalog sheet |
 | Case-study opening | Daily Dispatch | Separate foreground sheet over a shifted homepage |
 | Sketchbook | Matthew Yu | Preloaded half-page flip with a fixed spine |
 | Photography / experiments | Analog collage posts | One tactile layered spread with torn masks and scans |
