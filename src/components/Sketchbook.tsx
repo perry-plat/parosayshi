@@ -85,7 +85,7 @@ function pairPages(allPages: NotebookPage[]): NotebookSheet[] {
   return sheets;
 }
 
-function NotebookCover({ className = "", ariaLabel, ariaHidden = false }: { className?: string; ariaLabel?: string; ariaHidden?: boolean }) {
+export function NotebookCover({ className = "", ariaLabel, ariaHidden = false }: { className?: string; ariaLabel?: string; ariaHidden?: boolean }) {
   return (
     <article
       className={`notebook-page is-cover is-photo-cover${className ? ` ${className}` : ""}`}

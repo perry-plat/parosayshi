@@ -21,6 +21,17 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
   const lockedScrollY = useRef(0);
   const pushedSlipState = useRef(false);
 
+  const restoreLockedScroll = useCallback(() => {
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ left: 0, top: lockedScrollY.current, behavior: "auto" });
+    window.requestAnimationFrame(() => {
+      if (previousScrollBehavior) root.style.scrollBehavior = previousScrollBehavior;
+      else root.style.removeProperty("scroll-behavior");
+    });
+  }, []);
+
   const getSlipRect = useCallback((projectId?: ProjectId) => {
     const isMobile = window.innerWidth <= 760;
     const gutter = isMobile ? 14 : 28;
@@ -37,7 +48,7 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
     const availableHeight = window.innerHeight - gutter * 2;
     const width = isMobile
       ? Math.min(877, availableWidth)
-      : Math.min(1120, availableWidth, Math.round(availableHeight * 1.44));
+      : Math.min(1060, availableWidth, Math.round(availableHeight * 1.44));
     const height = isMobile ? availableHeight : Math.round(width / 1.44);
     return {
       height,
@@ -93,9 +104,6 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
       });
       setSlipGeometry(card);
       setPaperTransformOrigin();
-      document.querySelectorAll<HTMLElement>("[data-project]").forEach((item) => {
-        item.setAttribute("aria-expanded", String(item === card));
-      });
       document.body.classList.add("slip-is-open");
       const slip = slipRef.current;
       if (slip) {
@@ -114,7 +122,7 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
   const finishClose = useCallback(() => {
     document.body.classList.remove("slip-is-returning");
     const returningProject = activeCard.current?.dataset.project;
-    window.scrollTo(0, lockedScrollY.current);
+    restoreLockedScroll();
     document.body.style.removeProperty("--slip-document-height");
     activeCard.current = null;
     setActiveProject(null);
@@ -124,7 +132,7 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         document.querySelector<HTMLElement>(`.book-object[data-project="${returningProject}"]`)?.focus({ preventScroll: true });
       });
     }
-  }, []);
+  }, [restoreLockedScroll]);
 
   const closeSlip = useCallback(
     (fromHistory = false) => {
@@ -135,18 +143,16 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         clearSlipHash();
       }
       if (activeCard.current) setSlipGeometry(activeCard.current);
-      document.querySelectorAll<HTMLElement>("[data-project]").forEach((item) => {
-        item.setAttribute("aria-expanded", "false");
-      });
       document.body.classList.add("slip-is-returning");
       document.body.classList.remove("slip-is-open");
+      restoreLockedScroll();
       setSlipState("closing");
 
       if (reducedMotion) {
         finishClose();
       }
     },
-    [activeProject, finishClose, reducedMotion, setSlipGeometry, slipRef, slipState],
+    [activeProject, finishClose, reducedMotion, restoreLockedScroll, setSlipGeometry, slipRef, slipState],
   );
 
   useEffect(() => {

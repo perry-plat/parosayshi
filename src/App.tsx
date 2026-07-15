@@ -3,6 +3,7 @@ import { LayoutGroup, motion } from "motion/react";
 import { BookVolumeVisual } from "./components/BookVolumeVisual";
 import { NotebookSlip } from "./components/NotebookSlip";
 import { ProjectSlip } from "./components/ProjectSlip";
+import { NotebookCover } from "./components/Sketchbook";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -114,15 +115,14 @@ const bookEditions: BookEdition[] = [
     coverArt: "/assets/new/notebook-cover-cutout-tight-v3.png",
     coverArtScale: "1",
     image: "/assets/new/notebook-cover-key-v2.png",
-    x: "calc(50% - 320px)",
-    y: "4920px",
-    width: "640px",
-    height: "455px",
-    rotate: "3deg",
+    x: "calc(50% - 225px)",
+    y: "4900px",
+    width: "450px",
+    height: "675px",
+    rotate: "1.5deg",
     cover: "#25211d",
     ink: "#f4ead7",
     accent: "#db4f39",
-    format: "landscape",
     z: "9",
   },
   {
@@ -185,7 +185,15 @@ function isProjectId(id: string | undefined): id is ProjectId {
   return Boolean(id && Object.prototype.hasOwnProperty.call(projects, id));
 }
 
-function BookObject({ edition, openSlip }: { edition: BookEdition; openSlip: (card: HTMLElement) => void }) {
+function BookObject({
+  edition,
+  isExpanded,
+  openSlip,
+}: {
+  edition: BookEdition;
+  isExpanded: boolean;
+  openSlip: (card: HTMLElement) => void;
+}) {
   const card = cardById.get(edition.id);
   const style = {
     "--book-x": edition.x,
@@ -209,25 +217,29 @@ function BookObject({ edition, openSlip }: { edition: BookEdition; openSlip: (ca
       data-format={edition.format || "portrait"}
       data-project={edition.id}
       aria-haspopup="dialog"
-      aria-expanded="false"
+      aria-expanded={isExpanded}
       aria-label={`Open ${card?.title || edition.coverTitle}`}
       onClick={(event) => openSlip(event.currentTarget)}
       style={style}
       type="button"
     >
-      <BookVolumeVisual
-        cover={{
-          art: edition.coverArt,
-          artScale: edition.coverArtScale,
-          color: edition.cover,
-          ink: edition.ink,
-          line: edition.coverLine,
-          number: edition.number,
-          title: edition.coverTitle,
-        }}
-        edition={card?.edition}
-        layoutId={`desk-book-${edition.id}`}
-      />
+      {edition.id === "notebook" ? (
+        <NotebookCover className="notebook-desk-cover" ariaHidden />
+      ) : (
+        <BookVolumeVisual
+          cover={{
+            art: edition.coverArt,
+            artScale: edition.coverArtScale,
+            color: edition.cover,
+            ink: edition.ink,
+            line: edition.coverLine,
+            number: edition.number,
+            title: edition.coverTitle,
+          }}
+          edition={card?.edition}
+          layoutId={`desk-book-${edition.id}`}
+        />
+      )}
       <span className="book-open-label" aria-hidden="true">Open book ↗</span>
     </button>
   );
@@ -327,22 +339,26 @@ export default function App() {
           </div>
 
           <div className="book-layer" aria-label="Case-study books">
-            {bookEditions.filter((edition) => edition.id !== "notebook").map((edition) => {
-              const isLiftedFromDesk = activeProject === edition.id;
-              return isLiftedFromDesk ? null : (
-                <BookObject edition={edition} key={edition.id} openSlip={openSlip} />
-              );
-            })}
+            {bookEditions.filter((edition) => edition.id !== "notebook").map((edition) => (
+              <BookObject
+                edition={edition}
+                isExpanded={activeProject === edition.id && slipState !== "closing"}
+                key={edition.id}
+                openSlip={openSlip}
+              />
+            ))}
             <div className="notebook-library-heading">
               <span>FIELD NOTES / ONGOING</span>
               <h2>Things that stayed in the notebook.</h2>
             </div>
-            {bookEditions.filter((edition) => edition.id === "notebook").map((edition) => {
-              const isLiftedFromDesk = activeProject === edition.id;
-              return isLiftedFromDesk ? null : (
-                <BookObject edition={edition} key={edition.id} openSlip={openSlip} />
-              );
-            })}
+            {bookEditions.filter((edition) => edition.id === "notebook").map((edition) => (
+              <BookObject
+                edition={edition}
+                isExpanded={activeProject === edition.id && slipState !== "closing"}
+                key={edition.id}
+                openSlip={openSlip}
+              />
+            ))}
           </div>
         </section>
 
