@@ -110,7 +110,10 @@ const fragmentShader = /* glsl */ `
     float combinedAlpha = min(1.0, fieldAlpha + ambientWarmAlpha);
     vec3 combinedColor = (fieldColor * fieldAlpha + exposedSunlight * ambientWarmAlpha) / max(combinedAlpha, 0.0001);
 
-    gl_FragColor = vec4(combinedColor, combinedAlpha);
+    // The page compositor expects premultiplied color channels. Keeping RGB
+    // bounded by alpha prevents Safari from promoting faint light into opaque
+    // white geometry when it composites the transparent WebGL canvas.
+    gl_FragColor = vec4(combinedColor * combinedAlpha, combinedAlpha);
   }
 `;
 
@@ -131,8 +134,8 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
       antialias: false,
       depth: false,
       powerPreference: "high-performance",
-      premultipliedAlpha: false,
-      preserveDrawingBuffer: true,
+      premultipliedAlpha: true,
+      preserveDrawingBuffer: false,
       stencil: false,
     });
 
