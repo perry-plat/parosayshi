@@ -14,6 +14,18 @@ The folio should feel like a small publishing house after a very productive dead
 
 ## Interaction references
 
+### Frosted publication and clear-shell folder set
+
+- Local set: [`references/frosted-folders`](references/frosted-folders)
+- Files: `01-cobalt-translucent-publication.png` through `10-ringbound-clear-dossier.png`.
+- Contribution: the case-study object should read as a manufactured publication—milky polypropylene, hard glossy edges, oversized typography, blurred inserts, visible page thickness, saturated underlayers, and printed construction details.
+- Closed state: sharp black cover typography sits on the translucent surface while project imagery and larger type remain diffused underneath it.
+- Open state: the colored back/front cover stays visible behind a vertical stack of warm-white live pages; the content behaves like a PDF but images, carousels, and videos remain interactive DOM elements.
+- Material rule: avoid generic glassmorphism. Frost comes from low-contrast diffusion, tiny material grain, edge thickness, seams, and overlapping layers—not neon blur or a floating UI panel.
+- Composition rule: borrow the contrast of enormous type against tiny metadata, especially from references 02, 03, 06, 08, and 09. Keep the project story legible instead of copying the source layouts.
+- High-energy cue: reference 01 contributes the cobalt shell and contrasting page edges; reference 10 contributes visible binding hardware and deliberately layered inserts. Use these as punctuation rather than stacking every physical detail into one object.
+- Runtime decision: do not ship these reference images as site assets. Construct the folder in HTML/CSS so its translucency and opening remain responsive; use actual WizCommerce assets beneath it. Add a generated grain or distortion map only if the rendered polypropylene still feels too digitally clean.
+
 ### Stripe Press
 
 - Reference: [press.stripe.com](https://press.stripe.com/) and [Yuin Chien's design notes](https://yuinchien.com/p/stripe-press)
@@ -116,6 +128,32 @@ The folio should feel like a small publishing house after a very productive dead
 - Rule: the source collage must already work when motion is disabled; shader treatment is an enhancement.
 
 ## Typography and system references
+
+### 21 Things We Like / browser-PDF reading rhythm
+
+- Reference: user-provided `21-things-we-like.pdf` (23 pages, 850 × 1100 pt).
+- Contribution: a native vertical PDF rhythm—plain white page slabs, a small neutral gutter, repeated masthead/footer, image-led compositions, and one self-contained story beat per page.
+- Use here: the opened WizCommerce folder becomes a calm continuous publication. Scrolling is native and uninterrupted; toolbar arrows are shortcuts rather than the primary interaction.
+- Typography decision: borrow the restraint and hierarchy, not the pixel display face. Keep the portfolio's own Averia Serif Libre, Crimson Pro, and Geist Mono system so the calm reader still belongs to Parosayshi.
+- Avoid: page-turning, scroll snap, fake page rotation, shadows, borders, and decorative paper treatments inside the reader.
+
+### Found case-file scan / iteration evidence
+
+![Found case-file scan reference](public/assets/references/found-case-file-scan.png)
+
+- Reference: user-provided scan, saved as `public/assets/references/found-case-file-scan.png`.
+- Contribution: a typewritten context line, evidence mounted inside a dark frame, pale-yellow annotation copy, a tiny centered page number, imperfect paper texture, and a visible stacked-page edge.
+- Trigger: bring this treatment back whenever the user mentions iterations, rejected work, rejected stuff, discarded directions, or process history.
+- Best home: occasional WizCommerce process pages containing emails, rejected concepts, design revisions, launch notes, or before-and-after evidence.
+- Rule: use it as a selective found-document page type, not as the default treatment for every case-study page.
+- Implementation note: recreate the composition with existing project assets and CSS; no generated imagery is required.
+
+### Nichy interactive blog preview
+
+- Reference: [interactive personal blog preview](https://x.com/0xnichy/status/2054435851107705073/video/1).
+- Contribution: a generous central reading column, visibly larger serif headline and body copy, restrained interface labels, and media that leads directly into the article hierarchy.
+- Use here: increase the scale of Parosayshi's Averia and Crimson typography, widen internal page margins, and keep headings adjacent to their media rather than pinning them to the bottom edge.
+- Avoid: importing its rounded browser frame or soft page shadow into the already established full-screen folder reader.
 
 ### Anthrogen web exploration board
 

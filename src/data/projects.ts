@@ -14,20 +14,20 @@ export const projects = {
           mastheadDate: "05",
           mastheadBrand: "WIZCOMMERCE",
           mastheadLogo: "/assets/new/wizcommerce-frame32/sourcewiz-logo.png",
-          kicker: "CASE STUDY",
+          kicker: "PRODUCT SYSTEM CASE STUDY / 2023—2025",
           title: "WizCommerce",
-          deck: "",
-          meta: ["WizPay", "WizAI", "Modifiers", "Visual systems"],
+          deck: "Designing across the operating layer for wholesale: payments, field sales, customer communication, AI, product configuration, and the systems connecting them.",
+          meta: ["Product design", "WizPay", "WizOrder", "WizShop", "WizAI"],
           leadImage: {
             type: "image",
-            src: "/assets/new/wizcommerce-frame32/hero-dashboard.png",
-            alt: "WizCommerce product dashboard and commerce operations interface",
-            caption: " ~ Wizcommerce , 2023-2025"
+            src: "/assets/new/wizcommerce-frame32/uploads/wizpay-responsive-transactions.png",
+            alt: "WizPay transaction system across mobile and desktop",
+            caption: "WizCommerce product system, 2023—2025"
           },
-          leadCaption: " ~ Wizcommerce , 2023-2025",
+          leadCaption: "WizCommerce product system, 2023—2025",
           introColumns: [
-            "Over the last 2 years I have had the liberty and opportunity to touch almost the entire product pipeline from ideation to product thinking to building this and then figuring out the marketing strategies with the respective teams.",
-            "WizCommerce became a playground to shape payment systems, AI surfaces, modifiers, visuals, and a lot more tiny product decisions that made wholesale software feel more usable."
+            "Across two years I worked through a wide part of the product pipeline: framing problems, mapping workflows, designing product surfaces, iterating with engineering and product, and helping the work make sense when it reached customers and the market.",
+            "This is not one isolated feature story. It is the record of a product becoming an operating system for wholesale teams across the office, the showroom, the trade-show floor, and the customer storefront."
           ],
           body: [
             {
@@ -35,7 +35,66 @@ export const projects = {
             },
             {
               type: "heading",
-              text: "WizPay"
+              text: "The operating context"
+            },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "Wholesale work does not happen in one clean funnel.",
+                  text: " A sales rep may begin an order offline at a trade show, an operations team may enrich it through an ERP, a customer may pay later, and finance still needs a legible record of every state."
+                },
+                {
+                  strong: "My work sat across that connected system.",
+                  text: " The design challenge was to make dense, configurable software feel understandable without flattening the client-specific rules that made it useful."
+                }
+              ]
+            },
+            {
+              type: "image",
+              src: "/assets/new/wizcommerce-frame32/visuals-grid-111.png",
+              alt: "WizCommerce system map connecting ERP, WizOrder, WizShop, WizAI and WizPay",
+              caption: "System map: one record layer serving field sales, storefronts, payments, and intelligence."
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "SURFACE 01",
+                  title: "WizOrder",
+                  body: "Order taking for reps working in showrooms, on the road, and at trade shows.",
+                  notes: ["Web, iPad and mobile", "Offline and unreliable networks", "Orders, quotes, carts and catalogs"]
+                },
+                {
+                  label: "SURFACE 02",
+                  title: "WizShop",
+                  body: "Configurable B2B storefronts that extend the same product and customer data to buyers.",
+                  notes: ["Tenant-specific branding", "Leads, quotes and orders", "Pre-login and assisted buying"]
+                },
+                {
+                  label: "SURFACE 03",
+                  title: "WizPay",
+                  body: "A payment layer embedded in orders, invoices, customer records, and accounting workflows.",
+                  notes: ["Card, ACH and payment links", "Authorization, refund and credit", "Gateway and ERP constraints"]
+                },
+                {
+                  label: "SURFACE 04",
+                  title: "WizAI + CRM",
+                  body: "Decision support built into product discovery, customer preparation, reporting, and follow-up.",
+                  notes: ["Search and recommendations", "Customer summaries", "Tasks, activities and notes"]
+                }
+              ]
+            },
+            {
+              type: "quote",
+              text: "The recurring design question was: how do we preserve operational flexibility without making every screen feel like configuration software?"
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "WizPay — from a button to an operating layer"
             },
             {
               type: "red-columns",
@@ -110,6 +169,231 @@ export const projects = {
               ]
             },
             {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "COLLECT",
+                  title: "More than one way to get paid",
+                  body: "The collection action expanded into cards on file, ACH, payment links, direct payments, split and recurring payments.",
+                  notes: ["Card and ACH", "Payment links and virtual terminal", "Installments and recurring schedules"]
+                },
+                {
+                  label: "CONTROL",
+                  title: "Terms, fees and authorization",
+                  body: "Wholesale payments needed tenant-level controls rather than one checkout assumption.",
+                  notes: ["Pre-authorization", "Optional card capture by payment term", "Surcharge controls and L2/L3 data"]
+                },
+                {
+                  label: "TRUST",
+                  title: "Every state had to explain itself",
+                  body: "Transactions needed a durable history across collection, failure, authorization, void, credit, and refund.",
+                  notes: ["Status-aware transaction ledger", "Receipts and event emails", "Device versus all-transaction reconciliation"]
+                },
+                {
+                  label: "INFRASTRUCTURE",
+                  title: "Gateways changed; the workflow had to hold",
+                  body: "The product had to absorb processor and PCI constraints without exposing that complexity to every user.",
+                  notes: ["Stax to Finix migration", "Fortis, PayFabric, Worldpay and SensePass", "PCI vault tokenization"]
+                }
+              ]
+            },
+            {
+              type: "small-note",
+              text: "Release evidence: the August 2024 update recorded 11 customers live after the Finix migration. Keep the figure dated and verify personal attribution before publishing."
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "Order taking where the work happens"
+            },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "The trade-show floor was a stress test for the whole product.",
+                  text: " Shared iPads, unstable networks, large catalogs, multiple shipping locations, and several reps working for the same account turned small interaction gaps into operational problems."
+                },
+                {
+                  strong: "The interface had to preserve momentum and accountability.",
+                  text: " I worked on surfacing the right product data, keeping cart state safe, and making order ownership, tags, sync, and next actions easier to understand."
+                }
+              ]
+            },
+            {
+              type: "image",
+              src: "/assets/case-studies/f2MFjaGV3u8MAIXdzRO9fHE2wc.png",
+              alt: "WizOrder product listing across order-taking devices",
+              caption: "WizOrder product discovery: the starting point for many field-sales decisions."
+            },
+            {
+              type: "image",
+              src: "/assets/case-studies/mjRUy3TMmhpKrNoGXxSz8YAttg0.png",
+              alt: "Before and after product cards showing more decision-critical information",
+              caption: "Product cards evolved to surface stock, variants, tags, and inventory signals before a rep committed to an item."
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "DISCOVER",
+                  title: "Faster product decisions",
+                  body: "Product cards and recommendations carried more of the data a rep needed during a live customer conversation.",
+                  notes: ["Stock and restock signals", "Variant and inventory details", "Similar products and contextual cart search"]
+                },
+                {
+                  label: "BUILD",
+                  title: "Carts became working spaces",
+                  body: "The cart had to support several simultaneous orders and preserve work through interruptions and complex product rules.",
+                  notes: ["Multi-cart and cart grouping", "Persist edits and copy cart", "Custom pricing, discounts and notes"]
+                },
+                {
+                  label: "TRACK",
+                  title: "Ownership stayed visible",
+                  body: "Operational metadata made the handoff after a show less dependent on memory and manual coordination.",
+                  notes: ["Written by and written for", "Order tags and associated reps", "Order source, sync status and manual retry"]
+                },
+                {
+                  label: "CONTINUE",
+                  title: "The workflow survived weak networks",
+                  body: "Offline behavior was treated as a core condition, not an exceptional empty state.",
+                  notes: ["Data on device and auto-sync", "Offline card capture and physical count", "PDF download and Bluetooth printing"]
+                }
+              ]
+            },
+            {
+              type: "media-row",
+              variant: "carousel-strip",
+              size: "full",
+              columns: 2,
+              caption: "Responsive product data and cart patterns across mobile and tablet.",
+              items: [
+                {
+                  src: "/assets/case-studies/D14InoE2s4mg8mig0KcPU2ECg.png",
+                  alt: "Previously bought product cards across devices"
+                },
+                {
+                  src: "/assets/case-studies/bwgLKLSS6QzAfOwXLP5De3p1mTQ.png",
+                  alt: "WizOrder cart presentation on tablet"
+                }
+              ]
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "WizShop and the customer lifecycle"
+            },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "The storefront could not be a generic B2C template.",
+                  text: " Each tenant brought its own visibility rules, pricing logic, lead approvals, payment preferences, product data, and integration constraints."
+                },
+                {
+                  strong: "The relationship continued after sign-up and checkout.",
+                  text: " Reordering, abandoned carts, assisted buying, CRM activity, and customer dashboards connected storefront behavior back to the sales team."
+                }
+              ]
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "DISCOVER",
+                  title: "Browse before the account was ready",
+                  body: "Pre-login browsing and configurable pricing opened the storefront to different B2B and B2C acquisition models.",
+                  notes: ["Show or hide price before login", "Tenant branding and mobile layouts", "Product tear sheets with or without price"]
+                },
+                {
+                  label: "ONBOARD",
+                  title: "Turn sign-up into an accountable lead",
+                  body: "The storefront supported validation, approvals, customer-specific users, and exportable lead records.",
+                  notes: ["Lead approval flow", "Bulk user invites", "Separate billing and shipping attributes"]
+                },
+                {
+                  label: "CONVERT",
+                  title: "Support the customer who did not self-serve",
+                  body: "Quote requests, abandoned-cart recovery, and assisted buying let reps continue the conversation.",
+                  notes: ["Request a quote", "Automated cart reminders", "Place an order on a buyer's behalf"]
+                },
+                {
+                  label: "RETURN",
+                  title: "Make the next order cheaper to place",
+                  body: "Reordering and copy-cart flows reused the shipping, payment, and product context already on record.",
+                  notes: ["Repeat past orders", "Copy cart into quote or order", "Customer dashboard and recent activity"]
+                }
+              ]
+            },
+            {
+              type: "small-note",
+              text: "The August 2024 release email reported more than $130,000 in orders for the first WizShop client. Treat this as dated company-release evidence until the source and attribution are cleared for publication."
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "Communication became product infrastructure"
+            },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "A single email field exposed a system problem.",
+                  text: " Recipients were easy to miss, different tenants wanted different triggers, and every order, quote, payment, cancellation, or lead created another communication state."
+                },
+                {
+                  strong: "The solution grew from input UX into an org-wide model.",
+                  text: " The flow connected recipient suggestions, user permissions, event configuration, templates, resend behavior, and a record of what happened."
+                }
+              ]
+            },
+            {
+              type: "image",
+              src: "/assets/case-studies/7pNOxoU2UIQLghgLPRTMAgwU1AE.png",
+              alt: "Map of email touchpoints in the WizOrder sales journey",
+              caption: "Mapping email touchpoints across the sales-rep journey revealed the system behind the field."
+            },
+            {
+              type: "image",
+              src: "/assets/case-studies/6BIBiTr3GZQDFXe6IvdilhHDs.png",
+              alt: "Redesigned quote and order email checkpoint",
+              caption: "The order and quote checkpoint made recipients visible without turning communication into a separate workflow."
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "INPUT",
+                  title: "Make completion unambiguous",
+                  body: "The redesigned field clarified when an address was actually added and surfaced relevant suggestions.",
+                  notes: ["Inline suggestions", "Explicit add feedback", "Fewer repeated entries"]
+                },
+                {
+                  label: "TRIGGER",
+                  title: "Configure the event, not each screen",
+                  body: "The release archive describes 61 email triggers grouped across orders, payments, imports, integrations, and storefront events.",
+                  notes: ["Automatic or manual send", "Role-based ability to suppress", "Resend from the order record"]
+                },
+                {
+                  label: "RECIPIENT",
+                  title: "Put people into reusable buckets",
+                  body: "Recipient logic had to include customers, reps, admins, and editable ad-hoc addresses without rebuilding every flow.",
+                  notes: ["Default recipient rules", "User buckets", "Editable recipient lists"]
+                },
+                {
+                  label: "PAYMENT",
+                  title: "Close the loop after money moved",
+                  body: "Authorization, failure, void, and refund events gained emails and standardized receipts.",
+                  notes: ["Transaction receipts", "Failure and authorization states", "Auto-email imported invoices"]
+                }
+              ]
+            },
+            {
               type: "divider"
             },
             {
@@ -160,6 +444,35 @@ export const projects = {
               ]
             },
             {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "FIND",
+                  title: "Natural-language product discovery",
+                  body: "A rep could describe what they needed, search by image, or ask for visually similar products without abandoning the catalog.",
+                  notes: ["Prompted product search", "Image search and view similar", "Price-aware recommendations"]
+                },
+                {
+                  label: "ACT",
+                  title: "Move from an answer into work",
+                  body: "Useful assistant responses connected to the existing objects people already understood.",
+                  notes: ["Create carts, orders and catalogs", "Draft emails and tear sheets", "Suggest form values"]
+                },
+                {
+                  label: "PREPARE",
+                  title: "Bring customer context forward",
+                  body: "Customer summaries and recommendations helped reps prepare for a meeting before opening several reports.",
+                  notes: ["Recent activity summary", "Regional and behavioral picks", "Reorder and next-action cues"]
+                },
+                {
+                  label: "QUERY",
+                  title: "Ask the data a business question",
+                  body: "Natural-language reporting translated questions about sales and accounts into structured results.",
+                  notes: ["Text-to-SQL reporting", "Customer opportunity scoring", "Explainable sales insights"]
+                }
+              ]
+            },
+            {
               type: "divider"
             },
             {
@@ -203,11 +516,198 @@ export const projects = {
               ]
             },
             {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "MODEL",
+                  title: "Configuration moved to the SKU",
+                  body: "Different variants could expose different options, values, prices, quantities, images, and rules.",
+                  notes: ["Variant-level modifier sets", "Formula-driven price and quantity", "Conditional show, filter and prefill rules"]
+                },
+                {
+                  label: "FLOW",
+                  title: "A form became a guided builder",
+                  body: "The later Left Bank work replaced a dense dependency sheet with step-by-step configuration and live product feedback.",
+                  notes: ["Typeform-style steps", "Real-time image and description updates", "Edit directly from cart"]
+                },
+                {
+                  label: "CATALOG",
+                  title: "Product data stayed editable",
+                  body: "PIM improvements reduced repetitive work and made catalog corrections possible closer to their source.",
+                  notes: ["Editable SKU and inventory", "Variant attribute and pricelist inheritance", "Image-only import and original/transformed export"]
+                },
+                {
+                  label: "OUTPUT",
+                  title: "Configured products survived downstream",
+                  body: "Customizations had to remain legible in carts, orders, pricing, labels, exports, and product documents.",
+                  notes: ["Discount customized lines", "Scan customizable SKUs", "Tear sheets and repeat label counts"]
+                }
+              ]
+            },
+            {
               type: "divider"
             },
             {
               type: "heading",
-              text: "Visuals and lot more."
+              text: "Configurable by tenant, legible to humans"
+            },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "Enterprise flexibility accumulated quickly.",
+                  text: " Every customer could bring different ERP values, roles, numbering formats, shipping rules, price visibility, fields, gateways, and data ownership expectations."
+                },
+                {
+                  strong: "The design work was often about drawing a safe boundary.",
+                  text: " Users needed enough control to do their jobs while the system prevented unsupported inputs, hidden data loss, broken sync, and accidental access."
+                }
+              ]
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "ACCESS",
+                  title: "Permissions followed the action",
+                  body: "Controls became more granular as the platform moved into larger and more specialized teams.",
+                  notes: ["Order export separate from SSRM", "Discount and customer deletion permissions", "Attribute-level create, update and delete rules"]
+                },
+                {
+                  label: "FORMAT",
+                  title: "Client data kept its own language",
+                  body: "Numbering, addresses, tags, product fields, and ERP values needed configurable presentation and input rules.",
+                  notes: ["Custom prefix, suffix and starting sequence", "Separate billing and shipping configuration", "Read ERP-only values; constrain new inputs"]
+                },
+                {
+                  label: "SYNC",
+                  title: "Integration state became visible",
+                  body: "When external systems failed, teams needed to see what happened and recover without waiting for engineering.",
+                  notes: ["Last-sync status and failure reason", "Manual retry and communication tracker", "Order-source filters"]
+                },
+                {
+                  label: "CONNECT",
+                  title: "One UI, many systems of record",
+                  body: "The product connected orders, customers, products, inventory, invoices, shipments, and payments across different integration models.",
+                  notes: ["NetSuite, Business Central and QuickBooks", "FTP, S3, Shopify, Fishbowl and open APIs", "Tenant switcher and offline/online continuity"]
+                }
+              ]
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "The release trail"
+            },
+            {
+              type: "eyebrow",
+              text: "INTERNAL RELEASE ARCHIVE / JUNE 2024—SEPTEMBER 2025"
+            },
+            "The archive is useful because it shows the product as a sequence of operational decisions rather than a polished final screen. This ledger preserves the concrete release detail while the surrounding chapters explain the design argument.",
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "JUN 2024",
+                  title: "The configurable foundation",
+                  body: "The platform broadened the order model and the controls around it.",
+                  notes: ["Cart grouping, signatures and shipment status", "Dynamic product cards and modifiers", "Multi-client reps, customer CRUD and address configuration", "Worldpay, QuickBooks, Shopify, NAV and open APIs"]
+                },
+                {
+                  label: "AUG 2024",
+                  title: "Storefront, payments and offline maturity",
+                  body: "WizShop launched while WizPay and field-sales workflows became more production-ready.",
+                  notes: ["First WizShop launch and tenant branding", "Finix migration, direct payment, pre-auth and L3", "Customer insights and opportunity scoring", "Offline auto-sync, backups and new offline capabilities"]
+                },
+                {
+                  label: "LATE AUG 2024",
+                  title: "Operational visibility",
+                  body: "Release work made communication, ownership, customization, and integration health easier to follow.",
+                  notes: ["Email trigger and recipient system", "Written by/for and order tags", "SKU-level modifiers and cart editing", "Sync status, pre-login shop and sales-list redesign"]
+                },
+                {
+                  label: "FEB 2025",
+                  title: "Consolidating the operating system",
+                  body: "Navigation, data tables, offline work, storefront retention, and payment tooling moved together.",
+                  notes: ["SSRM custom views, filters and new navigation", "Data on device and download manager", "Reordering, abandoned carts and assisted buying", "Recurring payments, receipts and PCI tokenization"]
+                },
+                {
+                  label: "APR 2025",
+                  title: "Speeding up the rep",
+                  body: "The release centered on working multiple deals, acting from AI, and keeping commerce moving offline.",
+                  notes: ["Multi-cart and discount engine", "Kai search, actions, reporting and smart forms", "Scanning, physical count and offline cards", "ACH, PayFabric, Fortis and PCI vault support"]
+                },
+                {
+                  label: "MAY 2025",
+                  title: "Customer intelligence and self-serve systems",
+                  body: "The customer record became a more useful preparation and follow-up surface.",
+                  notes: ["Customer dashboard, CRM tasks, activities and notes", "Kai summaries and regional recommendations", "Bulk product actions, PIM and WizShop leads", "PDF template builder, data model and infrastructure work"]
+                },
+                {
+                  label: "AUG 2025",
+                  title: "Removing everyday friction",
+                  body: "Weekly releases targeted search, permissions, printing, shipping accuracy, configuration, and product data.",
+                  notes: ["Contextual cart search and customer/contact actions", "ERP value handling, export permission and shipping recalculation", "Offline PDF/Bluetooth print and label controls", "Left Bank builder, PIM and image import/export"]
+                },
+                {
+                  label: "SEP 2025",
+                  title: "Making the system easier to clean and adapt",
+                  body: "The final archived release simplified destructive actions, identifiers, repeat work, and cross-device search.",
+                  notes: ["Delete orders from any status and manage users", "Custom order numbering and PIM inventory editing", "Copy cart and enhanced customer search", "Tenant-specific ordering, pricing, file and payment rules"]
+                }
+              ]
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "Evidence, outcomes, and what still needs attribution"
+            },
+            {
+              type: "screen-grid",
+              screens: [
+                {
+                  label: "PAYMENTS",
+                  title: "11 customers",
+                  body: "Recorded as live on Finix in the August 2024 company release update.",
+                  notes: ["Dated company evidence", "Validate source and design attribution"]
+                },
+                {
+                  label: "STOREFRONT",
+                  title: "$130K+ in orders",
+                  body: "Reported for the first WizShop client after launch in the August 2024 update.",
+                  notes: ["Client-specific outcome", "Confirm public-use permission"]
+                },
+                {
+                  label: "PERFORMANCE",
+                  title: "70% faster cart loading",
+                  body: "The release archive also records user-database calls falling from roughly 300 to 50 per minute.",
+                  notes: ["Engineering-owned measure", "Connect only to relevant design decisions"]
+                },
+                {
+                  label: "ENABLEMENT",
+                  title: "4× template build speed",
+                  body: "The PDF template tool was reported to remove ₹6.3L per year in licensing cost; separate infrastructure work reported about 35% lower non-production cost.",
+                  notes: ["Company-release evidence", "Do not present as personal impact without proof"]
+                }
+              ]
+            },
+            {
+              type: "quote",
+              text: "The value of the archive is not the number of features. It is the evidence that the design had to keep working as the product absorbed more states, more clients, more surfaces, and more responsibility."
+            },
+            {
+              type: "small-note",
+              text: "DRAFT SOURCE NOTE — Populated from an internal release-email archive. Before publishing: remove employee addresses and confidential client details; replace any source placeholders; verify personal ownership, dates, metrics, and permissions for every claim."
+            },
+            {
+              type: "divider"
+            },
+            {
+              type: "heading",
+              text: "Visual systems and the work around the product"
             },
             {
               type: "red-columns",
@@ -257,7 +757,7 @@ export const projects = {
             },
             {
               type: "small-note",
-              text: "With time i had the liberty and opportunity to touch almost the entire product pipeline from ideation to product thinking to building this and then figuring out the marketing strategies with the respective."
+              text: "Over time the work expanded beyond core screens into product storytelling, marketing assets, reusable visual systems, and the connective tissue that helped different teams explain what was shipping."
             }
           ]
         },

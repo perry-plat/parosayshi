@@ -1,4 +1,5 @@
 import { useState, type CSSProperties, type ReactElement } from "react";
+import { AsteriskIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import type {
   AssetGridBlock,
   ImageBlock,
@@ -19,7 +20,7 @@ function SlipFigure({
 }) {
   return (
     <figure className={className}>
-      <img src={block.src} alt={block.alt || ""} loading={className.includes("slip-lead-figure") ? "eager" : "lazy"} />
+      <img src={block.src} alt={block.alt || ""} loading="eager" decoding="async" />
       {block.caption ? <figcaption>{block.caption}</figcaption> : null}
     </figure>
   );
@@ -88,7 +89,7 @@ function VideoCarousel({ block }: { block: VideoCarouselBlock }) {
           aria-label="Previous video"
           onClick={() => setActiveVideo(activeIndex - 1)}
         >
-          ‹
+          <CaretLeftIcon aria-hidden="true" size={32} weight="bold" />
         </button>
         <button
           className="video-carousel-arrow video-carousel-arrow-next"
@@ -96,7 +97,7 @@ function VideoCarousel({ block }: { block: VideoCarouselBlock }) {
           aria-label="Next video"
           onClick={() => setActiveVideo(activeIndex + 1)}
         >
-          ›
+          <CaretRightIcon aria-hidden="true" size={32} weight="bold" />
         </button>
         <div className="video-carousel-dots">
           {items.map((item, index) => (
@@ -132,7 +133,10 @@ function ScreenGrid({ block }: { block: ScreenGridBlock }) {
             <p>{screen.body}</p>
             <ul>
               {screen.notes.map((note) => (
-                <li key={note}>{note}</li>
+                <li key={note}>
+                  <AsteriskIcon aria-hidden="true" size={13} weight="bold" />
+                  <span>{note}</span>
+                </li>
               ))}
             </ul>
           </article>
@@ -148,7 +152,7 @@ function AssetGrid({ block }: { block: AssetGridBlock }) {
       <div className="asset-grid">
         {block.items.map((item) => (
           <div className="asset-card" key={`${item.src}-${item.label || ""}`}>
-            <img src={item.src} alt={item.alt || ""} loading="lazy" />
+            <img src={item.src} alt={item.alt || ""} loading="eager" decoding="async" />
             {item.label ? <span>{item.label}</span> : null}
           </div>
         ))}
@@ -181,7 +185,7 @@ function MediaRow({ block }: { block: MediaRowBlock }) {
     >
       <div className="media-row">
         {block.items.map((item) => (
-          <img key={item.src} src={item.src} alt={item.alt || ""} loading="lazy" />
+          <img key={item.src} src={item.src} alt={item.alt || ""} loading="eager" decoding="async" />
         ))}
       </div>
       {block.caption ? <figcaption>{block.caption}</figcaption> : null}
@@ -228,7 +232,10 @@ function BodyBlock({ block }: { block: Exclude<ProjectBodyBlock, string> }) {
       return (
         <ul>
           {block.items.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>
+              <AsteriskIcon aria-hidden="true" size={16} weight="bold" />
+              <span>{item}</span>
+            </li>
           ))}
         </ul>
       );

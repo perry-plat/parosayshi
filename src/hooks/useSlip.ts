@@ -5,6 +5,14 @@ import type { ProjectId } from "../types/project";
 
 export type SlipState = "closed" | "prepping" | "open" | "closing";
 
+export interface SlipEntryTransform {
+  rotate: number;
+  scaleX: number;
+  scaleY: number;
+  x: number;
+  y: number;
+}
+
 interface UseSlipArgs {
   paperRef: RefObject<HTMLElement | null>;
   slipRef: RefObject<HTMLElement | null>;
@@ -17,9 +25,21 @@ const isProjectId = (id: string | undefined): id is ProjectId =>
 export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
   const [slipState, setSlipState] = useState<SlipState>("closed");
   const [activeProject, setActiveProject] = useState<ProjectId | null>(null);
+  const [slipEntryTransform, setSlipEntryTransform] = useState<SlipEntryTransform>({
+    rotate: 0,
+    scaleX: 1,
+    scaleY: 1,
+    x: 0,
+    y: 0,
+  });
   const activeCard = useRef<HTMLElement | null>(null);
+  const interactionLocked = useRef(false);
   const lockedScrollY = useRef(0);
   const pushedSlipState = useRef(false);
+
+  const focusSlip = useCallback(() => {
+    slipRef.current?.focus({ preventScroll: true });
+  }, [slipRef]);
 
   const restoreLockedScroll = useCallback(() => {
     const root = document.documentElement;
@@ -36,12 +56,23 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
     const isMobile = window.innerWidth <= 760;
     const gutter = isMobile ? 14 : 28;
     const isNotebook = projectId === "notebook";
+    const isBottomSheetReader = projectId !== "notebook";
     if (isNotebook) {
       return {
         height: window.innerHeight,
         left: 0,
         top: 0,
         width: window.innerWidth,
+      };
+    }
+    if (isBottomSheetReader) {
+      const width = isMobile ? window.innerWidth : Math.round(window.innerWidth * 0.9);
+      const height = Math.round(window.innerHeight * (isMobile ? 0.93 : 0.9));
+      return {
+        height,
+        left: Math.round((window.innerWidth - width) / 2),
+        top: window.innerHeight - height,
+        width,
       };
     }
     const availableWidth = window.innerWidth - gutter * 2;
@@ -57,6 +88,33 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
       width,
     };
   }, []);
+
+  const getSlipEntryTransform = useCallback((card: HTMLElement, projectId: ProjectId): SlipEntryTransform => {
+    const source = card.getBoundingClientRect();
+    const target = getSlipRect(projectId);
+    const computed = window.getComputedStyle(card);
+    const rotationToken = computed.getPropertyValue("--book-responsive-rotate").trim()
+      || computed.getPropertyValue("--book-rotate").trim();
+    let rotate = Number.parseFloat(rotationToken) || 0;
+    let liveScaleX = 1;
+    let liveScaleY = 1;
+    if (computed.transform && computed.transform !== "none") {
+      const matrix = new DOMMatrixReadOnly(computed.transform);
+      liveScaleX = Math.hypot(matrix.a, matrix.b) || 1;
+      liveScaleY = Math.hypot(matrix.c, matrix.d) || 1;
+      rotate = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+    }
+    const sourceWidth = (card.offsetWidth || source.width) * liveScaleX;
+    const sourceHeight = (card.offsetHeight || source.height) * liveScaleY;
+
+    return {
+      rotate,
+      scaleX: Math.max(0.08, sourceWidth / target.width),
+      scaleY: Math.max(0.08, sourceHeight / target.height),
+      x: source.left + source.width / 2 - (target.left + target.width / 2),
+      y: source.top + source.height / 2 - (target.top + target.height / 2),
+    };
+  }, [getSlipRect]);
 
   const setSlipGeometry = useCallback(
     (_card: HTMLElement) => {
@@ -95,10 +153,13 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
   const openSlip = useCallback(
     (card: HTMLElement, pushState = true) => {
       const projectId = card.dataset.project;
-      if (!isProjectId(projectId)) return;
+      if (!isProjectId(projectId) || interactionLocked.current) return;
+      interactionLocked.current = true;
       activeCard.current = card;
       lockedScrollY.current = window.scrollY;
+      const entryTransform = getSlipEntryTransform(card, projectId);
       flushSync(() => {
+        setSlipEntryTransform(entryTransform);
         setActiveProject(projectId);
         setSlipState("prepping");
       });
@@ -110,26 +171,35 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         slip.scrollTop = 0;
       }
       setSlipState("open");
-      window.setTimeout(() => slip?.focus({ preventScroll: true }), reducedMotion ? 0 : 500);
+      if (reducedMotion) {
+        window.setTimeout(focusSlip, 0);
+      }
       if (pushState) {
         window.history.pushState({ newSlip: projectId }, "", `#${projectId}`);
         pushedSlipState.current = true;
       }
     },
-    [reducedMotion, setPaperTransformOrigin, setSlipGeometry, slipRef],
+    [focusSlip, getSlipEntryTransform, reducedMotion, setPaperTransformOrigin, setSlipGeometry, slipRef],
   );
 
   const finishClose = useCallback(() => {
     document.body.classList.remove("slip-is-returning");
-    const returningProject = activeCard.current?.dataset.project;
+    const returningCard = activeCard.current;
+    const returningProject = returningCard?.dataset.project;
     restoreLockedScroll();
     document.body.style.removeProperty("--slip-document-height");
     activeCard.current = null;
+    interactionLocked.current = false;
     setActiveProject(null);
     setSlipState("closed");
     if (returningProject) {
       window.requestAnimationFrame(() => {
-        document.querySelector<HTMLElement>(`.book-object[data-project="${returningProject}"]`)?.focus({ preventScroll: true });
+        window.requestAnimationFrame(() => {
+          const focusTarget = returningCard?.isConnected
+            ? returningCard
+            : document.querySelector<HTMLElement>(`.book-object[data-project="${returningProject}"]`);
+          focusTarget?.focus({ preventScroll: true });
+        });
       });
     }
   }, [restoreLockedScroll]);
@@ -142,7 +212,13 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         pushedSlipState.current = false;
         clearSlipHash();
       }
-      if (activeCard.current) setSlipGeometry(activeCard.current);
+      if (activeCard.current) {
+        const returningProject = activeCard.current.dataset.project;
+        if (isProjectId(returningProject)) {
+          setSlipEntryTransform(getSlipEntryTransform(activeCard.current, returningProject));
+        }
+        setSlipGeometry(activeCard.current);
+      }
       document.body.classList.add("slip-is-returning");
       document.body.classList.remove("slip-is-open");
       restoreLockedScroll();
@@ -152,7 +228,7 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         finishClose();
       }
     },
-    [activeProject, finishClose, reducedMotion, restoreLockedScroll, setSlipGeometry, slipRef, slipState],
+    [activeProject, finishClose, getSlipEntryTransform, reducedMotion, restoreLockedScroll, setSlipGeometry, slipRef, slipState],
   );
 
   useEffect(() => {
@@ -191,7 +267,9 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
     activeProject,
     closeSlip,
     finishClose,
+    focusSlip,
     openSlip,
+    slipEntryTransform,
     slipState,
   };
 }

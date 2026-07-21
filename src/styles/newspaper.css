@@ -36,6 +36,7 @@
   --image-tint-opacity: 0;
   --image-tint-blend: multiply;
   --display: "Averia Serif Libre", Georgia, serif;
+  --display-weight: 400;
   --text: "Crimson Pro", Georgia, serif;
   --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
 }
@@ -103,6 +104,7 @@ body {
   background-color: var(--page-table);
   color: var(--ink);
   font-family: var(--text);
+  font-synthesis: style;
   -webkit-font-smoothing: antialiased;
   transition: background-color 220ms ease, color 220ms ease;
 }
@@ -262,7 +264,7 @@ a {
   justify-self: center;
   font-family: var(--display);
   font-size: clamp(28px, 4vw, 52px);
-  font-weight: 700;
+  font-weight: var(--display-weight);
 }
 
 .loader-front-mast span:last-child {
@@ -277,7 +279,7 @@ a {
 .loader-front-headline {
   font-family: var(--display);
   font-size: clamp(34px, 5.7vw, 82px);
-  font-weight: 700;
+  font-weight: var(--display-weight);
   line-height: 0.88;
 }
 
@@ -690,7 +692,7 @@ body.is-entering .newspaper-shell {
   color: rgb(var(--rule-rgb) / 0.64);
   font-family: var(--display);
   font-size: clamp(24px, 4vw, 42px);
-  font-weight: 700;
+  font-weight: var(--display-weight);
 }
 
 .loader-roll.is-active .loader-side-flap {
@@ -1297,7 +1299,7 @@ body:has(.project-slip:not(.notebook-slip)).slip-is-returning .newspaper-shell {
   border-radius: 8px;
   font-family: var(--display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: var(--display-weight);
 }
 
 .page-rail-right {
@@ -1773,6 +1775,73 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   place-items: center;
 }
 
+.notebook-reader-object {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 800px);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+}
+
+.notebook-reader-object > .css-flipbook-book {
+  width: 100%;
+  height: 100%;
+}
+
+.notebook-close-button {
+  position: absolute;
+  top: 16px;
+  right: -12px;
+  z-index: 20;
+  display: inline-flex;
+  min-height: 34px;
+  padding: 8px 10px 8px 12px;
+  align-items: center;
+  gap: 8px;
+  color: #f7f1e7;
+  background: #26211d;
+  border: 1px solid rgb(247 241 231 / 0.72);
+  border-radius: 2px;
+  box-shadow: 3px 5px 10px rgb(42 28 13 / 0.18);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(1.4deg);
+  transition: background-color 160ms ease, opacity 180ms ease, transform 160ms ease;
+}
+
+.notebook-close-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.notebook-close-button span:last-child {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 0.7;
+}
+
+.notebook-close-button > svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.notebook-close-button:hover,
+.notebook-close-button:focus-visible {
+  color: #26211d;
+  background: #f7f1e7;
+  border-color: #26211d;
+  outline: none;
+  transform: translateY(-2px) rotate(0.4deg);
+}
+
 .sketchbook-stage::after {
   position: absolute;
   z-index: 0;
@@ -2128,12 +2197,103 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
 }
 
 .notebook-slip .css-flipbook-book {
+  width: 100%;
+  pointer-events: auto;
+}
+
+.notebook-slip .notebook-reader-object {
   width: min(100%, 900px);
   max-width: 900px;
 }
 
-.notebook-slip .css-flipbook-book {
+.inline-notebook-reader {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 30;
+  width: min(900px, calc(100vw - 40px));
+  height: auto;
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 761px) and (max-width: 1040px) {
+  .inline-notebook-reader {
+    width: min(820px, 86vw);
+  }
+}
+
+.inline-notebook-reader .sketchbook-section,
+.inline-notebook-reader .sketchbook-realism,
+.inline-notebook-reader .sketchbook-stage {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+}
+
+.inline-notebook-reader .sketchbook-section {
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+  place-items: center;
+}
+
+.inline-notebook-reader .sketchbook-heading,
+.inline-notebook-reader .sketchbook-footer {
+  display: none;
+}
+
+.inline-notebook-reader .sketchbook-realism {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  place-items: center;
+}
+
+.inline-notebook-reader .sketchbook-stage {
+  grid-column: 1;
+}
+
+.inline-notebook-reader .sketchbook-stage::after {
+  display: none;
+}
+
+.inline-notebook-reader .notebook-reader-object {
+  width: min(100%, 900px);
+  max-width: 900px;
+  transition: transform 760ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.inline-notebook-reader .css-flipbook-book {
   pointer-events: auto;
+}
+
+.inline-notebook-reader .sketchbook-realism.is-front-cover .notebook-reader-object {
+  transform: rotate(1.5deg);
+}
+
+.inline-notebook-reader .sketchbook-section[data-auto-opening="true"] .css-flipbook-sheet:first-child {
+  animation: inline-notebook-cover-open var(--turn-duration) cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes inline-notebook-cover-open {
+  from {
+    transform: translateZ(var(--sheet-depth)) rotateY(0deg);
+  }
+
+  to {
+    transform: translateZ(var(--sheet-depth)) rotateY(-180deg);
+  }
+}
+
+.folio-scene[data-mat-shadow="true"] .inline-notebook-reader .notebook-reader-object {
+  filter:
+    drop-shadow(var(--sun-contact-shadow-x) var(--sun-contact-shadow-y) var(--sun-contact-shadow-blur) var(--sun-contact-shadow-color))
+    drop-shadow(var(--sun-shadow-x) var(--sun-shadow-y) var(--sun-shadow-blur) var(--sun-shadow-color));
+}
+
+.book-object[data-project="notebook"][aria-expanded="true"] {
+  pointer-events: none;
 }
 
 .intro-columns p:nth-child(2) {
@@ -2928,14 +3088,15 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
 }
 
 .slip-body li::before {
+  content: none;
+}
+
+.slip-body li > svg {
   position: absolute;
   left: 2px;
-  top: 0.08em;
+  top: 0.22em;
+  display: block;
   color: var(--accent);
-  content: "*";
-  font-family: var(--display);
-  font-size: 20px;
-  line-height: 1;
 }
 
 .slip-figure {
@@ -3031,11 +3192,11 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   background: rgba(92, 92, 92, 0.76);
   color: #fff;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 58px;
-  font-weight: 200;
-  line-height: 1;
   transform: translateY(-50%);
+}
+
+.video-carousel-arrow > svg {
+  display: block;
 }
 
 .video-carousel-arrow-prev {
@@ -3604,15 +3765,40 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
     place-items: center;
   }
 
+  .inline-notebook-reader {
+    width: min(78vw, 380px);
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
+
+  .inline-notebook-reader .sketchbook-realism {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .notebook-reader-object.is-mobile-reader-object {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+  }
+
   .mobile-notebook-book {
     position: relative;
-    width: min(86vw, 420px);
+    width: 100%;
+    height: 100%;
     aspect-ratio: 2 / 3;
     cursor: grab;
     outline: 0;
+    pointer-events: auto;
     touch-action: pan-y;
     -webkit-user-select: none;
     user-select: none;
+  }
+
+  .notebook-close-button {
+    top: 10px;
+    right: -6px;
+    min-height: 32px;
+    padding: 7px 8px 7px 10px;
   }
 
   .mobile-notebook-book:active {

@@ -8,6 +8,7 @@ import {
   type MouseEvent,
   type PointerEvent,
 } from "react";
+import { XIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
@@ -128,11 +129,13 @@ function NotebookPageFace({ page, pageIndex }: { page: NotebookPage; pageIndex: 
 }
 
 interface SketchbookProps {
+  autoOpen?: boolean;
+  onClose?: () => void;
   openSlip?: (card: HTMLElement) => void;
   variant?: "preview" | "expanded";
 }
 
-export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
+export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "preview" }: SketchbookProps) {
   const reducedMotion = useReducedMotion();
   const sheets = useMemo(() => pairPages(pages), []);
   const [currentLeaf, setCurrentLeaf] = useState(0);
@@ -192,6 +195,21 @@ export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
     setMobileHasTurned(true);
     setCurrentMobilePage((page) => page + 1);
   };
+
+  useEffect(() => {
+    if (!autoOpen || variant !== "expanded") return;
+    const openingDelay = window.setTimeout(() => {
+      if (isMobileReader) {
+        setMobileDirection(1);
+        setMobileHasTurned(true);
+        setCurrentMobilePage(1);
+        return;
+      }
+      setCurrentLeaf(1);
+      if (!reducedMotion) setTurningIndex(0);
+    }, reducedMotion ? 0 : 160);
+    return () => window.clearTimeout(openingDelay);
+  }, [autoOpen, isMobileReader, reducedMotion, variant]);
 
   const handleKeys = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowLeft") {
@@ -278,6 +296,18 @@ export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
       ? `Back cover ${String(pages.length).padStart(2, "0")} / ${String(pages.length).padStart(2, "0")}`
       : `Pages ${String(currentLeaf * 2).padStart(2, "0")}–${String(currentLeaf * 2 + 1).padStart(2, "0")} / ${String(pages.length).padStart(2, "0")}`;
   const coverPosition = isFrontCover ? " is-front-cover" : isBackCover ? " is-back-cover" : "";
+  const closeReady = isMobileReader ? currentMobilePage > 0 : currentLeaf > 0 && turningIndex === null;
+  const closeControl = onClose ? (
+    <button
+      className={`notebook-close-button${closeReady ? " is-visible" : ""}`}
+      type="button"
+      aria-label="Close field notes"
+      onClick={onClose}
+    >
+      <span>CLOSE</span>
+      <XIcon aria-hidden="true" size={16} weight="regular" />
+    </button>
+  ) : null;
 
   if (isMobileReader) {
     const mobilePage = pages[currentMobilePage];
@@ -291,32 +321,35 @@ export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
 
         <div className="sketchbook-realism is-mobile-single" onKeyDown={handleKeys}>
           <div className="sketchbook-stage is-mobile-single-stage">
-            <div
-              className="mobile-notebook-book"
-              role="group"
-              aria-label="Interactive field notebook"
-              aria-live="polite"
-              tabIndex={0}
-              onClick={handleBookClick}
-              onPointerCancel={() => {
-                pointerStart.current = null;
-              }}
-              onPointerDown={handlePointerDown}
-              onPointerUp={handlePointerUp}
-            >
-              <motion.div
-                className="mobile-notebook-page-shell"
-                key={currentMobilePage}
-                initial={
-                  reducedMotion || !mobileHasTurned
-                    ? false
-                    : { opacity: 0.9, rotate: mobileDirection > 0 ? 0.7 : -0.7, x: mobileDirection * 20 }
-                }
-                animate={{ opacity: 1, rotate: 0, x: 0 }}
-                transition={{ duration: reducedMotion ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}
+            <div className="notebook-reader-object is-mobile-reader-object">
+              <div
+                className="mobile-notebook-book"
+                role="group"
+                aria-label="Interactive field notebook"
+                aria-live="polite"
+                tabIndex={0}
+                onClick={handleBookClick}
+                onPointerCancel={() => {
+                  pointerStart.current = null;
+                }}
+                onPointerDown={handlePointerDown}
+                onPointerUp={handlePointerUp}
               >
-                <NotebookPageFace page={mobilePage} pageIndex={currentMobilePage} />
-              </motion.div>
+                <motion.div
+                  className="mobile-notebook-page-shell"
+                  key={currentMobilePage}
+                  initial={
+                    reducedMotion || !mobileHasTurned
+                      ? false
+                      : { opacity: 0.9, rotate: mobileDirection > 0 ? 0.7 : -0.7, x: mobileDirection * 20 }
+                  }
+                  animate={{ opacity: 1, rotate: 0, x: 0 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <NotebookPageFace page={mobilePage} pageIndex={currentMobilePage} />
+                </motion.div>
+              </div>
+              {closeControl}
             </div>
           </div>
 
@@ -333,7 +366,11 @@ export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
   }
 
   return (
-    <section className="sketchbook-section is-expanded" aria-labelledby="expanded-sketchbook-title">
+    <section
+      className="sketchbook-section is-expanded"
+      aria-labelledby="expanded-sketchbook-title"
+      data-auto-opening={autoOpen && currentLeaf === 1 && turningIndex === 0 ? "true" : undefined}
+    >
       <div className="sketchbook-heading">
         <p>Loose pages / 01&ndash;06</p>
         <h2 id="expanded-sketchbook-title">Things that stayed in the notebook.</h2>
@@ -341,48 +378,62 @@ export function Sketchbook({ openSlip, variant = "preview" }: SketchbookProps) {
 
       <div className={`sketchbook-realism${coverPosition}`} onKeyDown={handleKeys}>
         <div className="sketchbook-stage">
-          <div
-            className="css-flipbook-book"
-            role="group"
-            aria-label="Interactive field notebook"
-            aria-live="polite"
-            tabIndex={0}
-            onClick={handleBookClick}
-            onPointerCancel={() => {
-              pointerStart.current = null;
-            }}
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-          >
-            {sheets.map((sheet, index) => {
-              const isFlipped = index < currentLeaf;
-              const isTurning = index === turningIndex;
-              const depth = (isFlipped ? index + 1 : sheets.length - index) * 0.35;
-              const style = {
-                "--sheet-depth": `${depth}px`,
-                "--sheet-rotation": isFlipped ? "-180deg" : "0deg",
-                "--turn-duration": reducedMotion ? "0ms" : "760ms",
-                zIndex: isTurning ? sheets.length + 10 : isFlipped ? index + 1 : sheets.length - index,
-              } as CSSProperties;
+          <div className="notebook-reader-object">
+            <div
+              className="css-flipbook-book"
+              role="group"
+              aria-label="Interactive field notebook"
+              aria-live="polite"
+              tabIndex={0}
+              onClick={handleBookClick}
+              onPointerCancel={() => {
+                pointerStart.current = null;
+              }}
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+            >
+              {sheets.map((sheet, index) => {
+                const isFlipped = index < currentLeaf;
+                const isTurning = index === turningIndex;
+                const depth = (isFlipped ? index + 1 : sheets.length - index) * 0.35;
+                const style = {
+                  "--sheet-depth": `${depth}px`,
+                  "--sheet-rotation": isFlipped ? "-180deg" : "0deg",
+                  "--turn-duration": reducedMotion ? "0ms" : "760ms",
+                  zIndex: isTurning ? sheets.length + 10 : isFlipped ? index + 1 : sheets.length - index,
+                } as CSSProperties;
 
-              return (
-                <div
-                  className={`css-flipbook-sheet${isFlipped ? " is-flipped" : ""}${isTurning ? " is-turning" : ""}`}
-                  key={`${sheet.frontIndex}-${sheet.backIndex}`}
-                  style={style}
-                  onTransitionEnd={(event) => {
-                    if (event.propertyName === "transform" && isTurning) setTurningIndex(null);
-                  }}
-                >
-                  <div className="css-flipbook-face is-front" aria-hidden={index !== currentLeaf}>
-                    <NotebookPageFace page={sheet.front} pageIndex={sheet.frontIndex} />
+                return (
+                  <div
+                    className={`css-flipbook-sheet${isFlipped ? " is-flipped" : ""}${isTurning ? " is-turning" : ""}`}
+                    key={`${sheet.frontIndex}-${sheet.backIndex}`}
+                    style={style}
+                    onTransitionEnd={(event) => {
+                      if (event.currentTarget === event.target && event.propertyName === "transform" && isTurning) {
+                        setTurningIndex(null);
+                      }
+                    }}
+                    onAnimationEnd={(event) => {
+                      if (
+                        event.currentTarget === event.target
+                        && event.animationName === "inline-notebook-cover-open"
+                        && isTurning
+                      ) {
+                        setTurningIndex(null);
+                      }
+                    }}
+                  >
+                    <div className="css-flipbook-face is-front" aria-hidden={index !== currentLeaf}>
+                      <NotebookPageFace page={sheet.front} pageIndex={sheet.frontIndex} />
+                    </div>
+                    <div className="css-flipbook-face is-back" aria-hidden={index !== currentLeaf - 1}>
+                      <NotebookPageFace page={sheet.back} pageIndex={sheet.backIndex} />
+                    </div>
                   </div>
-                  <div className="css-flipbook-face is-back" aria-hidden={index !== currentLeaf - 1}>
-                    <NotebookPageFace page={sheet.back} pageIndex={sheet.backIndex} />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            {closeControl}
           </div>
         </div>
 

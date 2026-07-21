@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from "react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { BookVolumeVisual, type BookCoverVisualData } from "./BookVolumeVisual";
 import { LeadMedia, SlipBody } from "./SlipBody";
@@ -307,7 +308,12 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
                   style={focusedCoverStyle}
                   aria-label={`Open the complete ${cover.title} case study`}
                 >
-                  <BookVolumeVisual cover={cover} edition={project.edition} layoutId={`focused-book-${projectId}`} />
+                  <BookVolumeVisual
+                    cover={cover}
+                    edition={project.edition}
+                    layoutId={`focused-book-${projectId}`}
+                    projectId={projectId}
+                  />
                 </button>
               </div>
               <section className="case-book-page case-book-cover-face is-back case-book-page-left">
@@ -319,9 +325,13 @@ export const ProjectSlip = forwardRef<HTMLElement, ProjectSlipProps>(function Pr
 
       {isMagazineOpen && !isCoverTurning ? (
           <nav className="magazine-pagination" aria-label="Case study pages">
-            <button type="button" onClick={() => turnTo(spreadIndex - 1)} disabled={spreadIndex === 0 || Boolean(turningDirection)} aria-label="Previous spread">←</button>
+            <button type="button" onClick={() => turnTo(spreadIndex - 1)} disabled={spreadIndex === 0 || Boolean(turningDirection)} aria-label="Previous spread">
+              <ArrowLeftIcon aria-hidden="true" size={18} weight="regular" />
+            </button>
             <span>{String(spreadIndex + 1).padStart(2, "0")} / {String(spreadCount).padStart(2, "0")}</span>
-            <button type="button" onClick={() => turnTo(spreadIndex + 1)} disabled={spreadIndex === spreadCount - 1 || Boolean(turningDirection)} aria-label="Next spread">→</button>
+            <button type="button" onClick={() => turnTo(spreadIndex + 1)} disabled={spreadIndex === spreadCount - 1 || Boolean(turningDirection)} aria-label="Next spread">
+              <ArrowRightIcon aria-hidden="true" size={18} weight="regular" />
+            </button>
           </nav>
       ) : null}
     </motion.aside>

@@ -1,0 +1,344 @@
+.case-study-bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 81;
+  background: transparent;
+  backdrop-filter: blur(4px) saturate(0.95);
+  -webkit-backdrop-filter: blur(4px) saturate(0.95);
+  pointer-events: auto;
+}
+
+body:has(.case-study-bottom-sheet) .folio-scene {
+  filter: none !important;
+  isolation: auto;
+  transition: none !important;
+}
+
+body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
+  z-index: 79;
+  transition-duration: 420ms !important;
+}
+
+.project-slip.case-study-bottom-sheet {
+  --entry-folder-deep: #872619;
+  --entry-folder-ink: #fff0cf;
+  --entry-folder-tint: #cf482d;
+  --sheet-ink: #24211d;
+  --sheet-muted: #716a61;
+  --sheet-rule: rgb(52 47 42 / 0.18);
+  --sheet-accent: #6e1f38;
+  display: grid;
+  grid-template-rows: 58px minmax(0, 1fr);
+  isolation: isolate;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgb(48 44 39 / 0.24);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+  background-color: #f2eee6;
+  background-image: linear-gradient(115deg, rgb(255 255 255 / 0.42), transparent 30%);
+  color: var(--sheet-ink);
+  box-shadow: 0 -18px 54px rgb(12 24 18 / 0.2);
+  transform-origin: 50% 100%;
+  transition:
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-slip.case-study-bottom-sheet[data-entry-shape="folder"] {
+  will-change: opacity, transform;
+}
+
+.project-slip.case-study-bottom-sheet[data-surface="paper"] {
+  background-color: #f2eee6;
+}
+
+.project-slip.case-study-bottom-sheet[data-surface="frost"] {
+  --sheet-ink: color-mix(in srgb, var(--entry-folder-deep) 84%, #1f1511 16%);
+  --sheet-muted: color-mix(in srgb, var(--entry-folder-deep) 74%, #5d463c 26%);
+  --sheet-rule: color-mix(in srgb, var(--entry-folder-deep) 32%, transparent);
+  --sheet-accent: var(--entry-folder-deep);
+  background-color: color-mix(in srgb, var(--entry-folder-tint) 58%, transparent);
+  background-image: linear-gradient(120deg, rgb(255 248 232 / 0.34), transparent 34%);
+  border-color: color-mix(in srgb, var(--entry-folder-ink) 46%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--entry-folder-ink) 62%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--entry-folder-deep) 15%, transparent),
+    0 -20px 58px rgb(34 15 9 / 0.22);
+  backdrop-filter: blur(16px) saturate(1.1) contrast(1.01);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1) contrast(1.01);
+}
+
+.project-slip.case-study-bottom-sheet::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(103deg, rgb(255 255 255 / 0.055) 0 1px, transparent 1px 7px),
+    radial-gradient(circle at 15% 0%, rgb(255 255 255 / 0.3), transparent 31%);
+  content: "";
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.project-slip.case-study-bottom-sheet[data-surface="frost"]::before {
+  opacity: 0.56;
+}
+
+.case-study-bottom-sheet-toolbar,
+.case-study-bottom-sheet-progress,
+.case-study-bottom-sheet-viewport {
+  position: relative;
+  z-index: 2;
+}
+
+.case-study-bottom-sheet-toolbar {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) auto;
+  min-width: 0;
+  gap: 18px;
+  align-items: center;
+  padding: 8px 12px 8px 18px;
+  border-bottom: 1px solid var(--sheet-rule);
+  transition: background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-toolbar {
+  background-color: color-mix(in srgb, var(--entry-folder-ink) 10%, transparent);
+}
+
+.case-study-bottom-sheet-title {
+  display: block;
+  min-width: 0;
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+
+.case-study-bottom-sheet-title strong {
+  display: block;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.case-study-bottom-sheet-controls {
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.case-study-surface-switcher,
+.case-study-bottom-sheet-progress-copy,
+.case-study-bottom-sheet-close {
+  min-height: 34px;
+  border: 1px solid var(--sheet-rule);
+  background: rgb(255 255 255 / 0.34);
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transition:
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-bottom-sheet[data-surface="frost"] .case-study-surface-switcher,
+.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-progress-copy,
+.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-close {
+  background-color: color-mix(in srgb, var(--entry-folder-ink) 22%, transparent);
+}
+
+.case-study-surface-switcher {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(48px, 1fr));
+}
+
+.case-study-surface-switcher button {
+  min-width: 52px;
+  padding: 0 9px;
+  border: 0;
+  border-right: 1px solid var(--sheet-rule);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.case-study-surface-switcher button:last-child {
+  border-right: 0;
+}
+
+.case-study-surface-switcher button[aria-pressed="true"] {
+  background: var(--sheet-ink);
+  color: #fffdf7;
+}
+
+.case-study-bottom-sheet[data-surface="frost"] .case-study-surface-switcher button[aria-pressed="true"] {
+  color: var(--entry-folder-ink);
+}
+
+.case-study-bottom-sheet-progress-copy {
+  display: grid;
+  min-width: 96px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 0 9px;
+}
+
+.case-study-bottom-sheet-progress-copy span {
+  overflow: hidden;
+  color: var(--sheet-muted);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.case-study-bottom-sheet-progress-copy b {
+  font-size: 8px;
+}
+
+.case-study-bottom-sheet-close {
+  display: grid;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  place-items: center;
+}
+
+.case-study-bottom-sheet-close > svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-close {
+  color: #111;
+}
+
+.project-slip.case-study-bottom-sheet button:focus-visible,
+.project-slip.case-study-bottom-sheet [tabindex]:focus-visible {
+  outline: 2px solid #df9d27;
+  outline-offset: 2px;
+}
+
+.case-study-bottom-sheet-progress {
+  display: block;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--sheet-accent) 0 var(--reader-progress),
+    rgb(39 35 31 / 0.13) var(--reader-progress)
+  );
+}
+
+.case-study-bottom-sheet-viewport {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background-color: rgb(236 232 224 / 0.72);
+  transition: background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-viewport {
+  background-color: color-mix(in srgb, var(--entry-folder-tint) 34%, transparent);
+}
+
+@media (max-width: 820px) {
+  .project-slip.case-study-bottom-sheet {
+    grid-template-rows: 56px minmax(0, 1fr);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .case-study-bottom-sheet-toolbar {
+    grid-template-columns: minmax(58px, 1fr) auto;
+    gap: 7px;
+    padding: 7px 6px 7px 10px;
+  }
+
+  .case-study-bottom-sheet-title strong {
+    font-size: 10px;
+  }
+
+  .case-study-bottom-sheet-controls {
+    gap: 4px;
+  }
+
+  .case-study-surface-switcher,
+  .case-study-bottom-sheet-progress-copy,
+  .case-study-bottom-sheet-close {
+    min-height: 32px;
+  }
+
+  .case-study-surface-switcher {
+    grid-template-columns: repeat(2, 42px);
+  }
+
+  .case-study-surface-switcher button {
+    min-width: 42px;
+    padding: 0 5px;
+    font-size: 6px;
+  }
+
+  .case-study-bottom-sheet-progress-copy {
+    min-width: 42px;
+    grid-template-columns: 1fr;
+    place-items: center;
+    padding: 0 6px;
+  }
+
+  .case-study-bottom-sheet-progress-copy span {
+    display: none;
+  }
+
+  .case-study-bottom-sheet-close {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 420px) {
+  .case-study-bottom-sheet-toolbar {
+    grid-template-columns: minmax(42px, 1fr) auto;
+  }
+
+  .case-study-surface-switcher {
+    grid-template-columns: repeat(2, 38px);
+  }
+
+  .case-study-surface-switcher button {
+    min-width: 38px;
+    padding: 0 3px;
+  }
+
+  .case-study-bottom-sheet-progress-copy {
+    min-width: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(.case-study-bottom-sheet) .folio-scene,
+  body:has(.case-study-bottom-sheet) .mat-sunlight-shader,
+  .case-study-surface-switcher button {
+    transition: none !important;
+  }
+
+}
