@@ -1,0 +1,86 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 840 560"
+  role="img"
+  aria-labelledby="plant-set-title plant-set-description"
+  color="#11100d"
+  shape-rendering="crispEdges"
+>
+  <title id="plant-set-title">Six pixel plant figures</title>
+  <desc id="plant-set-description">
+    Six independently grouped botanical silhouettes arranged in two rows.
+  </desc>
+
+  <style>
+    .plant-object {
+      fill: currentColor;
+    }
+  </style>
+
+  <!-- Every plant is a separate, named object with its own local pixel grid. -->
+  <g
+    id="plant-01-crown"
+    class="plant-object"
+    data-plant="crown"
+    transform="translate(64 32)"
+    aria-label="Crown-shaped flower"
+  >
+    <title>Crown-shaped flower</title>
+    <path d="M80 0h16v16H80ZM0 16h32v16H0Zm64 0h48v16H64Zm80 0h32v16h-32ZM0 32h48v16H0Zm64 0h48v16H64Zm64 0h48v16h-48ZM16 48h144v16H16Zm32 16h80v16H48Zm16 16h48v16H64Zm16 16h16v16H80ZM0 112h32v16H0Zm80 0h16v16H80Zm64 0h32v16h-32ZM0 128h48v16H0Zm80 0h16v16H80Zm48 0h48v16h-48ZM16 144h48v16H16Zm64 0h16v16H80Zm32 0h48v16h-48ZM80 160h16v16H80Zm0 16h16v16H80Zm0 16h16v16H80Zm0 16h16v16H80Zm0 16h16v16H80Z"/>
+  </g>
+
+  <g
+    id="plant-02-cluster"
+    class="plant-object"
+    data-plant="cluster"
+    transform="translate(316 32)"
+    aria-label="Clustered flower"
+  >
+    <title>Clustered flower</title>
+    <path d="M64 0h32v16H64Zm48 0h32v16h-32ZM48 16h112v16H48Zm0 16h112v16H48ZM16 48h32v16H16Zm48 0h80v16H64Zm96 0h32v16h-32ZM0 64h64v16H0Zm80 0h48v16H80Zm64 0h64v16h-64ZM0 80h80v16H0Zm96 0h16v16H96Zm32 0h80v16h-80ZM16 96h176v16H16ZM0 112h80v16H0Zm96 0h16v16H96Zm32 0h80v16h-80ZM16 128h32v16H16Zm80 0h16v16H96Zm64 0h32v16h-32ZM96 144h16v16H96Zm0 16h16v16H96Zm0 16h16v16H96Zm0 16h16v16H96Zm0 16h16v16H96Zm0 16h16v16H96Z"/>
+  </g>
+
+  <g
+    id="plant-03-canopy"
+    class="plant-object"
+    data-plant="canopy"
+    transform="translate(632 32)"
+    aria-label="Canopy plant"
+  >
+    <title>Canopy plant</title>
+    <path d="M64 0h16v16H64ZM48 16h48v16H48ZM0 32h144v16H0Zm0 16h144v16H0Zm0 16h144v16H0ZM16 80h112v16H16Zm32 16h48v16H48Zm0 16h48v16H48Zm16 16h16v16H64Zm0 16h16v16H64ZM16 160h112v16H16ZM0 176h48v16H0Zm64 0h16v16H64Zm32 0h48v16H96ZM0 192h48v16H0Zm64 0h16v16H64Zm48 0h32v16h-32ZM64 208h16v16H64Zm0 16h16v16H64Z"/>
+  </g>
+
+  <g
+    id="plant-04-heart"
+    class="plant-object"
+    data-plant="heart"
+    transform="translate(64 304)"
+    aria-label="Heart-shaped flower"
+  >
+    <title>Heart-shaped flower</title>
+    <path d="M80 0h16v16H80ZM64 16h48v16H64ZM0 32h32v16H0Zm48 0h80v16H48Zm96 0h32v16h-32ZM0 48h176v16H0ZM16 64h144v16H16ZM32 80h112v16H32Zm0 16h112v16H32Zm16 16h80v16H48Zm32 16h16v16H80Zm0 16h16v16H80ZM0 160h48v16H0Zm80 0h16v16H80Zm48 0h48v16h-48ZM0 176h16v16H0Zm32 0h32v16H32Zm48 0h16v16H80Zm32 0h32v16h-32Zm48 0h16v16h-16ZM0 192h32v16H0Zm48 0h16v16H48Zm32 0h16v16H80Zm32 0h16v16h-16Zm32 0h32v16h-32ZM16 208h32v16H16Zm64 0h16v16H80Zm48 0h32v16h-32ZM80 224h16v16H80Z"/>
+  </g>
+
+  <g
+    id="plant-05-sprig"
+    class="plant-object"
+    data-plant="sprig"
+    transform="translate(332 304)"
+    aria-label="Geometric sprig"
+  >
+    <title>Geometric sprig</title>
+    <path d="M80 0h16v16H80ZM64 16h48v16H64ZM32 32h16v16H32Zm32 0h48v16H64Zm64 0h16v16h-16ZM16 48h32v16H16Zm48 0h48v16H64Zm64 0h32v16h-32ZM32 64h112v16H32ZM16 80h32v16H16Zm48 0h48v16H64Zm64 0h32v16h-32ZM16 96h32v16H16Zm64 0h16v16H80Zm48 0h32v16h-32ZM64 112h48v16H64ZM80 128h16v16H80Zm0 16h16v16H80ZM16 160h32v16H16Zm64 0h16v16H80Zm48 0h32v16h-32ZM32 176h32v16H32Zm48 0h16v16H80Zm32 0h32v16h-32ZM32 192h32v16H32Zm48 0h16v16H80Zm32 0h32v16h-32ZM48 208h16v16H48Zm32 0h16v16H80Zm32 0h32v16h-32ZM80 224h16v16H80Z"/>
+  </g>
+
+  <g
+    id="plant-06-diamond"
+    class="plant-object"
+    data-plant="diamond"
+    transform="translate(632 304)"
+    aria-label="Diamond-pattern flower"
+  >
+    <title>Diamond-pattern flower</title>
+    <path d="M48 0h48v16H48Zm0 16h64v16H48ZM32 32h80v16H32ZM0 48h48v16H0Zm64 0h16v16H64Zm32 0h48v16H96ZM0 64h64v16H0Zm80 0h64v16H80ZM0 80h48v16H0Zm64 0h16v16H64Zm32 0h48v16H96ZM16 96h80v16H16Zm96 0h16v16h-16ZM32 112h80v16H32ZM48 128h48v16H48ZM16 160h32v16H16Zm48 0h16v16H64Zm32 0h32v16H96ZM32 176h16v16H32Zm32 0h16v16H64Zm32 0h16v16H96ZM16 192h16v16H16Zm48 0h16v16H64Zm48 0h16v16h-16ZM64 208h16v16H64Zm0 16h16v16H64Z"/>
+  </g>
+</svg>
