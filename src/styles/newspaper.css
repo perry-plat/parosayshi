@@ -24,6 +24,12 @@
   --logo-border: #2d2b29;
   --logo-border-hover: #00a982;
   --paper-edge: rgb(var(--rule-rgb) / 0.14);
+  --paper-stock: #efeee8;
+  --paper-stock-highlight: #f5f4ef;
+  --paper-stock-shadow: #e6e4dc;
+  --paper-speckle-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='paperSpeckles' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='1' seed='13' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='matrix' values='0 0 0 0 .22 0 0 0 0 .21 0 0 0 0 .19 -3.3 -3.3 -3.3 0 4.15'/%3E%3C/filter%3E%3Crect width='180' height='180' fill='%23000' filter='url(%23paperSpeckles)'/%3E%3C/svg%3E");
+  --paper-speckle-size: 180px 180px;
+  --paper-speckle-opacity: 0.24;
   --noise-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23paperNoise)' opacity='.72'/%3E%3C/svg%3E");
   --noise-blend: multiply;
   --page-noise-opacity: 0.11;
@@ -36,6 +42,7 @@
   --image-tint-opacity: 0;
   --image-tint-blend: multiply;
   --display: "Averia Serif Libre", Georgia, serif;
+  --display-tracking: -0.1em;
   --display-weight: 400;
   --text: "Crimson Pro", Georgia, serif;
   --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
@@ -173,7 +180,7 @@ a {
   font-family: var(--display);
   font-size: clamp(30px, 4vw, 52px);
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: var(--display-tracking);
 }
 
 .loader-shutter {
@@ -265,6 +272,7 @@ a {
   font-family: var(--display);
   font-size: clamp(28px, 4vw, 52px);
   font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 
 .loader-front-mast span:last-child {
@@ -280,6 +288,7 @@ a {
   font-family: var(--display);
   font-size: clamp(34px, 5.7vw, 82px);
   font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
   line-height: 0.88;
 }
 
@@ -693,6 +702,7 @@ body.is-entering .newspaper-shell {
   font-family: var(--display);
   font-size: clamp(24px, 4vw, 42px);
   font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 
 .loader-roll.is-active .loader-side-flap {
@@ -847,7 +857,7 @@ body.is-entering .newspaper-shell {
   color: var(--paper-surface);
   font-family: var(--display);
   font-size: clamp(26px, 5.8vw, 48px);
-  letter-spacing: -0.09em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.9;
 }
 
@@ -869,7 +879,7 @@ body.is-entering .newspaper-shell {
   color: rgba(38, 38, 38, 0.86);
   font-family: var(--display);
   font-size: clamp(48px, 10vw, 94px);
-  letter-spacing: -0.09em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.82;
 }
 
@@ -1300,6 +1310,7 @@ body:has(.project-slip:not(.notebook-slip)).slip-is-returning .newspaper-shell {
   font-family: var(--display);
   font-size: 22px;
   font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 
 .page-rail-right {
@@ -1334,7 +1345,7 @@ body:has(.project-slip:not(.notebook-slip)).slip-is-returning .newspaper-shell {
   border-radius: 999px;
   font-family: var(--display);
   font-size: 22px;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--display-tracking);
   text-decoration: none;
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
@@ -1592,7 +1603,7 @@ body.is-entering .mobile-action-bar {
   font-family: var(--display);
   font-size: clamp(44px, 7vw, 64px);
   font-weight: 400;
-  letter-spacing: -0.1em;
+  letter-spacing: var(--display-tracking);
   line-height: 1;
 }
 
@@ -1710,7 +1721,7 @@ body.is-entering .mobile-action-bar {
   font-family: var(--display);
   font-size: clamp(38px, 5.5vw, 58px);
   font-weight: 400;
-  letter-spacing: -0.06em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.94;
 }
 
@@ -2047,7 +2058,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 400;
-  letter-spacing: -0.055em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.86;
 }
 
@@ -2112,7 +2123,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(42px, 5vw, 64px);
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.78;
   white-space: pre-line;
 }
@@ -2332,7 +2343,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(34px, 5vw, 52px);
   font-weight: 400;
-  letter-spacing: -0.08em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.96;
 }
 
@@ -2476,7 +2487,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(22px, 2vw, 24px);
   font-weight: 400;
-  letter-spacing: -0.06em;
+  letter-spacing: var(--display-tracking);
   line-height: 0.98;
 }
 
@@ -2571,7 +2582,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(36px, 5.4vw, 48px);
   font-weight: 400;
-  letter-spacing: -0.1em;
+  letter-spacing: var(--display-tracking);
   line-height: 1;
 }
 
@@ -2865,7 +2876,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(44px, 5.2vw, 56px);
   font-weight: 400;
-  letter-spacing: -0.1em;
+  letter-spacing: var(--display-tracking);
   line-height: 1;
   text-align: center;
 }
@@ -3036,7 +3047,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(24px, 3vw, 28px);
   font-weight: 400;
-  letter-spacing: -0.04em;
+  letter-spacing: var(--display-tracking);
   line-height: 1.14;
 }
 
@@ -3060,7 +3071,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   color: var(--ink);
   font-family: var(--display);
   font-size: clamp(22px, 2.7vw, 28px);
-  letter-spacing: -0.04em;
+  letter-spacing: var(--display-tracking);
   line-height: 1.16;
 }
 
@@ -3490,7 +3501,7 @@ body:has(.notebook-slip) .newspaper-shell .notebook-preview-cover {
   font-family: var(--display);
   font-size: clamp(23px, 2.5vw, 28px);
   font-weight: 400;
-  letter-spacing: -0.04em;
+  letter-spacing: var(--display-tracking);
   line-height: 1.03;
 }
 

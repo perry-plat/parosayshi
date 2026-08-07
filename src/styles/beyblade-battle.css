@@ -1,0 +1,621 @@
+.beyblade-battle {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  color: #f8f2e8;
+  pointer-events: none;
+}
+
+.beyblade-battle__status {
+  position: absolute;
+  top: 24px;
+  right: 30px;
+  left: 30px;
+  z-index: 8;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: rgb(248 242 232 / 0.5);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.beyblade-battle__status strong {
+  max-width: 50%;
+  color: rgb(248 242 232 / 0.82);
+  font: inherit;
+  text-align: right;
+}
+
+.beyblade-battle__world {
+  position: absolute;
+  inset: 52px 5% 112px;
+  opacity: 0.56;
+  transform: scale(0.985);
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.beyblade-battle--live .beyblade-battle__world,
+.beyblade-battle__world:focus-within,
+.beyblade-battle__world:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.beyblade-battle__arena {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: min(84vw, 900px);
+  aspect-ratio: 1.66;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.beyblade-battle__bowl,
+.beyblade-battle__rail,
+.beyblade-battle__seam {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.beyblade-battle__bowl {
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 49%,
+      rgb(53 44 64 / 0.24) 0 14%,
+      rgb(28 22 36 / 0.28) 35%,
+      rgb(7 5 11 / 0.78) 86%
+    ),
+    repeating-radial-gradient(
+      ellipse at center,
+      transparent 0 9%,
+      rgb(248 242 232 / 0.028) 9.2% 9.5%,
+      transparent 9.8% 15%
+    ),
+    rgb(36 29 45 / 0.7);
+  box-shadow:
+    inset 0 0 0 2px rgb(248 242 232 / 0.1),
+    inset 0 0 0 18px rgb(4 3 8 / 0.24),
+    inset 0 38px 62px rgb(255 255 255 / 0.04),
+    inset 0 -48px 80px rgb(0 0 0 / 0.58),
+    0 24px 48px rgb(2 1 5 / 0.46);
+}
+
+.beyblade-battle__bowl::before,
+.beyblade-battle__bowl::after {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+}
+
+.beyblade-battle__bowl::before {
+  inset: 8%;
+  background:
+    conic-gradient(
+      from 90deg,
+      transparent,
+      rgb(105 143 255 / 0.06),
+      transparent 26%,
+      rgb(255 81 158 / 0.055),
+      transparent 58%
+    );
+  filter: blur(4px);
+}
+
+.beyblade-battle__bowl::after {
+  inset: 2%;
+  border: 1px solid rgb(248 242 232 / 0.06);
+  box-shadow:
+    inset 0 0 32px rgb(112 143 255 / 0.075),
+    0 0 20px rgb(0 0 0 / 0.3);
+}
+
+.beyblade-battle__rail {
+  inset: 5.5%;
+  border: 8px dotted rgb(248 242 232 / 0.19);
+  box-shadow:
+    0 0 0 2px rgb(8 4 11 / 0.38),
+    0 0 18px rgb(103 139 255 / 0.06),
+    inset 0 0 24px rgb(255 88 164 / 0.055);
+  opacity: 0.82;
+  transition:
+    border-color 100ms ease,
+    box-shadow 100ms ease,
+    opacity 100ms ease;
+}
+
+.beyblade-battle__arena.is-railing .beyblade-battle__rail {
+  border-color: rgb(113 155 255 / 0.88);
+  box-shadow:
+    0 0 0 2px rgb(8 4 11 / 0.36),
+    0 0 28px rgb(93 135 255 / 0.56),
+    inset 0 0 26px rgb(255 85 172 / 0.24);
+  opacity: 1;
+}
+
+.beyblade-battle__seam {
+  border: 1px solid rgb(248 242 232 / 0.075);
+  pointer-events: none;
+}
+
+.beyblade-battle__seam--outer {
+  inset: 19%;
+}
+
+.beyblade-battle__seam--inner {
+  inset: 34%;
+  border-style: dashed;
+}
+
+.beyblade-battle__pocket {
+  position: absolute;
+  bottom: 4.5%;
+  z-index: 2;
+  width: 13%;
+  height: 9%;
+  border: 1px solid rgb(248 242 232 / 0.07);
+  border-radius: 50%;
+  background: rgb(5 3 8 / 0.84);
+  box-shadow:
+    inset 0 7px 13px rgb(0 0 0 / 0.78),
+    0 0 14px rgb(0 0 0 / 0.36);
+  pointer-events: none;
+}
+
+.beyblade-battle__pocket--left {
+  left: 13%;
+}
+
+.beyblade-battle__pocket--center {
+  left: 43.5%;
+  border-color: rgb(255 144 85 / 0.16);
+  background: rgb(40 19 16 / 0.84);
+  box-shadow:
+    inset 0 7px 13px rgb(0 0 0 / 0.78),
+    0 0 16px rgb(255 115 69 / 0.16);
+}
+
+.beyblade-battle__pocket--right {
+  right: 13%;
+}
+
+.beyblade-battle__spawn-surface {
+  position: absolute;
+  inset: 2%;
+  z-index: 6;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor:
+    crosshair,
+    pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.beyblade-battle__spawn-surface:focus-visible {
+  outline: 1px dashed rgb(248 242 232 / 0.76);
+  outline-offset: 6px;
+}
+
+.beyblade-battle__top-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.beyblade-battle__top {
+  --top-rotation: 0deg;
+  --top-wobble: 0;
+  --top-accent: #ff5f9d;
+  --top-accent-dark: #6b233f;
+  --trail-angle: 0rad;
+  --trail-length: 0px;
+  --trail-opacity: 0;
+  position: absolute;
+  width: clamp(54px, 6.2vw, 72px);
+  aspect-ratio: 1;
+  margin: clamp(-36px, -3.1vw, -27px);
+  opacity: 1;
+  transform: scale(calc(1 - var(--top-wobble)));
+  transition:
+    opacity 220ms ease,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: left, top;
+}
+
+.beyblade-battle__top[data-color="blue"] {
+  --top-accent: #719bff;
+  --top-accent-dark: #263f74;
+}
+
+.beyblade-battle__top[data-color="yellow"] {
+  --top-accent: #e8bc3d;
+  --top-accent-dark: #6f5012;
+}
+
+.beyblade-battle__top[data-color="silver"] {
+  --top-accent: #d5d1c7;
+  --top-accent-dark: #59556a;
+}
+
+.beyblade-battle__top-shadow {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: rgb(3 2 6 / 0.72);
+  filter: blur(5px);
+  transform: translate(7px, 9px) scale(1.08, 0.9);
+}
+
+.beyblade-battle__top-stack {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  filter:
+    drop-shadow(0 1px 1px rgb(255 255 255 / 0.19))
+    drop-shadow(0 7px 7px rgb(0 0 0 / 0.44));
+  transform: rotate(var(--top-rotation));
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+.beyblade-battle__top-blade,
+.beyblade-battle__top-ring,
+.beyblade-battle__top-core {
+  position: absolute;
+  border-radius: 50%;
+  transition:
+    opacity 260ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.beyblade-battle__top-blade {
+  inset: 0;
+  background:
+    conic-gradient(
+      from 12deg,
+      #eeeae5 0 8%,
+      transparent 8% 14%,
+      #888b94 14% 26%,
+      transparent 26% 33%,
+      #d9d5cf 33% 46%,
+      transparent 46% 54%,
+      #777b85 54% 68%,
+      transparent 68% 76%,
+      #e7e2dc 76% 91%,
+      transparent 91%
+    ),
+    radial-gradient(
+      circle,
+      #b8bac0 0 48%,
+      #646872 49% 61%,
+      transparent 62%
+    );
+  clip-path: polygon(
+    50% 0,
+    62% 13%,
+    83% 8%,
+    88% 27%,
+    100% 39%,
+    86% 54%,
+    93% 76%,
+    72% 82%,
+    61% 100%,
+    45% 87%,
+    24% 95%,
+    17% 75%,
+    0 62%,
+    13% 46%,
+    7% 24%,
+    29% 18%
+  );
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / 0.31),
+    inset 0 0 15px rgb(0 0 0 / 0.36);
+}
+
+.beyblade-battle__top-ring {
+  inset: 17%;
+  border: clamp(5px, 0.65vw, 8px) solid var(--top-accent);
+  background:
+    repeating-conic-gradient(
+      rgb(255 255 255 / 0.23) 0 5deg,
+      transparent 5deg 17deg
+    ),
+    color-mix(in srgb, var(--top-accent) 28%, transparent);
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / 0.4),
+    0 0 10px color-mix(in srgb, var(--top-accent) 58%, transparent);
+}
+
+.beyblade-battle__top-core {
+  inset: 34%;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgb(255 255 255 / 0.46);
+  background:
+    conic-gradient(
+      from 45deg,
+      #17121d,
+      var(--top-accent-dark),
+      #17121d,
+      color-mix(in srgb, var(--top-accent-dark) 60%, #17121d),
+      #17121d
+    );
+  box-shadow:
+    inset 0 0 7px rgb(255 255 255 / 0.22),
+    0 0 0 2px rgb(7 4 10 / 0.75);
+}
+
+.beyblade-battle__top-core span {
+  display: grid;
+  width: 52%;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: #f8f2e8;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--top-accent) 72%, transparent);
+  color: #15101a;
+  font-family: var(--mono);
+  font-size: clamp(5px, 0.55vw, 7px);
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.beyblade-battle__trail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--trail-length);
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--top-accent) 70%, transparent),
+    transparent
+  );
+  filter: blur(3px);
+  opacity: var(--trail-opacity);
+  transform: translateY(-50%) rotate(var(--trail-angle));
+  transform-origin: 0 50%;
+}
+
+.beyblade-battle__top.is-out {
+  opacity: 0;
+  transform: scale(0.42);
+}
+
+.beyblade-battle__top.is-burst {
+  opacity: 0;
+  transform: scale(1.32);
+}
+
+.beyblade-battle__top.is-burst .beyblade-battle__top-blade {
+  transform: translate(-22px, 11px) rotate(-33deg);
+}
+
+.beyblade-battle__top.is-burst .beyblade-battle__top-ring {
+  opacity: 0.22;
+  transform: translate(23px, -16px) rotate(62deg) scale(1.12);
+}
+
+.beyblade-battle__top.is-burst .beyblade-battle__top-core {
+  transform: translate(15px, 21px) rotate(94deg);
+}
+
+.beyblade-battle__impact {
+  --impact-scale: 1;
+  position: absolute;
+  z-index: 7;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.beyblade-battle__impact span {
+  position: absolute;
+  top: -35px;
+  left: -35px;
+  width: 70px;
+  height: 70px;
+  background:
+    conic-gradient(
+      transparent 0 4%,
+      #fff4df 4% 6%,
+      transparent 6% 14%,
+      #ff5f9d 14% 17%,
+      transparent 17% 28%,
+      #719bff 28% 31%,
+      transparent 31% 44%,
+      #fff4df 44% 47%,
+      transparent 47% 65%,
+      #ff5f9d 65% 68%,
+      transparent 68%
+    );
+  clip-path: polygon(
+    50% 0,
+    58% 38%,
+    81% 10%,
+    69% 43%,
+    100% 36%,
+    70% 52%,
+    96% 72%,
+    63% 61%,
+    67% 100%,
+    51% 67%,
+    31% 95%,
+    40% 61%,
+    5% 76%,
+    34% 52%,
+    0 34%,
+    40% 43%
+  );
+}
+
+.beyblade-battle__impact i {
+  position: absolute;
+  top: -6px;
+  left: 22px;
+  color: #fff4df;
+  font-family: var(--mono);
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 4px #000;
+  white-space: nowrap;
+}
+
+.beyblade-battle__impact.is-hit {
+  animation: beyblade-impact 230ms ease-out both;
+}
+
+.beyblade-battle__controls {
+  position: absolute;
+  right: 30px;
+  bottom: 82px;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.beyblade-battle__next {
+  margin-right: 4px;
+  color: rgb(248 242 232 / 0.42);
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.beyblade-battle__utility {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgb(248 242 232 / 0.13);
+  border-radius: 999px;
+  padding: 0 11px;
+  background: rgb(10 7 14 / 0.54);
+  color: rgb(248 242 232 / 0.62);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  pointer-events: auto;
+  text-transform: uppercase;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.beyblade-battle__utility:hover,
+.beyblade-battle__utility:focus-visible {
+  border-color: rgb(248 242 232 / 0.34);
+  color: #f8f2e8;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+@keyframes beyblade-impact {
+  0% {
+    opacity: 0;
+    transform: scale(0.24);
+  }
+
+  26% {
+    opacity: 1;
+    transform: scale(var(--impact-scale));
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(calc(var(--impact-scale) * 1.5));
+  }
+}
+
+@media (max-width: 700px) {
+  .beyblade-battle__status {
+    top: 20px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .beyblade-battle__status strong {
+    max-width: 62%;
+  }
+
+  .beyblade-battle__world {
+    inset: 58px 0 126px;
+  }
+
+  .beyblade-battle__arena {
+    top: 47%;
+    width: min(112vw, 680px);
+  }
+
+  .beyblade-battle__controls {
+    right: 20px;
+    bottom: 96px;
+    left: 20px;
+    justify-content: flex-end;
+  }
+
+  .beyblade-battle__next {
+    margin-right: auto;
+  }
+
+  .beyblade-battle__utility {
+    min-width: 32px;
+    justify-content: center;
+    padding: 0 8px;
+  }
+
+  .beyblade-battle__utility span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beyblade-battle__world,
+  .beyblade-battle__top,
+  .beyblade-battle__top-blade,
+  .beyblade-battle__top-ring,
+  .beyblade-battle__top-core,
+  .beyblade-battle__utility {
+    transition: none;
+  }
+
+  .beyblade-battle__impact.is-hit {
+    animation-duration: 1ms;
+  }
+}

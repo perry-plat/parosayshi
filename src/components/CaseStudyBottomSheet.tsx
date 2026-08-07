@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -7,11 +8,11 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import { XIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import type { SlipEntryTransform, SlipState } from "../hooks/useSlip";
 
 export type CaseStudySurface = "paper" | "frost";
+export type ReaderScrollIntent = "top" | "up" | "down";
 
 export interface CaseStudyEntryColors {
   deep: string;
@@ -21,10 +22,10 @@ export interface CaseStudyEntryColors {
 
 type FolderTransitionPhase =
   | "opening-flap"
-  | "sheet-opening"
+  | "board-opening"
   | "open"
   | "content-closing"
-  | "sheet-closing"
+  | "board-closing"
   | "closing-flap";
 
 interface CaseStudyBottomSheetProps {
@@ -36,15 +37,23 @@ interface CaseStudyBottomSheetProps {
   onClose: () => void;
   onCloseAnimationComplete: () => void;
   onOpenAnimationComplete?: () => void;
+  progress: number;
   reducedMotion: boolean;
+  scrollIntent: ReaderScrollIntent;
   slipState: SlipState;
   title: string;
 }
 
 const FOLDER_EASE = [0.22, 1, 0.36, 1] as const;
+const FOLDER_EXIT_EASE = [0.4, 0, 1, 1] as const;
+const FOLDER_OPEN_CUE_MS = 180;
+const FOLDER_CONTENT_PREPARE_MS = 150;
+const FOLDER_CONTENT_REVEAL_MS = 310;
+const FOLDER_CLOSE_OVERLAP_MS = 20;
+const FOLDER_RETURN_SETTLE_MS = 0;
 const FOLDER_CLOSING_PHASES: FolderTransitionPhase[] = [
   "content-closing",
-  "sheet-closing",
+  "board-closing",
   "closing-flap",
 ];
 function trapDialogFocus(event: KeyboardEvent<HTMLElement>) {
@@ -108,7 +117,9 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
       onClose,
       onCloseAnimationComplete,
       onOpenAnimationComplete,
+      progress,
       reducedMotion,
+      scrollIntent,
       slipState,
       title,
     },
@@ -119,13 +130,58 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
     const [folderPhase, setFolderPhase] = useState<FolderTransitionPhase>(() =>
       opensFromFolder && !reducedMotion ? "opening-flap" : "open",
     );
+    const [readerVisible, setReaderVisible] = useState(
+      () => !opensFromFolder || reducedMotion,
+    );
+    const [readerPrepared, setReaderPrepared] = useState(
+      () => !opensFromFolder || reducedMotion,
+    );
     const finishedClose = useRef(false);
     const finishedOpen = useRef(false);
+    const controlsTimer = useRef<number | null>(null);
+    const [controlsVisible, setControlsVisible] = useState(true);
     const isClosing = slipState === "closing";
+
+    const clearControlsTimer = useCallback(() => {
+      if (controlsTimer.current !== null) window.clearTimeout(controlsTimer.current);
+      controlsTimer.current = null;
+    }, []);
+
+    const showControls = useCallback((autoHide = true) => {
+      setControlsVisible(true);
+      clearControlsTimer();
+      if (!autoHide) return;
+      controlsTimer.current = window.setTimeout(() => {
+        setControlsVisible(false);
+        controlsTimer.current = null;
+      }, 5000);
+    }, [clearControlsTimer]);
+
+    const revealControls = useCallback(
+      () => showControls(scrollIntent !== "top"),
+      [scrollIntent, showControls],
+    );
+
+    useEffect(() => {
+      showControls(false);
+      return clearControlsTimer;
+    }, [clearControlsTimer, showControls]);
+
     useEffect(() => {
       if (isClosing) finishedOpen.current = false;
       else finishedClose.current = false;
     }, [isClosing]);
+
+    useEffect(() => {
+      if (isClosing) return;
+      const closeFromOutside = (event: PointerEvent) => {
+        if (!(event.target instanceof Element)) return;
+        if (event.target.closest(".case-study-bottom-sheet")) return;
+        onClose();
+      };
+      document.addEventListener("pointerdown", closeFromOutside, true);
+      return () => document.removeEventListener("pointerdown", closeFromOutside, true);
+    }, [isClosing, onClose]);
 
     useEffect(() => {
       if (!opensFromFolder || !isClosing || FOLDER_CLOSING_PHASES.includes(folderPhase)) return;
@@ -147,16 +203,63 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
     useEffect(() => {
       if (!opensFromFolder || reducedMotion) return;
       if (folderPhase !== "opening-flap" && folderPhase !== "closing-flap") return;
+      const phaseDelay = folderPhase === "opening-flap"
+        ? FOLDER_OPEN_CUE_MS
+        : FOLDER_RETURN_SETTLE_MS;
       const timeout = window.setTimeout(() => {
         if (folderPhase === "opening-flap") {
-          setFolderPhase("sheet-opening");
+          setFolderPhase("board-opening");
         } else if (!finishedClose.current) {
           finishedClose.current = true;
           onCloseAnimationComplete();
         }
-      }, 220);
+      }, phaseDelay);
       return () => window.clearTimeout(timeout);
     }, [folderPhase, onCloseAnimationComplete, opensFromFolder, reducedMotion]);
+
+    useEffect(() => {
+      if (!opensFromFolder || reducedMotion || folderPhase !== "content-closing") return;
+      const timeout = window.setTimeout(
+        () => setFolderPhase("board-closing"),
+        FOLDER_CLOSE_OVERLAP_MS,
+      );
+      return () => window.clearTimeout(timeout);
+    }, [folderPhase, opensFromFolder, reducedMotion]);
+
+    useEffect(() => {
+      if (!opensFromFolder) {
+        setReaderPrepared(true);
+        setReaderVisible(!isClosing);
+        return;
+      }
+      if (reducedMotion) {
+        setReaderPrepared(true);
+        setReaderVisible(!isClosing);
+        return;
+      }
+      if (isClosing || FOLDER_CLOSING_PHASES.includes(folderPhase)) {
+        setReaderVisible(false);
+        return;
+      }
+      if (folderPhase === "open") {
+        setReaderPrepared(true);
+        setReaderVisible(true);
+        return;
+      }
+      if (folderPhase !== "board-opening") return;
+      const prepareTimeout = window.setTimeout(
+        () => setReaderPrepared(true),
+        FOLDER_CONTENT_PREPARE_MS,
+      );
+      const revealTimeout = window.setTimeout(
+        () => setReaderVisible(true),
+        FOLDER_CONTENT_REVEAL_MS,
+      );
+      return () => {
+        window.clearTimeout(prepareTimeout);
+        window.clearTimeout(revealTimeout);
+      };
+    }, [folderPhase, isClosing, opensFromFolder, reducedMotion]);
 
     useEffect(() => {
       if (!reducedMotion || isClosing || finishedOpen.current) return;
@@ -168,70 +271,133 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
       return () => window.cancelAnimationFrame(frame);
     }, [isClosing, onOpenAnimationComplete, reducedMotion]);
 
+    useEffect(() => {
+      if (!reducedMotion || !isClosing || finishedClose.current) return;
+      const frame = window.requestAnimationFrame(() => {
+        if (finishedClose.current) return;
+        finishedClose.current = true;
+        onCloseAnimationComplete();
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }, [isClosing, onCloseAnimationComplete, reducedMotion]);
+
     const sheetTransition = reducedMotion
       ? { duration: 0 }
-      : opensFromFolder
-        ? folderPhase === "sheet-opening"
+      : folderPhase === "board-opening"
+        ? {
+          y: {
+            type: "spring" as const,
+            visualDuration: 0.82,
+            bounce: 0.06,
+          },
+          opacity: { duration: 0.1, ease: FOLDER_EASE },
+        }
+        : folderPhase === "board-closing"
           ? {
-            y: { type: "spring" as const, stiffness: 210, damping: 25, mass: 0.9 },
-            opacity: { duration: 0.16 },
+            y: { duration: 0.34, ease: FOLDER_EXIT_EASE },
+            opacity: { duration: 0 },
           }
-          : folderPhase === "sheet-closing"
-            ? {
-              y: { duration: 0.36, ease: FOLDER_EASE },
-              opacity: { duration: 0.2, ease: FOLDER_EASE },
-            }
-            : { duration: 0 }
-        : {
-          y: { type: "spring" as const, stiffness: 170, damping: 27, mass: 0.92 },
-          opacity: { duration: isClosing ? 0.18 : 0.14 },
-        };
+          : opensFromFolder
+            ? { duration: 0 }
+            : {
+              y: { type: "spring" as const, stiffness: 170, damping: 27, mass: 0.92 },
+              opacity: { duration: isClosing ? 0.18 : 0.14 },
+            };
 
     const sheetAnimation = opensFromFolder
-      ? ["opening-flap", "sheet-closing", "closing-flap"].includes(folderPhase)
-        ? { opacity: 0, y: "105%" }
-        : { opacity: 1, y: "0%" }
+      ? ["opening-flap", "closing-flap"].includes(folderPhase)
+        ? { opacity: 0, y: "100%" }
+        : folderPhase === "board-closing"
+          ? { opacity: 1, y: "100%" }
+          : folderPhase === "board-opening"
+            ? { opacity: 1, y: "0%" }
+            : { opacity: 1, y: "0%" }
       : isClosing
-          ? { opacity: 0.98, y: "105%" }
-          : { opacity: 1, y: "0%" };
+        ? { opacity: 0.98, y: "100%" }
+        : { opacity: 1, y: "0%" };
 
     const sheetInitial = reducedMotion
       ? false
       : opensFromFolder
-        ? { opacity: 0, y: "105%" }
-        : { opacity: 0.96, y: "105%" };
+        ? { opacity: 0, y: "100%" }
+        : { opacity: 0.96, y: "100%" };
 
-    const readerContentVisible = !opensFromFolder
-      ? !isClosing
-      : folderPhase === "sheet-opening" || folderPhase === "open";
-    const readerContentAnimation = {
-      opacity: readerContentVisible ? 1 : 0,
-      y: readerContentVisible ? 0 : 12,
+    const contentVisible = readerVisible;
+    const contentAnimation = {
+      opacity: contentVisible ? 1 : 0,
+      y: contentVisible ? 0 : 12,
     };
-    const readerContentTransition = reducedMotion
+    const contentTransition = reducedMotion
       ? { duration: 0 }
-      : {
-        duration: folderPhase === "content-closing" ? 0.13 : 0.2,
-        ease: FOLDER_EASE,
-      };
+      : contentVisible
+        ? {
+          opacity: { duration: 0.24, ease: FOLDER_EASE },
+          y: {
+            type: "spring" as const,
+            visualDuration: 0.36,
+            bounce: 0.14,
+          },
+        }
+        : {
+          duration: 0.08,
+          ease: FOLDER_EXIT_EASE,
+        };
 
+    useEffect(() => {
+      if (!contentVisible) return;
+      if (scrollIntent === "top") {
+        showControls(false);
+      } else if (scrollIntent === "up") {
+        showControls(true);
+      } else {
+        clearControlsTimer();
+        setControlsVisible(false);
+      }
+    }, [clearControlsTimer, contentVisible, scrollIntent, showControls]);
+
+    const progressPercent = Math.round(Math.max(0, Math.min(1, progress)) * 100);
+    const headerControlsVisible = contentVisible && controlsVisible;
+    const closeControlVisible = contentVisible;
+    const titleControlTransition = reducedMotion
+      ? { duration: 0 }
+      : headerControlsVisible
+        ? {
+          type: "spring" as const,
+          stiffness: 430,
+          damping: 27,
+          mass: 0.65,
+          delay: 0.03,
+        }
+        : { duration: 0.26, ease: [0.4, 0, 1, 1] as const };
+    const closeControlTransition = reducedMotion
+      ? { duration: 0 }
+      : closeControlVisible
+        ? {
+          type: "spring" as const,
+          stiffness: 520,
+          damping: 24,
+          mass: 0.55,
+          delay: 0.05,
+        }
+        : { duration: 0.22, ease: [0.4, 0, 1, 1] as const };
     const sheetStyle = {
       "--entry-folder-deep": entryColors?.deep || "#872619",
       "--entry-folder-ink": entryColors?.ink || "#fff0cf",
       "--entry-folder-tint": entryColors?.tint || "#cf482d",
+      "--reader-progress": `${progressPercent}%`,
     } as CSSProperties;
 
     return (
       <>
         <motion.div
           animate={{
-            backgroundColor: opensFromFolder ? "rgba(31, 14, 9, 0.09)" : "rgba(31, 14, 9, 0)",
+            backgroundColor: opensFromFolder ? "rgba(17, 17, 16, 0.36)" : "rgba(17, 17, 16, 0.32)",
             opacity: opensFromFolder && folderPhase === "closing-flap" ? 0 : isClosing && !opensFromFolder ? 0 : 1,
           }}
           aria-hidden="true"
           className="case-study-bottom-sheet-backdrop"
           initial={reducedMotion ? false : { opacity: 0 }}
-          transition={reducedMotion ? { duration: 0 } : { duration: 0.24 }}
+          transition={reducedMotion ? { duration: 0 } : { duration: 0.18 }}
         />
         <motion.aside
           animate={sheetAnimation}
@@ -240,23 +406,21 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
           className={`project-slip case-study-bottom-sheet is-${slipState}`}
           data-entry-shape={entryShape}
           data-folder-phase={opensFromFolder ? folderPhase : undefined}
+          data-reader-prepared={readerPrepared || undefined}
+          data-reader-visible={contentVisible || undefined}
+          data-reader-scrolled={progress > 0 || undefined}
           data-surface={surface}
           initial={sheetInitial}
           onAnimationComplete={() => {
             if (opensFromFolder && !reducedMotion) {
-              switch (folderPhase) {
-                case "sheet-opening":
-                  setFolderPhase("open");
-                  if (!finishedOpen.current) {
-                    finishedOpen.current = true;
-                    onOpenAnimationComplete?.();
-                  }
-                  break;
-                case "sheet-closing":
-                  setFolderPhase("closing-flap");
-                  break;
-                default:
-                  break;
+              if (folderPhase === "board-opening") {
+                setFolderPhase("open");
+                if (!finishedOpen.current) {
+                  finishedOpen.current = true;
+                  onOpenAnimationComplete?.();
+                }
+              } else if (folderPhase === "board-closing") {
+                setFolderPhase("closing-flap");
               }
             } else if (!opensFromFolder && isClosing && !finishedClose.current) {
               finishedClose.current = true;
@@ -266,43 +430,74 @@ export const CaseStudyBottomSheet = forwardRef<HTMLElement, CaseStudyBottomSheet
               onOpenAnimationComplete?.();
             }
           }}
-          onKeyDown={trapDialogFocus}
+          onFocusCapture={revealControls}
+          onKeyDown={(event) => {
+            revealControls();
+            trapDialogFocus(event);
+          }}
+          onPointerDown={revealControls}
+          onPointerMove={revealControls}
+          onTouchStart={revealControls}
           ref={ref}
           role="dialog"
           style={sheetStyle}
           tabIndex={-1}
           transition={sheetTransition}
         >
-          <motion.header
-            animate={readerContentAnimation}
-            className="case-study-bottom-sheet-toolbar"
-            initial={opensFromFolder && !reducedMotion ? { opacity: 0, y: 12 } : false}
-            transition={readerContentTransition}
+          <motion.div
+            animate={headerControlsVisible
+              ? { opacity: 1, rotate: 0, scale: 1, x: 0, y: 0 }
+              : { opacity: 0, rotate: -2.5, scale: 0.96, x: -14, y: -8 }}
+            className="case-study-bottom-sheet-title"
+            initial={opensFromFolder && !reducedMotion
+              ? { opacity: 0, rotate: -2.5, scale: 0.96, x: -14, y: -8 }
+              : false}
+            transition={titleControlTransition}
           >
-            <div className="case-study-bottom-sheet-title">
-              <strong>{title}</strong>
-            </div>
+            <strong>{title}</strong>
+          </motion.div>
 
-            <div className="case-study-bottom-sheet-controls">
-              {/* Surface and chapter controls are intentionally parked. */}
-              <button className="case-study-bottom-sheet-close" onClick={onClose} type="button" aria-label="Close case study">
-                <XIcon aria-hidden="true" size={24} weight="regular" />
-              </button>
-            </div>
-          </motion.header>
+          <motion.button
+            animate={closeControlVisible
+              ? { opacity: 1, rotate: 0, scale: 1, x: 0, y: 0 }
+              : { opacity: 0, rotate: 18, scale: 0.72, x: 10, y: -10 }}
+            aria-label="Close case study"
+            className="case-study-bottom-sheet-close"
+            initial={opensFromFolder && !reducedMotion
+              ? { opacity: 0, rotate: 18, scale: 0.72, x: 10, y: -10 }
+              : false}
+            onClick={onClose}
+            style={{ pointerEvents: closeControlVisible ? "auto" : "none" }}
+            tabIndex={closeControlVisible ? 0 : -1}
+            transition={closeControlTransition}
+            type="button"
+            whileHover={reducedMotion ? undefined : { rotate: 8, scale: 1.08 }}
+            whileTap={reducedMotion ? undefined : { rotate: -8, scale: 0.86 }}
+          >
+            <svg aria-hidden="true" viewBox="0 0 20 20">
+              <path d="M4.5 4.5 15.5 15.5M15.5 4.5 4.5 15.5" />
+            </svg>
+          </motion.button>
 
           <motion.div
-            animate={readerContentAnimation}
+            animate={contentAnimation}
+            aria-label={`${progressPercent}% read`}
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={progressPercent}
+            className="case-study-bottom-sheet-progress"
+            initial={opensFromFolder && !reducedMotion ? { opacity: 0, y: 14 } : false}
+            role="progressbar"
+            transition={contentTransition}
+          >
+            <span />
+          </motion.div>
+
+          <motion.div
+            animate={contentAnimation}
             className="case-study-bottom-sheet-viewport"
-            initial={opensFromFolder && !reducedMotion ? { opacity: 0, y: 12 } : false}
-            onAnimationComplete={() => {
-              if (opensFromFolder && folderPhase === "content-closing") {
-                setFolderPhase("sheet-closing");
-              }
-            }}
-            transition={reducedMotion
-              ? { duration: 0 }
-              : { ...readerContentTransition, delay: folderPhase === "sheet-opening" ? 0.06 : 0 }}
+            initial={opensFromFolder && !reducedMotion ? { opacity: 0, y: 14 } : false}
+            transition={contentTransition}
           >
             {children}
           </motion.div>

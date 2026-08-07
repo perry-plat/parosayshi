@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <filter id="fiber" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.085 0.74" numOctaves="2" seed="27" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="gamma" amplitude="0.55" exponent="1.15" offset="0.23" />
+        <feFuncG type="gamma" amplitude="0.55" exponent="1.15" offset="0.23" />
+        <feFuncB type="gamma" amplitude="0.55" exponent="1.15" offset="0.23" />
+      </feComponentTransfer>
+    </filter>
+    <pattern id="weave" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#777" />
+      <path d="M0 1.5H8M0 5.5H8" stroke="#a2a2a2" stroke-width="1.25" opacity=".78" />
+      <path d="M1.5 0V8M5.5 0V8" stroke="#4f4f4f" stroke-width="1.15" opacity=".78" />
+      <path d="M0 3.5H8M3.5 0V8" stroke="#878787" stroke-width=".6" opacity=".55" />
+    </pattern>
+  </defs>
+  <rect width="256" height="256" fill="url(#weave)" />
+  <rect width="256" height="256" filter="url(#fiber)" opacity=".2" />
+</svg>

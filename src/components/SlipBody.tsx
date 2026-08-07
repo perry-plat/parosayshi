@@ -1,5 +1,6 @@
 import { useState, type CSSProperties, type ReactElement } from "react";
 import { AsteriskIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { PeriodicTablePrototype } from "./PeriodicTablePrototype";
 import type {
   AssetGridBlock,
   ImageBlock,
@@ -226,6 +227,8 @@ function BodyBlock({ block }: { block: Exclude<ProjectBodyBlock, string> }) {
       return <p className="slip-small-note">{block.text}</p>;
     case "divider":
       return <div className="slip-section-divider" aria-hidden="true" />;
+    case "interactive-periodic-table":
+      return <PeriodicTablePrototype />;
     case "quote":
       return <blockquote>{block.text}</blockquote>;
     case "list":

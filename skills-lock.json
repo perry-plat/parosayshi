@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "voxel-icon": {
+      "source": "BIAsia/voxel-icon",
+      "sourceType": "github",
+      "skillPath": "skill/voxel-icon/SKILL.md",
+      "computedHash": "e6a9b5864095efde204a3c4c8070a4fad3daf4c71f40c29d1a5c573a2ec3a846"
+    }
+  }
+}

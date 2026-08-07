@@ -181,6 +181,18 @@ The folio should feel like a small publishing house after a very productive dead
 - Best home: the existing Resume blue, selected annotations, links, and one physical object within a collage.
 - Rule: blue is punctuation, not the paper color.
 
+### Embroidered word-patch footer
+
+- Local research note: [`references/footer-embroidery`](references/footer-embroidery)
+- Reference: user-provided WebGL1 embroidery prototype, researched against real chain-stitch, cut-felt, satin-border, and merrowed patch construction.
+- Contribution: the folio ends on a dark textile sample with three overlapping word-shaped patches, tactile thread lighting, and one pointer-directed glint.
+- Preferred first copy test: `MADE / WITH / CARE`; keep the phrase short enough for bold, physically believable stitched letterforms.
+- Use here: the footer only, after the final field-notes object. Preserve contact, resume, social, and copyright content as semantic DOM text.
+- Material rule: intricate word silhouettes should use a die-cut shape with a raised satin or merrow-inspired overlock rim; do not claim that the complex outline is a physically exact merrowed edge.
+- Runtime rule: one footer-scoped WebGL context, idle-built textures, offscreen/hidden pause, static reduced-motion and failure fallback, and no simultaneous decorative sunlight render loop.
+- Asset rule: do not ship the supplied unverified weave URL. Use a self-made texture or a documented CC0 weave.
+- Avoid: autonomous patch motion, a cursor replacement, more than three word patches, or repeating embroidery elsewhere in the folio.
+
 ## Placement map
 
 | Folio area | Reference influence | Intended treatment |
@@ -192,6 +204,7 @@ The folio should feel like a small publishing house after a very productive dead
 | Case-study chapter covers | Poster archive | Expressive typography and nested image frames |
 | Brand details | Quartr motion | Short construction-based reveal, only when useful |
 | Accent system | Blue archive | Focused blue punctuation across otherwise neutral surfaces |
+| Footer | Embroidered word patches | One dark textile sign-off with three overlapping stitched words and semantic contact links |
 
 ## Decision filter
 

@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-08-03T09:18:50.537Z",
+  "publicSanityApi": "https://e5fj2khm.api.sanity.io/v2026-08-01/data/query/production",
+  "counts": {
+    "contentDocuments": 304,
+    "imageAssets": 875,
+    "contentLinkedImages": 563,
+    "fileAssets": 16,
+    "videoAssets": 263,
+    "changelogs": 22,
+    "releaseNotes": 36,
+    "skills": 93,
+    "skillPacks": 4,
+    "fontEndpoints": 64
+  },
+  "totals": {
+    "originalImageBytes": 1087194182,
+    "fileBytes": 29954615,
+    "videoDurationSeconds": 8125.780595
+  },
+  "notes": [
+    "Image and video manifests are exhaustive for the public Sanity dataset at collection time.",
+    "Commercial font endpoints are catalogued but font binaries are intentionally not downloaded or redistributed.",
+    "Preview images are transformed reference copies; original URLs remain in images.csv."
+  ]
+}

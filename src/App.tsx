@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon, PaintBrushBroadIcon } from "@phosphor-icons/react";
 import { LayoutGroup, motion } from "motion/react";
 import {
   AnnualReportCover,
@@ -7,10 +7,29 @@ import {
   type AnnualCoverPalette,
   type AnnualCoverStructure,
 } from "./components/AnnualReportCover";
-import { ProjectFolderCover, type ProjectFolderArtifact } from "./components/ProjectFolderCover";
+import {
+  LegacyProjectFolderCover,
+  ProjectFolderCover,
+  type ProjectFolderMotionState,
+} from "./components/ProjectFolderCover";
 import { NotebookCover, Sketchbook } from "./components/Sketchbook";
+import {
+  ProjectBoardLibrary,
+  type ProjectBoardItem,
+} from "./components/ProjectBoardLibrary";
+import {
+  ProjectScrollLibrary,
+  type ProjectBrowseItem,
+} from "./components/ProjectScrollLibrary";
+import {
+  ProjectArchiveGarden,
+  type ArchiveGardenProject,
+} from "./components/ProjectArchiveGarden";
 import { SunlightShader } from "./components/SunlightShader";
+import { TableStickerLayer } from "./components/TableStickerLayer";
+import { EmbroideredFooter } from "./components/EmbroideredFooter";
 import { CaseStudyReader } from "./components/WizCommerceReader";
+import { projectFolderPresentations } from "./data/folderPresentations";
 import { projects } from "./data/projects";
 import { workCards } from "./data/workCards";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -43,6 +62,16 @@ interface BookEdition {
 type CoverComparisonMode = "annual" | "original";
 type AnnualPaletteMode = "current" | "vivid";
 type WizObjectMode = "file" | "folder" | "notebook";
+type FolderCoverVersion = "stamp" | "legacy";
+type ProjectViewMode = "archive" | "current" | "scroll" | "board";
+
+function getInitialProjectViewMode(): ProjectViewMode {
+  if (typeof window === "undefined") return "archive";
+  const requestedMode = new URLSearchParams(window.location.search).get("project-view");
+  return requestedMode === "current" || requestedMode === "scroll" || requestedMode === "board"
+    ? requestedMode
+    : "archive";
+}
 
 function getInitialCoverComparisonMode(): CoverComparisonMode {
   if (typeof window === "undefined") return "annual";
@@ -66,6 +95,13 @@ function getInitialAnnualHoverPreview(): ProjectId | null {
     : undefined;
   if (!isProjectId(projectId) || projectId === "notebook") return null;
   return projectId;
+}
+
+function getInitialFolderCoverVersion(): FolderCoverVersion {
+  if (typeof window === "undefined") return "stamp";
+  return new URLSearchParams(window.location.search).get("folder-style") === "legacy"
+    ? "legacy"
+    : "stamp";
 }
 
 const cardById = new Map(workCards.map((card) => [card.id, card]));
@@ -109,12 +145,12 @@ const matPalettes = [
   },
   {
     id: "dark-green",
-    label: "Studio green",
-    color: "#0d5d45",
-    line: "rgb(255 235 171 / 0.84)",
-    major: "rgb(255 235 171 / 0.46)",
-    minor: "rgb(255 235 171 / 0.14)",
-    tag: "#19372b",
+    label: "Classic green",
+    color: "#00332a",
+    line: "rgb(229 229 90 / 0.38)",
+    major: "rgb(229 229 90 / 0.2)",
+    minor: "rgb(229 229 90 / 0.07)",
+    tag: "#073d34",
   },
   {
     id: "blue",
@@ -199,80 +235,43 @@ const wizFileCoverVariants = {
   },
 } as const;
 
-interface ProjectFolderPresentation {
-  artifacts: [ProjectFolderArtifact, ProjectFolderArtifact, ProjectFolderArtifact];
-  owner: string;
-  subtitle: string;
-}
-
-const projectFolderPresentations: Partial<Record<ProjectId, ProjectFolderPresentation>> = {
-  "wiz-commerce": {
-    owner: "WIZCOMMERCE",
-    subtitle: "PRODUCT SYSTEM / 2024",
-    artifacts: [
-      { label: "WIZPAY / TRANSACTIONS", position: "center 34%", src: "/assets/new/wizcommerce-frame32/uploads/wizpay-responsive-transactions.png" },
-      { label: "WIZAI / ASSISTANT", position: "center 38%", src: "/assets/new/wizcommerce-frame32/uploads/wizai-product-assistant.png" },
-      { label: "SYSTEM / OVERVIEW", position: "center", src: "/assets/new/wizcommerce-frame32/visuals-grid-111.png" },
-    ],
-  },
-  "uber-kids": {
-    owner: "UBER KIDS",
-    subtitle: "SAFETY SYSTEM / 2025",
-    artifacts: [
-      { label: "INVITE / ONBOARDING", position: "center", src: "/assets/new/uber-kids/invite-hero.png" },
-      { label: "PLACES / BENGALURU", position: "center", src: "/assets/new/uber-kids/map-bengaluru.png" },
-      { label: "SAFETY / FLOW", position: "center", src: "/assets/new/uber-kids-lead.svg" },
-    ],
-  },
-  "wiz-sales-data": {
-    owner: "WIZ SALES DATA",
-    subtitle: "SALES TOOLS / 2024",
-    artifacts: [
-      { label: "PRODUCT / LISTING", position: "center", src: "/assets/case-studies/f2MFjaGV3u8MAIXdzRO9fHE2wc.png" },
-      { label: "CARDS / BEFORE-AFTER", position: "center", src: "/assets/case-studies/mjRUy3TMmhpKrNoGXxSz8YAttg0.png" },
-      { label: "DATA / VISIBILITY", position: "center", src: "/assets/case-studies/D14InoE2s4mg8mig0KcPU2ECg.png" },
-    ],
-  },
-  "wiz-email-flows": {
-    owner: "WIZ EMAIL FLOWS",
-    subtitle: "COMMUNICATION / 2024",
-    artifacts: [
-      { label: "JOURNEY / AUTOMATION", position: "center", src: "/assets/case-studies/7pNOxoU2UIQLghgLPRTMAgwU1AE.png" },
-      { label: "INPUT / METHOD", position: "center", src: "/assets/case-studies/75yucgvtB4hxLkV9N4mgK74PSQ.png" },
-      { label: "TOUCHPOINTS / FLOW", position: "center", src: "/assets/case-studies/6BIBiTr3GZQDFXe6IvdilhHDs.png" },
-    ],
-  },
-  farevv: {
-    owner: "FAREVV",
-    subtitle: "FASHION CONCEPT / 2023",
-    artifacts: [
-      { label: "PRODUCT / FLOW", position: "center", src: "/assets/4tXbamARId1GtIkEXTPtvkZgry8.png" },
-      { label: "DIRECTION / COVER", position: "center", src: "/assets/new/book-covers/farevv-cover.png" },
-      { label: "COMMERCE / IDENTITY", position: "right center", src: "/assets/4tXbamARId1GtIkEXTPtvkZgry8.png" },
-    ],
-  },
-  kriyadex: {
-    owner: "KRIYADEX",
-    subtitle: "BRAND + MVP / 2023",
-    artifacts: [
-      { label: "IDENTITY / MARK", position: "center", src: "/assets/kAPxEEfqmcF1Prw6YnmQHHaYVpY.png" },
-      { label: "BRAND / COVER", position: "center", src: "/assets/new/book-covers/kriyadex-cover.png" },
-      { label: "MVP / SYSTEM", position: "left center", src: "/assets/kAPxEEfqmcF1Prw6YnmQHHaYVpY.png" },
-    ],
-  },
-  curo: {
-    owner: "CURO",
-    subtitle: "LEARNING MVP / 2024",
-    artifacts: [
-      { label: "RESOURCES / DISCOVERY", position: "center", src: "/assets/lREVKnbZDxTdgCdlTMAcEQXvxE.png" },
-      { label: "PATH / GENERATIVE AI", position: "center", src: "/assets/QZDLAFRGxs00xycurq0DyWxc.png" },
-      { label: "MVP / COVER", position: "center", src: "/assets/new/book-covers/curo-cover.png" },
-    ],
-  },
-};
-
 type MatPaletteId = (typeof matPalettes)[number]["id"];
 type WizFileCoverVariant = (typeof wizFileCoverVariants)[keyof typeof wizFileCoverVariants];
+
+const visualWorlds = [
+  {
+    id: "workbench",
+    label: "Workbench",
+    mat: "dark-green",
+    note: "cutting mat / active files",
+  },
+  {
+    id: "pond",
+    label: "Specimen",
+    mat: "soft-black",
+    note: "rendered objects / night shift",
+  },
+  {
+    id: "archive",
+    label: "Archive",
+    mat: "warm-ivory",
+    note: "paper stock / release notes",
+  },
+] as const;
+
+type VisualWorldId = (typeof visualWorlds)[number]["id"];
+
+function getInitialVisualWorld(): VisualWorldId {
+  if (typeof window === "undefined") return "workbench";
+  try {
+    const saved = window.localStorage.getItem("parosayshi:visual-world");
+    return visualWorlds.some((world) => world.id === saved)
+      ? saved as VisualWorldId
+      : "workbench";
+  } catch {
+    return "workbench";
+  }
+}
 
 const wizFileCoverByMat: Record<MatPaletteId, WizFileCoverVariant> = {
   "bright-orange": wizFileCoverVariants.cobalt,
@@ -482,6 +481,24 @@ const annualCoverPalettes: Partial<Record<ProjectId, Record<AnnualPaletteMode, A
 
 const bookEditions: BookEdition[] = [
   {
+    id: "periodic-table",
+    number: "08",
+    coverTitle: "Periodic Table",
+    coverLine: "A reference tool, made browseable",
+    coverArt: "/assets/periodic-table-specimen.svg",
+    coverArtScale: "1",
+    image: "/assets/periodic-table-specimen.svg",
+    x: "calc(50% + min(390px, 31vw) - 205px)",
+    y: "3860px",
+    width: "430px",
+    height: "575px",
+    rotate: "-7deg",
+    cover: "#d9c945",
+    ink: "#1d211d",
+    accent: "#6ca8d4",
+    z: "13",
+  },
+  {
     id: "wiz-commerce",
     number: "01",
     coverTitle: "WizCommerce",
@@ -490,7 +507,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.13",
     image: "/assets/new/wizcommerce-frame32/uploads/wizpay-responsive-transactions.png",
     x: "calc(50% - min(390px, 31vw) - 260px)",
-    y: "960px",
+    y: "858px",
     width: "520px",
     height: "660px",
     rotate: "-11deg",
@@ -518,7 +535,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.13",
     image: "/assets/new/uber-kids/invite-hero.png",
     x: "calc(50% + min(390px, 31vw) - 190px)",
-    y: "1300px",
+    y: "1309px",
     width: "485px",
     height: "649px",
     rotate: "12deg",
@@ -547,7 +564,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.12",
     image: "/assets/case-studies/f2MFjaGV3u8MAIXdzRO9fHE2wc.png",
     x: "calc(50% - min(390px, 31vw) - 230px)",
-    y: "1850px",
+    y: "1749px",
     width: "520px",
     height: "664px",
     rotate: "11deg",
@@ -575,7 +592,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.1",
     image: "/assets/case-studies/7pNOxoU2UIQLghgLPRTMAgwU1AE.png",
     x: "calc(50% + min(390px, 31vw) - 280px)",
-    y: "2190px",
+    y: "2189px",
     width: "460px",
     height: "600px",
     rotate: "-13deg",
@@ -603,7 +620,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1",
     image: "/assets/new/notebook-cover-key-v2.png",
     x: "calc(50% - 225px)",
-    y: "4550px",
+    y: "4439px",
     width: "450px",
     height: "675px",
     rotate: "1.5deg",
@@ -621,7 +638,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.05",
     image: "/assets/4tXbamARId1GtIkEXTPtvkZgry8.png",
     x: "calc(50% - min(390px, 31vw) - 260px)",
-    y: "2740px",
+    y: "2629px",
     width: "445px",
     height: "590px",
     rotate: "-11deg",
@@ -648,7 +665,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.11",
     image: "/assets/kAPxEEfqmcF1Prw6YnmQHHaYVpY.png",
     x: "calc(50% + min(390px, 31vw) - 155px)",
-    y: "3070px",
+    y: "3075px",
     width: "430px",
     height: "568px",
     rotate: "15deg",
@@ -676,7 +693,7 @@ const bookEditions: BookEdition[] = [
     coverArtScale: "1.11",
     image: "/assets/lREVKnbZDxTdgCdlTMAcEQXvxE.png",
     x: "calc(50% - min(390px, 31vw) - 285px)",
-    y: "3620px",
+    y: "3509px",
     width: "450px",
     height: "594px",
     rotate: "-9deg",
@@ -695,6 +712,63 @@ const bookEditions: BookEdition[] = [
     z: "6",
   },
 ];
+
+const scrollLibraryItems: ProjectBrowseItem[] = bookEditions
+  .filter((edition) => edition.id !== "notebook")
+  .map((edition) => {
+    const project = projects[edition.id];
+    const card = cardById.get(edition.id);
+    return {
+      accent: edition.accent,
+      id: edition.id,
+      kind: card?.edition || project.edition || "Case file",
+      number: edition.number,
+      period: edition.annualCover?.year || "ONGOING",
+      summary: edition.coverLine,
+      tags: "meta" in project && Array.isArray(project.meta)
+        ? project.meta.slice(0, 2)
+        : [],
+      title: edition.coverTitle,
+    };
+  });
+
+const boardLibraryItems: ProjectBoardItem[] = scrollLibraryItems.map((item) => {
+  const edition = bookEditions.find((candidate) => candidate.id === item.id);
+  const presentation = projectFolderPresentations[item.id];
+  const fallbackImage = edition?.image || edition?.coverArt || "";
+  return {
+    id: item.id,
+    images: presentation?.legacyArtifacts || [
+      { label: item.title, src: fallbackImage },
+      { label: item.summary, src: fallbackImage },
+      { label: item.kind, src: fallbackImage },
+    ],
+    kind: item.kind,
+    number: item.number,
+    period: item.period,
+    summary: item.summary,
+    title: item.title,
+  };
+});
+
+const archiveLibraryItems: ArchiveGardenProject[] = [...scrollLibraryItems]
+  .sort((a, b) => a.number.localeCompare(b.number))
+  .map((item) => {
+    const edition = bookEditions.find((candidate) => candidate.id === item.id);
+    const presentation = projectFolderPresentations[item.id];
+    const presentationImages = presentation?.boards.flatMap((board) => board.assets) || [];
+    const fallbackImage = edition?.image || edition?.coverArt || "";
+    return {
+      ...item,
+      images: presentationImages.length > 0
+        ? presentationImages
+        : [
+          { label: item.title, src: fallbackImage },
+          { label: item.summary, src: edition?.coverArt || fallbackImage },
+          { label: item.kind, src: fallbackImage },
+        ],
+    };
+  });
 
 function resolveAnnualCover(
   edition: BookEdition | undefined,
@@ -802,9 +876,13 @@ function BookObject({
   annualEmbossEnabled,
   annualHoverPreview,
   annualPaletteMode,
+  browseActive = false,
+  browseMode = false,
   coverComparisonMode,
   edition,
+  folderCoverVersion = "stamp",
   isExpanded,
+  isReturning = false,
   isSlotted = false,
   openSlip,
   reducedMotion,
@@ -814,24 +892,39 @@ function BookObject({
   annualEmbossEnabled: boolean;
   annualHoverPreview: ProjectId | null;
   annualPaletteMode: AnnualPaletteMode;
+  browseActive?: boolean;
+  browseMode?: boolean;
   coverComparisonMode: CoverComparisonMode;
   edition: BookEdition;
+  folderCoverVersion?: FolderCoverVersion;
   isExpanded: boolean;
+  isReturning?: boolean;
   isSlotted?: boolean;
   openSlip: (card: HTMLElement) => void;
   reducedMotion: boolean;
   wizFileCover?: WizFileCoverVariant;
   wizObjectMode?: WizObjectMode;
 }) {
+  const [isFolderPreviewed, setIsFolderPreviewed] = useState(false);
   const card = cardById.get(edition.id);
   const folderPresentation = projectFolderPresentations[edition.id];
-  const coverFormat = edition.id === "notebook"
+  const coverFormat = browseMode && edition.id !== "notebook"
+    ? "file"
+    : edition.id === "notebook"
     ? "notebook"
     : edition.id === "wiz-commerce"
       ? wizObjectMode
       : folderPresentation
         ? "folder"
         : "file";
+  const isStampFolder = coverFormat === "folder" && folderCoverVersion === "stamp";
+  const folderMotionState: ProjectFolderMotionState = isExpanded
+    ? isReturning
+      ? "returning"
+      : "committed"
+    : isFolderPreviewed || annualHoverPreview === edition.id
+      ? "preview"
+      : "rest";
   const isDeskObject = coverFormat !== "notebook";
   const annualCover = resolveAnnualCover(edition, annualPaletteMode, annualEmbossEnabled);
   const useAnnualCover = coverComparisonMode === "annual"
@@ -858,14 +951,37 @@ function BookObject({
       className={`book-object${isSlotted ? " is-notebook-slot-cover" : ""}`}
       data-cover-format={coverFormat}
       data-cover-style={useAnnualCover ? "annual" : "original"}
-      data-hover-preview={annualHoverPreview === edition.id ? "true" : undefined}
+      data-browse-mode={browseMode ? "true" : undefined}
+      data-folder-version={coverFormat === "folder" ? folderCoverVersion : undefined}
+      data-hover-preview={folderMotionState === "preview" ? "true" : undefined}
       data-format={edition.format || "portrait"}
       data-object-kind={edition.id === "notebook" ? "sketchbook" : "case-study"}
       data-project={edition.id}
       aria-haspopup={edition.id === "notebook" ? undefined : "dialog"}
       aria-expanded={isExpanded}
+      aria-current={browseMode && browseActive ? "true" : undefined}
       aria-label={`Open ${card?.title || edition.coverTitle}`}
-      onClick={(event) => openSlip(event.currentTarget)}
+      tabIndex={browseMode && !browseActive ? -1 : undefined}
+      onBlur={(event) => {
+        if (!isStampFolder) return;
+        if (event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget)) return;
+        setIsFolderPreviewed(false);
+      }}
+      onClick={(event) => {
+        if (isStampFolder && !reducedMotion) setIsFolderPreviewed(true);
+        openSlip(event.currentTarget);
+      }}
+      onFocus={() => {
+        if (isStampFolder && !reducedMotion) setIsFolderPreviewed(true);
+      }}
+      onPointerEnter={(event) => {
+        if (isStampFolder && !reducedMotion && event.pointerType !== "touch") {
+          setIsFolderPreviewed(true);
+        }
+      }}
+      onPointerLeave={() => {
+        if (isStampFolder && !isExpanded) setIsFolderPreviewed(false);
+      }}
       style={bookStyle}
       type="button"
     >
@@ -879,16 +995,28 @@ function BookObject({
       ) : edition.id === "notebook" ? (
         <NotebookCover className="notebook-desk-cover" ariaHidden />
       ) : coverFormat === "folder" && folderPresentation ? (
-        <ProjectFolderCover
-          artifacts={folderPresentation.artifacts}
-          deepTint={fileCover.deepTint}
-          ink={fileCover.ink}
-          number={edition.number}
-          owner={folderPresentation.owner}
-          reducedMotion={reducedMotion}
-          subtitle={folderPresentation.subtitle}
-          tint={fileCover.tint}
-        />
+        folderCoverVersion === "stamp" ? (
+          <ProjectFolderCover
+            deepTint={fileCover.deepTint}
+            ink={fileCover.ink}
+            motionState={folderMotionState}
+            number={edition.number}
+            presentation={folderPresentation}
+            reducedMotion={reducedMotion}
+            tint={fileCover.tint}
+          />
+        ) : (
+          <LegacyProjectFolderCover
+            artifacts={folderPresentation.legacyArtifacts}
+            deepTint={fileCover.deepTint}
+            ink={fileCover.ink}
+            number={edition.number}
+            owner={folderPresentation.owner}
+            reducedMotion={reducedMotion}
+            subtitle={folderPresentation.subtitle}
+            tint={fileCover.tint}
+          />
+        )
       ) : edition.id === "wiz-commerce" ? (
         isExpanded
           ? null
@@ -909,20 +1037,24 @@ function BookObject({
 
 export default function App() {
   const paperRef = useRef<HTMLElement | null>(null);
+  const notebookTableRef = useRef<HTMLDivElement | null>(null);
   const slipRef = useRef<HTMLElement | null>(null);
   const notebookViewportRef = useRef<{
     left: number;
     previousScrollBehavior: string;
     top: number;
   } | null>(null);
-  const activeMatId: MatPaletteId = "dark-green";
+  const [visualWorld, setVisualWorld] = useState<VisualWorldId>(getInitialVisualWorld);
+  const activeWorld = visualWorlds.find((world) => world.id === visualWorld) || visualWorlds[0];
+  const activeMatId: MatPaletteId = activeWorld.mat;
   const matHasShadow = true;
   const matHasVignette = false;
-  const wizObjectMode: WizObjectMode = "folder";
   const [coverComparisonMode] = useState<CoverComparisonMode>(getInitialCoverComparisonMode);
   const [annualPaletteMode] = useState<AnnualPaletteMode>(getInitialAnnualPaletteMode);
   const [annualEmbossEnabled] = useState(getInitialAnnualEmbossEnabled);
   const [annualHoverPreview] = useState<ProjectId | null>(getInitialAnnualHoverPreview);
+  const [folderCoverVersion] = useState<FolderCoverVersion>(getInitialFolderCoverVersion);
+  const [projectViewMode, setProjectViewMode] = useState<ProjectViewMode>(getInitialProjectViewMode);
   const [inlineNotebookOpen, setInlineNotebookOpen] = useState(false);
   const reducedMotion = useReducedMotion();
   const { activeProject, closeSlip, finishClose, focusSlip, openSlip, slipEntryTransform, slipState } = useSlip({
@@ -1001,6 +1133,34 @@ export default function App() {
     [openSlip, preserveNotebookViewport],
   );
 
+  const openScrollProject = useCallback((id: ProjectId) => {
+    const card = document.querySelector<HTMLElement>(
+      `.project-scroll-library .book-object[data-project="${id}"]`,
+    );
+    if (card) openDeskObject(card);
+  }, [openDeskObject]);
+
+  const changeProjectViewMode = useCallback((mode: ProjectViewMode) => {
+    setProjectViewMode(mode);
+    const nextUrl = new URL(window.location.href);
+    if (mode === "archive") nextUrl.searchParams.delete("project-view");
+    else nextUrl.searchParams.set("project-view", mode);
+    window.history.replaceState(window.history.state, "", nextUrl);
+  }, []);
+
+  const cycleVisualWorld = useCallback(() => {
+    setVisualWorld((current) => {
+      const currentIndex = visualWorlds.findIndex((world) => world.id === current);
+      const next = visualWorlds[(currentIndex + 1) % visualWorlds.length];
+      try {
+        window.localStorage.setItem("parosayshi:visual-world", next.id);
+      } catch {
+        // Persistence is a convenience; the visual control remains usable without it.
+      }
+      return next.id;
+    });
+  }, []);
+
   useEffect(() => {
     const id = window.location.hash.slice(1);
     if (!isProjectId(id)) return;
@@ -1031,196 +1191,243 @@ export default function App() {
     <LayoutGroup id="portfolio-books">
       <main
         aria-hidden={slipState !== "closed" ? true : undefined}
-        className="folio-scene"
+        className={`folio-scene${projectViewMode === "archive" ? " archive-garden-scene" : ""}`}
         data-cover-emboss={annualEmbossEnabled ? "on" : "off"}
         data-cover-palette={annualPaletteMode}
         data-cover-system={coverComparisonMode}
         data-mat-shadow={matHasShadow}
+        data-project-view={projectViewMode}
+        data-visual-world={visualWorld}
         inert={slipState !== "closed" ? true : undefined}
         style={matStyle}
       >
-        <SunlightShader active={matHasShadow} reducedMotion={reducedMotion} />
-        <div className="mat-edge-vignette" data-active={matHasVignette} aria-hidden="true" />
-
-        <header className="studio-header">
-          <a className="holo-brand-sticker" href="/" aria-label="Parosayshi home">
-            <img src="/assets/new/parosayshi-wordmark.svg" alt="Parosayshi" />
-          </a>
-          <nav aria-label="Portfolio links">
-            <a href="https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              RESUME <ArrowUpRightIcon aria-hidden="true" size={12} weight="regular" />
-            </a>
-            <a href="mailto:hello@parosayshi.com">
-              SAY HELLO <ArrowUpRightIcon aria-hidden="true" size={12} weight="regular" />
-            </a>
-          </nav>
-        </header>
-
-        {/*
-          Presentation controls are parked for now. The fixed composition keeps:
-          - Studio green cutting mat
-          - Shade on
-          - Edge vignette off
-
-          <div className="mat-switcher" aria-label="Cutting mat color">
-            <span>MAT</span>
-            {matPalettes.map((palette) => (
-              <button
-                key={palette.id}
-                aria-label={`Use ${palette.label} mat`}
-                aria-pressed={palette.id === activeMatId}
-                onClick={() => setActiveMatId(palette.id)}
-                style={{ "--swatch-color": palette.color } as CSSProperties}
-                type="button"
-              />
-            ))}
-            <button
-              aria-label={matHasShadow ? "Turn mat shadows off" : "Turn mat shadows on"}
-              aria-pressed={matHasShadow}
-              className="mat-shadow-toggle"
-              onClick={() => setMatHasShadow((current) => !current)}
-              type="button"
-            >
-              SHADE
-            </button>
-            <button
-              aria-label={matHasVignette ? "Turn edge vignette off" : "Turn edge vignette on"}
-              aria-pressed={matHasVignette}
-              className="mat-shadow-toggle mat-vignette-toggle"
-              onClick={() => setMatHasVignette((current) => !current)}
-              type="button"
-            >
-              EDGE
-            </button>
-          </div>
-
-          The FILE / FOLDER / NOTEBOOK comparison is also parked. Folder remains
-          the fixed cover format for every case study.
-
-          <div className="object-switcher" aria-label="WizCommerce cover style">
-            <span>WIZ</span>
-            <button onClick={() => setWizObjectMode("file")} type="button">FILE</button>
-            <button aria-pressed type="button">FOLDER</button>
-            <button onClick={() => setWizObjectMode("notebook")} type="button">NOTEBOOK</button>
-          </div>
-        */}
-
-        <section className="book-table" aria-labelledby="library-title">
-          <div className="folio-fold-stage">
-            <span className="folio-flight-shadow" aria-hidden="true" />
-            <motion.article
-              animate={{
-                opacity: 1,
-                rotateX: 0,
-                rotateY: 0,
-                rotateZ: 0,
-                scale: 1,
-                x: 0,
-                y: 0,
+        {projectViewMode === "archive" ? (
+          <>
+            <ProjectArchiveGarden
+              items={archiveLibraryItems}
+              onOpenNotebook={(trigger) => openDeskObject(trigger)}
+              onOpenProject={(id, trigger) => {
+                if (trigger.dataset.project === id) openDeskObject(trigger);
               }}
-              className="folio-sheet"
-              initial={reducedMotion ? false : {
-                opacity: 0,
-                rotateX: 17,
-                rotateY: -11,
-                rotateZ: 4,
-                scale: 0.945,
-                x: 96,
-                y: -168,
-              }}
-              ref={paperRef}
-              transition={reducedMotion ? { duration: 0 } : {
-                opacity: { duration: 0.38, ease: "easeOut" },
-                rotateX: { type: "spring", stiffness: 54, damping: 14, mass: 1.1 },
-                rotateY: { type: "spring", stiffness: 58, damping: 15, mass: 1.05 },
-                rotateZ: { type: "spring", stiffness: 60, damping: 15, mass: 1 },
-                scale: { type: "spring", stiffness: 62, damping: 15, mass: 1.05 },
-                x: { type: "spring", stiffness: 58, damping: 14, mass: 1.05 },
-                y: { type: "spring", stiffness: 54, damping: 13, mass: 1.05 },
-              }}
-            >
-              <div className="sheet-kicker">
-                <span>PARTH JHA / PRODUCT DESIGNER</span>
-                <span>INDIA — 2026</span>
-              </div>
-              <h1 id="library-title">“I will keep designing for fun even in this economy”</h1>
-              <p className="sheet-byline">
-                says Parth Jha, an AI optimist who believes <strong>intentmaxxxing</strong> is the solution.
-              </p>
-              <div className="sheet-columns">
-                <p>
-                  A <strong>technical product designer</strong> wanting to make sense to himself goes all out on
-                  platforms like i ask, i explore, i tinker—designing to make technology feel more human.
-                </p>
-                <p>
-                  Product strategy, systems thinking, slightly obsessive prototyping, and a few notes from the margins.
-                  Pick up a book to read the full story.
-                </p>
-              </div>
-              <div className="sheet-colophon">
-                <span>CURRENTLY AT<br />[@AIRTRIBE]</span>
-                <span>SYSTEMS THINKING<br />PROTOTYPING + PLAY</span>
-                <span>HELLO@PAROSAYSHI.COM</span>
-              </div>
-            </motion.article>
-          </div>
-
-          <div className="book-layer" aria-label="Case-study books">
-            {bookEditions.filter((edition) => edition.id !== "notebook").map((edition) => (
-              <BookObject
-                annualEmbossEnabled={annualEmbossEnabled}
-                annualHoverPreview={annualHoverPreview}
-                annualPaletteMode={annualPaletteMode}
-                coverComparisonMode={coverComparisonMode}
-                edition={edition}
-                isExpanded={activeProject === edition.id && slipState !== "closed"}
-                key={edition.id}
-                openSlip={openDeskObject}
-                reducedMotion={Boolean(reducedMotion)}
-                wizFileCover={wizFileCover}
-                wizObjectMode={wizObjectMode}
-              />
-            ))}
-            <div className="notebook-library-heading">
-              <span>FIELD NOTES / ONGOING</span>
-              <h2>Things that stayed in the notebook.</h2>
-            </div>
-            {notebookEdition ? (
-              <div
-                className={`notebook-inline-slot${inlineNotebookOpen ? " is-open" : ""}`}
-                style={getBookStyle(notebookEdition)}
-              >
-                <BookObject
-                  annualEmbossEnabled={annualEmbossEnabled}
-                  annualHoverPreview={annualHoverPreview}
-                  annualPaletteMode={annualPaletteMode}
-                  coverComparisonMode={coverComparisonMode}
-                  edition={notebookEdition}
-                  isExpanded={inlineNotebookOpen}
-                  isSlotted
-                  openSlip={openDeskObject}
-                  reducedMotion={Boolean(reducedMotion)}
-                />
-                {inlineNotebookOpen ? (
-                  <div className="inline-notebook-reader">
-                    <Sketchbook autoOpen onClose={() => closeInlineNotebook()} variant="expanded" />
-                  </div>
-                ) : null}
+              reducedMotion={Boolean(reducedMotion)}
+            />
+            {inlineNotebookOpen ? (
+              <div aria-label="Field notes" aria-modal="true" className="archive-garden-notebook" role="dialog">
+                <div className="inline-notebook-reader">
+                  <Sketchbook autoOpen onClose={() => closeInlineNotebook()} variant="expanded" />
+                </div>
               </div>
             ) : null}
+          </>
+        ) : (
+          <>
+        <button
+          aria-label={`Change visual world. Current world: ${activeWorld.label}`}
+          className="visual-world-switcher"
+          onClick={cycleVisualWorld}
+          type="button"
+        >
+          <PaintBrushBroadIcon aria-hidden="true" size={15} weight="regular" />
+          <span className="visual-world-switcher__label">{activeWorld.label}</span>
+          <span className="visual-world-switcher__note">{activeWorld.note}</span>
+        </button>
+
+        <nav aria-label="Project presentation" className="project-view-toggle">
+          <span>VIEW</span>
+          {([
+            ["current", "FOLDERS"],
+            ["scroll", "SCROLL"],
+            ["board", "BOARD"],
+          ] as const).map(([mode, label]) => (
+            <button
+              aria-pressed={projectViewMode === mode}
+              key={mode}
+              onClick={() => changeProjectViewMode(mode)}
+              type="button"
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+
+        <section className="book-table" aria-labelledby="library-title">
+          <section className="publication-cover" ref={paperRef}>
+            <div className="publication-cover__masthead">
+              <span>PARTH JHA / PRODUCT DESIGNER</span>
+              <span>AN IRREGULAR PUBLICATION</span>
+              <span>ISSUE 01 / 2026</span>
+            </div>
+
+            <h1 className="publication-cover__title" id="library-title" aria-label="Paro Says Hi">
+              <span>PARO</span>
+              <span>SAYS</span>
+              <span>HI</span>
+            </h1>
+
+            <motion.figure
+              animate={{ opacity: 1, rotate: -3, scale: 1, y: 0 }}
+              className="publication-cover__portrait"
+              initial={reducedMotion ? false : { opacity: 0, rotate: 4, scale: 0.9, y: 70 }}
+              transition={reducedMotion ? { duration: 0 } : { delay: 0.14, duration: 0.72, ease: [0.22, 0.72, 0.2, 1] }}
+            >
+              <img
+                alt="Parth Jha laughing with a very friendly dog"
+                src="/assets/new/hero.png"
+              />
+              <figcaption>PORTRAIT WITH COLLABORATOR / BANGALORE</figcaption>
+            </motion.figure>
+
+            <p className="publication-cover__manifesto">
+              Making products, making evidence, and occasionally making a mess.
+            </p>
+
+            <div className="publication-cover__footnote" aria-hidden="true">
+              <span>PRODUCTS</span>
+              <span>SYSTEMS</span>
+              <span>FIELD NOTES</span>
+              <span>ODD JOBS</span>
+            </div>
+
+            <a className="publication-cover__enter" href="#contents">
+              Open contents <span aria-hidden="true">↓</span>
+            </a>
+          </section>
+
+          <div className="folio-scroll-ping" aria-hidden="true">
+            <span>SCROLL</span>
+            <i />
+          </div>
+
+          <div className="book-layer" aria-label="Case-study folders">
+            {projectViewMode === "current" ? (
+              <>
+                <header className="publication-contents" id="contents">
+                  <div className="publication-contents__meta">
+                    <span>CONTENTS / ISSUE 01</span>
+                    <span>8 STORIES + 1 NOTEBOOK</span>
+                  </div>
+                  <h2>Products have backstories.</h2>
+                  <p>
+                    Finished work, unfinished thinking, and the decisions hiding between them.
+                  </p>
+                </header>
+
+                <div className="publication-issue-grid">
+                  {bookEditions
+                    .filter((edition) => edition.id !== "notebook")
+                    .sort((a, b) => a.number.localeCompare(b.number))
+                    .map((edition, index) => (
+                    <button
+                      aria-label={`Open issue ${edition.number}: ${edition.coverTitle}`}
+                      className="publication-issue-card"
+                      data-project={edition.id}
+                      data-size={index === 0 || index === 3 ? "feature" : "standard"}
+                      key={edition.id}
+                      onClick={(event) => openDeskObject(event.currentTarget)}
+                      style={{
+                        "--issue-accent": edition.accent,
+                        "--issue-cover": edition.cover,
+                        "--issue-ink": edition.ink,
+                      } as CSSProperties}
+                      type="button"
+                    >
+                      <span className="publication-issue-card__meta">
+                        <b>ISSUE {edition.number}</b>
+                        <span>CASE STUDY / {index + 1} OF {bookEditions.length - 1}</span>
+                      </span>
+                      <span className="publication-issue-card__visual">
+                        <img alt="" src={edition.image} />
+                        <i aria-hidden="true">{edition.number}</i>
+                      </span>
+                      <span className="publication-issue-card__copy">
+                        <strong>{edition.coverTitle}</strong>
+                        <span>{edition.coverLine}</span>
+                      </span>
+                      <span className="publication-issue-card__open" aria-hidden="true">
+                        READ <ArrowUpRightIcon size={17} weight="bold" />
+                      </span>
+                    </button>
+                    ))}
+                </div>
+              </>
+            ) : projectViewMode === "scroll" ? (
+              <ProjectScrollLibrary
+                items={scrollLibraryItems}
+                onOpenItem={openScrollProject}
+                reducedMotion={Boolean(reducedMotion)}
+                renderBook={(item, state) => {
+                  const edition = bookEditions.find((candidate) => candidate.id === item.id);
+                  if (!edition) return null;
+                  return (
+                    <BookObject
+                      annualEmbossEnabled={annualEmbossEnabled}
+                      annualHoverPreview={annualHoverPreview}
+                      annualPaletteMode={annualPaletteMode}
+                      browseActive={state.isShelf || state.isActive}
+                      browseMode
+                      coverComparisonMode={coverComparisonMode}
+                      edition={edition}
+                      folderCoverVersion={folderCoverVersion}
+                      isExpanded={activeProject === edition.id && slipState !== "closed"}
+                      isReturning={activeProject === edition.id && slipState === "closing"}
+                      openSlip={() => state.activate()}
+                      reducedMotion={Boolean(reducedMotion)}
+                      wizFileCover={wizFileCover}
+                      wizObjectMode="file"
+                    />
+                  );
+                }}
+              />
+            ) : (
+              <ProjectBoardLibrary
+                activeProject={activeProject}
+                items={boardLibraryItems}
+                onOpenItem={(_, trigger) => openDeskObject(trigger)}
+              />
+            )}
+            <div className="notebook-table-surface" ref={notebookTableRef}>
+              <SunlightShader active={matHasShadow} reducedMotion={reducedMotion} />
+              <div className="mat-edge-vignette" data-active={matHasVignette} aria-hidden="true" />
+              <TableStickerLayer
+                containerRef={notebookTableRef}
+                disabled={slipState !== "closed" || inlineNotebookOpen}
+                reducedMotion={Boolean(reducedMotion)}
+              />
+              {notebookEdition ? (
+                <div
+                  className={`notebook-inline-slot${inlineNotebookOpen ? " is-open" : ""}`}
+                  style={getBookStyle(notebookEdition)}
+                >
+                  <BookObject
+                    annualEmbossEnabled={annualEmbossEnabled}
+                    annualHoverPreview={annualHoverPreview}
+                    annualPaletteMode={annualPaletteMode}
+                    coverComparisonMode={coverComparisonMode}
+                    edition={notebookEdition}
+                    isExpanded={inlineNotebookOpen}
+                    isSlotted
+                    openSlip={openDeskObject}
+                    reducedMotion={Boolean(reducedMotion)}
+                  />
+                  {inlineNotebookOpen ? (
+                    <div className="inline-notebook-reader">
+                      <Sketchbook autoOpen onClose={() => closeInlineNotebook()} variant="expanded" />
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
           </div>
         </section>
 
-        <footer className="studio-footer">
-          <span>THE LIBRARY WILL KEEP CHANGING.</span>
-          <span>© 2026 PAROSAYSHI</span>
-        </footer>
+        <EmbroideredFooter reducedMotion={reducedMotion} />
+          </>
+        )}
       </main>
 
       {slipState !== "closed" && activeProject ? (
         <div className="slip-overlay">
           <CaseStudyReader
-              bookmarks={activeProject === "wiz-commerce"}
               entryColors={{
                 deep: activeFileCover.deepTint,
                 ink: activeFileCover.ink,

@@ -1,5 +1,6 @@
 export type ProjectId =
   | "notebook"
+  | "periodic-table"
   | "wiz-commerce"
   | "wiz-sales-data"
   | "wiz-email-flows"
@@ -108,6 +109,10 @@ export interface DividerBlock {
   type: "divider";
 }
 
+export interface InteractivePeriodicTableBlock {
+  type: "interactive-periodic-table";
+}
+
 export interface SmallNoteBlock {
   type: "small-note";
   text: string;
@@ -127,6 +132,7 @@ export type ProjectBodyBlock =
   | QuoteBlock
   | ListBlock
   | DividerBlock
+  | InteractivePeriodicTableBlock
   | SmallNoteBlock
   | string;
 

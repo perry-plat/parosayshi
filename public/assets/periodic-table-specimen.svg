@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#f8f1df"/>
+  <rect x="28" y="28" width="744" height="944" fill="none" stroke="#1d211d" stroke-width="3"/>
+  <text x="64" y="108" fill="#1d211d" font-family="Georgia, serif" font-size="54">Periodic</text>
+  <text x="64" y="164" fill="#1d211d" font-family="Georgia, serif" font-size="54">Table</text>
+  <text x="66" y="204" fill="#1d211d" font-family="monospace" font-size="14" letter-spacing="3">A REFERENCE OBJECT / 08</text>
+  <g transform="translate(66 274)" stroke="#1d211d" stroke-width="2">
+    <g fill="#ef7567"><rect width="58" height="58"/><rect x="0" y="64" width="58" height="58"/><rect x="0" y="128" width="58" height="58"/><rect x="0" y="192" width="58" height="58"/><rect x="0" y="256" width="58" height="58"/><rect x="0" y="320" width="58" height="58"/></g>
+    <g fill="#f1b45d"><rect x="64" y="64" width="58" height="58"/><rect x="64" y="128" width="58" height="58"/><rect x="64" y="192" width="58" height="58"/><rect x="64" y="256" width="58" height="58"/><rect x="64" y="320" width="58" height="58"/></g>
+    <g fill="#d9c945"><rect x="128" y="192" width="58" height="58"/><rect x="192" y="192" width="58" height="58"/><rect x="256" y="192" width="58" height="58"/><rect x="320" y="192" width="58" height="58"/><rect x="384" y="192" width="58" height="58"/><rect x="448" y="192" width="58" height="58"/><rect x="512" y="192" width="58" height="58"/></g>
+    <g fill="#70ba82"><rect x="448" width="58" height="58"/><rect x="512" width="58" height="58"/><rect x="576" width="58" height="58"/><rect x="640" width="58" height="58"/><rect x="448" y="64" width="58" height="58"/><rect x="512" y="64" width="58" height="58"/><rect x="576" y="64" width="58" height="58"/><rect x="640" y="64" width="58" height="58"/></g>
+    <g fill="#6ca8d4"><rect x="448" y="128" width="58" height="58"/><rect x="512" y="128" width="58" height="58"/><rect x="576" y="128" width="58" height="58"/><rect x="640" y="128" width="58" height="58"/></g>
+    <g fill="#777dca"><rect x="576" y="192" width="58" height="58"/><rect x="640" y="192" width="58" height="58"/></g>
+    <g fill="#bc7dba"><rect x="640" width="58" height="58"/><rect x="640" y="64" width="58" height="58"/></g>
+  </g>
+  <text x="66" y="760" fill="#1d211d" font-family="monospace" font-size="15" letter-spacing="2">TAP / SORT / EXPLORE</text>
+  <path d="M66 802H734" stroke="#1d211d" stroke-width="2"/>
+  <text x="66" y="850" fill="#1d211d" font-family="Georgia, serif" font-size="25">A small UI study</text>
+  <text x="66" y="900" fill="#1d211d" font-family="monospace" font-size="13">PRODUCT DESIGN / 2026</text>
+</svg>

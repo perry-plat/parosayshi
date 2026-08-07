@@ -1,0 +1,1443 @@
+{
+  "generatedAt": "2026-08-03T09:18:47.189Z",
+  "corpus": {
+    "records": 2858,
+    "characters": 153380,
+    "words": 26412,
+    "documents": 93,
+    "releaseDocuments": 58
+  },
+  "voiceSignals": {
+    "firstPersonPlural": 294,
+    "secondPerson": 1271,
+    "contractions": 656,
+    "exclamationMarks": 71,
+    "questions": 92,
+    "emDashes": 127,
+    "emojis": 22
+  },
+  "topWords": [
+    {
+      "term": "dia",
+      "count": 472
+    },
+    {
+      "term": "tab",
+      "count": 232
+    },
+    {
+      "term": "tabs",
+      "count": 174
+    },
+    {
+      "term": "now",
+      "count": 172
+    },
+    {
+      "term": "new",
+      "count": 159
+    },
+    {
+      "term": "browser",
+      "count": 137
+    },
+    {
+      "term": "work",
+      "count": 120
+    },
+    {
+      "term": "chat",
+      "count": 109
+    },
+    {
+      "term": "all",
+      "count": 95
+    },
+    {
+      "term": "get",
+      "count": 87
+    },
+    {
+      "term": "group",
+      "count": 83
+    },
+    {
+      "term": "you're",
+      "count": 83
+    },
+    {
+      "term": "open",
+      "count": 79
+    },
+    {
+      "term": "right",
+      "count": 78
+    },
+    {
+      "term": "like",
+      "count": 64
+    },
+    {
+      "term": "it's",
+      "count": 63
+    },
+    {
+      "term": "click",
+      "count": 62
+    },
+    {
+      "term": "day",
+      "count": 62
+    },
+    {
+      "term": "groups",
+      "count": 59
+    },
+    {
+      "term": "meeting",
+      "count": 59
+    },
+    {
+      "term": "skills",
+      "count": 57
+    },
+    {
+      "term": "see",
+      "count": 56
+    },
+    {
+      "term": "what's",
+      "count": 56
+    },
+    {
+      "term": "keep",
+      "count": 55
+    },
+    {
+      "term": "context",
+      "count": 53
+    },
+    {
+      "term": "use",
+      "count": 52
+    },
+    {
+      "term": "without",
+      "count": 51
+    },
+    {
+      "term": "you'll",
+      "count": 50
+    },
+    {
+      "term": "page",
+      "count": 48
+    },
+    {
+      "term": "history",
+      "count": 47
+    },
+    {
+      "term": "time",
+      "count": 47
+    },
+    {
+      "term": "week",
+      "count": 47
+    },
+    {
+      "term": "better",
+      "count": 46
+    },
+    {
+      "term": "back",
+      "count": 45
+    },
+    {
+      "term": "first",
+      "count": 45
+    },
+    {
+      "term": "memory",
+      "count": 45
+    },
+    {
+      "term": "need",
+      "count": 45
+    },
+    {
+      "term": "search",
+      "count": 44
+    },
+    {
+      "term": "about",
+      "count": 43
+    },
+    {
+      "term": "live",
+      "count": 42
+    },
+    {
+      "term": "off",
+      "count": 42
+    },
+    {
+      "term": "we're",
+      "count": 42
+    },
+    {
+      "term": "bar",
+      "count": 40
+    },
+    {
+      "term": "every",
+      "count": 39
+    },
+    {
+      "term": "features",
+      "count": 39
+    },
+    {
+      "term": "last",
+      "count": 39
+    },
+    {
+      "term": "make",
+      "count": 39
+    },
+    {
+      "term": "using",
+      "count": 39
+    },
+    {
+      "term": "across",
+      "count": 38
+    },
+    {
+      "term": "data",
+      "count": 38
+    },
+    {
+      "term": "slack",
+      "count": 38
+    },
+    {
+      "term": "ask",
+      "count": 37
+    },
+    {
+      "term": "know",
+      "count": 37
+    },
+    {
+      "term": "shipped",
+      "count": 37
+    },
+    {
+      "term": "we've",
+      "count": 37
+    },
+    {
+      "term": "feel",
+      "count": 36
+    },
+    {
+      "term": "join",
+      "count": 36
+    },
+    {
+      "term": "updates",
+      "count": 36
+    },
+    {
+      "term": "want",
+      "count": 36
+    },
+    {
+      "term": "any",
+      "count": 35
+    },
+    {
+      "term": "download",
+      "count": 35
+    },
+    {
+      "term": "next",
+      "count": 35
+    },
+    {
+      "term": "stay",
+      "count": 35
+    },
+    {
+      "term": "way",
+      "count": 35
+    },
+    {
+      "term": "fun",
+      "count": 34
+    },
+    {
+      "term": "start",
+      "count": 34
+    },
+    {
+      "term": "tools",
+      "count": 34
+    },
+    {
+      "term": "plan",
+      "count": 33
+    },
+    {
+      "term": "show",
+      "count": 33
+    },
+    {
+      "term": "before",
+      "count": 32
+    },
+    {
+      "term": "settings",
+      "count": 32
+    },
+    {
+      "term": "team",
+      "count": 32
+    },
+    {
+      "term": "don't",
+      "count": 31
+    },
+    {
+      "term": "things",
+      "count": 31
+    },
+    {
+      "term": "few",
+      "count": 30
+    },
+    {
+      "term": "while",
+      "count": 30
+    },
+    {
+      "term": "access",
+      "count": 29
+    },
+    {
+      "term": "also",
+      "count": 29
+    },
+    {
+      "term": "automatically",
+      "count": 29
+    },
+    {
+      "term": "bookmarks",
+      "count": 29
+    },
+    {
+      "term": "easier",
+      "count": 29
+    },
+    {
+      "term": "help",
+      "count": 29
+    },
+    {
+      "term": "find",
+      "count": 28
+    },
+    {
+      "term": "free",
+      "count": 28
+    },
+    {
+      "term": "already",
+      "count": 27
+    },
+    {
+      "term": "always",
+      "count": 27
+    },
+    {
+      "term": "calendar",
+      "count": 27
+    },
+    {
+      "term": "everything",
+      "count": 27
+    },
+    {
+      "term": "links",
+      "count": 27
+    },
+    {
+      "term": "something",
+      "count": 27
+    },
+    {
+      "term": "that's",
+      "count": 27
+    },
+    {
+      "term": "try",
+      "count": 27
+    },
+    {
+      "term": "best",
+      "count": 26
+    },
+    {
+      "term": "early",
+      "count": 26
+    },
+    {
+      "term": "faster",
+      "count": 26
+    },
+    {
+      "term": "left",
+      "count": 26
+    },
+    {
+      "term": "macos",
+      "count": 26
+    },
+    {
+      "term": "menu",
+      "count": 26
+    },
+    {
+      "term": "thing",
+      "count": 26
+    },
+    {
+      "term": "center",
+      "count": 25
+    },
+    {
+      "term": "command",
+      "count": 25
+    },
+    {
+      "term": "even",
+      "count": 25
+    },
+    {
+      "term": "fixed",
+      "count": 25
+    },
+    {
+      "term": "shortcuts",
+      "count": 25
+    },
+    {
+      "term": "thanks",
+      "count": 25
+    },
+    {
+      "term": "turn",
+      "count": 25
+    },
+    {
+      "term": "between",
+      "count": 24
+    },
+    {
+      "term": "built",
+      "count": 24
+    },
+    {
+      "term": "dia's",
+      "count": 24
+    },
+    {
+      "term": "place",
+      "count": 24
+    },
+    {
+      "term": "release",
+      "count": 24
+    },
+    {
+      "term": "through",
+      "count": 24
+    },
+    {
+      "term": "window",
+      "count": 24
+    },
+    {
+      "term": "other",
+      "count": 23
+    },
+    {
+      "term": "set",
+      "count": 23
+    },
+    {
+      "term": "after",
+      "count": 22
+    },
+    {
+      "term": "content",
+      "count": 22
+    },
+    {
+      "term": "create",
+      "count": 22
+    },
+    {
+      "term": "down",
+      "count": 22
+    },
+    {
+      "term": "improvements",
+      "count": 22
+    },
+    {
+      "term": "look",
+      "count": 22
+    },
+    {
+      "term": "small",
+      "count": 22
+    },
+    {
+      "term": "windows",
+      "count": 22
+    },
+    {
+      "term": "docs",
+      "count": 21
+    },
+    {
+      "term": "google",
+      "count": 21
+    },
+    {
+      "term": "here's",
+      "count": 21
+    },
+    {
+      "term": "long",
+      "count": 21
+    },
+    {
+      "term": "making",
+      "count": 21
+    },
+    {
+      "term": "move",
+      "count": 21
+    },
+    {
+      "term": "only",
+      "count": 21
+    },
+    {
+      "term": "sidebar",
+      "count": 21
+    },
+    {
+      "term": "split",
+      "count": 21
+    },
+    {
+      "term": "still",
+      "count": 21
+    },
+    {
+      "term": "support",
+      "count": 21
+    },
+    {
+      "term": "together",
+      "count": 21
+    },
+    {
+      "term": "close",
+      "count": 20
+    },
+    {
+      "term": "each",
+      "count": 20
+    },
+    {
+      "term": "helps",
+      "count": 20
+    },
+    {
+      "term": "i've",
+      "count": 20
+    },
+    {
+      "term": "notes",
+      "count": 20
+    },
+    {
+      "term": "privacy",
+      "count": 20
+    },
+    {
+      "term": "profiles",
+      "count": 20
+    },
+    {
+      "term": "pull",
+      "count": 20
+    },
+    {
+      "term": "read",
+      "count": 20
+    },
+    {
+      "term": "view",
+      "count": 20
+    },
+    {
+      "term": "working",
+      "count": 20
+    },
+    {
+      "term": "you've",
+      "count": 20
+    },
+    {
+      "term": "answers",
+      "count": 19
+    },
+    {
+      "term": "connect",
+      "count": 19
+    },
+    {
+      "term": "current",
+      "count": 19
+    }
+  ],
+  "topBigrams": [
+    {
+      "term": "tab groups",
+      "count": 43
+    },
+    {
+      "term": "tab group",
+      "count": 40
+    },
+    {
+      "term": "t z",
+      "count": 36
+    },
+    {
+      "term": "dia browser",
+      "count": 35
+    },
+    {
+      "term": "what's new",
+      "count": 35
+    },
+    {
+      "term": "new tab",
+      "count": 33
+    },
+    {
+      "term": "dia v",
+      "count": 32
+    },
+    {
+      "term": "new dia",
+      "count": 24
+    },
+    {
+      "term": "last thing",
+      "count": 22
+    },
+    {
+      "term": "download dia",
+      "count": 20
+    },
+    {
+      "term": "dia now",
+      "count": 19
+    },
+    {
+      "term": "command bar",
+      "count": 18
+    },
+    {
+      "term": "ai browser",
+      "count": 17
+    },
+    {
+      "term": "browser company",
+      "count": 12
+    },
+    {
+      "term": "early access",
+      "count": 12
+    },
+    {
+      "term": "early birds",
+      "count": 12
+    },
+    {
+      "term": "few updates",
+      "count": 12
+    },
+    {
+      "term": "using dia",
+      "count": 12
+    },
+    {
+      "term": "ask dia",
+      "count": 11
+    },
+    {
+      "term": "here's what's",
+      "count": 11
+    },
+    {
+      "term": "macos m",
+      "count": 11
+    },
+    {
+      "term": "right click",
+      "count": 11
+    },
+    {
+      "term": "you'll see",
+      "count": 11
+    },
+    {
+      "term": "chips later",
+      "count": 10
+    },
+    {
+      "term": "dia ai",
+      "count": 10
+    },
+    {
+      "term": "live tab",
+      "count": 10
+    },
+    {
+      "term": "m chips",
+      "count": 10
+    },
+    {
+      "term": "open new",
+      "count": 10
+    },
+    {
+      "term": "get started",
+      "count": 9
+    },
+    {
+      "term": "keyboard shortcuts",
+      "count": 9
+    },
+    {
+      "term": "left off",
+      "count": 9
+    },
+    {
+      "term": "morning brief",
+      "count": 9
+    },
+    {
+      "term": "next week",
+      "count": 9
+    },
+    {
+      "term": "smart browser",
+      "count": 9
+    },
+    {
+      "term": "arc members",
+      "count": 8
+    },
+    {
+      "term": "between tabs",
+      "count": 8
+    },
+    {
+      "term": "birds program",
+      "count": 8
+    },
+    {
+      "term": "chat tabs",
+      "count": 8
+    },
+    {
+      "term": "join early",
+      "count": 8
+    },
+    {
+      "term": "let know",
+      "count": 8
+    },
+    {
+      "term": "meeting tab",
+      "count": 8
+    },
+    {
+      "term": "side panel",
+      "count": 8
+    },
+    {
+      "term": "stay focused",
+      "count": 8
+    },
+    {
+      "term": "work day",
+      "count": 8
+    },
+    {
+      "term": "across board",
+      "count": 7
+    },
+    {
+      "term": "any tab",
+      "count": 7
+    },
+    {
+      "term": "browsing history",
+      "count": 7
+    },
+    {
+      "term": "content data",
+      "count": 7
+    },
+    {
+      "term": "new features",
+      "count": 7
+    },
+    {
+      "term": "now shows",
+      "count": 7
+    },
+    {
+      "term": "split view",
+      "count": 7
+    },
+    {
+      "term": "tab page",
+      "count": 7
+    },
+    {
+      "term": "team dia",
+      "count": 7
+    },
+    {
+      "term": "ad block",
+      "count": 6
+    },
+    {
+      "term": "ai features",
+      "count": 6
+    },
+    {
+      "term": "all tabs",
+      "count": 6
+    },
+    {
+      "term": "context menu",
+      "count": 6
+    },
+    {
+      "term": "current tab",
+      "count": 6
+    },
+    {
+      "term": "currently available",
+      "count": 6
+    },
+    {
+      "term": "dia automatically",
+      "count": 6
+    },
+    {
+      "term": "directly dia",
+      "count": 6
+    },
+    {
+      "term": "free trial",
+      "count": 6
+    },
+    {
+      "term": "it's easier",
+      "count": 6
+    },
+    {
+      "term": "join waitlist",
+      "count": 6
+    },
+    {
+      "term": "manifest v",
+      "count": 6
+    },
+    {
+      "term": "new chat",
+      "count": 6
+    },
+    {
+      "term": "off clock",
+      "count": 6
+    },
+    {
+      "term": "old browser",
+      "count": 6
+    },
+    {
+      "term": "open tab",
+      "count": 6
+    },
+    {
+      "term": "open tabs",
+      "count": 6
+    },
+    {
+      "term": "passwords history",
+      "count": 6
+    },
+    {
+      "term": "pick left",
+      "count": 6
+    },
+    {
+      "term": "pinned tabs",
+      "count": 6
+    },
+    {
+      "term": "proactive suggestions",
+      "count": 6
+    },
+    {
+      "term": "recently closed",
+      "count": 6
+    },
+    {
+      "term": "settings apps",
+      "count": 6
+    },
+    {
+      "term": "skills gallery",
+      "count": 6
+    },
+    {
+      "term": "starting today",
+      "count": 6
+    },
+    {
+      "term": "switching tabs",
+      "count": 6
+    },
+    {
+      "term": "tab strip",
+      "count": 6
+    },
+    {
+      "term": "under hood",
+      "count": 6
+    },
+    {
+      "term": "while you're",
+      "count": 6
+    },
+    {
+      "term": "without leaving",
+      "count": 6
+    },
+    {
+      "term": "access arc",
+      "count": 5
+    },
+    {
+      "term": "ali juma",
+      "count": 5
+    },
+    {
+      "term": "all about",
+      "count": 5
+    },
+    {
+      "term": "anything doesn't",
+      "count": 5
+    },
+    {
+      "term": "apple macos",
+      "count": 5
+    },
+    {
+      "term": "bookmarks extensions",
+      "count": 5
+    },
+    {
+      "term": "browser ai",
+      "count": 5
+    },
+    {
+      "term": "browser chat",
+      "count": 5
+    },
+    {
+      "term": "browser macos",
+      "count": 5
+    },
+    {
+      "term": "close tab",
+      "count": 5
+    },
+    {
+      "term": "connect tools",
+      "count": 5
+    },
+    {
+      "term": "dia already",
+      "count": 5
+    },
+    {
+      "term": "dia better",
+      "count": 5
+    },
+    {
+      "term": "dia handles",
+      "count": 5
+    },
+    {
+      "term": "dia work",
+      "count": 5
+    },
+    {
+      "term": "every day",
+      "count": 5
+    },
+    {
+      "term": "every tab",
+      "count": 5
+    }
+  ],
+  "topTrigrams": [
+    {
+      "term": "what's new dia",
+      "count": 22
+    },
+    {
+      "term": "new dia v",
+      "count": 19
+    },
+    {
+      "term": "here's what's new",
+      "count": 11
+    },
+    {
+      "term": "m chips later",
+      "count": 10
+    },
+    {
+      "term": "macos m chips",
+      "count": 10
+    },
+    {
+      "term": "early birds program",
+      "count": 8
+    },
+    {
+      "term": "join early birds",
+      "count": 8
+    },
+    {
+      "term": "dia ai browser",
+      "count": 7
+    },
+    {
+      "term": "new tab page",
+      "count": 7
+    },
+    {
+      "term": "open new tab",
+      "count": 7
+    },
+    {
+      "term": "pick left off",
+      "count": 6
+    },
+    {
+      "term": "access arc members",
+      "count": 5
+    },
+    {
+      "term": "apple macos m",
+      "count": 5
+    },
+    {
+      "term": "dia browser macos",
+      "count": 5
+    },
+    {
+      "term": "early access arc",
+      "count": 5
+    },
+    {
+      "term": "friends team dia",
+      "count": 5
+    },
+    {
+      "term": "get started free",
+      "count": 5
+    },
+    {
+      "term": "import bookmarks extensions",
+      "count": 5
+    },
+    {
+      "term": "level across board",
+      "count": 5
+    },
+    {
+      "term": "live tab group",
+      "count": 5
+    },
+    {
+      "term": "live tab groups",
+      "count": 5
+    },
+    {
+      "term": "ai browser truly",
+      "count": 4
+    },
+    {
+      "term": "anything doesn't look",
+      "count": 4
+    },
+    {
+      "term": "available apple macos",
+      "count": 4
+    },
+    {
+      "term": "browser truly gets",
+      "count": 4
+    },
+    {
+      "term": "connect dots across",
+      "count": 4
+    },
+    {
+      "term": "currently available apple",
+      "count": 4
+    },
+    {
+      "term": "deeper move faster",
+      "count": 4
+    },
+    {
+      "term": "dia already knows",
+      "count": 4
+    },
+    {
+      "term": "dia browser company",
+      "count": 4
+    },
+    {
+      "term": "dia discover remix",
+      "count": 4
+    },
+    {
+      "term": "discover remix best",
+      "count": 4
+    },
+    {
+      "term": "doesn't look right",
+      "count": 4
+    },
+    {
+      "term": "download dia browser",
+      "count": 4
+    },
+    {
+      "term": "faster level across",
+      "count": 4
+    },
+    {
+      "term": "gets helping think",
+      "count": 4
+    },
+    {
+      "term": "helping think deeper",
+      "count": 4
+    },
+    {
+      "term": "manifest v extensions",
+      "count": 4
+    },
+    {
+      "term": "meeting tab group",
+      "count": 4
+    },
+    {
+      "term": "move faster level",
+      "count": 4
+    },
+    {
+      "term": "reads between tabs",
+      "count": 4
+    },
+    {
+      "term": "remix best community",
+      "count": 4
+    },
+    {
+      "term": "repeatable workflows dia",
+      "count": 4
+    },
+    {
+      "term": "shortcuts repeatable workflows",
+      "count": 4
+    },
+    {
+      "term": "smart browser chat",
+      "count": 4
+    },
+    {
+      "term": "stay focused best",
+      "count": 4
+    },
+    {
+      "term": "thanks using dia",
+      "count": 4
+    },
+    {
+      "term": "think deeper move",
+      "count": 4
+    },
+    {
+      "term": "truly gets helping",
+      "count": 4
+    },
+    {
+      "term": "workflows dia discover",
+      "count": 4
+    },
+    {
+      "term": "about privacy dia",
+      "count": 3
+    },
+    {
+      "term": "access features like",
+      "count": 3
+    },
+    {
+      "term": "access new features",
+      "count": 3
+    },
+    {
+      "term": "ai browser that's",
+      "count": 3
+    },
+    {
+      "term": "ai shortcuts repeatable",
+      "count": 3
+    },
+    {
+      "term": "ai web browser",
+      "count": 3
+    },
+    {
+      "term": "always speed attaching",
+      "count": 3
+    },
+    {
+      "term": "ask produce beautiful",
+      "count": 3
+    },
+    {
+      "term": "attach slack chat",
+      "count": 3
+    },
+    {
+      "term": "attaching copy pasting",
+      "count": 3
+    },
+    {
+      "term": "available arc members",
+      "count": 3
+    },
+    {
+      "term": "back forward reload",
+      "count": 3
+    },
+    {
+      "term": "beautiful ready-to-share outputs",
+      "count": 3
+    },
+    {
+      "term": "being using dia",
+      "count": 3
+    },
+    {
+      "term": "best browser work",
+      "count": 3
+    },
+    {
+      "term": "better using old",
+      "count": 3
+    },
+    {
+      "term": "better work day",
+      "count": 3
+    },
+    {
+      "term": "bookmarks extensions profiles",
+      "count": 3
+    },
+    {
+      "term": "browser best work",
+      "count": 3
+    },
+    {
+      "term": "browser chat write",
+      "count": 3
+    },
+    {
+      "term": "browser macos smart",
+      "count": 3
+    },
+    {
+      "term": "browser reads between",
+      "count": 3
+    },
+    {
+      "term": "browser that's always",
+      "count": 3
+    },
+    {
+      "term": "browser won't dread",
+      "count": 3
+    },
+    {
+      "term": "browser work day",
+      "count": 3
+    },
+    {
+      "term": "center brooklyn history",
+      "count": 3
+    },
+    {
+      "term": "chat write learn",
+      "count": 3
+    },
+    {
+      "term": "chips later meet",
+      "count": 3
+    },
+    {
+      "term": "chromium side panel",
+      "count": 3
+    },
+    {
+      "term": "copy pasting it's",
+      "count": 3
+    }
+  ],
+  "documentTypes": [
+    {
+      "term": "releaseNote",
+      "count": 35
+    },
+    {
+      "term": "changelog",
+      "count": 22
+    },
+    {
+      "term": "socialTestimonial",
+      "count": 9
+    },
+    {
+      "term": "skillPack",
+      "count": 4
+    },
+    {
+      "term": "useCase",
+      "count": 4
+    },
+    {
+      "term": "downloadPage",
+      "count": 1
+    },
+    {
+      "term": "earlyBirdsPage",
+      "count": 1
+    },
+    {
+      "term": "enterprisePage",
+      "count": 1
+    },
+    {
+      "term": "footer",
+      "count": 1
+    },
+    {
+      "term": "gettingStartedPage",
+      "count": 1
+    },
+    {
+      "term": "globalConfig",
+      "count": 1
+    },
+    {
+      "term": "header",
+      "count": 1
+    },
+    {
+      "term": "homePage",
+      "count": 1
+    },
+    {
+      "term": "invitePage",
+      "count": 1
+    },
+    {
+      "term": "plansPage",
+      "count": 1
+    },
+    {
+      "term": "proPage",
+      "count": 1
+    },
+    {
+      "term": "releaseNotesBanner",
+      "count": 1
+    },
+    {
+      "term": "releaseNotesLanding",
+      "count": 1
+    },
+    {
+      "term": "skillsLandingPage",
+      "count": 1
+    },
+    {
+      "term": "startPage",
+      "count": 1
+    },
+    {
+      "term": "studentsLandingPage",
+      "count": 1
+    },
+    {
+      "term": "thankYouPage",
+      "count": 1
+    },
+    {
+      "term": "updateDiaInstructions",
+      "count": 1
+    },
+    {
+      "term": "windowsPage",
+      "count": 1
+    }
+  ]
+}

@@ -2,9 +2,9 @@
   position: fixed;
   inset: 0;
   z-index: 81;
-  background: transparent;
-  backdrop-filter: blur(4px) saturate(0.95);
-  -webkit-backdrop-filter: blur(4px) saturate(0.95);
+  background: rgb(17 17 16 / 0.34);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   pointer-events: auto;
 }
 
@@ -16,7 +16,7 @@ body:has(.case-study-bottom-sheet) .folio-scene {
 
 body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
   z-index: 79;
-  transition-duration: 420ms !important;
+  transition-duration: 360ms !important;
 }
 
 .project-slip.case-study-bottom-sheet {
@@ -24,22 +24,28 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
   --entry-folder-ink: #fff0cf;
   --entry-folder-tint: #cf482d;
   --sheet-ink: #24211d;
-  --sheet-muted: #716a61;
-  --sheet-rule: rgb(52 47 42 / 0.18);
+  --sheet-muted: #665e53;
+  --sheet-rule: rgb(48 42 35 / 0.22);
   --sheet-accent: #6e1f38;
+  --reader-rim: color-mix(in srgb, var(--entry-folder-tint) 84%, #8a5235 16%);
+  --reader-rim-thread: color-mix(in srgb, var(--entry-folder-ink) 68%, transparent);
   display: grid;
-  grid-template-rows: 58px minmax(0, 1fr);
+  z-index: 82;
+  grid-template-rows: minmax(0, 1fr);
   isolation: isolate;
   overflow: hidden;
   padding: 0;
-  border: 1px solid rgb(48 44 39 / 0.24);
-  border-bottom: 0;
-  border-radius: 22px 22px 0 0;
-  background-color: #f2eee6;
-  background-image: linear-gradient(115deg, rgb(255 255 255 / 0.42), transparent 30%);
+  border: 12px solid var(--reader-rim);
+  border-left-color: color-mix(in srgb, var(--reader-rim) 88%, #fff 12%);
+  border-right-color: color-mix(in srgb, var(--reader-rim) 84%, var(--entry-folder-deep) 16%);
+  border-radius: 34px;
+  background: #fff;
+  background-clip: padding-box;
+  box-sizing: border-box;
+  contain: paint;
   color: var(--sheet-ink);
-  box-shadow: 0 -18px 54px rgb(12 24 18 / 0.2);
-  transform-origin: 50% 100%;
+  box-shadow: 0 24px 70px rgb(8 15 12 / 0.34);
+  transform-origin: 50% 50%;
   transition:
     background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -48,12 +54,19 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
     backdrop-filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.project-slip.case-study-bottom-sheet[data-entry-shape="folder"] {
+.project-slip.case-study-bottom-sheet[data-entry-shape="folder"]:not([data-folder-phase="open"]) {
   will-change: opacity, transform;
 }
 
 .project-slip.case-study-bottom-sheet[data-surface="paper"] {
-  background-color: #f2eee6;
+  background: #fff;
+}
+
+.project-slip.case-study-bottom-sheet[data-folder-phase="opening-flap"]:not([data-reader-prepared="true"]) .case-study-bottom-sheet-viewport,
+.project-slip.case-study-bottom-sheet[data-folder-phase="board-opening"]:not([data-reader-prepared="true"]) .case-study-bottom-sheet-viewport,
+.project-slip.case-study-bottom-sheet[data-folder-phase="closing-flap"] .case-study-bottom-sheet-viewport {
+  visibility: hidden;
+  content-visibility: hidden;
 }
 
 .project-slip.case-study-bottom-sheet[data-surface="frost"] {
@@ -74,13 +87,43 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
 
 .project-slip.case-study-bottom-sheet::before {
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image:
-    repeating-linear-gradient(103deg, rgb(255 255 255 / 0.055) 0 1px, transparent 1px 7px),
-    radial-gradient(circle at 15% 0%, rgb(255 255 255 / 0.3), transparent 31%);
+  inset: -6px;
+  z-index: 4;
+  border: 1px dashed var(--reader-rim-thread);
+  border-radius: 26px;
   content: "";
-  opacity: 0.22;
+  opacity: 0.94;
+  pointer-events: none;
+}
+
+.project-slip.case-study-bottom-sheet::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(
+      167deg,
+      transparent 0 32.8%,
+      rgb(60 51 43 / 0.012) 34%,
+      rgb(60 51 43 / 0.035) 34.35%,
+      rgb(60 51 43 / 0.014) 34.7%,
+      transparent 36.2%
+    ),
+    linear-gradient(
+      88deg,
+      transparent 0 71.4%,
+      rgb(57 49 42 / 0.01) 72.1%,
+      rgb(57 49 42 / 0.024) 72.35%,
+      transparent 73.1%
+    ),
+    url("/assets/textures/paper-folds-cc0.png"),
+    url("/assets/textures/paper-fiber-cc0.jpg");
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, cover, 720px auto;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.14;
   pointer-events: none;
 }
 
@@ -88,50 +131,41 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
   opacity: 0.56;
 }
 
-.case-study-bottom-sheet-toolbar,
 .case-study-bottom-sheet-progress,
 .case-study-bottom-sheet-viewport {
   position: relative;
   z-index: 2;
 }
 
-.case-study-bottom-sheet-toolbar {
-  display: grid;
-  grid-template-columns: minmax(190px, 1fr) auto;
-  min-width: 0;
-  gap: 18px;
-  align-items: center;
-  padding: 8px 12px 8px 18px;
-  border-bottom: 1px solid var(--sheet-rule);
-  transition: background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-toolbar {
-  background-color: color-mix(in srgb, var(--entry-folder-ink) 10%, transparent);
-}
-
 .case-study-bottom-sheet-title {
-  display: block;
+  position: absolute;
+  top: 26px;
+  left: 20px;
+  display: flex;
+  max-width: min(72vw, 560px);
   min-width: 0;
-  font-family: var(--mono);
-  text-transform: uppercase;
+  align-items: flex-start;
+  padding: 3px 0 5px;
+  z-index: 6;
+  border: 0;
+  background: transparent;
+  font-family: var(--display);
+  letter-spacing: var(--display-tracking);
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .case-study-bottom-sheet-title strong {
   display: block;
-  overflow: hidden;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.045em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.case-study-bottom-sheet-controls {
-  display: flex;
-  min-width: 0;
-  align-items: stretch;
-  gap: 8px;
+  overflow: visible;
+  padding-bottom: 0.08em;
+  font-size: clamp(18px, 1.55vw, 22px);
+  font-weight: 700;
+  letter-spacing: var(--display-tracking);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .case-study-surface-switcher,
@@ -208,24 +242,37 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
 }
 
 .case-study-bottom-sheet-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
   display: grid;
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-  min-height: 44px;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  min-height: 40px;
   padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: #111;
+  border: 1px solid rgb(66 66 62 / 0.16);
+  border-radius: 50%;
+  background: rgb(229 229 226 / 0.92);
+  color: var(--sheet-ink);
+  box-shadow: none;
   cursor: pointer;
+  z-index: 6;
   place-items: center;
 }
 
 .case-study-bottom-sheet-close > svg {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.case-study-bottom-sheet-close:hover {
+  background: rgb(215 215 211 / 0.96);
 }
 
 .case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-close {
@@ -239,21 +286,64 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
 }
 
 .case-study-bottom-sheet-progress {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  left: -8px;
   display: block;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--sheet-accent) 0 var(--reader-progress),
-    rgb(39 35 31 / 0.13) var(--reader-progress)
-  );
+  height: 2px;
+  overflow: hidden;
+  z-index: 6;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.case-study-bottom-sheet-progress span {
+  display: block;
+  width: var(--reader-progress);
+  height: 100%;
+  background: color-mix(in srgb, var(--entry-folder-deep) 70%, #30241d 30%);
+  box-shadow: 0 0 0 1px rgb(255 246 224 / 0.14);
+  transform-origin: 0 50%;
+  transition: width 120ms linear;
 }
 
 .case-study-bottom-sheet-viewport {
   min-width: 0;
   min-height: 0;
+  z-index: 2;
   overflow: hidden;
-  background-color: rgb(236 232 224 / 0.72);
+  margin: 0;
+  padding-top: 0;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  box-shadow: none;
   transition: background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-bottom-sheet[data-reader-scrolled="true"] .wiz-reader-scroll {
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    rgb(0 0 0 / 0.08) 12px,
+    rgb(0 0 0 / 0.28) 30px,
+    rgb(0 0 0 / 0.58) 52px,
+    rgb(0 0 0 / 0.84) 72px,
+    #000 92px,
+    #000 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    rgb(0 0 0 / 0.08) 12px,
+    rgb(0 0 0 / 0.28) 30px,
+    rgb(0 0 0 / 0.58) 52px,
+    rgb(0 0 0 / 0.84) 72px,
+    #000 92px,
+    #000 100%
+  );
 }
 
 .case-study-bottom-sheet[data-surface="frost"] .case-study-bottom-sheet-viewport {
@@ -262,28 +352,40 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
 
 @media (max-width: 820px) {
   .project-slip.case-study-bottom-sheet {
-    grid-template-rows: 56px minmax(0, 1fr);
-    border-radius: 16px 16px 0 0;
+    grid-template-rows: minmax(0, 1fr);
+    border-width: 8px;
+    border-radius: 24px;
   }
 
-  .case-study-bottom-sheet-toolbar {
-    grid-template-columns: minmax(58px, 1fr) auto;
-    gap: 7px;
-    padding: 7px 6px 7px 10px;
+  .project-slip.case-study-bottom-sheet::before {
+    inset: -4px;
+    border-radius: 17px;
+  }
+
+  .case-study-bottom-sheet-progress {
+    top: -7px;
+    right: -5px;
+    left: -5px;
+  }
+
+  .case-study-bottom-sheet-title {
+    top: 24px;
+    left: 12px;
+    max-width: 72vw;
   }
 
   .case-study-bottom-sheet-title strong {
-    font-size: 10px;
-  }
-
-  .case-study-bottom-sheet-controls {
-    gap: 4px;
+    font-size: 18px;
   }
 
   .case-study-surface-switcher,
   .case-study-bottom-sheet-progress-copy,
   .case-study-bottom-sheet-close {
-    min-height: 32px;
+    min-height: 44px;
+  }
+
+  .case-study-bottom-sheet-viewport {
+    padding-top: 0;
   }
 
   .case-study-surface-switcher {
@@ -308,18 +410,17 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
   }
 
   .case-study-bottom-sheet-close {
-    width: 42px;
-    min-width: 42px;
-    height: 42px;
-    min-height: 42px;
+    top: 10px;
+    right: 11px;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px;
   }
+
 }
 
 @media (max-width: 420px) {
-  .case-study-bottom-sheet-toolbar {
-    grid-template-columns: minmax(42px, 1fr) auto;
-  }
-
   .case-study-surface-switcher {
     grid-template-columns: repeat(2, 38px);
   }
@@ -337,7 +438,8 @@ body:has(.case-study-bottom-sheet) .mat-sunlight-shader {
 @media (prefers-reduced-motion: reduce) {
   body:has(.case-study-bottom-sheet) .folio-scene,
   body:has(.case-study-bottom-sheet) .mat-sunlight-shader,
-  .case-study-surface-switcher button {
+  .case-study-surface-switcher button,
+  .case-study-bottom-sheet-progress span {
     transition: none !important;
   }
 

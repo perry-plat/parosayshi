@@ -1,0 +1,170 @@
+{
+  "input": "/Users/paro/Documents/parosayshi/references/dia-brand-archive/docs/Dia_Current_Brand_System_and_Public_Asset_Atlas.docx",
+  "fonts_by_char_count": {
+    "Courier New": 346
+  },
+  "direct_run_formatting_runs": 299,
+  "direct_paragraph_formatting_paragraphs": 306,
+  "heading_like_paragraphs_not_heading_style": [
+    {
+      "para_index": 175,
+      "text": "S1  Dia homepage",
+      "style": "Normal"
+    },
+    {
+      "para_index": 176,
+      "text": "S2  Dia Weekly / latest release notes",
+      "style": "Normal"
+    },
+    {
+      "para_index": 177,
+      "text": "S3  Introducing Reports / Start",
+      "style": "Normal"
+    },
+    {
+      "para_index": 178,
+      "text": "S4  Dia for Work",
+      "style": "Normal"
+    },
+    {
+      "para_index": 179,
+      "text": "S5  Dia for Students",
+      "style": "Normal"
+    },
+    {
+      "para_index": 180,
+      "text": "S6  Dia Skills Gallery",
+      "style": "Normal"
+    },
+    {
+      "para_index": 181,
+      "text": "S7  Dia Security",
+      "style": "Normal"
+    },
+    {
+      "para_index": 182,
+      "text": "S8  Dia Privacy",
+      "style": "Normal"
+    },
+    {
+      "para_index": 184,
+      "text": "S9  Early peek at Dia \u2014 recruiting video",
+      "style": "Normal"
+    },
+    {
+      "para_index": 185,
+      "text": "S10  Letter to Arc members \u2014 The Browser Company",
+      "style": "Normal"
+    },
+    {
+      "para_index": 186,
+      "text": "S11  Atlassian acquisition announcement",
+      "style": "Normal"
+    },
+    {
+      "para_index": 188,
+      "text": "W1  2024-12-02 Dia public reveal",
+      "style": "Normal"
+    },
+    {
+      "para_index": 189,
+      "text": "W2  2025-05-15 pre-beta",
+      "style": "Normal"
+    },
+    {
+      "para_index": 190,
+      "text": "W3  2025-06-11 beta launch",
+      "style": "Normal"
+    },
+    {
+      "para_index": 191,
+      "text": "W4  2025-11-20 general-availability-era home",
+      "style": "Normal"
+    },
+    {
+      "para_index": 201,
+      "text": "304",
+      "style": "Normal"
+    },
+    {
+      "para_index": 203,
+      "text": "875",
+      "style": "Normal"
+    },
+    {
+      "para_index": 205,
+      "text": "263",
+      "style": "Normal"
+    },
+    {
+      "para_index": 207,
+      "text": "7,902",
+      "style": "Normal"
+    },
+    {
+      "para_index": 209,
+      "text": "563",
+      "style": "Normal"
+    }
+  ],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 5,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 7,
+        "text": "Current public HTML and CSS across the main brand, product, work, students, skills, security, release-notes, Windows, an",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 8,
+        "text": "Public Sanity content and asset records, including images, Mux video references, downloadable animation files, skills, p",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 9,
+        "text": "A deduplicated Wayback capture index from 2024\u20132026 plus selected rendered moments at major brand transitions.",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 10,
+        "text": "A filtered language corpus of brand pages and release communication, excluding the internal-looking public test article.",
+        "style": "List Bullet"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 20,
+        "run_text": "The homepage",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 21,
+        "run_text": "AI",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 22,
+        "run_text": "The interface",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 23,
+        "run_text": "Dia",
+        "style": "List Bullet"
+      },
+      {
+        "para_index": 31,
+        "run_text": "Read: ",
+        "style": "Normal"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}

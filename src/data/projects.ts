@@ -8,6 +8,20 @@ export const projects = {
           deck: "",
           body: []
         },
+        "periodic-table": {
+          edition: "prototype",
+          kicker: "INTERACTIVE PROTOTYPE / REFERENCE TOOL",
+          title: "Periodic Table",
+          deck: "A small chemistry reference designed to be explored one element at a time.",
+          meta: ["Interface prototype", "Interaction design", "Android UI study"],
+          introColumns: [
+            "A compact specimen from a native Android interface: a table, a color system, and a detail panel that keeps the reference object in view.",
+          ],
+          body: [
+            { type: "heading", text: "The specimen" },
+            { type: "interactive-periodic-table" },
+          ]
+        },
         "wiz-commerce": {
           edition: "case-file",
           figmaLayout: "frame32",

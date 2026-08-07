@@ -56,7 +56,7 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
     const isMobile = window.innerWidth <= 760;
     const gutter = isMobile ? 14 : 28;
     const isNotebook = projectId === "notebook";
-    const isBottomSheetReader = projectId !== "notebook";
+    const isCaseStudyPopup = projectId !== "notebook";
     if (isNotebook) {
       return {
         height: window.innerHeight,
@@ -65,13 +65,17 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
         width: window.innerWidth,
       };
     }
-    if (isBottomSheetReader) {
-      const width = isMobile ? window.innerWidth : Math.round(window.innerWidth * 0.9);
-      const height = Math.round(window.innerHeight * (isMobile ? 0.93 : 0.9));
+    if (isCaseStudyPopup) {
+      const width = isMobile
+        ? window.innerWidth - 8
+        : Math.round(window.innerWidth * 0.9);
+      const height = isMobile
+        ? Math.round(window.innerHeight * 0.94)
+        : Math.round(window.innerHeight * 0.88);
       return {
         height,
         left: Math.round((window.innerWidth - width) / 2),
-        top: window.innerHeight - height,
+        top: Math.round((window.innerHeight - height) / 2),
         width,
       };
     }
@@ -156,6 +160,9 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
       if (!isProjectId(projectId) || interactionLocked.current) return;
       interactionLocked.current = true;
       activeCard.current = card;
+      if (document.activeElement instanceof HTMLElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
       lockedScrollY.current = window.scrollY;
       const entryTransform = getSlipEntryTransform(card, projectId);
       flushSync(() => {

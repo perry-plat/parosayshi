@@ -13,6 +13,15 @@ export interface WorkCardData {
 
 export const workCards: WorkCardData[] = [
   {
+    id: "periodic-table",
+    edition: "Prototype",
+    title: "Periodic Table",
+    image: "/assets/periodic-table-specimen.svg",
+    alt: "Interactive periodic table prototype",
+    body: "A small reference tool designed to make dense chemistry information feel browseable.",
+    tilt: -0.7,
+  },
+  {
     id: "wiz-commerce",
     edition: "Case file",
     title: "WizCommerce product touchpoints",

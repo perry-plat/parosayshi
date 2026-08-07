@@ -1,0 +1,2858 @@
+In Dia, every click counts.
+In v0.45.0, it's easier than ever to use your browsing history, build Memories, reflect on your day, and shape your online experience around what matters most to you.
+Your browser is where you do everything. You shouldn’t have to start fresh, repeat yourself, or retrace your steps. Dia makes it easy to look back and plan ahead.
+Historic Skills.
+Skills now work with your history to craft bespoke results, just for you. And we’ve dropped a new Skills pack to turn yesterday’s searches into today’s reflections, recaps, and takeaways, all with the things you’ve already done.
+Get the
+Browsing History Skills Pack
+to try Skills like:
+future-self
+to receive a thoughtful letter from your future self, based on your own browsing history and tone of voice.
+daily-wrap
+to summarize your last 24 hours of work and share it with your team.
+weekly
+for a look back at your entire work week.
+Give these Skills a try, and let us know what you think!
+ChatGPT import.
+If you've used ChatGPT in Dia, you can now import your history as Memories to add even more context. Import once, then pick up where you left off. Just head to your Personalization page and click
+Import from ChatGPT…
+to bring your past context into the present.
+Memory and History, working together.
+Memory excludes sensitive sites (like banks) and all incognito tabs, but you can also manually
+opt out of saving Memories from specific websites
+. When you do so, Dia automatically removes all previous Memories from that site too.
+bullet
+Location details are more nuanced, providing
+sharper context for Memories
+while respecting your privacy.
+bullet
+AI responses in Chat summaries are excluded so that Memory reflects
+your activity, not what an AI said
+. This keeps your history
+more personal and relevant
+bullet
+Activity summaries in Memory are
+formatted for quicker scanning
+, so you can
+see what matters at a glance
+bullet
+And major improvements to Memory for even more context as you browse:
+🛡️ Safety with intention.
+Overzealous safety checks have been toned down. Expect fewer false alarms, so you only get notified when it really matters. Behind the scenes, we’re refining how Dia detects real risks so your alerts are always meaningful and accurate.
+Sad tabs.
+We wouldn’t wish a crashed tab on anyone, but at least you’ll know when it happens with a new landing page to make those rare moments less confusing. Of course, fingers crossed it doesn’t happen. 🤞
+Background bookmarks.
+If you’re using an external mouse, you can now open bookmarks in background tabs by clicking with your middle mouse button (or Command+click on a trackpad). It’s a small change to keep you in your flow.
+Are you interested in trying new versions of Dia before anyone else? Sign up for the
+Early Birds program
+to spot bugs, test new features, and leave your mark on Dia.
+Thanks for browsing with us!
+🌏 Your friends at Team Dia
+Plus some helpful tweaks to your daily browsing:
+What’s New in Dia v0.45.0
+Dia thinks harder when you need it most.
+For the past few weeks, we’ve been rolling out GPT‑5 to work with Skills and queries that use reasoning. And thanks to some changes under the hood, everything’s starting to feel
+just right
+When you start a query with /research or run a
+Skill
+, you’re now on GPT‑5.
+This week has some updates to how answers powered by GPT-5 show up:
+Replies are easier to read
+with less heavy bolding, more natural paragraphs, and cleaner LaTeX formatting.
+bullet
+Writing help only shows up when you need it
+with smarter logic for when text proposals are presented.
+bullet
+Fast takeaways, then the details.
+Replies offer a simple answer first, then a fuller explanation if you want it.
+bullet
+Chat will ask fewer clarifying questions
+when formulating an answer, speeding up response time.
+bullet
+These changes help blend GPT‑5 into Chat for a consistent experience no matter what you’re doing. As always, if anything doesn't look right, please
+let us know
+✨GPT‑5 in Dia✨
+Images load more consistently, and the
+right‑click menu
+is simplified so you can copy or download images more often.
+bullet
+If your device drops below
+300 MB free
+(the minimum required to run Dia), you’ll get a clear warning.
+bullet
+We’ve increased everyone’s
+Dia invites
+. Share access to the beta with teammates, friends, or anyone else who might benefit from an AI browser. Look for the pop‑up on a new tab, or click
+Dia > Invite to Dia…
+on your Mac menu bar.
+bullet
+Plus some small tweaks with a lasting impact:
+Plus some small tweaks with a lasting impact:
+bug
+Images load more consistently, and the
+right‑click menu
+is simplified so you can copy or download images more often.
+sparkle
+If your device drops below
+300 MB free
+(the minimum required to run Dia), you’ll get a clear warning.
+gear
+We’ve increased everyone’s
+Dia invites
+. Share access to the beta with teammates, friends, or anyone else who might benefit from an AI browser. Look for the pop‑up on a new tab, or click
+Dia > Invite to Dia…
+on your Mac menu bar.
+What's New in Dia v0.46.0
+As Dia unfolds, you stay in control.
+See more when you want, skip ahead when you don’t, and keep common actions a click or keystroke away. Every update is about staying in flow.
+⭐️ Set the pace.
+You call the shots, even while you wait. If Dia is using reasoning (you’ll see “Thinking deeply…”) you can click
+Skip >
+for a quicker answer.
+🔍 Search with your engine.
+Did you know you can choose your
+default search engine
+in
+Settings
+? Then, when you type something into the
+Command Bar
+, the suggestion dropdown now shows your default search engine. Prefer
+Bing
+? Use
+DuckDuckGo
+? You’ll see your choice in the dropdown.
+🪟 Split tabs on command.
+Option+click the New Tab (➕) button to open a New Tab Page in a Split alongside your current tab. That’s one small step to keep you organized, as easy as a simple shortcut.
+Take images with you.
+We continue to refine how images show up in Chat. The right‑click menu now puts familiar save and copy actions up front, so you can take your images with you without complication.
+Plus some small fixes that go a long way:
+Citations are more reliable
+after addressing a bug where they were appearing as plain text. You'll now get hyperlinks that work when you need them.
+bullet
+Replies read more naturally
+thanks to a prompt update that dials back heavy formatting and unnecessary lists in favor of clean, readable paragraphs. Don’t forget: you can also control how Dia responds in the
+Personalization
+pane.
+bullet
+We’re still signing folks up to be
+Dia Early Birds
+. Want to try new browser features before anyone else?
+We’d love to hear from you.
+Enjoy
+v0.47
+as it works for you, and stay tuned for more next week.
+See you on the internet!
+👓 Your friends at Dia.
+What's New in Dia v0.47.0
+We’re getting ready for a busy fall.
+Dia v0.48 has improvements you’ll feel today. It also sets the stage for big things to come.
+Here’s what’s new:
+⚡ Skills without slashes.
+You can now call on Skills without using slash commands. Just type its name and hit Return to make it happen. The power of Dia at your fingertips, faster than ever.
+🎛️ GPT-5 across the board.
+Dia now uses GPT‑5 for
+all queries
+, whether you need a quick answer or deep thinking. No matter what, you’ll have the latest and greatest models working for you
+We’ve also shipped some small but mighty updates:
+You can now
+cancel a page load
+while it’s in progress by clicking the X button next to the address bar.
+bullet
+We’ve added
+more safety stopgaps
+, improving how Dia checks links and protects you from bad actors. Your clicks go to the intended page, and your conversations stay private.
+bullet
+Consider v0.48 the groundwork for a steady flow of improvements and features in the weeks to come. Until then, enjoy.
+And thanks for helping us think it through,
+💭 Your friends at Team Dia
+What's New in Dia v0.48.0
+You can expect some big things to start shipping next week.
+But first, a few tweaks you’ll notice right away.
+Payments are back on track.
+We fixed an issue that was affecting payment processing on some websites. You can now pay bills, book flights, and shop without interruption. Thanks to all who reported this!
+Tables are cleaner.
+We also addressed a bug that was causing tables and charts to flicker while loading in Chat. Everything is smoother now: columns fit the text more naturally, and scrolling feels steadier while results arrive. To try it, just ask Dia to compare two of your tabs in a chart.
+We’ve also shipped a handful of bug fixes under the hood and upgraded Dia to Chromium M141. Expect your browser to be fast, safe, and stable.
+This one’s slow and steady, but expect a whole lot of momentum right around the corner. We’ll see you back here next week.
+🎯 Your friends at Team Dia
+What's New in Dia v0.49.0
+Dia v1.0.1 brings Dia to general availability on macOS! Plus, major upgrades for Skills and Memory.
+Anyone can now download Dia for macOS from
+diabrowser.com
+, create an account, and start using Dia immediately—no more waitlist.
+bullet
+We've revamped the Skill builder: you can now edit Skills in a separate popup window for added ease, and build Skills with distinct steps. Give it a try by opening the "Skills" dropdown below the Command Bar and clicking "New Skill."
+bullet
+The Command Bar and Skill builder now include a new toolbar for mentioning actions (like
+@Search Memory
+) and formats (
+@list
+@table
+@code
+, and more).
+bullet
+You'll notice a shimmer animation when @-mentioning items in the Command Bar for improved visual feedback during prompt creation.
+bullet
+@Search Memory
+now replaces
+@History
+in prompts and Skills, referencing personal context more reliably and intuitively.
+bullet
+This week includes a bump to Chromium 141.0.7390.66, which includes improvements to security, stability, and performance.
+What's New in Dia v1.0.1
+Today we're releasing three new Tools to Dia: Gmail, GCal, and Autofill. No more repetitive form filling, calendar searching, invite list scrambling, email rifling. Dia can now create calendar invites, search and draft emails, or fill a form right from Chat.
+Gmail: Search across your emails, find the right thread, summarize details directly in Chat. Just type @Gmail in any query to search, summarize, or start a reply.
+bullet
+GCal: Take the mess out of scheduling by searching your calendar, finding times when your team is free, and staging the calendar invite for you. Type @Google Calendar in Chat to set it up without leaving your tab.
+bullet
+And thirdly, Autofill: Get a head start filling out empty forms with things like your name, title, company description and even your bio. Type @Autofill in Chat when you hit a page full of boxes. And for extra details, call on Memory Search.
+bullet
+We've also made it faster and more flexible to work with Bookmarks:
+Save sessions at once: Hold Command to select multiple tabs (or Shift for a full row), then right‑click and choose “Add tabs to bookmarks bar.”
+bullet
+Name folders upfront: When you create a new folder on the Bookmarks page, you’ll be prompted to rename it immediately.
+bullet
+Quick actions in place: Right‑click on a bookmark context‑specific actions exactly where you need them.
+bullet
+Open everything in a folder: ⌥‑click or ⌘‑click a bookmarks folder to open all tabs at once.
+bullet
+Open a single bookmark in the background with ⌘‑click and in a split tab with ⌥‑click.
+bullet
+Thanks for using Dia! If anything doesn't look right, please don't hesitate to let us know.
+What's New in Dia v1.1.0
+Making a new Skill is as easy as writing a sentence with Dia's new Natural Language Skill Builder! You don't have to write a long, winding prompt or figure out which tool or context to call. All you have to do is ask, and let Dia do the rest.
+The Skills builder has been overhauled so that all you need to do is write a simple sentence describing what you want ("help me prioritize my day," "copyedit my Slack post," "set up a weekly check‑in"), and Dia assembles the Skill: name and icon, the right tools only when they're needed (e.g., Gmail for drafts, Google Calendar for scheduling), plus a couple quick follow‑ups to fit you. You see the steps and approve — clear, in your control, every time.
+To get started go to New Tab → Skills → New Skill and launch the Skill builder. Thanks for updating Dia. Look out for big small updates next week.
+What's New in Dia v1.2.0
+Dia v1.3.0 is all about nailing the browser basics. Here's what you can expect:
+Use picture-in-picture on Google Meet. Your meeting will pop out, even when you switch tabs, so you'll never miss a beat.
+bullet
+Focus Mode has landed. Just press ⌘S to hide your tabs and focus on your screen. Works with both horizontal and vertical tabs.
+bullet
+Make keyboard shortcuts work for you by remapping them in Settings.
+bullet
+Dia now searches memories automatically. That means you can just ask "What was that document I was editing yesterday?" or "What article was I reading last week?" and Dia will surface the relevant results.
+bullet
+A bug that was affecting bulleted and numbered lists from pasting with formatting has been addressed.
+bullet
+Thanks for being here and using Dia. Stay tuned for much more to come, and let us know if anything doesn't look right.
+What's New in Dia v1.3.1
+Built-in Skills, improved Memory, and flourishes on every surface.
+Your browser just got better with bespoke Skills, smarter reading behavior, and plenty of polish across the board.
+Skills from Team Dia
+Team Dia's been busy building Skills, and we've just shared our first batch. Your Chat has been upgraded with shortcuts for summarizing videos, improving writing, checking your code, and more. Find them by clicking
+New Tab > Skills
+. Oh, and each one is editable, so you can tailor them for your flow.
+Skills for school
+As promised, we're sending our Dia students back to school with a Student Skills pack and a new landing page full of tips 'n' tricks for surviving the semester in Dia. Take a looksy
+here
+Insights on invites
+Dia can read more from Google calendar, including attendee lists, event descriptions, and video call links. Perfect for start-of-week planning or quick pre-reads before you meet.
+Thinking you can see
+As Chat reads attachments and websites, you'll see even more details about each step. And when multiple pages are involved, you’ll get a dropdown view so you can check your sources in real time.
+Fresh out of the oven
+Memory now refreshes more frequently, which helps Dia provide up-to-date context as you browse.
+bullet
+When using Reasoning, Dia can follow links from attached pages for more robust answers from deeper sources or citations.
+bullet
+Fixed a bug where double window buttons (traffic lights) could appear in fullscreen. This should make fullscreen views cleaner and less confusing.
+bullet
+Support for Chinese and Korean characters has been improved in the Command Bar. Thanks to all who reported any bugs.
+bullet
+Hard to believe but we’re still in beta. This browser gets better every week thanks to members like you. Keep the feedback coming!
+📚 Your friends at Team Dia
+Plus some powerful tweaks beneath the hood
+What’s New in Dia v0.43.0
+Power and personality are at the forefront of this week's Dia.
+Chat feels sharper and Memory is easier to shape. And each change makes Dia feel a little more
+yours
+A more capable Chat
+Chat is where the action happens.
+It's where the internet and your personal context meet. And this week includes a package of updates that make Chat smarter, more dependable, and even better in your day-to-day.
+@history includes Chats.
+Mention @history in any Chat or Skill to pull in recent Chats and websites, bringing more context to your present task.
+Smarter PDFs.
+Our PDF reader is now more accurate and comprehensive, so you can reference documents without fear of missing info.
+Write and Code polish.
+Writing and coding are two of the most common functions in Chat. Drafts and code blocks are now cleaner and easier to read, whether you’re writing or debugging.
+Try Skills instantly.
+Test a Skill from the [Skills Gallery](diabrowser.com/skills) on any tab, no install required. Just click Try Skill in the pop-up menu.
+Better tab attachments.
+When you @-mention tabs, the dropdown hides the ones you’ve already mentioned, making it faster to add the context you need.
+More models, fewer errors.
+If something goes wrong, Chat now switches to backup AI models so your work continues uninterrupted.
+Memory means less repeating yourself.
+This release gives you more control — choose when and where Memory is used, and decide what to forget. As you tailor Memory to your needs, Chat becomes more relevant and helpful with every interaction.
+Sharper answers.
+We’ve made some prompt updates under the hood to help Memory focus on what matters, reduce repetition, and adapt as you go.
+Profile-level control.
+You can now enable or disable Memory for each Profile in Settings. Perfect when you want to forget about work or remember your school projects.
+Forget anything.
+It’s easy to remove Memories that aren’t relevant or feel incorrect. Click Personalized with Memory, then use the menu to delete a specific item.
+Per-Chat Personalization.
+Temporarily disable Personalization (which includes both Memory and written instructions) by clicking the signature button on the top right corner. Chat will answer neutrally until you flip it back on.
+More personal Memories
+When
+browsing in a split tab
+, open links on the righthand side by holding
+Shift+Option
+while clicking. A simple shortcut to keep things tidy
+Safety alerts are more accurate
+thanks to improvements in how Dia detects real risks and filters out the noise. You’ll only be notified when something really needs your attention.
+bullet
+Download notifications are
+clearer and safer
+they no longer show the website address where a file came from. This helps prevent confusion or spoofing by tricky domains, so what you see is exactly what you downloaded.
+bullet
+The
+downloads menu
+also pops up when it should and includes all of your previous downloads thanks to some fixes under the hood.
+bullet
+Profiles that aren’t being used will
+automatically unload
+to free up memory and keep Dia fast. To switch profiles, just click the toggle in the top left corner.
+bullet
+Bluetooth dialogs now display the full web address when
+something’s trying to connect, so you can clearly see exactly who is making a request before you approve it.
+bullet
+We'll be back with more next week!
+Dia’s more
+powerful
+and
+personal
+with every new release. And it’s all thanks to your feedback. If anything’s not right — with Chat, Memory, or something else — please let us know!
+Thanks for the memories,
+💗 Your friends at Team Dia
+Plus some major boosts to performance and security:
+What’s New in Dia v0.44.0
+Dia v1.5.0 has your back in a day of back-to-backs—previews to plan, reminders to join, and small touches that keep you on time and in control. Here's what's new:
+Show up on time to meetings with Live Calendar Preview and Just‑in‑Time Reminders. Hover over a Calendar tab to glimpse the rest of your day and jump straight into your next meeting from the preview. Right before a meeting, Dia surfaces a corner reminder with attendees and a direct join link so you're always on time.
+bullet
+Tabs load smarter. On launch, Dia automatically reloads select recent background tabs based on your device and tab activity. Tab discarding now considers app active time, so tabs won't silently disappear while you're away.
+bullet
+Split view gets smoother. Larger drop targets appear immediately so it's easier to place splits exactly where you want.
+bullet
+Drag distractions away. Fully collapsing the sidebar enters Focus Mode so you can hide chrome and stay in flow.
+bullet
+Find in Page, refreshed. The Find UI is restyled to match Dia's design.
+bullet
+Chat clarity and speed. When attachments fail to load, Dia shows which tab failed and why, with clearer recovery steps. Memory Search now triggers more often without special phrasing—just ask.
+bullet
+Core chat behavior is sharper. You'll see Read Links progress in the chain, better image reasoning, more reliable inline code, and fewer stated assumptions. UI polish includes stronger icon contrast, a fixed "Recreate" draft state, and copy tweaks for feedback.
+bullet
+Better deep reasoning control. Choosing "Skip" falls back to minimal reasoning (not a quick answer) and keeps helpful follow‑up support.
+bullet
+Thanks for being here and using Dia. If something looks off, tell us—we're eager for the feedback.
+What's New in Dia v1.5.0
+Dia v1.4.0 helps you find what you need, keep tabs tidy, and stay in flow. Here's what's new:
+Manage tabs with @Tabs. Open and close tabs right from chat. Great for quick clean-ups, closing out your day (and tabs!) and opening all the links for a topic.
+bullet
+Pinned tabs glow‑up. Pinned tabs get a cleaner look and vibrant theme accents on select. Your ride‑or‑die tabs stay put—and you can return a pinned tab to its base URL with ⌘‑Return.
+bullet
+Now you can just ask. With automatic Memory Search Dia searches your memories without having to @-mention the tool. It's profile-specific, so use your work persona (or Outie) as needed.
+bullet
+Split view improvements. Two ways to split: use the nav bar split button or "Open as Split." Choosing Open as Split on the current tab creates a split with a new tab; selecting it on other tabs brings that tab in as a split.
+bullet
+Haptic feedback for tab moves. A subtle nudge when you drag tabs in the strip or side nav—small polish that makes organizing feel right.
+bullet
+iCloud Passkeys support. iCloud‑based passkeys now work in Dia. When a site requests a passkey, Dia queries your iCloud Keychain and prompts you to approve access.
+bullet
+Faster, more resilient browsing. We've implemented HTTP/3 connections behind the scenes to reduce the number of network change errors you encounter with Dia.
+bullet
+Thanks for being here and using Dia. If anything doesn't look right, let us know—your feedback helps us keep dialing down clutter and tuning the feel.
+What's New in Dia v1.4.0
+Dia v1.6.0 brings Slack search, improved voice dictation and more Chat improvements. Here's what's new:
+Search Slack Tool. Search your Slack messages and files directly from Dia to pull up conversations and docs without switching apps.
+bullet
+Dictate with confidence. Voice mode gets streaming transcription for better accuracy, punctuation, and capitalization.
+bullet
+Meeting reminders get some polish. A redesigned reminder attaches to your source calendar tab, is movable, and stays visible when you need it. Settings are clearer, too.
+bullet
+See what the Assistant did. Tool call bylines now show when Dia reads, opens, or closes tabs—always with clear controls.
+bullet
+Smarter tab attachment suggestions. When attaching context, Dia prioritizes open tabs first, then history/bookmarks, then previous chats—with tie‑breaks by recency and a boost for short queries.
+bullet
+Fewer false safety errors. Stronger injection detection, better LaTeX parsing, and tightened tool handling.
+bullet
+Fix to show toast when actions are performed in fullscreen mode.
+bullet
+Thanks for using Dia. If anything feels off, tell us—your feedback helps us keep polishing the details and reducing friction.
+What's New in Dia v1.6.0
+An8D8HJGGIJqPkBywGBZ73
+Dia v1.9.0 brings powerful new ways to keep your work organized with tab groups.Here's what's new:
+Stay organized with Tab Groups.
+Organize your work by project, topic, or client with tab groups. Groups are color‑coded, customizable, easy to scan, and stay put so you can return to your work exactly where you left it.
+bullet
+Meetings that stay in reach.
+A refreshed calendar experience helps you show up prepared: Dia will automatically create an Active Meeting tab group when you join calls, keep "relevant links" pointing to the right docs and boards, and show live badging on the Calendar icon so you always know how long you have until your next meeting. Logged‑out calendar previews now include a clearer sign‑in prompt and update as soon as you log in.
+bullet
+Smarter tool calling behind the scenes.
+Dia automatically decides when to reach for tools like Gmail, Google Calendar, Slack, or Tabs based on your request, so you can just ask and let the browser handle the wiring.
+bullet
+Create more with shortcuts.
+We've added support for new wiki, new jira, new form, new meeting, new gist, new Figma and more from the command bar.
+bullet
+Fewer accidental voice triggers.
+After user reports of voice mode triggering at unwanted moments we've introduced tighter constraints for when it turns on and off.
+bullet
+There was a bug where Resy sometimes would not load correctly.
+We've fixed that so you can get back to booking your reservations.
+bullet
+Thank you for using Dia! Please keep the feedback coming.
+What's New in Dia v1.9.0
+xDRTR3NF9oWaWxExLy35sa
+Dia v1.8.0 is filled with simple, team favorite, updates that smooth out daily frictions. Here's what's new:
+Tab renaming. Double‑click any tab to rename it in place.
+bullet
+Faster, clearer voice input. Voice input gets a refreshed UI plus keyboard shortcuts so it's easier to start dictation from wherever you are.
+bullet
+More Slack in context. You can now use Slack activity search to see mentions, unreads, and recent workspace activity directly in Dia. It's a quicker way to pull up the details that matter without hunting through channels.
+bullet
+Create docs without breaking flow. Type "new …" into the Command Bar to spin up a new document, spreadsheet, slide deck, or ticket right from Dia. It's the fast path from idea to artifact.
+bullet
+Fewer flashes and empty tabs. Closing a tab no longer flashes the background page—Dia simply brings the next site into view. Under the hood, we now protect your last 10 recently used tabs from being proactively discarded (they can still be closed under heavy memory pressure or by extensions).
+bullet
+Downloads under control. Paused downloads can finally be canceled directly, fixing a long‑standing bug that left them stuck in limbo.
+bullet
+Meeting PiP fixes. Picture‑in‑Picture for Google Meet behaves more reliably. When you switch around Dia, the PiP window now appears when and where you expect it, so you can move between tabs without losing sight of the conversation.
+bullet
+Chrome pinned tabs come along. When you import from Chrome, your pinned tabs now arrive in Dia already pinned, so your anchors stay right where you expect them.
+bullet
+Thanks for browsing with Dia. If anything doesn't feel quite right in v1.8.0, tell us—each fix helps keep the browser feeling fast, stable, and ready for real work.
+What's New in Dia v1.8.0
+xDRTR3NF9oWaWxExLy3BgO
+Dia v1.7 keeps you in flow with series of ergonomic improvements and bug fixes the team was eager to work on. Here's what's new:
+AppleScript and Raycast integration: AppleScript support lets external apps query windows and tabs or focus them. Use the new Raycast integration to jump to the right Dia tab from your launcher.
+bullet
+Search Memory, where you need it: Memory Search is now accessible from the Tab Overflow menu, so finding past work happens right in the flow.
+bullet
+Bookmarks, upgraded search: Bookmarks appear in Command Bar results alongside history, ranked for relevance. Your go‑to links are now faster to reach.
+bullet
+Tab hover actions: Pin, add to Bookmarks, Split with Tab, or Open Chat directly from tab hover.
+bullet
+Fewer flashes: Reduced high‑contrast flashes (like sudden whites) when switching or navigating tabs. Transitions feel steadier and easier on the eyes.
+bullet
+Presented tab indicator: When you're sharing your screen on a call, the tab favicon shows a presentation indicator—clear signaling for what's live.
+bullet
+Meeting reminder in PiP: Just‑in‑time meeting reminders now live in Picture‑in‑Picture, making placement consistent and movement smooth.
+bullet
+Thanks for using Dia and for the regular feedback that helps us tune the details.
+What's New in Dia v1.7.0
+Dia v1.10.0 is all about tying up loose ends—from long‑requested support, to polish on new features, to fixes that keep day‑to‑day work feeling smooth. Here's what's new:
+Chromium Side Panel support.
+Extensions that use the Chromium Side Panel can now render their side-panel UI directly in Dia.
+bullet
+Tab groups get easier to scan and name.
+New tab groups derive their color from the site's favicon or URL bar theme color, and when you create a new group with tabs on top, Dia now drops you straight into renaming so you can label projects while you're in the flow.
+bullet
+Google Sheets support in Chat.
+The Assistant can now see beyond the first visible slice of a sheet—reading across all sheets and rows in a document so summaries and analyses capture the full picture.
+bullet
+Retry without attachments.
+If a query fails because of a problematic attachment, you can now quickly rerun it without that attachment instead of starting from scratch.
+bullet
+Ask on Page now opens in new tabs.
+Links from Ask on Page results now open in a new foreground tab, preserving the original context while you jump into the answer.
+bullet
+Non‑US keyboard shortcuts, fixed.
+Keyboard shortcuts like ⌘Z now behave correctly on layouts such as AZERTY and Dvorak, so undo and other core commands work the way you expect across apps.
+bullet
+Fewer dark‑mode flashes.
+Notion and Slack now honor their dark backgrounds when you switch tabs, preventing distracting white flashes as you move between workspaces.
+bullet
+More reliable window controls.
+A speculative fix addresses rare cases where macOS window traffic lights could appear duplicated after unlocking or moving in and out of fullscreen.
+bullet
+Faster navigation from history.
+Back, forward, and reload history entries can be cmd‑ or middle‑clicked to open in a new tab, making it easier to explore alternate paths without losing your place.
+bullet
+Smarter fullscreen on multi‑display setups.
+Sites using the Fullscreen API can now target another display, so full‑screen experiences land where you want them.
+bullet
+Thanks for using Dia and for all the shared feedback that shapes these releases.
+What's New in Dia v1.10.1
+Dia v1.13.0 kicks off the new year by tidying up the everyday details in Dia.
+Tab groups improvements.
+Closed tab groups now overflow into a simple button instead of crowding your strip. Group menus show icons and colors to make destinations easier to spot, and new groups drop you straight into renaming so you can label projects in the moment. Command‑click‑created single‑tab groups automatically ungroup once only the original tab remains, so quick one‑offs don’t linger.
+bullet
+A calmer side panel.
+The side panel has a refined look and no longer flickers when you move between tabs with different side panel states, keeping context changes feeling smooth and steady.
+bullet
+Better ad block coverage.
+Ad blocker blocklists have been updated to give you better coverage while reducing odd breakages on the sites you rely on.
+bullet
+No more missing favicons.
+Dia now pre‑warms the favicon cache on launch so icons appear right away as you restore tabs and windows. A Notion‑specific favicon bug has also been resolved, so workspaces show up with the right identity.
+bullet
+Bookmarks that are easier to file.
+When you save a bookmark, the interstitial now shows the full folder tree inline, making it faster to drop links into the right place without digging.
+bullet
+Lists in Chat that read cleanly.
+Chat now renders bulleted and numbered lists with correct markers and indentation, avoids hard‑to‑read lists‑in‑tables, and can auto‑correct slightly off list formatting so your writing and pasted content stay legible.
+bullet
+More resilient Notion attachments.
+We've shipped a series of page scrapping improvements for more reliable attachments from Notion and other tools.
+bullet
+A cleaner look for meeting reminders.
+Meeting reminders now use richer, platform‑specific branding.
+bullet
+What's New in Dia v1.13.1
+Dia v1.14.0 is all about showing up and staying organized with Tab Groups for Meetings and a (big) handful of quality of life improvements across the browser. Here's what's new:
+Tab Groups for Meetings
+. Tab Groups for Meetings ship in this release, keeping your meeting tabs and related links together. Now when you join a meeting, Dia automatically creates a Meeting tab group to keep your call anchored and your meeting resources together. As you open meeting-related links, Dia drops them into the meeting's group, and the group can show how much time is left when you're close to the end. After the meeting ends, it becomes a normal tab group, with auto-cleanup behaviors so meeting groups don't turn into clutter.
+bullet
+Mention Tab Groups in Chat.
+You can @-mention Tab Groups in assistant queries to attach all the tabs at once. Think of a tab group as a context container for bringing your work to Chat.
+bullet
+Tab Group refinements.
+Close out tab groups in sidebar mode with a click of the X and right click to copy all URLs in a group.
+bullet
+Profile-wide Tab Search.
+⌘-shift-A now searches across all windows in the current profile, not just the current window.
+bullet
+Customize your tabs with emojis.
+Choose a custom emoji/icon for any tab so it's easier to spot.
+bullet
+Default profile management.
+Change which profile is default and delete any non-default profile (including the initial one).
+bullet
+Cleaner assistant links.
+Links in assistant responses now show favicons, cleaned-up titles, and informative hover tooltips.
+bullet
+More reliable search fetching.
+Assistant Google search scraping now uses rate limits and delays to avoid triggering reCAPTCHAs.
+bullet
+YouTube summaries in Chat.
+Open Chat on any YouTube video for a pre-generated summary of the video.
+bullet
+New status page.
+Visit
+status.diabrowser.com
+to check the status of Dia.
+bullet
+Extension search engines fixed.
+Extensions that provide custom search shortcuts work properly again.
+bullet
+Duplicating pinned tabs.
+Duplicating a pinned tab now opens a normal tab instead of another pinned one.
+bullet
+Popups behave more like tabs.
+Popups now support printing, Find in Page, and ⌘+shift+C copy.
+bullet
+This week includes a bump to Chromium 144, which includes improvements to security, stability, and performance.
+What's New in Dia 1.14.0
+PgYqQerKHcm7WFe6W5CxeS
+Dia v1.15.0 is a polish-heavy release focused on the small upgrades to the features you use every day. Here's what's new:
+Google Meet PiP share fix.
+Clicking Share in Picture‑in‑Picture now returns you to the Meet tab so the share dialog is accessible.
+bullet
+Automatic reload after turning off ad block.
+Pages now automatically reload when ad block is disabled to avoid stale content.
+bullet
+Option to delete Chats.
+You can now Delete chat conversations from Chat history with the right click context menu.
+bullet
+Slack scraping improvements.
+Dia now reads more structured content for channels and threads when you attach Slack to a Chat.
+bullet
+New Tab Page theming.
+The New Tab Page now uses your profile color, with a theme‑colored gradient animation under the command bar that fades in and shimmers.
+bullet
+Tahoe Liquid Glass designs.
+Refined visuals for macOS Tahoe with polished corners and a new glass‑style app icon.
+bullet
+F12 opens Developer Tools.
+You can now open DevTools with F12 and bind function keys (F1–F12) as shortcuts.
+bullet
+Tab Handoff.
+Open tabs from your iPhone directly in Dia on Mac via macOS Handoff.
+bullet
+Confirm dialog loop protection.
+Tabs stuck in repeated confirmation dialogs can now be closed without locking the entire window.
+bullet
+Bookmark Bar menus auto‑size
+. Dropdown menus now auto‑size up to 600px, making long document titles easier to read.
+bullet
+Select and copy dialog text.
+You can now select and copy text from dialog titles and messages for debugging and support.
+bullet
+Thank you for continuing to use Dia! We're already looking forward to bringing you more updates next week.
+What's New in Dia 1.15.0
+v1.16.0 deepens Dia's tab story with new ways to make your workspace feel settled, organized, and tailored to how you actually work. Pin the projects that matter most, grow into Tab Groups with a familiar click, and tune tab behavior from a dedicated home in Settings. Here's what's new:
+Pin the tab groups that anchor your day.
+You can now pin tab groups to the top of the sidebar or the leading edge of the tab strip.
+bullet
+Command‑click into a tab group.
+Command‑clicking a link from a tab now opens that link in a new tab group, instead of just a standalone background tab. The original page and the new tab live together in that group, so a simple "open in new tab" gesture quietly becomes a lightweight project space.
+bullet
+Shortcut to open a new tab in a group.
+Option‑Command‑T now opens a new tab inside your current tab group instead of next to it so you can keep related work together.
+bullet
+A Tabs pane in Settings.
+Tab‑related preferences now live together in a dedicated Tabs pane in Settings. Switch between sidebar and top bar layouts, and adjust Tab Group behaviors like automatic meeting grouping from one place.
+bullet
+Recently closed groups are easy to restore.
+When you close a tab group, it now shows up in the Recently Closed section in Tab Overflow and History menus. If you close a project group a bit too aggressively—or just want to revisit yesterday's setup—you can bring it back in a couple of clicks.
+bullet
+Profile indicators and menus that feel more at home.
+The profile indicator now lives more subtly inside the pinned tabs tray and sidebar header, with refined theme colors that make windows feel cohesive without shouting for attention. Context menus for empty spaces in the sidebar and top bar have also been standardized, so common actions are easier to find no matter where you right‑click.
+bullet
+Default profiles are easier to set.
+Making a profile your default is now a clear, first‑class action from the Profiles pane in Settings.
+bullet
+Manifest V2 extensions are phasing out.
+Starting in v1.17, Dia will no longer supports legacy Manifest V2 extensions. With a built‑in ad blocker in place and the ecosystem moving toward Manifest V3, this keeps Dia aligned with modern extension standards and improves security and stability over time.
+bullet
+What's New in Dia 1.16.0
+7YAPOpJafhVNDYflc8aRaz
+Dia App Icon
+Download Dia
+Currently available on Apple macOS 14+ with M1 chips or later.
+the AI Browser
+Download Dia
+Currently available on macOS 14+ with M1 chips or later. Access Dia with the email linked to your invite.
+Meet Dia, a smart browser.
+You’ve been invited to test a browser with AI built into every surface.
+Currently available on Apple macOS 14+ with M1 chips or later.
+On your phone? Send yourself the download link so you can install Dia when you're back at your Mac.
+Download Dia Browser for macOS 14+ with M1 chips or later. Meet a smart, fast, secure browser where you can chat with your tabs.
+Dia Browser, Download, macOS, M1, Secure Browser, Fast Browser, Desktop App, Smart Browser, AI Browser,Privacy
+Download Dia Browser for macOS – a smart browser where you can chat, write, learn, plan and shop with your tabs.
+Get Dia Browser for macOS 14+ with M1 chips or later. Meet a smart browser with AI in every tab.
+Download Dia Browser for macOS – a smart browser where you can chat, write, learn, plan and shop with your tabs.
+Dia Browser is currently in beta for macOS 14+ with M1 chips or later. Meet a smart browser where you can chat with your tabs.
+Download Dia Browser for macOS – a smart browser where you can chat, write, learn, plan and shop with your tabs.
+Your download will start automatically. If it doesn’t,
+click here
+to download Dia manually.
+Thanks for downloading Dia!
+Join the waitlist
+Dia is currently only available on macOS. Sign up for updates to be the first to know when Dia is available on Windows!
+bnKHE8NFvD5dhRfAB4hxi7
+Join Early Birds
+Want to help us build a better Dia and be the first to test our new (and experimental) features? Start here
+moon
+Try out new features a week before public release
+magnifyingGlass
+Help us smooth out the bumps, catch bugs and improve performance and stability
+note
+Share crucial feedback before we ship to contribute to making Dia better
+Here’s how it works:
+Join Early Birds
+hlqk1dpnzYFmo78AyviKIh
+image
+Contact Us
+We’re getting Dia ready for companies of all sizes.
+Dia is a modern, AI-native browser that helps teams work faster, built with strong security controls and enterprise-grade management in mind.
+What is Dia?
+Dia brings secure, native AI workflows into your browsing and apps, so you get productivity and compliance in one place. With Dia, there is no context switching, fewer copy-and-paste loops, and strong admin controls for data, access, and updates.
+What makes Dia better than using my old browser with ChatGPT?
+Yes. Dia is covered under The Browser Company’s SOC 2 attestation: Type I complete, Type II in observation. Request the report at
+security@thebrowser.company ↗
+Is Dia SOC 2 compliant?
+Dia has
+zero data retention (ZDR)
+agreements with all partners. Users can opt out from sharing content to improve Dia (see our
+Privacy
+page), and enterprises can disable content sharing org-wide.
+Does Dia or its AI systems train on corporate data?
+Yes. Dia supports MDM controls that let you disable all AI-powered features on specific websites.
+Does Dia offer AI security controls?
+Your data stays on your device and is stored encrypted. When you make an AI-powered request, we send only what’s needed to fulfill it (e.g., your prompt and relevant page context) through our servers to our AI partners.
+How is my data kept private in Dia?
+Yes.
+Dia supports standard
+Chromium enterprise
+policies, including
+Google Chrome Cloud Management
+and also provides Dia-specific MDM policies such as AI controls and managed updates. Dia makes it easy for your IT team to be managed and deployed.
+Does Dia support MDM controls?
+Yes. Dia supports SAML-based SSO with most identity providers, including
+Google, Okta, Microsoft Entra ID
+, and more. You can also use Dia’s MDM policies to restrict sign-ins to approved
+email domains
+, ensuring only your employees can access Dia securely.
+Does Dia support Single Sign On (SSO)?
+Dia supports standard import flows from all major browsers.
+Can I import my bookmarks, extensions, profiles, tabs, passwords, and history?
+image
+Dia is built for work
+ESi6o53PQdAxfwmpqsSlEq
+For Work
+Release Notes
+Windows
+Students
+Skills
+Introducing Reports
+Product
+Help
+Status
+Privacy
+Terms of Use
+Security
+Trust Center
+Resources
+About Us
+Careers
+Newsletter
+Early Birds Program
+Company
+X
+LinkedIn
+Instagram
+Connect
+Designed and Built by
+The Browser Company of New York
+vtQxkDVTX1omiCSHBGSH3n
+Welcome to Dia
+Here are five things to know.
+image
+Data is encrypted and stored locally. When using Chat, we send only what’s needed to answer your request. We care deeply about security and privacy. Every feature in Dia starts with these values in mind.
+Built for your trust
+image
+Get instant help from Dia—when you ask.
+With you on every page
+Press ⌘E to open Chat. Dia’s ready.
+video
+Dia picks up on patterns: your projects, teammates, and priorities to help you move faster. After a week, you won't be able to go back to your old browser.
+Learns how you work
+image
+Browsing context, chats, and history is used to provide you with better answers. By default, Dia avoids storing and processing data from sensitive sites, such as banking and health.
+History, but way better
+image
+You’ll start to see the benefits of Dia’s features. By next week, you’ll be depending on them
+By the end of the week…
+FHq0cxBUEtyhfe7OSWIuup
+Dia — the browser that reads between the tabs.
+Dia from The Browser Company
+Dia — the browser that reads between the tabs.
+Dia from The Browser Company
+Dia — the browser that reads between the tabs.
+Dia from The Browser Company
+f2IdjDJVSbEtIu5YgMXvoa
+Start your mornings right,
+with Dia reports.
+Download Dia
+Join the Waitlist
+What's New
+Security
+Introducing Reports
+KkSEXIaxE1f4Hpca3TrfLK
+Visit the Gallery
+See how our community is using Dia
+chat.json
+Chat
+write.json
+Write
+learn.json
+Learn
+plan.json
+Plan
+shop.json
+Shop
+image
+Early access for Arc Members
+Download Dia
+Join Windows waitlist
+with your tabs
+Early access for Arc Members
+A new AI browser from the makers of Arc
+Dia is the smart browser that brings the best of AI to where you’re already working.
+Connect the dots across your internet
+Dia reads between the tabs
+image
+Before the day kicks in, Dia's Morning Brief lays it all out (calendar, inbox, key links) so you know exactly what you're walking into.
+Start your day two steps ahead
+image
+Instead of bouncing between tools, just ask Dia. It gathers what's scattered across your tools (Slack, Notion, Calendar, and many more!) and turns it into a report worth sharing.
+Synthesis you'll actually use
+image
+Ask once. Dia digs into your full context, across GSuite, Slack, tabs, and more, and answers like someone who's seen every thread.
+Find the answer without hunting it down
+image
+Decks
+Ask Dia for a deck and your scattered context becomes real slides — headers, layout, and flow you can present without a redesign.
+video
+Live Work
+Dia pulls together the places where work is actually happening (like GitHub and Notion) in your tab bar. Click once and land directly in the right PR, spec, or draft.
+image
+Profiles
+Create clean lines between work and play, with custom tabs, logins, and color themes. Live in work mode during the day, then switch into personal browsing without accounts or histories bleeding together.
+video
+Better Meetings
+Every call starts with the right meeting page, agenda, notes, and related docs open, with a gentle countdown so you’re on time. All you have to do is show up.
+video
+Splits
+See a meeting on one side and a doc on the other without juggling windows. Dia remembers your layout, so your favorite setup for recurring 1:1s or focus time is one click away.
+image
+Organized Tabs
+Keep your workspace tidy by grouping related tabs with appropriate naming, so you see “Design Review” or “Q2 Planning” instead of a long strip of unnamed pages.
+Built for how you actually work
+Learn more about privacy in Dia
+Block trackers
+Personalize new chats
+Memory
+Block ads
+Share content data
+You control whether Dia remembers your preferences and which tools connect to your workflow. Your data is never sold or used to build ad profiles — and with Sync, it's end-to-end encrypted.
+Dia for Work adds the guardrails that your team needs, like SSO and admin tools, so your team can stay secure.
+Privacy first
+with you in control
+Download Dia
+Join the Waitlist
+Currently available on Apple macOS 14+ with M1 chips or later.
+Ready for a better day?
+Download Dia
+Join the Waitlist
+Currently available on Apple macOS 14+ with M1 chips or later.
+Do it all.
+Dia.
+Dia is an AI web browser. It’s built to feel familiar, like the browser you already use, but with an AI assistant built in to help you work faster. In Dia, you can chat with your tabs by asking questions and making requests about the page you’re on, your other tabs, your selected text, or your browser history, all without switching tabs or apps. It has built-in memory so you can pick up where you left off every day. Dia also lets you turn your most frequent prompts or requests into reusable Skills.
+What is Dia?
+When you use ChatGPT, you have to manually copy and paste your work from one tab to another. Dia brings AI into your workflow, so the work stays in one place. It may seem like a small difference, but it’s a fundamental shift: Dia understands your current tab, along with how that tab fits into your day. You can summarize docs, compose emails, and extract data without leaving your workflow or losing your focus.
+What makes Dia better than using my old browser with ChatGPT?
+Yes. You can import bookmarks, extensions, passwords, and history across one or multiple Profiles from Chrome, Safari, Edge, and Arc. You can import this information when you’re first installing Dia, or click Dia > Import from Another Browser at any time down the road.
+Can I import my bookmarks, extensions, profiles, tabs, passwords, and history?
+Dia is free to download and use. The free tier allows you to access all of Dia’s features, including AI Chat for everyday use. You can also sign up for Dia Pro to unlock Unlimited Chat, which means you’ll never hit Chat limits. For more details, see:
+Dia Browser Pro
+What does Dia cost? Are there usage caps?
+Dia keeps your content data local and only shares that data off-device when needed. Browsing history, bookmarks, and files are encrypted and stored on your device. When you use Chat, only data relevant to your request (like your question or open tab) is briefly sent to our servers and, if needed, to our trusted AI partners who are restricted from training on it and may not store it after the request is complete. You can delete chats, files, and history locally anytime. When using incognito mode, your content data, including your chats and history, are never stored. Unless you opt out via the Privacy Panel of your Dia Settings, your content data will be shared to improve Dia, but none of that data will be associated with your profile and it will be deleted after 30 days. We will never sell your personal data. For more information on how we treat your data, please see our
+Privacy Policy
+Is my data private?
+You’ll have Dia up and running in about one minute. Just download Dia, create an account, import from your old browser, and click Chat in the top right of a new tab. Then just ask a question, write a draft, or summarize a webpage, and you’ll immediately feel the power of an AI web browser.
+How long does Dia really take to set up?
+image
+Command Bar
+Dia smartly routes you to a site, a search engine, or AI chat based on what you type.
+image
+Ad block
+Stay focused on your work. We block ads, pop-ups, and trackers before they reach you.
+image
+Split View
+Keep up to three tabs open in one view and ask Chat to connect the dots across them.
+image
+Profiles
+Keep work and personal worlds separate with dedicated spaces, histories, and settings.
+image
+Mention Tabs
+Just @ any open tab in a query to pull it in as powerful context.
+image
+Skills
+Create shortcuts to your most repetitive prompts, as easy as writing a sentence.
+A browser so good you’ll never go back to Chrome
+chat.json
+Chat
+write.json
+Write
+learn.json
+Learn
+plan.json
+Plan
+shop.json
+Shop
+image
+Early access for Arc Members
+Download Dia
+Join Windows waitlist
+with your tabs
+Early access for Arc Members
+A new AI browser from the makers of Arc
+Dia is the smart browser that brings the best of AI to where you’re already working.
+Connect the dots across your internet
+image
+image
+You sign off emails with ‘Warmly’
+You're building a personal website
+image
+You code in Swift
+image
+image
+You're based in New York
+image
+Your mornings are for admin
+image
+You’re a product manager
+image
+You prefer clear, human language
+Dia learns your preferences and style with every tab you open to become tailored extension of you.
+Learn more about privacy in Dia
+Memory
+Data sharing
+Personalize answers
+Block trackers
+Block ads
+Block cookie banners
+Dia exists to make the internet better, not to profit off your personal data. We believe it’s up to you to customize what you see and what you share.
+Privacy in Dia
+with you in control
+Privacy & Security image
+image
+Privacy in Dia, you’re in control
+Dia exists to make the internet better, not to profit off your personal data. We believe it’s up to you to customize what you see and what you share.
+Learn more about privacy in Dia.
+Dia is the browser for your best work. Get answers without having to ask, produce beautiful ready-to-share outputs, and stay focused in the best browser for your work day.
+AI browser, productivity, Chrome alternative, chat with tabs, web browser, contextual AI, AI assistant, secure browsing, privacy, security, laptop browser, professional browser
+Dia | A browser you won't dread opening
+Dia is the browser for your best work. Get answers without having to ask, produce beautiful ready-to-share outputs, and stay focused in the best browser for your work day.
+Dia | A browser you won't dread opening
+Dia is the browser for your best work. Surfaces answers before you ask, produce beautiful ready-to-share outputs, and stay focused in the best browser for your work day.
+Dia | A browser you won't dread opening
+You
+Get instant answers and writing support without switching tabs or copy-pasting to ChatGPT.
+A true thought partner, in your tabs
+video
+Turn your open tabs into context so you can skip the explanations and stay focused on what you do best.
+See the full story behind your work
+video
+Turn a single brief into tailored versions for every team so you can align cross-functionally in minutes.
+Write once, share everywhere
+video
+Pull in context from dashboards, docs, and shipped work when writing updates so you can over-communicate without the overhead.
+Updates that write themselves
+video
+Turn complex metrics into clear insights, as easy as having a conversation so you can make decisions with confidence.
+Talk to your data like you would a teammate
+video
+Dia understands your tools to support you in the moment while connecting everything together so you can organize ideas, capture decisions, and turn plans into action.
+Unlock more value from the tools you already use
+video
+Gather competitor strategies, spot opportunities, and go deeper, all without leaving the tools you’re already in.
+The power of the internet at your fingertips
+NjPajrZeZtXFPEsZtsd6Wu
+You're invited
+to try
+nytimes
+Unlock access
+to Skills in
+skills
+Team EU is invited
+to join
+teameu
+Join the waitlist
+Your friend is
+out of invites
+Currently available on macOS 14+ with M1 chips or later.
+Dia is macOS only. Send yourself the link to download it when you're back at your Mac.
+Your friend has invited
+you to join
+The AI Browser that brings your tabs to life
+Dia is the AI browser that’s always up to speed. No more attaching or copy pasting — if it’s in your tabs, Dia already knows.
+Your friend is inviting you to Dia!
+Dia is the AI browser that’s always up to speed. No more attaching or copy pasting — if it’s in your tabs, Dia already knows.
+Your friend is inviting you to Dia!
+Dia is the AI browser that’s always up to speed. No more attaching or copy pasting — if it’s in your tabs, Dia already knows.
+Your friend is inviting you to Dia!
+Stay in the loop
+Dia is currently only available on macOS. Sign up for updates to be the first to know when Dia is available on Windows!
+Your friend invites
+you to join
+The AI Browser where your tabs talk back
+3pP8D0gWQroyw9ZYpCt10W
+Includes
+A clean, calm, and effortlessly organized browser.
+Current plan
+Dia Browser — free. A clean, calm and effortlessly organized browser with no AI features.
+bullet
+Dia for Work —Dia’s AI, built into your browser. Two plans: Starter ($30/month) and Essential ($100/month).
+bullet
+Both Dia for Work plans include the same AI features. The difference is how much monthly usage is included and the per-use rate.
+What plans does Dia offer?
+Anytime. Upgrade, downgrade, or cancel from your account settings. If you cancel, you'll keep AI access through the end of your current billing cycle, then Dia continues as a free browser. You will not be reimbursed for any unused usage.
+Can I change or cancel my plan?
+[TO ADD FROM LEGAL about TASKS]
+How is my usage calculated?
+Plans & Pricing
+Every new Dia user gets a 14-day free trial with access to Dia's AI features. No plan selection or credit card required to start. When the trial ends, choose a paid plan to keep using AI, or keep using Dia as a free browser.
+How does the free trial work?
+The trial is designed to comfortably cover normal, everyday use. There's a light limit on how much you can do in a short window to keep things running smoothly for everyone, but most people won't run into it.
+Are there any limits during the trial?
+If you haven't chosen a plan, Dia keeps working as a browser and AI features pause. Any time you reach for an AI feature, you'll see a prompt to pick a plan and pick right back up where you left off.
+What happens when my trial ends?
+Free Trial
+Your plan is billed monthly and includes a set amount of AI usage. You're only charged beyond that if you choose to add more usage. Payments and receipts are handled securely through Stripe and your settings panel.
+How am I charged?
+You can keep going by adding more usage in $10, $20, or $50 blocks — either automatically when you run low, or as a one-time top-up. Added usage rolls over and stays available until you use it, up to three months from purchase.
+Your monthly plan allowance resets each billing cycle and doesn’t carry over. Any usage you purchase on top does roll over until you use it, up to three months from the date of purchase.
+What if I use up my monthly usage?
+Yes. You can set a monthly limit so you never spend more than you intend. Your plan's included usage resets at the start of each billing cycle.
+Can I set a spending limit?
+From your Dia account settings. Card and invoice management open securely through Stripe, where you can update your payment method or view past charges.
+Where do I manage my subscription and payment details?
+Billing & Usage
+Frequently asked questions
+More than just a browser
+Get ready for a better work day
+Included with your plan
+Manage plan
+View plan
+forever
+Download
+grid
+Dia’s great browser features: tab groups, split view, profiles, and more
+One-click meeting join
+Automatic ad and tracker blocking
+user
+Upgrade for AI features any time
+Includes
+Dia browser
+Free
+A calmer, effortlessly organized browser
+free
+/month
+Choose Essential
+book
+Everything Dia can do with higher usage limits
+chat
+Start every day with a brief on your top priorities
+link
+Pull context from all your tools, all the time
+Turn out polished artifacts everyday
+Includes
+Essentials
+Have Dia do your best work with you
+essential
+/month
+Choose Flex
+Chat with your tabs for answers that know your work
+Connect to your favorite tools
+Create the occasional report or deck
+Includes
+Flex
+A lighter way to get started, go all-in when you're ready
+flex
+Compare Dia Browser and Dia for Work, with Essential and Flex options.
+Dia Browser | Plans
+Get work done without constraints.
+Dia Browser | Plans
+Get work done without constraints.
+Dia Browser | Plans
+Upgrade to Essentials
+Upgrade to Flex
+Download
+Your free trial of Dia is complete!
+Upgrade to continue using Dia's AI features.
+Get started free
+Get started free
+Download
+Get ready for a better work day
+Choose the plan that fits how you work with Dia.
+Manage plan
+Included with your plan
+Included with your plan
+You’re on Essentials
+Your plan includes everything Dia has to offer.
+Upgrade to Essentials
+Manage plan
+Included with your plan
+You’re on Flex
+Manage your plan or upgrade when you need more room.
+Choose Essentials
+Choose Flex
+Free after trial
+You’re trying everything Dia can do
+Choose a plan now, or keep exploring until your trial ends.
+Get started free
+Get started free
+Download
+Get ready for a better work day
+Choose the plan that fits how you work with Dia.
+Get started free
+No credit card required.
+A browser with smart features built to support your craft.
+Dia for Work
+1sy961zLJmRKUisPipPu9m
+Unlock expanded Chat.
+* provided usage is within our
+Terms of Use
+, of course.
+Level up with Dia Pro
+Download Dia to begin
+Chat on any tab
+Mention tabs in any query
+Add attachments to any query
+Personalize Dia with Memory
+Pro two-week trial
+Includes
+Free
+Everything in Free
+Expanded Chat usage*
+Includes
+Start with a 14-day free trial
+Upgrade to Pro
+14-day free trial
+See what’s possible in Dia
+Welcome to Dia Pro.
+Purchase complete
+07ijh2LC0WMzuw5YBaNNn1
+“Can we huddle quick?” “Just confirming you’re joining!” “You’re on mute.”
+In a day of back‑to‑backs, or even just browsing, Dia helps you stay on time and stay prepared. With our latest release, everything feels smoother—whether you're switching tabs, presenting key metrics, or decoding acronyms. Every tab on Dia has support built in, from previewing your meeting invite to providing the link for your next call.
+Your meeting ended early and you're getting ready for the next one. Hover over your Calendar tab, get a glimpse at the rest of the day, and even join your standup directly from the preview.
+normal
+Live Calendar Preview
+video
+In the zone? Dia will give you a heads up to join the rest of your team. Before a meeting, a preview pops up of with quick access to join, right there, in the corner of your window.
+normal
+Just in Time Reminders
+video
+fun
+Details that matter
+Outside of meetings, delivering more little updates that
+really
+add up.
+video
+Enter
+Focus Mode
+by fully collapsing the side bar—so you can stay in the flow.
+Drag distractions away
+shipped by
+Adam
+image
+The model used to obsess over images (we felt it too). Now it locks in and moves forward without over-explaining assumptions. Get your answers faster, with a calmer, sharper flow.
+Smarter chats, fewer detours
+fixed by
+Nick
+image
+Find in Page
+gets a visual polish to match Dia’s new design. Press CMD + F to open.
+A refreshed Find in Page
+shipped by
+Charlie
+image
+Dia now automatically reloads select recent background tabs, based on your device and tab activity. Tab discarding respects app active time—so tabs won't go blank while you’re away.
+Keep your Tabs alive
+shipped by
+Seb
+Before we wrap, a little inspiration outside of meetings — and a small plug for public libraries! Recent discovery: The Center for Brooklyn History, home to 33,000 artifacts documenting 400 years of this corner of the city, and one of the most stunning libraries I've seen. Where do you go when you need a beat away from the screen?
+Photo of the inside of The Center for Brooklyn History reading room
+image
+Brooklyn Public Library
+The Center for Brooklyn History
+on the mind of
+Nash
+One Last Thing
+1-5-0-meet-me-in-dia
+Meet Me in Dia
+Ben
+Design Engineer
+mjhwkSavCTcbcnhhG9gRXV
+Work happens across tabs, apps, and conversations in the office. At Dia, we’re bringing everything you need—the who, the what, and the where—into your browser, so you spend less time gathering info and more time doing the work you care about. With this release, all that context is one mention away in
+Chat
+Skip the DMs and search Dia. Just attach the Slack tool to chat, type your question into the search, and watch results come in from your workspace. Get quick summaries and important intel immediately—now you don’t have to comb through Slack to figure out the latest with the feature (the one you heard about in that meeting) that’s kind of like what you’re working on.
+Whether you’re using Slack in browser or app, the search works. And this won’t mess with your Slack state—messages won’t be marked as read and your history won’t be saved.
+normal
+Slack Search
+video
+Slack Search Tool in Chat
+fun
+A few more updates
+image
+Alongside our new Slack integration, today’s release brings a few more under-the-hood upgrades to Chat — from better voice input to stronger memory and more. All designed to bring your work and your context, into one place. Seamlessly! Tell us what’s landing with you, and where you want us to go next
+from the desk of
+From the desk of
+Rosey, Engineering Manager
+video
+Voice just got better in Dia. We’ve moved to streaming transcription for more accurate recordings and precise punctuation, especially when you’ve got a lot to say. Bring on the long recordings.
+Improved voice transcription
+shipped by
+Patrick
+image
+Chat now shows each tabs-related tool call—what it read, opened, and closed—and gives you a deterministic way to act on those tabs and URLs. More power, with the receipts.
+See what Chat is doing with your tabs
+shipped by
+Samir
+image
+Dia now searches memory more reliably, triggering on many more prompts that reference past events or out‑of‑context knowledge. No need for @mentions or exact phrasing—if at first it don't succeed, it'll try, try again.
+Automatic Memory Search is now truly automatic
+shipped by
+Nick
+My favorite recent read is The Secret Lives of Colour by Kassia St. Clair. It is a fantastic journey through different hues with insights in chemistry, history, politics, religion and art. She magically paints whole worlds of colour in this collection of short consumable essays. The language she uses is so incredibly rich and tactile.
+image
+Kassia St. Clair
+The Secret Lives of Colour
+recommended by
+Jeff
+One Last Thing
+2025-11-20T15:30:00.000Z
+1-6-0-conversations-context-chat
+Conversations, Context, and Chat
+Jeff Rafter
+Engineer
+W7WKZqTuh9piACAxeXtPHb
+It’s true: at Dia, we often ship things because you’ve asked for them. But sometimes someone on the team just really wants a change, and believes a small fix can unlock a big improvement in your workflow.
+normal
+Raycast Extension
+You can now use AppleScript with Dia, and the first thing it unlocked is a Raycast extension. Starting today, directly open tabs from anywhere, or even use the Raycast focus feature directly with our new extension.
+For Raycast users, this will feel instantly natural: you can search your history, hop into work or personal profiles, and pull up any tab without ever leaving your current app. For everyone else, think of it as saving a few clicks dozens of times a day, and avoiding the little distractions that break your flow. To get the Dia extension, just visit the Raycast Store—
+it’s live now
+video
+fun
+A few more updates
+image
+Now you can search memory from the Tab Overflow menu. If you’re not sure where that meeting transcript or invoice is, click the down arrow in the top right to search open or recently closed tabs, or ask Dia to find it in memory.
+Search and Remember
+built by
+Cemre
+image
+We’ve added bookmarks to Command Bar search results, and ranked them just like your browsing history. Just start typing in the Command Bar to watch them show up.
+Bookmarks, Meet Search
+fixed by
+Nathan
+image
+We’ve cut down the white flashing that happens during tab switches and navigation. Sites that force white backgrounds may still flash, but we’re exploring a few solutions to squash this bug for good.
+Less flash, less strain
+fixed by
+Miko
+video
+Google Meet reminders are now moved into a true PiP window, giving it smoother placement and movement. Drag it with two fingers, snap it to corners, and avoid screen edges automatically.
+PiP-ed Meeting Reminders
+polish by
+Freddy
+Our Thanksgiving looked like PJs, kids piled on the couch, and the National Dog Show on full blast. We pick favorites, cheer way too loudly, and pretend we’re judges—especially during the toy group, where we’re undeniably biased thanks to our own rescue pup, Janet.
+image
+The Kennel Club of Philadelphia
+National Dog Show
+enjoyed by
+Tara Feener
+One Last Thing
+2025-12-01T15:30:00.384Z
+1-7-0-flow-state
+Find Yourself in Flow State
+Charlie Deets
+Designer
+82LxAjbTYkGzFfRMz3rbkC
+No grand reveal—for our second release of the week, we’re focusing on simple updates that smooth out daily frictions. And the “what” is just as important as the “why”. In this week’s release, we’ll hear directly from the builders on what they solved, and why they felt the drive to make it happen.
+video
+You can now rename tabs in Dia. Just
+double‑click
+to edit in the sidebar or tab strip and instantly rename anything. Fast, clear labeling means “Draft v3” won’t get confused with “Untitled” ever again. I’ve been working on tab organization lately (more coming soon) and just had to sneak in one of my favorite features from Arc.
+Tab renaming, right there
+By
+Adam Stern
+video
+Create something new directly from the command bar. Type something like “new doc or "new bug" and Dia starts suggesting quick actions for the tools you use.
+Since 99% of my work starts in Dia with
+⌘+T
+, why not save a bit of cognitive overhead? It was both fun and liberating to identify a pain point in my own daily workflow, realize that many people feel the same pain, and be able to improve it.
+New docs, no detours
+By
+Renato Mangini
+video
+Voice input now has a cleaner UI, less clicks, and keyboard shortcuts. You can now hold
+⌘T
+for a second
+anywhere in Dia to open a Voice tab, press
+Escape
+to cancel, return to stop, and
+⌘Return
+to send.
+When I can speak instead of type, Dia feels more like a real assistant or partner. It makes brainstorming more fluid, letting me express ideas almost like in a conversation.
+Hold, speak, send
+By
+Hannah Park
+video
+Today, you can see recent mentions, unread messages, and notifications directly in Dia to triage fast and keep context intact. Ask Dia to pull messages and files without marking them read or saving anything to Slack.
+For me, reactions are my favorite part of Slack… and I wanted to be able to ask what I said that prompted the most reactions. It exposes a fun and playful part of getting work done
+Do more with Slack and Dia
+By
+Jeff Rafter
+Lately I've been loving going back to the things that I loved to do when I was a kid, not because they are "productive" or something to cross off the to-do list. Last weekend, this looked like searching for cool seashells and stones in the sand at the beach. Finding this gorgeous sand dollar reminded me of joy that exists in little moments.
+image
+Recommended by
+Hannah Park
+One Last Thing
+2025-12-04T23:15:00.000Z
+1-8-0-direct-from-the-team
+Direct from Team Dia
+1crO578Kg9GLw1Z6pECFoR
+A few tabs, a busy work day, and your browser can start to feel unruly. To be honest, Dia hasn’t really helped here yet… but that changes today.
+This release is our first step toward making Dia your own—with a new tool that brings order and makes your surface truly yours. It may look familiar, but it works in a way that’s unmistakably Dia.
+normal
+Introducing Tab Groups
+video
+You can now group your tabs. By project, by initiative, or however you organize your work.
+Whether you’re in the sidebar or the top bar, right click on a tab and move it into a new group. Add and remove tabs from your group with a drag or a click, and quickly collapse or expand it to keep your tab strip tidy.
+video
+You can customize each Tab Group with a color and an emoji or icon. When you hover over your tab group, you get a preview of what’s inside the group, and you can always select a tab from there.
+video
+When you close a Tab Group, it will automatically move to your bookmark bar as a little “storage” space for your groups. From there, you can relaunch a group anytime—or ⌘ + click to open it in a new window.
+Group together the top of mind tabs that you really, really need to have organized. This could be onboarding documentation for your two new hires. Or a GTM initiative with a Figma file, strategy memo, and meeting notes. Or, of course, gift ideas for your office White Elephant party (might we suggest the MoMa store and a pair of socks).
+More New Commands.
+Following last week’s release, the feedback was clear—more commands, please! Create so much more “new” right from the command bar, like blog, wiki, and jira.
+Added by Nathan Chapman.
+bullet
+Book your Resy (and more).
+There was a bug where Resy sometimes would not load correctly. We've fixed that so you can get back to booking your reservations.
+Fixed by Seb Marchand.
+bullet
+normal
+A few more updates
+While making the images for this week’s notes, I multitasked at my holiday shopping. High on the list: these red Esmé socks I've heard amazing things about. I used to think socks were a boring gift, now they're basically all I want.
+image
+Esmé
+Cranberry Socks
+Recommended by
+Caleb
+One Last Thing
+2025-12-11T15:30:00.000Z
+1-9-0-tab-groups
+Organize your Tabs
+Adam Stern
+Engineer
+ATZnC953ZI6BkOhriYLW9w
+This week’s release is a grab bag of speed and stability. We tied up loose ends to make everyday browsing faster and more predictable, with a mix of fixes you asked for and improvements we’ve been eager to ship. That’s it, that’s the intro.
+normal
+Tab improvements incoming
+video
+Tab Groups (introduced last week, woo!) now get their color from the site’s favicon, or from color matching in the URL bar. It’s not only delightful, the wayfinding helps indicate exactly what’s in your group.
+Refined by Dustin Senos
+image
+And another calendar update is now live
+—see the time to your next meeting, right in your tab. A favorite from Arc, the status will be live in both the sidebar and the topbar to help you never miss a meeting again.
+Shipped by Ben Cunningham
+Get even more momentum in chat. That means full-context answers, no lost tabs, and progress even when uploads don’t cooperate.
+fun
+Better chat with your tabs
+image
+Dia can now read the entire content in a Google Sheet, not just the visible first 100 rows. That means responses to questions about all content, and connections across sheet
+Go in on Google Sheets
+Built by
+Ali Juma
+Attachments don’t always play nice. If one won't upload, you don't have to start over or wait—just retry the query without that file and continue the conversation.
+Retry (no attachment necessary)
+Added by
+Farah Juma (in her first week!)
+Links you click in chat on Ask on Page won't replace your current view anymore. Instead, they'll open a new foreground tab inside your active tab group (when applicable), so you keep your context and keep moving.
+Ask on Page and get a new tab
+Shipped by
+Nathan Chapman
+image
+I shipped two fixes I’ve been chasing for a while. First, a speculative fix for the “double traffic lights” on macOS—those duplicated window controls that sometimes show up after unlocks or during fullscreen transitions. Please keep an eye out, and let me know if you see it again. Second, I’ve addressed white flashes in dark mode when closing or switching tabs. Notion or Slack received a targeted fix and there’s a true dark background behind their UI now enforced to remove the flashing.
+From Miko's Desk
+Keyboard shortcuts now respect your layout.
+Shortcuts like ⌘Z in Google Docs or Figma now work as expected on non‑US layouts (e.g., AZERTY, Dvorak).
+Middle‑click without losing your place.
+Back, forward, and reload entries now support middle‑click or ⌘‑click to open in a new tab, so you can explore navigation/history items without replacing your current view. Tabs will open in the background by default, and you can add Shift to open in the foreground.
+This one’s for Chromium Users.
+If you rely on extensions that use the Chromium side panel (hello, Rovo at Atlassian), Dia now supports them. Since Dia is built on Chromium, compatible extensions can render their side‑panel UI right inside Dia, so your tools show up where you work.
+normal
+Three more updates
+I’ve been looking for music that helps me focus while programming, especially during some recent website updates for Dia Browser. I came across this album in a roundabout way, through an Instagram Reel of Gustavo Cerati (frontman of the Argentine ’80s band Soda Stereo) during a DJ set. That led me down a rabbit hole finding his later work which went more ambient and electronic.
+Put this on when you’re ready to deep dive into something.
+Album cover for Ocio - Medida Universal
+image
+Ocio
+Medida Universal
+Suggested by
+Lucas Vocos
+One Last Thing
+2025-12-18T15:30:37.133Z
+1-10-1-year-end-release
+No loose ends
+2pXpyaIoQm5n5Ibf7x7F79
+Dia came into the world last year with a simple premise: a browser that lets you chat with your tabs. We've been building on that foundation since then — adding Skills and Memory, bringing back the sidebar, and calendar previews, connecting tools like Slack and email, and closing out the year with Tab Groups. All to help you keep context, stay organized, and move ideas forward. In 2026, we’ll continue to build Dia as the browser that helps you get things done and move work forward. Expect more ways to organize, better support, better problem solving, and steady improvements that help ideas turn into action.
+But first, we’re kicking off the new year with a batch of refinements we polished off in 2025.
+Closed tab groups used to be a headache. Now, when there are too many to show in the bookmarks bar, they neatly overflow into a single button.
+normal
+Everyday improvements to Tab Groups
+video
+We also made it easier to tell groups apart and manage them as you go:
+Choose either an icon
+or
+a color to quickly distinguish groups
+bullet
+Creating a group from a tab now adds top-level context menu actions
+bullet
+Command-click–created groups automatically ungroup once only the original tab remains
+bullet
+All small changes, but together, tab groups are now easier to live in. Big thanks to Conner, who snuck all of this in right before the holiday.
+No more missing favicons.
+Notion fixed the workspace favicon issue, and now all your favicons restore instantly along with your tabs.
+Fixes by Luan and Connor
+Better ad block coverage.
+Updated block lists mean more ads blocked and fewer issues with broken sites.
+Updated by Seb
+Smoothing out the side panel.
+With a refined design, switching between tabs showing different side panels states is now completely flicker free.
+Fixed by Seb
+Easy to navigate bookmarks.
+The bookmark interstitial now shows the full folder tree inline for easier destination selection.
+Updated by Connor
+Improved list rendering.
+Chat can now render lists with correct markers/indentation, avoids lists‑in‑tables, and can auto‑correct slightly off list formatting.
+Fixed by Nick
+Best effort scraping.
+If a page‑load selector never appears, attachments now use a best‑effort scrape instead of timing out.
+Fixed by Ali
+normal
+New year, cleaner edges
+In the last two weeks of the year, I took my first real winter vacation in years. It was wonderful. Lots of time with family and friends! I started rewatching Mad Men, went deep on the 1964 World’s Fair in New York (and some nerdy New York history podcasts), went to the gym, and decided I really do like Fred Again. I’m feeling recharged — and newly inspired for 2026. I have a personal aspiration to turn Dia into a browser that the people who write shows like Mad Men, produce nerdy podcasts, and make DJ mixes like Fred Again will want to use.
+image
+Shared by
+Josh Miller
+One Last Thing
+2026-01-08T15:33:00.000Z
+1-13-1-new-year-new-polish
+Carrying it forward in 2026
+UrI2PNczUvdXtCX3e8yRfS
+video
+Meetings tend to scatter things—agendas in one tab, notes in another, a link you’ll need later somewhere else. That makes it harder to stay focused on the most important thing: the conversation. Dia now automatically keeps everything you open during a call together in a Meeting Tab Group, so you don’t have to think about where things go while you’re on the call. If you opened it during the meeting, it’s already right where you expect it to be.
+large
+Meeting Tab Groups
+video
+To get automatic Meeting Tab Groups, you’ll need to pin and authenticate Google Calendar in Dia. Then, when you join a meeting, Dia handles the rest: creating the group, keeping it easy to find, collecting links you open, and cleaning up after the call.
+Pin to set up
+video
+Join a Google Meet from a calendar preview or reminder and Dia automatically creates a Meeting Tab Group.
+The group stays anchored to the top of your tabs, and any links from the description or opened from chat—agendas, docs, boards, tickets—are collected into that group as you go.
+Join a Meet
+image
+While the meeting is active, the group includes subtle, meeting specific UI so you can see when the meeting is reasonably close to ending—helping you stay present without clock-watching.
+Stay engaged
+video
+Done with your call? The meeting group becomes a normal tab group, with automatic cleanup, so meeting clutter doesn’t linger.
+Wrap it up
+normal
+Chat with a Tab Group
+video
+When your work is spread across a dozen tabs, the fastest way to get unstuck isn’t opening one more—it’s getting a clear read on what you already have. That’s why you can now treat a Tab Group as a single bundle of context. Chat with a Tab Group either by right‑clicking the group and choosing “Chat with Group,” or by attaching the group to a chat. This is useful when you’ve collected a bunch of related tabs and want help using all of them at once. Use it to summarize what’s in the group, pull out key links, or draft a quick update based on what you’ve opened.
+This week, I’ve been returning to a classic favorite: Bruce Springsteen’s
+Tunnel of Love
+. It’s been my favorite album for years—everything hooks me, from the sound and look to the lyrics. If you only listen to one song, make it “Tougher Than the Rest.”
+image
+Bruce Springsteen
+Tunnel of Love
+on repeat for
+Jane
+One Last Thing
+2026-01-15T15:50:00.000Z
+1-14-0-meeting-tab-groups
+Join the call. We’ll handle the tabs.
+Freddy
+Engineer
+7LzegKrHEKFtb3HP5S6uSz
+Over the last few weeks, we’ve been putting in quiet work to help you get more done with less overhead. This week delivers small improvements to staying organized and using your tabs as context in Dia. So you have a browser that’s there when you need it, and gone when you don’t.
+normal
+3 ways to get organized
+video
+For many of us, a tab is a task waiting to be done. Now you can swap in an icon that matches what the tab is really for. Customize any tab’s icon by right-clicking it and selecting “Change icon…” to make Dia even more your own.
+Customize Tab Icons
+shipped by
+Adam Stern
+video
+Work, personal, maybe your third job—Profiles help us keep different parts of our lives organized, even if we’re in one browser. Profile theme colors are now more bold in Dia, so it's easy to see where (or who) you are.
+Improved Profiles
+Shipped by
+Kasper Lahti
+video
+Clean out your tabs with less clicks. If you’re closing out your day, hover over a tab group and click the X to close. And you can always find any closed tabs groups in your bookmark bar.
+Close out Tab Groups
+Shipped by
+Conor Montgomery
+normal
+3 ways to use context
+image
+image
+Dia now reads more structured content for channels and threads when you attach Slack to a Chat. So you pull in the full conversation, not just the last few chats.
+Attach Slack to Chat
+Fixed by
+Ali Juma
+Links are now more visually appealing in assistant responses, with a favicon for the page and a cleaned-up title. Links now also show a hover tooltip that displays the host name and title.
+Look up links
+Fixed by
+Farah Juma
+Not all conversations need to be remembered. You can now Delete chat conversations from Chat history with the right click context menu.
+Clean up your chat history
+Fixed by
+Cemre Güngör
+image
+Tap in, Tahoe users.
+For users on macOS Tahoe, the next Dia release will include a round of visual refinements just for you. We’ve tightened up details like window and menu corner radii, and launched a new Tahoe glass-style Dia icon that responds to your Tahoe appearance.
+Designed by Jess Wang, Shipped by Chris Yim
+F12 to open.
+We now support F12 to toggle Developer Tools (matching Chrome), and have updated shortcuts to allow binding of function keys (F1–F12).
+Updated by Chris Yim
+Content blocker changes apply instantly.
+Toggling the content blocker on a page automatically reloads it—and if you have unsaved changes, we’ll ask you to confirm before we do.
+Fixed by João Neves
+Hand off your Tabs.
+If Dia is your default browser, when you're at your laptop and have a tab open on your iPhone, Dia's icon will show up on your macOS dock (allowing you to quickly open the URL on Desktop).
+Shipped by Connor Montgomery
+normal
+A few more updates
+Want to get featured in our release notes someday? We’re assembling a diverse group of craft-obsessed people for
+these open roles
+. People from all backgrounds are encouraged to apply, and even if you don’t see an exact fit you can always still join our
+talent community
+image
+Contributed by
+Michele Rosenberg
+One Last Thing
+2026-01-23T21:12:00.000Z
+1-15-1-polish-galore
+Better organization, better context
+TTQX78omQQW9PeOM9nqYzx
+image
+Lately, I’m most excited about how our tab management story has evolved. We’ve gone from users having little to no organization (and asking for it) to being able to organize in ways that match their own complexity. A lot of this power isn’t pushed—features like pinning are there if you want to reach for them. It feels easier to pick up than what we did in Arc, because it grows with you instead of being forced upfront.
+We’ve got a bunch of people joining us in the coming weeks—here's how they might get started using our latest release.
+from the desk of
+Dustin, Head of Design
+large
+Dia from Day One
+video
+On your first day at The Browser Company, you get an onboarding doc, filled with things to know, down to the WiFi password for the office.
+-Click
+when you open links from the onboarding doc to automatically get a new tab group with that doc, and all the links you open from it. Every relevant link for will be together in one place.
+Day One
+video
+You’re in a meeting with your manager, and want to show up prepared. You can now
+Pin a Tab Group
+to keep it in one spot, no matter how many tabs you open. Pinned groups sync across all windows within each profile, and persist even if you close a window or restart Dia, so you’ll always know where Onboarding is.
+Day Two
+video
+You’re starting to write up strategy, but need to reference some materials you saw earlier in the week. Just attach the Onboarding Tab Group to any chat, and ask for what you need.
+Attaching a Tab Group
+brings more context from your tabs into Chat, getting you answers fast.
+Day Three
+video
+You’ve made it through your first week, and you’re starting to get the hang of things.
+Close out
+by click the X of the Tab Group. You can always find it again in the recently closed menu or History.
+Day Four
+image
+Also important—we've added
+Tab panel in Settings
+. Our defaults are strong, but opt out if something doesn’t work for you. And you can always change once you’re onboarded.
+Starting in next week's release, 1.17, Dia will stop supporting Manifest V2 extensions. Any V2 extensions you’ve installed will stop working and display a “no longer supported” message. Dia’s built‑in ad blocker remains on by default, and most popular extensions update to Manifest V3 automatically. This brings Dia in line with other Chromium‑based browsers and removes reliance on deprecated, less secure code paths.
+shield
+We’re ending support for Manifest V2 extensions.
+2026-01-29T16:00:00.000Z
+1-16-0-organization-that-grows
+Onboarding without tab overload
+3SykBRI2oS5o7mQPvNEp9m
+This is a step toward something new—the idea that your browser can automatically surface the work that matters right now, and let it fade away when it doesn’t.
+Engineers, you know how it goes: you open a PR, wait for reviews, then merge. But then PR notifications get buried under email, calendar, chat, and other pings, and you have to go digging for them. That is, until this week, with the release of
+Live Tab Groups
+We're starting with GitHub, but this is the first
+Live Tab Groups
+launch of many. All designed to keep your most important work front and center in Dia.
+fun
+Github Live Tab Groups
+video
+Now, the moment you open a pull request, Dia creates a
+GitHub
+Live Group
+in your sidebar. No set up required, simply create your PR.
+The first time, you’ll see a quick introductory popover explaining what’s new. The
+Live Tab Group
+shows both the pull requests you’ve opened, and ones waiting on your review. It stays pinned by default, so your work is always visible even as you hop into meetings or switch projects.
+video
+New pull requests appear when you open them, and closed or merged ones drop off, so you’re not maintaining a mental or manual checklist.
+As work moves forward (or merges), the Live Tab Group updates itself.
+video
+No cleanup required.
+When pull requests close, they leave the Live Tab Group automatically.
+image
+If Dia is unable to fetch the latest status from Github, there will be a visual cue to reauthenticate. That way, instead of refreshing and wondering what’s wrong, you know exactly what to do to get things syncing again.
+image
+Prefer a more hands-on approach? A dedicated right-click menu lets you refresh the
+Live Tab Group
+and configure what repos or PRs show up.
+All of this means less time tracking down links, digging through your PR page, or remembering which PRs are still on you. And of course, more time to actually review and ship changes.
+fun
+Help us build what's next
+GitHub is just the beginning. At Dia, we want to reflect the reality of how you move across tools. We know that looks different for everyone, so we’re running a short survey to figure out what to bring you next.
+Tell us which tools you want to see live and updating in Dia →
+One thing I’m fired up about this week is the Olympics, especially women’s hockey. Team USA gets the games started today and I cannot wait (and I'll be wearing my Abbey Murphy sweater, of course).
+image
+Abbey Murphy
+Best Assist of the Year
+from
+Elizabeth
+One Last Thing
+2026-02-05T15:40:00.000Z
+1-17-0-github-live-tab-groups
+Live Tab Groups are here
+Ben C
+Design Engineer
+obcpr3WtbAiZtiEYiFOlUQ
+Everyone's Dia looks a little different: what you keep pinned, what you bookmark, and how quickly you move. This week’s release focuses on making your space behave the way you want (and need it to). With improvements to layout, organization, and performance, Dia moves with you as your setup evolves.
+video
+Creating a Tab Group is usually intentional: You have a project, a theme, or something you want to return to. Dia now reflects that by
+automatically pinning new tab groups
+when they’re created. This keeps important groups anchored in your tabs (kinda like how Folders worked in Arc 👀) and reduces the need to constantly reorganize as your tab list grows.
+Tab groups are auto-pinned
+video
+Accidentally closing a window shouldn’t mean losing your tabs, your hard work, or your customized set up.
+You can now reopen a closed window from the File menu and get all of your tabs back in
+one click
+. No digging through your history or manually reopening tabs one by one required!
+Better window restoration
+image
+The Bookmarks Bar now only shows Tab Groups you’ve explicitly closed and moved there. Before, it showed all Tab Groups, even ones still open in other windows. Now, what you see reflects your intent—plus, it keeps your setup tidy and easier to manage.
+A cleaner, more intentional Bookmarks Bar
+image
+When you’re organizing your space visually, even the little layout details matter. Groups now display more cleanly and predictably.
+We fixed a tab truncation issue in the Tab Strip when Tab Groups are present to improve spacing and label clarity.
+Improved tab spacing and readability
+video
+When you’re switching contexts (or going undercover 🕵️), visual cues matter. Incognito windows now launch in
+dark mode by default
+. This makes it easier to recognize where you are, especially when you’re moving quickly between windows.
+Dark incognito windows
+Startup is now significantly faster on lower-spec machines!
+We found that large favicon caches could grow to tens of thousands of entries over time, which slows down startup on machines with limited memory or slower storage. By capping the cache at 1,000 entries (more than enough for everyday use) launch is now nearly instantaneous after the first run.
+normal
+Performance Updates
+That’s it for this week. What’s one small change that’s made your setup work better for you? Tweet us the answer and we’ll include it on a future release note!
+For the last few days, I’ve started my morning with a random page from
+Lonesome Dove
+by Larry McMurtry, my favorite novel of all time. There’s something special about a book when every page is a rich read.
+image
+Larry McMurtry
+Lonesome Dove
+from
+Ian
+One Last Thing
+2026-02-12T17:30:00.000Z
+1-18-1-your-setup-your-way
+Your setup, your way
+MOD2HlhJYfoitzBOhz66LE
+What starts as research becomes planning. Planning becomes bookmarks you’ll never revisit. And a few tabs suddenly become 50. All the information you need to ace your big proposal is technically there, but nothing feels together.
+Tab Groups
+help, but only if you actually name and manage them. And when you’re 50 tabs deep, that’s when they slow you down and break focus.
+Starting today, Dia handles the naming, so you don’t have to.
+video
+video
+With
+Automatic Tab Group Names,
+if you don’t set a manual name, Dia generates one based on what’s inside the group (topics, content, similarity) and what Dia already knows about you.
+Never Name a Tab Group Again
+Even better: the title evolves over time. As the contents of a group change, the name updates too, so it stays accurate without you having to manually rename it:
+Open tabs.
+number
+Group naturally (try
+cmd+click
+number
+Keep moving.
+number
+Dia organizes your workspace as you go—it doesn’t make you pause to tidy up.
+large
+And organization doesn’t stop with your tabs.
+2026-02-19T01:34:13.586Z
+DiaWeekly_Issue13-Feature6-V1.mp4
+video/mp4
+2026-02-19T01:34:13.586Z
+video
+Ever opened a new tab and thought,
+“Wait, what was I supposed to do?”
+Now, Dia won’t wait for you to ask. With
+Proactive Suggestions
+, Dia pulls the context across your calendar, email, Slack, and tabs into a daily morning briefing of what needs your attention from the jump.
+We’ve been asking how you actually work—and what breaks your momentum. What we heard wasn’t big blockers, but constant competition for your attention: a calendar invite colliding with an email, a Slack message pulling you from an important tab. That steady context switching fragments your focus and slows you down. This is where
+Proactive Suggestions
+come in.
+normal
+Momentum Matters
+image
+Starting now, when you open a new tab in Dia in the morning, you’ll see a set of personalized suggestions.
+Instead of juggling reminders and tasks in your head, you can put your energy into the work itself.
+Proactive Suggestions
+keep priorities visible and actionable, so your day doesn’t stall between tasks. Now you can review your notes before that big meeting, polish that presentation, crush that deadline…the (to-do) list goes on.
+image
+If Dia surfaces something you’re not quite ready to tackle, you can dismiss suggestions or let them fade away naturally.
+image
+And if you’d prefer a clean, new tab page, you can turn off Proactive Suggestions anytime in Personalization settings.
+Now that the noise is out of the way, what will you tackle first?
+normal
+This past weekend, I took a trip with some close friends and brought along a puzzle for us to do. I spread it out on the coffee table and thought we’d pick at it between meals or outings. But I definitely didn’t expect how it would quietly become the heart of the weekend. I highly recommend this as a shared activity for your next group trip to slow down and build something beautiful together.
+image
+The finished product: Fancy Ideas by Piecework Puzzles
+from
+Sara
+One Last Thing
+2026-02-19T15:40:00.000Z
+1-19-0-tab-groups-and-proactive-suggestions
+Multiplying tabs? Dia keeps them in check
+nJ2wKN6D6LtJeDzJyza5nP
+This week, Dia finds its rhythm, and (as always) helps you find yours.
+Music is the backdrop to our work days here at the Browser Company. It sets the pace, shapes the mood, and keeps us inspired through our 9-5. Until now, changing your soundtrack meant leaving your current tab—talk about a record scratch.
+Starting today, when you hover over your pinned Spotify tab, the
+Spotify Mini Player
+appears. Pause, skip, or check out what’s playing, all without leaving the page you’re on.
+normal
+Spotify Mini Player
+video
+video
+When your music plays, animated music notes dance around the Spotify icon. It’s subtle, but it’s almost like your browser
+feels
+your playlist, too.
+Here’s a little magic:
+Rhythm isn’t just limited to music, though. It’s also about how your browser moves with you.
+When you’re working across two panes, flow matters just as much as your soundtrack.
+Split View
+now gives each pane its own navigation controls and address bar, so it’s clearer which side you’re interacting with. Each pane practically behaves like its own window.
+normal
+Split navigation gets its own independent controls
+video
+You can also move through each pane independently and swap panes to keep the right content in focus, or in the order that works best for you. Compare, reference, or work across two contexts without losing your place—or missing a beat.
+Split View changes the composition, but the next few updates change how Dia feels.
+video
+Not every change has to be static.
+Now, when Dia names a tab group for you, it shimmers into place.
+Automatic Group Name Animation
+video
+Sometimes you want everything in view. Sometimes you don’t.
+You can now hide or show your sidebar tabs using a new toggle next to the navigation controls.
+Focus Mode Toggle
+Are these loud changes? No, but you
+ll feel them. And if you don't, tell us more about the way you work so we can build more features for your specific set up!
+If you’re using the
+Spotify Mini Player
+, we’d love to know what’s on repeat for you. Tag us on Twitter—we’re always looking for new music recommendations! In return, we’ve compiled a playlist of our favorite tracks over at BCNY.
+image
+BCNY Faves
+Curated by
+The BCNY Team
+One Last Thing
+2026-02-26T15:40:00.000Z
+1-20-0-little-moments-big-feeling
+Little moments. Big feeling.
+sEXYKEM0YtrucL1vKZ7eMP
+Dia gets there first.
+Keyboard shortcuts are what you use when you already know the next move: they get you where you need to go, without pulling out the whole map. But sometimes we all need a little reminder.
+Starting today, when you open a
+Tab Context Menu
+(CTRL + click), you’ll see the keyboard shortcut right next to the action—including the ones you’ve customized yourself.
+video
+To celebrate this update, we asked folks at BCNY which shortcuts keep their day moving:
+video
+Use this when it’s time to get serious:
+“​​I love it because it lets me switch working modes... sidebar is when stuff gets real.”
+⌘⇧S — Switch between topbar & sidebar
+Endorsed by
+Ben
+video
+Go
+full focus mode
+with this. Just two taps and there’s nothing but the page in front of you.
+⌘S — Hide/Show the Tab Strip
+Loved by
+Jane
+video
+The reset we all need because,
+“sometimes you just need to nuke your tabs for your own mental health.”
+⌘⇧K — Close all tabs
+Appreciated by
+Rishi
+video
+“The onnnly way to switch tabs.”
+Ctrl + tab / ctrl + shift + tab — Cycle through tabs
+Frequented by
+Elizabeth
+video
+"I use this to copy the current URL like nobody's business."
+⌘⇧C — Copy current URL
+Championed by
+Alexandra
+video
+The OG. Enough said. We all use it.
+⌘T — New tab
+Tapped daily by
+The BCNY Team
+normal
+And those are just the ones we can’t live without.
+If you’re curious about our other shortcuts (or want to make a few of your own)head to
+Dia → Settings → Shortcuts
+You’ll find the full list there. If a combination doesn’t feel natural, you can change it. Once you do, the
+Tab Context Menu
+will show your version, too.
+image
+The best moments when using a browser are the ones you don’t have to think about. Luckily, Dia’s built to stay a step ahead.
+If you’ve got a shortcut that keeps you moving, share it with us. We want to hear from you!
+I personally love the Freestyle 2 for Mac. It's the simplest split mechanical keyboard I've ever found - simply plug in & start using. What it lacks for in customization, it makes up for in macOS integration (there's a ⌘ key)!
+image
+Freestyle 2 for Mac
+Used by
+Connor
+One Last Thing
+2026-03-05T16:30:00.000Z
+1-21-0-before-you-reach-for-it
+Before you reach for it…
+sEXYKEM0YtrucL1vKjMoyq
+image
+First agenda item of the day? Open your laptop and launch Dia.
+Before calendar invites, the Slack DMs, and your emails in your inbox can flood in, your new tab shows you a short list of
+Proactive Suggestions.
+These are a few things, just for you, based on what you were already in the middle of—and a preview of what might be coming up next, such as...
+image
+so you can follow up while it’s still fresh, and make sure that all your agenda items actually get done.
+The notes from yesterday’s 1:1
+image
+in your 10am meeting. Instead of hunting down the tab, you're practicing what edits were made on RND 3.
+The Figma file you’re presenting
+image
+you missed but actually want to respond to. No need to circle back to Christina after working hours.
+The LinkedIn message
+Instead of starting your the day remembering where to begin, Dia makes you first click obvious. Your priorities are visible, actionable, and ready when you are.
+image
+Not ready to tackle Dia's suggestion? Dismiss it or let it fade away naturally.
+image
+If you’d rather keep a totally clean new tab page, turn off Proactive Suggestions anytime in Personalization settings.
+Sometimes the best morning means less thinking, and more doing. Now you have a browser to meet you where you left off.
+Performance improvements that pack a punch.
+We’ve heard some reports on sluggishness and memory leaks, especially when opening new tabs. Our recent fixes should improve performance dramatically—but if something is still not working, go to “Help”, then “Record Performance Issue". It really helps us repro!
+bullet
+Switch profiles, fast.
+Quickly switch between profiles using keyboard shortcuts (e.g. ctrl + 1, 2, 3, ...), to handle your different personas with ease.
+bullet
+Shortcut to Chat and Search.
+Open the command bar and route directly to Chat with
+or to Google Search with
+. Skip that extra typing and selecting step.
+bullet
+normal
+A few more updates
+While I’m still obsessed with the
+BNCY Faves
+playlist (and our Spotify Feature), I’ve been finding new music through
+Quinton Mulvey’s
+series Queue. I love that the corresponding
+Substack
+explains the history and choice behind each song selection.
+image
+Recommended by
+Ariel Levin
+One Last Thing
+2026-03-11T15:42:00.000Z
+1-22-0-dont-think
+Don’t think about the next step. Take it.
+qhSwcy3H9AuRqc0GLEbm0Q
+Pull requests are where your work comes together, from landing production changes to vibe coding projects. But if you’re not directly on the GitHub PR page, there’s a gap between what you do and what you see.
+A few weeks ago, we shipped
+GitHub Live Tab Groups
+, so you can see PRs that need your review without leaving your current page. This week, we’re dropping some improvements.
+video
+video
+As you complete a review or merge a PR, you’ll see subtle animations that signal the transition from in-progress to done—so you don’t just
+do
+the work, you can celebrate it, too.
+Getting a PR reviewed or merged is worth celebrating.
+video
+When your PR merges and Dia cleans things up, you’ll see it happen. No second-guessing whether something is still active or already done.
+Clean up without the guesswork.
+video
+Simply hover to preview recently completed PRs and bring them back into view, whether you need to double-check something or pick up where you left off.
+Keep finished work around just a bit longer.
+video
+Not everything has to be purely functional. We’ve started bringing more expressive animations into everyday interactions—like the back, forward, and reload controls. Because even the smallest moments should feel like they’re responding to you.
+A little delight along the way
+From action to completion to what’s next, these updates help everything stay in motion, both on the page and throughout your work day.
+normal
+My first experience with winemaking was working on a self-sufficient farm in Sora, Italy, when I was in college. For years I told myself I wanted to make wine, and this weekend I finally got started with my first
+home wine making kit
+! Now I just have to wait six months to find out if it's drinkable.
+image
+Pressed by
+Jlo
+One Last Thing
+2026-03-19T21:00:00.000Z
+1-23-0-from-review-to-merge-to-whats-next
+From review to merge to what’s next
+3cR3a1NSd7XynftmT4LF2a
+video
+You told us Dia was feeling sluggish, and you were right. So, we’ve released a series of thoughtful improvements that make everything feel lighter (and faster). You should already feel some of this, but we’re not finished just yet.
+Here’s what we’ve done so far:
+Keep your Dia open for days, and it might start lagging. Or at least, it used to thanks to memory leaks. We found a few places where memory wasn’t being released properly—plus a platform bug that kept some views around after switching tabs. In some cases, that added up to gigabytes of extra memory.
+fun
+No more slowing down over time
+image
+image
+Now that's fixed, Dia should feel more speedy (even if you rarely restart your laptop 👀).
+Enhanced by
+Seb, Brahm & Renato
+fun
+Some smaller things that were adding up
+Animations on the new tab page now use fewer resources. We tuned when they run to reduce CPU and GPU usage — small savings that add up, especially when other tabs are busy.
+Fixed by
+Brahm and Adam
+The command bar is faster. By moving work out of the suggestion path and warming up favicon and database caches at startup, results show up more quickly as you type.
+Improved by
+Renato
+And now, if your system is under load, we skip the extra step that decides whether input goes to search or Dia—saving resources when your machine needs it.
+Optimized by
+Renato
+The best way to help us keep improving Dia is by
+joining our
+Early Birds program
+. When you join Early Birds, you’ll get early access to new features and fixes—and you’ll also get a direct line to provide us feedback on your experience.
+fun
+The work doesn't stop there
+image
+Go to Help → Record a Performance Issue.
+Pro tip:
+Include a description of what feels off and make sure the issue actually happens while you're recording ,so we capture it (and fix it)!
+If you hit a performance issue
+You can also tweet your feedback to us
+@diabrowser
+. Speaking of, we’d like to shout out
+@qbmgabriel
+and
+@alymoursy
+. They didn’t just report performance issues but followed up with videos, tested our fixes, and helped us validate that things were actually getting better. That’s the type of collaboration we love here at BCNY.
+If something feels better, we’re glad. If something still feels off, tell us! We’re always trying to make Dia better (and faster), and you’re a big part of that.
+normal
+That’s it for this week.
+My favorite working filmmaker
+Radu Jude
+’s new movie
+Kontinental ‘25
+is getting released in the US this Friday, so I've been thinking about his previous
+Do Not Expect Too Much From the End of the World
+a lot this week. Riotously funny & also deeply morbid, it’s like the Romanian
+Ulysses
+. There’s a quote from him I keep coming back to — about
+how in things that seem obsolete, “you discover that you can reinterpret them in a new context and they look much more modern.”
+I'm always looking for inspiration in the overlooked & forgotten as well.
+image
+Radu Jude
+Do Not Expect Too Much From the End of the World
+Praised by
+Naman
+One Last Thing
+2026-03-26T14:40:00.000Z
+1-24-0-dia-got-faster
+Dia got faster
+bnKHE8NFvD5dhRfAB0IcyZ
+At the Browser Company, we’ve always believed that how something
+feels
+matters just as much as what it
+does
+In our company values,
+Notes on Roadtrips
+, we talk about choosing the long way: not because it’s efficient, but because that’s where things start to reveal themselves. That idea shows up everywhere in how we build Dia. We take the extra time to craft important details—because the feeling they create ultimately
+is
+the product. And you all have started to notice that, too. Our internal Slack channel #dia-user-love is a direct line to your exact words, where we collect posts like this:
+image
+Here’s a few more features that have both real function and feeling:
+video
+When you download a file, it zips toward your sidebar with a magnetic tug, so you always know exactly where it landed. Trust us, it feels as good as it looks.
+Downloads that guide you
+video
+Replace any tab’s favicon with an emoji for a quicker, more customized way to navigate your tab strip.
+Spot the tabs you need at a glance
+video
+Pull any tab to the edge of your screen to instantly open a side-by-side view. No menus, no keyboard shortcuts to memorize.
+Drag, drop, and start multitasking
+video
+Meeting countdowns update with smooth transitions to signal how much time you have to prep (or take a beat) between calls.
+Make your day keep pace with you
+fun
+In case you missed it
+video
+When Dia names a tab group for you, a rainbow shimmer gently slides the title into place.
+A small shimmer of organization
+video
+On your Spotify tab, soft animated notes float around the favicon—hover over it and the track reveals itself.
+Your music, in motion
+video
+Navigation buttons respond with fluid, immediate feedback so you know they’re working. It didn’t need to feel this good, but someone on the team made sure it did.
+A click that acts as confirmation
+That’s all for now. We’ll continue on taking the long road. We'll sweat the details and refine the feeling—until getting things done starts to look as good as it feels.
+Keep posting your feedback. As referenced, we see (and appreciate) it!
+Lately I’ve been deep in apartment renovations—measuring, rearranging, second-guessing every detail. I’ve been reworking a third bedroom into a karaoke/office situation. It’s now covered in anime prints, D&D art, and a growing Beyoncé vinyl collection. It’s still a work in progress, but it already feels more like how we actually live: with an emphasis on entertainment!
+image
+Renovated by
+Daniel
+One Last Thing
+2026-04-02T14:40:00.000Z
+1-25-0-details-that-delight
+Details that delight
+ikGgfG4mjXfjSo2ZtXFnMN
+Over the past six months, hundreds of you have made it clear:
+I love Dia, but I can’t make it my default browser. At least, not until my stuff follows me.
+Starting today, you can bring Dia with you:
+Sync
+has arrived. Now you can access your favorite parts of your browser, no matter where you are.
+video
+These two Dia instances are synced to show you what it looks like across separate machines
+image
+Sync sounds simple: all of your stuff, on another machine. But it’s far more complicated than that.
+What happens when you rename a tab group on your laptop and delete it on your desktop before they’ve talked to each other? All your stuff, your setup, your profile—gone. You have to start over.
+To solve this, we couldn’t just throw everything into a database somewhere. Your data stays encrypted and local-first, which means there’s no server that knows the “right” answer when two machines disagree.
+Getting Sync to
+just work
+meant solving thousands of tiny collisions. But we did it. Sync brings your browser with you—not just the app, but everything you rely on inside it. Now, we can’t wait for you to try it out.
+From the desk of
+Luan, Software Engineer
+fun
+How to set Sync up
+image
+Go to
+Settings → Sync.
+Turn
+Sync
+on. You’ll be asked to accept the privacy policy—this allows your data to move with you, while staying encrypted and local-first.
+Open Dia on your first machine
+image
+Follow the steps and save it somewhere you’ll remember.
+NOTE:
+If you lose both your machine
+and
+this file, there’s no way to recover your data.
+Create your recovery kit.
+image
+Go to
+Settings → Sync
+Turn
+Sync
+on.
+This time, you’ll be asked for a code.
+Open Dia your second machine
+image
+A 6-character code will appear.
+Enter that code on your
+second
+machine.
+Click “Connect Another Device” on your first machine
+That’s it, you’re synced! Give it a second. Your profiles will show up, your bookmarks will settle in, and your browser will start to feel familiar again.
+If you need more support on setting Sync up,
+check out this doc
+for further instructions or troubleshooting.
+Faraz Ghorbanpour
+is a sculptor, animator, and stop-motion artist who makes art
+literally
+wherever he is. Every day on his commute, he builds these tiny stop-motion stories right in his lap on the train, maybe 10-15 seconds long while the train travels through the city. He’s worked with
+Carolina Herrera
+and
+Patreon
+, was just featured at the Hilton in DC for the Cherry Blossom Festival, and is starting a residency with Nguyen Wahed on April 11th. I think that something I love about his art so much is that it encourages you to re-think
+where
+you can make art - and the answer is anywhere! No studio needed, and as an artist myself sometimes I forget that the possibilities are truly endless.
+image
+Faraz Ghorbanpour
+The Flower by the Waterfall
+admired by
+V
+One Last Thing
+2026-04-09T14:40:00.000Z
+1-26-0-sync-is-here
+Pick up where you left off
+7jn2fDKswJjzFhbPplaT1B
+You’re in a meeting, and someone asks, “did you see the doc I shared?” You didn’t. We’ve all been there: a comment you missed, a page you never saw, a doc you made weeks ago that’s suddenly back in play.
+What if you didn’t have to go looking for that work at all? What if it came to you?
+We started with GitHub, but today, Live Work goes beyond code.
+video
+Live Docs
+is a new Live Tab Group that surfaces your active Notion pages and Google Docs in one place.
+Live Docs
+pulls in comments, suggestions, mentions—all the “hey, can you look at this?” moments—and brings them to you. One group, no tab wrangling.
+fun
+Introducing Live Docs
+image
+Your docs appear when there’s activity, like a comment, a mention, or a share. Plus, they link straight to the change, not the top of the page so you can jump right in. Once you’ve handled it, the doc fades out. Clear the last one, and your group goes quiet. That empty state? You earned it.
+Jump in, then move on
+image
+When your doc starts getting traction,
+you’ll know
+Live Docs
+shows viewer counts on shared pages—so when your proposal has “5 viewers today,” you know it’s making the rounds.
+Know when your work is landing
+With GitHub, we brought live work to engineers. With
+Live Docs
+, we’re bringing it to everyone whose work lives in documents.
+Your work comes to you, stays in your line of sight while it matters, and cleans up when it’s done.
+fun
+Live Work is expanding
+I took photography classes in high school and recently decided to get back into it! I purchased
+a refurbished Pentax K1000
+film camera and have been having a lot of fun testing out different film. I normally take digital photos, but film really makes you pick your shot, and it has been really refreshing. I recently took a bunch of photos while traveling in Kauai; the one here is of the Napali Coast!
+image
+Snapped by
+Molly
+One Last Thing
+2026-04-16T18:45:49.480Z
+1-27-0-your-work-comes-to-you
+Your work comes to you
+pn7GvmYaTH5iJ6kzusnNjJ
+Open Dia this week and it might look the same. But take a closer peek, and you'll notice—things are tidier, quieter, more considered. This week’s updates don’t announce themselves, but once you start noticing them, your Dia experience is
+that
+much better.
+video
+Spacing is tighter, labels are clearer, and the font size is a bit bigger and easier to read. It’s the same sidebar you know, just cleaner, calmer, and easier on the eyes.
+A more scannable sidebar
+video
+The Tab Switcher got an updated layout with new colors and shadows. The switcher now hides tabs you haven't visited in a while. So when you press
+Ctrl+Tab
+, you flip through what you're actually using, not every tab ever opened
+A refreshed Tab Switcher
+video
+Dia should feel less like a frame around your content and more like an extension of it. The top band of your browser now picks up the color of the site you're visiting, and keeps up as the page changes beneath it, even after you scroll.
+A browser that blends in
+image
+With Sync, your settings now follow you. Set your Tabs, Privacy, Profiles, Memory, Shortcuts, and more on one machine, and they're already waiting on the other. One Dia, every device.
+Preferences that travel with you
+Sometimes the best updates are the ones that make everything feel a touch better. Drop us a line on
+Twitter
+and tell us what you notice.
+Somehow my Beanie Baby days are not behind me? We're in a Juju craze over here. Forever inspired by artist
+CJ Hendry
+; we're really obsessed with collecting and coveting these immaculately packaged and super soft, elevated 'labubus.' We're setting timers for the drops and hoping for a rare one in the next!
+image
+CJ Hendry
+JuJu Rainbow
+obsessed over by
+Tara
+One Last Thing
+2026-04-23T14:40:00.000Z
+1-28-0-look-closer
+A closer look
+wcL2iWfctIY1oLydc2iiI2
+Ever open a bunch of tabs on one laptop, then switch to a different one and wish they were there too? Now they are. All your unpinned tabs sync automatically across every device you're signed into.
+image
+shipped by
+Connor
+Just open the Tab Overflow menu and you'll see a section with tabs from your other devices. No setup, no extra steps. Just your tabs, there when you need them.
+To setup Sync
+, go to Settings > Account and toggle on!
+normal
+I’ve always been a bit of a tinkerer, with a long-running passion for building and refurbishing lamps. A few months ago I discovered
+laser cutting,
+and it’s completely changed how I think about building things. My latest project is a set of pendant lamps for my kitchen counter, built entirely from laser-cut wood pieces. It’s deeply satisfying to design a shape on screen, then watch it become something that lights up your home.
+image
+illuminated by
+Julia Roggatz
+Off the clock
+Your extensions, everywhere.
+Dia now syncs your extensions, their pinned order, and enabled/disabled state across devices, per profile.
+Never miss a new item.
+Closed live groups now show an unread badge when they contain new items, and it clears once everything's been read.
+A new sidebar drag.
+The sidebar now rubber-bands when you drag it past its max or min size, for a small touch, but satisfying update.
+Tab switching, improved.
+With the removal of a legacy system, tab switching is snappier and more performant.
+PiP is back where it belongs.
+Clicking "Back to Tab" in a PiP window now brings Dia to the front, every time.
+Tidying up multi-select.
+Right-click outside to clear a selection. The context menu is clearer when you've got multiple tabs selected.
+fun
+A few more updates
+Want early access to features like these?
+Join our Early Birds program
+normal
+2026-04-30T19:35:00.000Z
+1-29-0-sync-unpinned-tabs
+Sync unpinned tabs
+lv0xbeoybRzfhysKDIuoFx
+We used to open Dia and ask ourselves: “when did I open all of these tabs?” But now, when tabs pile up, Dia handles the cleanup.
+video
+Shipped by
+Hannah Park & Julia Roggatz
+If you have a large number of tabs that haven't been touched in a while, Dia asks if you want to clean them up. One click and they're gone, but not
+gone forever
+. Get them back from the overflow menu (that little caret in the corner of your window). Heavy tab users can choose “Clean-Up Daily”, and it will run automatically every morning.
+To turn it on, and set how quickly tabs get marked stale, go to Settings > Tabs > Tab Cleanup.
+FYI, no tabs harmed in the making of this feature.
+normal
+I've been having a blast on Facebook Marketplace—it's been a really fun way to get hard to find items and get face to face time with other humans, who are happy to share the story of their things. Recently, I sourced a pair of Panasonic RF-60 [also called Studio II FM Stereo Headset] from 1969, and after needing somewhere to put them, an antique mannequin head.
+image
+Scouted by
+Liz Budinoff
+Off the clock
+Sometimes, thine work overfloweth.
+Dia’s overflow menu got a full re-haul. It now shows open and recently closed tabs/groups, plus submenus for Chats & Files and synced devices.
+Shipped by Julia Roggatz
+Pictures (and PDFs) are worth a thousand words.
+Dia opens and reads Slack file attachments (screenshots, images, PDFs) so no context gets lost if it’s not typed out.
+Shipped by Ali Juma
+Goodbye Brendan. Hello Ben.
+Dia now pulls your real contact names instead of guessing from email addresses. Morning Brief (and every mention of attendees) will get your teammates right.
+Shipped by Jane Kelly
+Your Drive keeps you posted.
+See your Google Drive notifications, like shared docs, comments, share requests directly in Dia. Try asking: "what's been shared with me recently?"
+Shipped by Ali Juma
+fun
+A few more updates
+Want early access to features like these?
+Join our Early Birds program
+normal
+2026-05-07T14:36:00.000Z
+1-30-0-keeping-tabs-tidy
+Keeping Tabs Tidy
+m3aIw8TxRgz1whVSdsUTXI
+You know that feeling. A PR lands in your queue… and before you even open it, you're covering your eyes. Is it three lines or three hundred? Did CI pass? Is there a merge conflict hiding in there?
+video
+Now you can tell before you click. Hover over your PRs in your Github Live Group and Dia shows you CI status and any merge conflicts so you can get a rough read on how big the diff is. Open the ones that need you. Ignore the ones that don't (we didn’t officially say this).
+Shipped by
+Vardhan
+My 2026 goal was to needlepoint Christmas stockings for me and my fiancé. After finding out finishing delays can take up to 5 months, I’ve been on the clock to finish these by end of May to have them back before Christmas. Clock is on, but they're almost done!
+image
+Crafted by
+Clare Bergman
+Off the clock
+Confluence joins the table.
+Confluence is now supported in Live Groups, so you can see the Confluences docs that need your attention alongside Notion and Gmail in your Docs Live Group.
+Shipped by Vardhan Mudunuru
+One emoji to rule them all.
+Tab groups now get an automatically selected emoji that represents what’s inside, making them easier to scan and recognize at a glance.
+Shipped by Philip Massey
+Dia checks Notion now, too.
+Notion mentions, comment threads, and share invites all surface in chat, so it’s easier to stay caught up without context switching.
+Shipped by Ali Juma
+fun
+A few more updates
+Want early access to features like these?
+Join our Early Birds program
+normal
+2026-05-14T15:25:00.000Z
+1-31-0-pr-hover
+Stop opening PRs blind
+LTw9Xg8n4z23LCIiYGS8p5
+It's Thursday, and another Thursday in
+Browser Company land
+means another release. We've been deep in the weeds with some exciting features to show off soon, but with Memorial Day coming up and the long weekend ahead of us, we figured we'd honor the time off by focusing on some ways we love using Dia outside of work.
+image
+I always have a few research rabbit holes going at once, so I’ve been getting a lot of mileage out of well-organized & named tab groups. One of my current obsessions: I went to an incredible artist talk a couple weeks ago in William Burroughs’s old apartment (
+Mark Leckey exerts the Physics of Mystics
+). His work explores the pre-Renaissance understanding of images as presences with immense sacramental or diabolical power, and what that means in a digital era where images proliferate, gather data, and look back at their viewers. Some of the 30+ tabs in that group: Marguerite Porete, Byzantine Iconoclasm, and
+The Saturated Sensorium: Principles of Perception and Mediation in the Middle Ages
+Down the rabbit hole
+Burrowed by
+Naman
+image
+I was scrolling through Browser Company mentions on Twitter and came across
+this
+. Someone shared that Dia reminded them to wish their mom a happy Mother’s Day. It made my day. I had a similar moment recently: Dia reminded me to follow-up on some research for a bike trip with my friends in July. It totally slipped my mind over a busy weekend. Anyway, I don't think AI is here to replace us, but I like that it helps us be better children & better friends.
+In the saddle
+Pedaled by
+Ian
+image
+I’m growing things on my roof for the first time and Dia has pretty much become my gardening partner, err, maybe mentor is the more accurate term. I ask it all sorts of questions right on the page: what compost to use? what’s the best time to plant my strawberries? how close can two basil plants live before they start resenting each other? It hasn’t complained once, and I just got my first sprouts!
+On the roof
+Planted by
+Christine
+By the way, starting next week, we’re changing our releases to go out every Thursday at 11:30am EST. That’s an hour later than usual, and should give our engineers on the west coast an easier start to their day ;)
+normal
+2026-05-21T15:25:00.000Z
+1-32-0-outside-work
+Outside of work
+iriNvIcvKpeP5en4G46503
+Your browser should feel like a clean desk. Everything where you need it, and nothing in the way. This week, we tuned how Dia handles your tabs.
+Switching, closing, and jumping between tabs all feel snappier this week. We reworked how Dia tracks open tabs and moved cleanup work into the background so nothing stutters when you’re in the middle of things. It’s faster when you’re moving and quieter when you’re not.
+Tab Search
+Press
+⌘ + ⇧ + A
+to search every open tab in your current Profile by title or keyword. It’s also where you’ll find
+Recently Closed
+tabs and groups (including anything Tidy Tabs cleaned up). One search, full recovery.
+Tidy Tabs
+You set the rules. Go to
+Dia > Settings > Tabs
+and pick your window: 12 hours, 24 hours, 3 days, or 7 days. Tabs you haven’t touched get quietly moved to a “Cleaned up” group, one click from coming back. Want a manual sweep?
+⌘ + ⌥ + K
+Quick Switch
+Hold
+⌃ + Tab
+to flip between your most recent tabs instantly. It’s the fastest way to bounce between two things you’re actively working on.
+fun
+Did you know?
+Want to try what we’re building before it ships?
+Join our Early Birds program
+and get first access to new features while they’re still warm.
+normal
+Hi from a not-so-cold Oslo (it’s been 20°C/70°F the past several days). Despite the warm weather, my D&D group isn’t taking any outdoor breaks. We’re facing down Acererak, the big bad evil guy, in a campaign that’s now three years running. Here’s me rolling dice during a guest session where a
+mind flayer
+met its end. You can also spot our battle map in the photo, a neat contraption built by a friend that projects the board right onto the table.
+image
+Dice rolled by
+Miko
+One Last Thing
+2026-05-28T15:30:00.000Z
+1-33-0-tab-performance
+Everything in Its Place
+VuqZIZyitTl2OosHY0b05x
+Instead of shipping features, last week we shipped the entire company to Pittsburgh for our bi-annual offsite. City of Bridges, the Paris of Pennsylvania — not to mention the birthplace of Andy Warhol and home to Frank Lloyd Wright’s most famous house — we couldn’t think of a better place to chart Dia’s course for the summer.
+We had the whole museum to ourselves to kickoff our time in Pittsburgh — dinner, drinks, immersive art installations.
+One highlight: Yayoi Kusama's Infinity Dots Mirrored Room.
+fun
+Monday: The Mattress Factory
+image
+Infinite Fabrices in the infinity room.
+We spent the morning in breakout sessions, and the afternoon wandering through seven floors of Warhol. That night everyone split off into small dinners around the city, sitting with people we talk to everyday online, but who live three time zones away.
+fun
+Tuesday: The Andy Warhol Museum
+image
+The Carnegie International — one of the oldest recurring exhibitions of contemporary art in the world, running since 1896 — was on display during our visit. We spent the day working from the museum, ducking into galleries between breakout sessions.
+fun
+Wednesday: The Carnegie Museum
+image
+Team photo at the Carnegie Museum.
+The main event: we traveled out into the Pennsylvania countryside to Fallingwater: Frank Lloyd Wright's most famous house, cantilevered over a waterfall in the middle of the woods. We had cocktails at the house and dinner in a barn nearby, nestled into the woods. When I say that photos don't do this place justice, you just have to take my word for it.
+fun
+Wednesday Night: Fallingwater
+image
+image
+After checking out, people fanned across the city on their own: the National Aviary, Randyland, and Frick Park Market — a pilgrimage for the Mac Miller fans on the team.
+Thanks Pittsburgh! Until next time!
+fun
+Thursday: The Last Day
+image
+(Photos taken by Addie, Charlie, Christine, Clare, and Miko)
+normal
+2026-06-08T15:45:00.000Z
+1-34-1-pittsburgh
+The week in Pittsburgh
+Ip5hch9IxGqVzC92pwPN1b
+We’re all constantly doing the dance. You’re multitasking in a meeting (or watching a video) with our nice picture-in-picture window, you go to read something underneath it, and then you spend the next five minutes dragging that window around the screen trying to find a spot where it isn't in the way.
+video
+Now, you can stash it. Drag a video or meeting PIP window off to the side of your screen and it sits neatly out of the way, still one click (or drag) from coming back into view. Keep your video close by, without sacrificing the screen real estate.
+Shipped by
+Adam
+⌘-S to zone in.
+In case you didn’t know, using the keyboard shortcut command-s hides your tab bar, so you can really zone in on whatever you’re working on. Tap command-s again to bring it back!
+⌘-Click to stick together.
+The next time you’re diving deep on a research kick, use command-click to select all the tabs you just opened, and then right click to turn them into a tab group. Once the group is opened, Command-Option-T creates a new tab inside the group, so you can keep all your research in one place!
+Meeting Tab Groups reduce the scatter.
+When you join a meeting (from a calendar preview or meeting reminder), Dia auto-creates a dedicated tab group for that meeting and keeps the meeting tab anchored so it’s easy to find.⁠⁠ As you open meeting-related links (invite links, agenda/docs/boards/tickets, etc.), Dia drops them into that same meeting’s group so everything for the call stays together.
+fun
+Other ways to stay focused with Dia
+I’m from Minas Gerais, Brazil — the state Brazilians themselves will tell you has the best food in the country. Living in the US, I’ve held onto that identity the best way I know: by throwing parties. Every year, my birthday has become a tradition where nearly a hundred friends and family show up for a full spread of Brazilian music, food and drinks — my wife makes the feijoada (the national dish of Brazil), I’m on caipirinha duty, and between the two of us, nobody leaves hungry
+or
+thirsty.
+image
+Braised by
+Renato
+Off the clock
+Every Chrome bookmark makes the move.
+Dia now imports bookmarks from Chrome's account file too, so managed and enterprise Google users bring all of them along automatically.
+Shipped by Seb
+Tab groups stick around.
+We fixed a bug where tab groups could unexpectedly get deleted if you’re using sync.
+Fixed by Luan
+Close tabs in a snap.
+Dia handles closing tabs in a more performant way, so that when you close out a tab, you can instantly move on with your day!
+Improved by Seb
+fun
+A few more updates
+image
+Last week, our designer Christine shared a bit about her process this Spring. We think you’ll enjoy following
+her journey
+as she attempts to design
+the polar opposite of AI-generated design.
+Behind the design
+2026-06-18T15:30:00.000Z
+1-36-0-pip-stash
+Stash your PiP out of the way
+eB9ztTdel3nnXSazxSyJrD
+Starting today, we're rededicating this space to highlighting the newest and most exciting features that we're building. Some of you are already using these features. Some of you have heard whispers. Some of you typed in a secret code and never quite figured out if it was on.
+The industry is selling a life with nothing left in it for you to do. An agent to work on your behalf, an assistant to decide on your behalf, a day smoothed down until it asks nothing of you and gives nothing back.
+We were founded on a different premise.
+We believe in making good work
+feel
+good, and that life is better when you demand more from it, friction and all, rather than having it automated away. That's why we're showing you our latest, unfiltered, sometimes-rough-around-the-edges features this summer.
+fun
+Starting with better mornings...
+video
+Mornings are their own small defeat. You open the laptop and it's all already waiting: the forty tabs you left for some better-rested version of yourself, the thread that reached a decision without you, the email you've put off so long that answering it now is practically a confession. It makes you want to scream. We think it shouldn't have to feel like that, so we built the
+Morning Brief
+The Morning Brief
+image
+It remembers what slipped through the cracks, what deserves your focus, and quiets the storm long enough for you to start the day on your terms.
+Go into
+Settings > Apps
+and turn
+New Chat
+on. Connect your tools and you'll receive your first one tomorrow. (We need Slack at a minimum, but connect more for a richer brief!)
+image
+Get your Morning Brief
+Things may not be perfect, they may break, and crash, and give you wonky outputs, so we're excited to explore the friction with you.
+More next week!
+2026-06-25T13:30:00.000Z
+transition
+1-37-0-morning-brief
+What we're building, unfiltered
+OtJwu3L2NB0ncVuxvHzcLI
+For some of us, this Thursday is the last workday before a long weekend. Long weekend or not, all weeks come to a close, and we'd rather end them tidy than with work still on our plate. Here's how a few of us clear the deck before the week’s close.
+image
+All week I react to Slack messages with the 👀 emoji when I want to come back to something. At the end of the day I ask Dia to pull and prioritize everything I marked into a single report. No scrolling, no hunting through channels — my loose ends, ranked and in one place.
+Tara rounds up everything she flagged with 👀
+prioritized by
+Tara
+image
+Before I shut my laptop, I ask Dia: who do I still owe a reply to, and what did I commit to that I haven’t finished yet. It reads across my Slack, Gmail, and Notion and tells me where the ball's in my court, so I can clear those before I log off.
+Dustin asks who's still waiting on him.
+cleared by
+Dustin
+video
+Even though it’s called the Morning Brief, I actually use it all day long. The to-do list is pinpoint accurate for me, and I'll hover over my morning brief tab throughout to see my to-dos at a glance, checking them off as I go.
+Kyle lets the Morning Brief guide his whole day.
+navigated by
+Kyle
+Go into
+Settings > Apps
+and turn
+New Chat
+on. Connect your tools and you'll receive your first one tomorrow. (We need Slack at a minimum, but connect more for a richer brief!)
+image
+Get your Morning Brief
+Out of sight, automatically off your mind.
+New Tab Pages you've drifted away from now clear themselves when you switch apps or lock your screen, so your sidebar stays tidy.
+Shipped by Rishi
+More than one workspace? Take your pick.
+Choose which Slack or Notion workspace your tools work in, right from App settings.
+Shipped by Ali and Rosey
+Read all about it.
+Dia's release notes now land dressed up like a newspaper. All the news that's fit to ship!
+Shipped by Kasper
+fun
+A few more updates
+Lately I've gotten into collecting perfume. Here's my July favorites perfume tray, including some recent and fun highlight additions to the collection:
+Debaser in Bloom by D.S. & Durga:
+A white floral featuring a cassette tape note. Smells like warm VCR. Sounds crazy, but its true.
+Moth by Zoologist:
+All their perfumes are based on animals. This one was challenging and hard to find an occasion to wear.
+New Eden by House of Cosmo:
+Supposed to smell like a breath of fresh air on a lush, new planet. While I can't confirm if accurate, it does smell amazing.
+image
+spritzed by
+Nick
+Off The Clock
+Do you live in Teams, Outlook, and SharePoint? We're building Dia's Microsoft tools and we're looking for early testers to help us get them right. You'd have a direct line to the team for debugging and feedback, a first look at new features as they land, and a real hand in shaping where these tools go.
+Sign up here
+fun
+Calling all Microsoft power users!
+2026-07-02T15:30:00.000Z
+experimental
+1-38-0-closing-the-week
+Closing out the week with Dia
+A63IVdS8mtlcON3mUw68lS
+Ask Dia to draft a plan, chart the data behind a decision, or make sense of a long Slack thread, and now it hands you back a Report: beautifully designed document you can make sense of quickly, tweak to perfection, and share with your team.
+image
+For a quick question or a fast back-and-forth, chat is still there. Reports are simply what Dia reaches for when what you asked for needs to be more digestible and presentable. Here are three prompts to try:
+Can you help prepare me for my 1:1 with my boss by making me a report of everything I worked on this week?
+bullet
+Looking at Amplitude, make a report charting key app metrics that we outlined in Notion last week.
+bullet
+I’d like to do some competitive research. Make me a report comparing the leading products in my space under $500, with their features side by side.
+bullet
+normal
+Dia gets you most of the way there, but the finishing touches are still yours. Here's how you can tweak and organize your Reports so that you can actually use them in your day to day.
+fun
+Made for real work
+image
+Just highlight and comment right on the page, queue up as many changes as you like, then send them all at once and let Dia take a pass. Edit a line, hone the tone, sharpen the hook, until it feels perfect.
+Edit Reports inline.
+image
+You can make the visual style feel totally
+you
+with the cog in the bottom right, which customizes your Report’s aesthetic.
+Style Reports until they feel right.
+image
+The Files menu is now the single, searchable home for everything you've made with Dia: your Reports, your chats, and the chats tied to specific websites. Open the menu (the file icon in the corner of Dia), find the one you want, and pick up right where you left off.
+All your Reports, in one place.
+Go into
+Settings > Apps
+and turn
+New Chat
+on. Connect your tools and you're all set. (The more tools you connect, the better your Reports get!)
+image
+Turn on Reports
+Order restored.
+Your bookmarks no longer shuffle themselves around when they sync between devices.
+Fixed by Luan
+Watch Dia think.
+Dia now shows its thinking right in the conversation as it works, with controls to expand or collapse it, so answers feel easier to follow.
+Shipped by Jeff
+Find your way around.
+New sidebar navigation and redesigned Privacy and Memory panes make Settings easier to move through and nicer to land on.
+Shipped by Jane
+fun
+A few more updates
+Lately my favorite part of the day comes right after daycare pickup: I meet my husband and our baby, and the three of us head out on a little picnic. Some nights we pack dinner from home; other nights we grab takeout on the way, most recently from
+Gnocchi on 9th
+, a gnocchi spot that just opened near us. Now that it's finally nice out, it's become the easiest way to slow down and actually be together at the end of the day.
+image
+picnic'ed by
+Adena
+Off the clock
+Want to try what we’re building before it ships?
+Join our Early Birds program
+and get first access to new features while they’re still warm.
+2026-07-09T14:40:00.000Z
+experimental
+1-39-1-reports
+Meet Reports
+AyCWp1oJZWrT59vS1jwPzV
+Greetings from Brooklyn!
+Connect Granola
+I can barely remember a world before AI meeting notes, but the magic really started when I added Granola to my connected tools in Dia. Now, when I finish a meeting, I just ask Dia:
+“Update the team tracker in Notion with the meeting notes from standup.”
+and voila, meeting notes and everyone's to-dos right into our project tracker.
+— Kyle
+Go into
+Settings > Apps
+and turn
+New Chat
+on. Then you can connect Granola and all your other tools!
+image
+How to connect your tools
+2026-07-16T20:30:00.000Z
+experimental
+granola
+Notes from the roadmap
+YLtCgdo53BiWUOdewKFQLX
+Greetings from Brooklyn!
+Postcard painting
+One of our product principles is that AI cannot always know everything. This translates to Dia asking you questions to sharpen your own thinking and improve output. Try saying:
+"Help me write a project update for my manager"
+to see it in action.
+— Jonathan
+Go into
+Settings > Apps
+and turn
+New Chat
+on to try the latest and greatest in Dia, and see Dia start asking you questions! Connecting your tools makes for a richer experience.
+image
+Try the latest in Dia
+2026-07-23T16:30:00.000Z
+experimental
+questions
+Notes from the roadmap
+Greetings from my Dell XPS 13!
+I'll tell you how the sun rose — An Huynh, BCNY Brand Designer
+I'm happy to be the first to tell you that Dia is officially coming to Windows this fall. To keep you along for the ride, we introduced the
+Windows Wednesdays
+series. Each week, someone from the team highlights a feature or development we're really excited about.
+Check out the
+first episode
+that's all about Chat on Windows (featuring yours truly) and don't forget to join the
+beta waitlist
+A peek of Dia running on a Windows laptop
+— Freddy
+2026-07-30T16:30:00.000Z
+experimental
+windows-wednesdays
+Notes from the roadmap
+rYmCmWwVoom7Igqx9vgqLK
+We know you love Arc. But have you met the new Dia?
+Reading our release notes in another browser?
+Try Dia
+07ijh2LC0WMzuw5YBag7YF
+Past Issues
+Updates
+4qydyMELC6QnrH1PdYSpLI
+Start the semester strong with essential Skills made by students, for students.
+back-to-school
+cotton-candy
+Back To School
+6AKqGkLoWfkMw3PjwBj6My
+More thoughtful ways to shop, built around what you’re already looking for.
+shop-smarter
+creamsicle
+Shop Smarter
+5rDa91zE4g4oY7EUws8Qnx
+Turn yesterday’s searches into today’s reflections, recaps, and takeaways.
+make-the-most-of-your-browsing-history
+midnight
+Make The Most Of Your Browsing History
+6AKqGkLoWfkMw3PjwB8jaG
+Inspired by the techniques of people our members admire, each Skill helps you borrow a little of their magic.
+do-like-the-greats
+twilight
+Do Like The Greats
+NjPajrZeZtXFPEsZttt3Hf
+Now available for Arc Members
+Now available for Arc Members
+The ones we keep coming back to
+Now available for Arc Members
+Download Dia
+See what’s possible
+Early access for Arc Members
+Skills are shortcuts for your repeatable workflows in Dia. Discover and remix the best from the community.
+Skills are AI shortcuts for your repeatable workflows in Dia. Discover and remix the best from the community.
+skills, ai browser, dia, browser company, arc, custom skills, ai apps, automation, ai shortcuts
+Dia Browser | Skills Gallery
+Skills are AI shortcuts for your repeatable workflows in Dia. Discover and remix the best from the community.
+Skills Gallery | Dia Browser
+Skills are AI shortcuts for your repeatable workflows in Dia. Discover and remix the best from the community.
+Skills Gallery | Dia Browser
+That Skill hasn’t been dreamed up yet—try a new search or be the first to create it.
+Explore Skills
+Recommended packs
+Pedro
+Digital Strategist
+Dia helps me localize content for Brazil. When I'm stuck, Dia suggests words for a Brazilian audience.
+Mohaned
+Graphic Designer and Fullstack Web Developer
+Dia helped me pick SaaS tools for my team, comparing options with context on what matters most for us.
+Quinn
+Engineering Student
+Dia is my eng tutor: it answers questions in-line and gives me practice problems to test myself.
+Vitus
+Student Journalist
+Dia cuts the busywork. With just a prompt and tabs, I find sources in minutes, not hours.
+Carly
+Computer Science Student
+Dia knows me and what I’m working on — I don’t need to catch it up to speed.
+Dena
+Marketer
+Yadda yadda
+Kimberly
+Agency Director
+Personalization in Dia is a secret weapon to stay pitch perfect across all our client brands.
+Hosanna's friend
+I set Dia to reply in APA 7-cited bullets. Perfect for MSW work when I need trusted answers.
+Los
+Product Engineer
+I make new apps all the time. There's a ton of context, but Dia helps me solve problems super fast.
+oHEkdqJ7DkoPnxFLxcS5q4
+Download Dia and try Reports
+Join the waitlist for Windows
+Add Dia to your day
+Pull it all together with Reports
+Update Dia and enable New Chat in Settings → Apps.
+number
+In a new tab, ask for a report...on anything! If you connect tools like Slack & Notion, try "make me a report about my priorities this week."
+number
+Get your first Report
+We took over a café in Brooklyn to show you how we start our mornings with Dia. Check out the full livestream.
+Stay as long as you like
+Our Product Designer has multiple interviews each week. Dia creates a report for every candidate, so he walks in knowing exactly who he’s talking to.
+Interview prep
+Skip pen and paper. Dia pulls action items from across your tools and turns them into an interactive to-do list.
+To-do lists
+When everyone has an opinion, Dia can bring the context together and help you land on a direction everyone’s happy with.
+Decision making
+Real ways to use Reports
+B41VIWR5ZYTvbJBzIfjXit
+image
+image
+Download Dia
+The smartest thing you can open this semester.
+Dreaming of skills? Join our Discord →
+image
+video
+Yes! Sign up with your academic email for early access. We identify students according to the WHED.
+Do students get early access to the beta?
+Not yet! We don’t have a student plan at the moment, but we know how much it matters. It’s something we’d love to offer down the road, so stay tuned.
+Are there any discounts for students?
+Right now, Dia runs on Apple macOS 14+ with M1 chips or later.
+What devices are currently supported?
+We don’t have a formal internship program at The Browser Company. That being said, if you’re creating content and experimenting with new ideas, we’d be excited to chat!
+Is The Browser Company hiring interns?
+We love you back
+If you’ve got an idea you want to bring to life on your campus, let us know—we’ll see what we can do to send something your way. We’ll be rolling out more student opportunities throughout the school year, so watch this space!
+In the meantime,
+join The /Skills Lab Discord
+and meet other next-gen builders redefining what it means to create apps in the era of AI. You’ll get early access to Skills, direct contact with the Dia team, and more.
+I’m a student who loves Dia. How can I get more involved?
+image
+Keep track of your work across tabs and sessions so you can pick up where you left off.
+Memory
+image
+Just @ any open tab in any query to pull them in as powerful context.
+Mention Tabs
+image
+Keep up to three tabs open in one view, then ask Chat to connect the dots across them.
+Split View
+image
+Dia smart routes you to a site, search engine, or AI chat based on your query.
+Command Bar
+image
+Stay focused on your work. We block ads, pop-ups, and trackers, before they ever reach you.
+Ad Block
+Features so good, they feel illegal
+Level up across the board with powerful features that help you stay on top of it all.
+Download Dia
+You don’t have to do it all alone.
+Dia is the AI browser that truly gets you — helping you think deeper, move faster, and level up across the board.
+Dia is the AI browser that truly gets you — helping you think deeper, move faster, and level up across the board.
+ai, school, study, browser, assistant, essay helper, cite, study buddy, student
+Dia for Students
+Dia is the AI browser that truly gets you — helping you think deeper, move faster, and level up across the board.
+Dia for Students
+Dia is the AI browser that truly gets you — helping you think deeper, move faster, and level up across the board.
+Dia for Students
+Get started with our Student Pack!
+Skills are your shortcut to staying one step ahead in class.
+video
+A one-click fact-checker for students.
+/fact-check
+video
+See if your resume fits this job listing.
+/job-fit
+video
+Cite this source in APA, MLA, and Chicago formats.
+/cite
+video
+Suggest budget-friendly alternatives for this item.
+/budget-buddy
+video
+Get a background check on your professors.
+/regret-taking-this-class
+A true thought partner, in your tabs.
+video
+Highlight anything — a paragraph, a timestamp, a confusing chart — and ask Dia for explanations and answers, directly in your tab.
+A tutor
+video
+Your notes, lectures, and readings are already open — Dia helps you turn them into flashcards, quizzes, and custom study guides.
+A study buddy
+video
+Outline essays, tighten drafts, and pull in the right references — no messy copy-paste, no losing your voice.
+A writing coach
+video
+Debug, review, and get unstuck faster with feedback right in your flow.
+A coding partner
+dfvQM29A2pq9MIjzMNO5VB
+Dia is an AI web browser. It's built to feel familiar, like the browser you already use, but with an AI assistant built in to help you work faster. In Dia, you can chat with your tabs by asking questions and making requests about the page you're on, your other tabs, your selected text, or your browser history, all without switching tabs or apps. It has built-in memory so you can pick up where you left off every day. Dia also lets you turn your most frequent prompts or requests into reusable Skills.
+What is Dia?
+When you use ChatGPT, you have to manually copy and paste your work from one tab to another. Dia brings AI into your workflow, so the work stays in one place. It may seem like a small difference, but it's a fundamental shift: Dia understands your current tab, along with how that tab fits into your day. You can summarize docs, compose emails, and extract data without leaving your workflow or losing your focus.
+What makes Dia better than using my old browser with ChatGPT?
+Yes. You can import bookmarks, extensions, passwords, and history across one or multiple Profiles from Chrome, Safari, Edge, and Arc. You can import this information when you're first installing Dia, or click Dia > Import from Another Browser at any time down the road.
+Can I import my bookmarks, extensions, profiles, tabs, passwords, and history?
+Start by visiting a site, clicking Chat, and asking a question about it. Then try @-mentioning multiple tabs on the new tab page to compare. For example, you could open three hotel listings, click Chat, @ each tab, and ask Dia for a chart comparing them. When you're ready to dig deeper, check out Skills. They're simple, repeatable workflows that make it so you don't need to repeat yourself. Your browser is preloaded with some of the best Skills from our team — try Summarize in Chat on a long article to get an instant breakdown of the key themes and important quotes. You can also get under the hood and edit any Skill, or create your own from scratch using simple sentences. To access Skills, open a new tab and click the Skills dropdown under the command bar. You can view and edit your current Skills, create a new one, or access the
+Skills Gallery
+What are the most important things for me to try after I install?
+Dia is free to download and use. The free tier allows you to access all of Dia's features, including AI Chat for everyday use. You can also sign up for Dia Pro to unlock Unlimited Chat, which means you'll never hit Chat limits. For more details, see:
+Dia Browser Pro
+What does Dia cost? Are there usage caps?
+Dia keeps your content data local and only shares that data off-device when needed. Browsing history, bookmarks, and files are encrypted and stored on your device. When you use Chat, only data relevant to your request (like your question or open tab) is briefly sent to our servers and, if needed, to our trusted AI partners who are restricted from training on it and may not store it after the request is complete. You can delete chats, files, and history locally anytime. When using incognito mode, your content data, including your chats and history, are never stored. Unless you opt out via the Privacy Panel of your Dia Settings, your content data will be shared to improve Dia, but none of that data will be associated with your profile and it will be deleted after 30 days. We will never sell your personal data. For more information on how we treat your data, please see our
+Privacy Policy
+Is my data private?
+You can visit our
+Help Center
+to answer any other questions about Dia you might have. And while you're getting started, keep an eye out for a series of helpful emails during your first week with Dia. We've also built a Skills Gallery to demonstrate how other Dia users are showing up with Skills.
+I have other question about Dia. Where can I find answers?
+FAQs
+Your download will start automatically. If it doesn't, click
+here
+to download Dia manually.
+image
+Just enter your email and create a password.
+image
+Hit
+Chat
+in the upper right corner of any tab to ask a question, summarize a document, or draft some text. You'll be working faster in minutes.
+image
+image
+image
+image
+Import information from your old browser. It's optional, but adding your
+bookmarks, passwords, history, and extensions
+will make you feel right at home.
+Installing Dia
+is as easy as
+In the latest version of Dia, it's easier than ever to create Skills and use more features with them. To update, open the menu bar and choose:
+Update Dia to get this Skill
+video
+left
+image
+left
+center
+An
+in-line copy editor
+to avoid the messy copy-paste
+video
+center
+An
+extra set of eyes
+to always hit your quality bar
+video
+center
+Share meeting takeaways
+in a fraction of the time
+video
+center
+image
+left
+center
+The
+perfect word
+always at your fingertips
+Write
+A writing partner in every text box
+Writing
+video
+center
+image
+right
+bottom
+Understand
+both sides of an argument in one place
+video
+left
+image
+left
+bottom
+YouTube timestamps
+to get straight to the information you want
+video
+center
+left
+center
+Break down
+complex concepts as you go
+video
+center
+Instant summaries
+to zero in on what matters
+Learn
+A tutor in every tab
+Learning
+video
+center
+image
+right
+bottom
+Talk yourself out of a $400 sweater that matches the one you’re wearing
+video
+left
+image
+left
+center
+Discover
+more of what you love
+at the right price
+video
+center
+Blitz through customer reviews to
+know before you buy
+video
+center
+image
+left
+center
+Size up products
+to find the one that’s right for you
+Shop
+A retail concierge wherever you browse
+Shopping
+video
+left
+image
+right
+center
+Get the information you need,
+in the format
+that you need it
+video
+center
+Immediate to-do lists
+, so you can get on with the real work
+video
+center
+image
+left
+center
+Translate
+on demand
+video
+center
+Never stress over the group order again
+Plan
+A personal assistant that’s already up to speed
+Planning
+gvujIgBwL7oXwNYv7gAh7e
+image
+Get on the beta waitlist
+Dia is coming to Windows this fall.
+Dia on Windows

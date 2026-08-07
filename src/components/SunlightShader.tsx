@@ -66,7 +66,7 @@ const fragmentShader = /* glsl */ `
   }
 
   void main() {
-    vec2 pointerShift = (uPointer - 0.5) * vec2(0.013, 0.009);
+    vec2 pointerShift = (uPointer - 0.5) * vec2(0.028, 0.02);
     vec2 timeShift = vec2(
       sin(uTime * 0.083) + sin(uTime * 0.031) * 0.45,
       cos(uTime * 0.071) + sin(uTime * 0.027) * 0.35
@@ -74,7 +74,8 @@ const fragmentShader = /* glsl */ `
     vec2 scrollShift = vec2(uScroll * 0.022, -uScroll * 0.014);
     vec2 uv = vUv + pointerShift + timeShift + scrollShift;
 
-    vec2 lightDelta = uv - vec2(0.78, 0.55);
+    vec2 lightCenter = vec2(0.78, 0.55) + (uPointer - 0.5) * vec2(0.24, 0.18);
+    vec2 lightDelta = uv - lightCenter;
     lightDelta.x *= mix(0.82, 1.0, clamp(uAspect / 1.45, 0.0, 1.0));
     float poolDistance = length(lightDelta / vec2(0.78, 0.94));
     float pool = 1.0 - smoothstep(0.34, 0.94, poolDistance);
@@ -93,20 +94,24 @@ const fragmentShader = /* glsl */ `
     float paneLight = pool * (1.0 - frameShadow * 0.72);
     paneLight *= mix(0.82, 1.04, cloud);
 
-    float fineGrain = hash21(gl_FragCoord.xy + floor(uTime * 0.35));
+    float fineGrain = hash21(gl_FragCoord.xy * 0.73);
+    float clusteredGrain = valueNoise(gl_FragCoord.xy * 0.065 + vec2(19.0, 7.0));
+    float sunlightGrain = mix(fineGrain, clusteredGrain, 0.34);
+    paneLight *= mix(0.78, 1.18, sunlightGrain);
     float scrollWarmth = clamp(uDepth, 0.0, 1.0);
-    float lightAlpha = paneLight * (0.043 + fineGrain * 0.008) * mix(1.18, 2.42, scrollWarmth);
+    float lightAlpha = paneLight * (0.052 + fineGrain * 0.014) * mix(1.46, 2.42, scrollWarmth);
     float afternoonExposure = smoothstep(0.18, 0.82, paneLight);
-    lightAlpha += afternoonExposure * mix(0.035, 0.135, scrollWarmth);
+    float exposureGrain = mix(0.84, 1.08, sunlightGrain);
+    lightAlpha += afternoonExposure * mix(0.048, 0.135, scrollWarmth) * exposureGrain;
     float shadowAlpha = frameShadow * (0.105 + cloud * 0.028) * mix(1.0, 1.42, scrollWarmth);
 
-    vec3 sunlight = mix(vec3(1.0, 0.88, 0.72), vec3(1.0, 0.22, 0.025), scrollWarmth);
-    vec3 exposureTarget = mix(vec3(1.0, 0.97, 0.9), vec3(1.0, 0.67, 0.26), scrollWarmth);
+    vec3 sunlight = mix(vec3(1.0, 0.34, 0.42), vec3(1.0, 0.18, 0.28), scrollWarmth);
+    vec3 exposureTarget = mix(vec3(1.0, 0.72, 0.76), vec3(1.0, 0.52, 0.6), scrollWarmth);
     vec3 exposedSunlight = mix(sunlight, exposureTarget, mix(0.48, 0.6, scrollWarmth));
     vec3 frameTone = mix(vec3(0.16, 0.13, 0.1), vec3(0.36, 0.032, 0.006), scrollWarmth);
     float fieldAlpha = max(lightAlpha, shadowAlpha);
     vec3 fieldColor = mix(exposedSunlight, frameTone, smoothstep(0.018, 0.09, shadowAlpha));
-    float ambientWarmAlpha = mix(0.012, 0.052, scrollWarmth);
+    float ambientWarmAlpha = mix(0.042, 0.052, scrollWarmth);
     float combinedAlpha = min(1.0, fieldAlpha + ambientWarmAlpha);
     vec3 combinedColor = (fieldColor * fieldAlpha + exposedSunlight * ambientWarmAlpha) / max(combinedAlpha, 0.0001);
 
@@ -208,6 +213,7 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
     const pointerCurrent = { x: 0.5, y: 0.5 };
     let scrollTarget = window.scrollY / Math.max(window.innerHeight, 1);
     let scrollCurrent = scrollTarget;
+    let scrollMomentumCurrent = 0;
     const readScrollDepth = () => {
       const scrollRange = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       return Math.min(1, Math.max(0, window.scrollY / scrollRange));
@@ -217,6 +223,7 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
     let aspect = 1;
     let animationFrame = 0;
     let lastRender = -Infinity;
+    let footerVisible = false;
     const startedAt = window.performance.now();
 
     const render = (elapsed: number) => {
@@ -234,9 +241,7 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
       if (sceneElement) {
         const depthCurve = depthCurrent * depthCurrent * (3 - 2 * depthCurrent);
         const scrollWarmth = Math.max(0, Math.min(1, depthCurrent));
-        const scrollMomentum = reducedMotion
-          ? 0
-          : Math.max(-1, Math.min(1, (scrollTarget - scrollCurrent) * 0.72));
+        const scrollMomentum = reducedMotion ? 0 : scrollMomentumCurrent;
         const motionEnergy = Math.abs(scrollMomentum);
         const quietSway = reducedMotion ? 0 : Math.sin(elapsed * 0.083) * 1.1;
         const shadowX = -10.5
@@ -280,28 +285,47 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
     };
 
     const resize = () => {
-      const width = Math.max(1, window.innerWidth);
-      const height = Math.max(1, window.innerHeight);
+      const width = Math.max(1, host.clientWidth);
+      const height = Math.max(1, host.clientHeight);
       const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       aspect = width / height;
+      scrollTarget = window.scrollY / height;
+      scrollCurrent = scrollTarget;
+      scrollMomentumCurrent = 0;
       depthTarget = readScrollDepth();
+      depthCurrent = depthTarget;
       render(reducedMotion ? 18 : (window.performance.now() - startedAt) / 1000);
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      pointerTarget.x = event.clientX / Math.max(window.innerWidth, 1);
-      pointerTarget.y = 1 - event.clientY / Math.max(window.innerHeight, 1);
+      const bounds = host.getBoundingClientRect();
+      if (
+        event.clientX < bounds.left
+        || event.clientX > bounds.right
+        || event.clientY < bounds.top
+        || event.clientY > bounds.bottom
+      ) return;
+
+      pointerTarget.x = (event.clientX - bounds.left) / Math.max(bounds.width, 1);
+      pointerTarget.y = 1 - (event.clientY - bounds.top) / Math.max(bounds.height, 1);
     };
 
     const onScroll = () => {
-      scrollTarget = window.scrollY / Math.max(window.innerHeight, 1);
+      const nextScroll = window.scrollY / Math.max(window.innerHeight, 1);
+      scrollMomentumCurrent = reducedMotion
+        ? 0
+        : Math.max(-1, Math.min(1, (nextScroll - scrollCurrent) * 3.2));
+      scrollTarget = nextScroll;
+      scrollCurrent = scrollTarget;
       depthTarget = readScrollDepth();
+      depthCurrent = depthTarget;
+      if (footerVisible) return;
       if (reducedMotion) {
-        scrollCurrent = scrollTarget;
-        depthCurrent = depthTarget;
         render(18);
+      } else {
+        render((window.performance.now() - startedAt) / 1000);
       }
     };
 
@@ -310,18 +334,43 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
     if (!reducedMotion) window.addEventListener("pointermove", onPointerMove, { passive: true });
     resize();
 
-    if (!reducedMotion) {
-      const animate = (now: number) => {
-        animationFrame = window.requestAnimationFrame(animate);
-        if (now - lastRender < 50) return;
+    const animate = (now: number) => {
+      animationFrame = 0;
+      if (footerVisible) return;
+      if (now - lastRender >= 50) {
         lastRender = now;
         pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * 0.042;
         pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * 0.042;
-        scrollCurrent += (scrollTarget - scrollCurrent) * 0.055;
-        depthCurrent += (depthTarget - depthCurrent) * 0.085;
+        scrollMomentumCurrent += (0 - scrollMomentumCurrent) * 0.24;
+        if (Math.abs(scrollMomentumCurrent) < 0.001) scrollMomentumCurrent = 0;
         render((now - startedAt) / 1000);
-      };
+      }
       animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    const startAnimation = () => {
+      if (reducedMotion || footerVisible || animationFrame) return;
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    const onFooterVisibility = (event: Event) => {
+      footerVisible = Boolean((event as CustomEvent<boolean>).detail);
+      if (footerVisible) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+        return;
+      }
+      render((window.performance.now() - startedAt) / 1000);
+      startAnimation();
+    };
+
+    document.addEventListener(
+      "parosayshi:footer-visibility",
+      onFooterVisibility,
+    );
+
+    if (!reducedMotion) {
+      startAnimation();
     } else {
       render(reducedMotion ? 18 : 0);
     }
@@ -330,6 +379,10 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener(
+        "parosayshi:footer-visibility",
+        onFooterVisibility,
+      );
       window.cancelAnimationFrame(animationFrame);
       gl.deleteBuffer(positionBuffer);
       gl.deleteProgram(program);
