@@ -128,7 +128,9 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
-    const sceneElement = host.closest<HTMLElement>(".folio-scene");
+    const sceneElement = host.closest<HTMLElement>("[data-sunlight-shadow-host]")
+      ?? host.closest<HTMLElement>(".folio-scene");
+    if (!active) return;
 
     const canvas = document.createElement("canvas");
     canvas.className = "mat-sunlight-shader__canvas";
@@ -271,6 +273,8 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
         const contactShadowBlur = 3.2 + depthCurve * 1.8 + motionEnergy * 0.65;
         const contactShadowOpacity = 0.25 + depthCurve * 0.07 + motionEnergy * 0.035;
         const paperContactShadowOpacity = 0.13 + depthCurve * 0.06 + motionEnergy * 0.02;
+        const paperLightX = 78 + (pointerCurrent.x - 0.5) * 24;
+        const paperLightY = 55 + (pointerCurrent.y - 0.5) * 18;
         sceneElement.style.setProperty("--sun-shadow-x", `${shadowX.toFixed(2)}px`);
         sceneElement.style.setProperty("--sun-shadow-y", `${shadowY.toFixed(2)}px`);
         sceneElement.style.setProperty("--sun-shadow-blur", `${shadowBlur.toFixed(2)}px`);
@@ -281,6 +285,8 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
         sceneElement.style.setProperty("--sun-contact-shadow-blur", `${contactShadowBlur.toFixed(2)}px`);
         sceneElement.style.setProperty("--sun-contact-shadow-color", `rgb(${shadowRed} ${shadowGreen} ${shadowBlue} / ${contactShadowOpacity.toFixed(3)})`);
         sceneElement.style.setProperty("--sun-paper-contact-shadow-color", `rgb(${shadowRed} ${shadowGreen} ${shadowBlue} / ${paperContactShadowOpacity.toFixed(3)})`);
+        sceneElement.style.setProperty("--sun-paper-light-x", `${paperLightX.toFixed(2)}%`);
+        sceneElement.style.setProperty("--sun-paper-light-y", `${paperLightY.toFixed(2)}%`);
       }
     };
 
@@ -396,9 +402,11 @@ export function SunlightShader({ active, reducedMotion }: SunlightShaderProps) {
       sceneElement?.style.removeProperty("--sun-contact-shadow-blur");
       sceneElement?.style.removeProperty("--sun-contact-shadow-color");
       sceneElement?.style.removeProperty("--sun-paper-contact-shadow-color");
+      sceneElement?.style.removeProperty("--sun-paper-light-x");
+      sceneElement?.style.removeProperty("--sun-paper-light-y");
       canvas.remove();
     };
-  }, [reducedMotion]);
+  }, [active, reducedMotion]);
 
   return (
     <div
