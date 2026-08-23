@@ -21,10 +21,7 @@ import {
   ProjectScrollLibrary,
   type ProjectBrowseItem,
 } from "./components/ProjectScrollLibrary";
-import {
-  ProjectArchiveGarden,
-  type ArchiveGardenProject,
-} from "./components/ProjectArchiveGarden";
+import { InvoiceFolioHome } from "./components/InvoiceFolioHome";
 import { SunlightShader } from "./components/SunlightShader";
 import { TableStickerLayer } from "./components/TableStickerLayer";
 import { EmbroideredFooter } from "./components/EmbroideredFooter";
@@ -751,25 +748,6 @@ const boardLibraryItems: ProjectBoardItem[] = scrollLibraryItems.map((item) => {
   };
 });
 
-const archiveLibraryItems: ArchiveGardenProject[] = [...scrollLibraryItems]
-  .sort((a, b) => a.number.localeCompare(b.number))
-  .map((item) => {
-    const edition = bookEditions.find((candidate) => candidate.id === item.id);
-    const presentation = projectFolderPresentations[item.id];
-    const presentationImages = presentation?.boards.flatMap((board) => board.assets) || [];
-    const fallbackImage = edition?.image || edition?.coverArt || "";
-    return {
-      ...item,
-      images: presentationImages.length > 0
-        ? presentationImages
-        : [
-          { label: item.title, src: fallbackImage },
-          { label: item.summary, src: edition?.coverArt || fallbackImage },
-          { label: item.kind, src: fallbackImage },
-        ],
-    };
-  });
-
 function resolveAnnualCover(
   edition: BookEdition | undefined,
   paletteMode: AnnualPaletteMode,
@@ -1203,9 +1181,7 @@ export default function App() {
       >
         {projectViewMode === "archive" ? (
           <>
-            <ProjectArchiveGarden
-              items={archiveLibraryItems}
-              onOpenNotebook={(trigger) => openDeskObject(trigger)}
+            <InvoiceFolioHome
               onOpenProject={(id, trigger) => {
                 if (trigger.dataset.project === id) openDeskObject(trigger);
               }}

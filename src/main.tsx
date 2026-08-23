@@ -5,6 +5,7 @@ import "./styles/library.css";
 import "./styles/bottom-sheet.css";
 import "./styles/wiz-reader.css";
 import "./styles/annual-cover.css";
+import "./styles/invoice-folio.css";
 import App from "./App";
 
 createRoot(document.getElementById("root")!).render(
