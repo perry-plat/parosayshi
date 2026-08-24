@@ -1989,21 +1989,28 @@ body:has(.invoice-folio--wall),
   position: absolute;
   top: 42%;
   left: 50%;
-  display: flex;
   width: var(--wall-window-width);
   height: var(--wall-window-height);
   box-sizing: border-box;
-  padding: clamp(14px, 2.2vh, 24px) 0;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-end;
-  color: rgb(25 35 49 / 0.72);
-  font-family: var(--folio-mono);
-  font-size: clamp(9px, 0.72vw, 12px);
-  letter-spacing: 0.04em;
-  line-height: 1;
   pointer-events: none;
   transform: translate(-50%, -50%);
+}
+
+.wall-folio__wordmark-shadow {
+  position: absolute;
+  right: 8%;
+  bottom: 14%;
+  display: block;
+  color: rgb(71 73 70 / 0.48);
+  font-family: var(--folio-mono);
+  font-size: clamp(10px, 0.72vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  line-height: 1;
+  mix-blend-mode: multiply;
+  text-shadow: 0 2px 5px rgb(45 45 41 / 0.2);
+  filter: blur(0.35px);
+  transform: rotate(-1.2deg);
 }
 
 .wall-folio__footer {

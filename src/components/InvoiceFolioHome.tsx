@@ -14,9 +14,9 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     >
       <WallLightShader reducedMotion={reducedMotion} />
       <section className="wall-folio">
-      <div className="wall-folio__window-labels" aria-hidden="true">
-        <span>Parosayshi</span>
-      </div>
+        <div className="wall-folio__window-labels" aria-hidden="true">
+          <span className="wall-folio__wordmark-shadow">Parosayshi</span>
+        </div>
         <footer className="wall-folio__footer">
           <span>Bengaluru / 2026</span>
           <a href="mailto:hello@parosayshi.com?subject=Parth%20Jha%20resume">Resume</a>
