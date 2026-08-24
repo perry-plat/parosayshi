@@ -68,10 +68,10 @@ export function useSlip({ paperRef, slipRef, reducedMotion }: UseSlipArgs) {
     if (isCaseStudyPopup) {
       const width = isMobile
         ? window.innerWidth - 8
-        : Math.round(window.innerWidth * 0.9);
+        : Math.min(1120, Math.round(window.innerWidth * 0.78));
       const height = isMobile
         ? Math.round(window.innerHeight * 0.94)
-        : Math.round(window.innerHeight * 0.88);
+        : Math.min(760, Math.round(window.innerHeight * 0.78));
       return {
         height,
         left: Math.round((window.innerWidth - width) / 2),
