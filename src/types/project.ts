@@ -1,5 +1,6 @@
 export type ProjectId =
   | "notebook"
+  | "superr-ai"
   | "periodic-table"
   | "wiz-commerce"
   | "wiz-sales-data"

@@ -8,6 +8,47 @@ export const projects = {
           deck: "",
           body: []
         },
+        "superr-ai": {
+          edition: "case-file",
+          kicker: "TECHNICAL PRODUCT DESIGN / EDTECH / 2025",
+          title: "Superr.ai",
+          deck: "Making fast-moving education workflows feel clearer, calmer, and ready to ship.",
+          meta: ["Product design", "Frontend workflows", "Education technology"],
+          leadImage: {
+            type: "image",
+            src: "/assets/invoice-folio/superr-official-logo.svg",
+            alt: "Superr.ai hand mark",
+            caption: "Superr.ai / Mumbai / 2025"
+          },
+          introColumns: [
+            "I worked as a technical product designer across product flows that needed to move from rough intent to usable frontend quickly.",
+            "The work was less about a single perfect screen and more about keeping product decisions legible while the company, use cases, and implementation changed around them."
+          ],
+          body: [
+            { type: "heading", text: "One role, several hats" },
+            {
+              type: "red-columns",
+              columns: [
+                {
+                  strong: "Designing close to the build.",
+                  text: " Product decisions were tested against real frontend constraints rather than handed over as isolated frames."
+                },
+                {
+                  strong: "Making the next decision easier.",
+                  text: " The useful output was often a clearer workflow, a stronger default, or a system the next feature could reuse."
+                }
+              ]
+            },
+            {
+              type: "quote",
+              text: "Intent maxxing is the solulu in these times of AI."
+            },
+            {
+              type: "small-note",
+              text: "More product evidence is being prepared for publication."
+            }
+          ]
+        },
         "periodic-table": {
           edition: "prototype",
           kicker: "INTERACTIVE PROTOTYPE / REFERENCE TOOL",
