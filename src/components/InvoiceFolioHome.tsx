@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "motion/react";
+import { IconChevronDown, IconDownload } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 import type { ProjectId } from "../types/project";
+import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
 
 interface InvoiceFolioHomeProps {
@@ -8,18 +10,15 @@ interface InvoiceFolioHomeProps {
   reducedMotion: boolean;
 }
 
-const RESUME_URL =
-  "https://drive.google.com/file/d/1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2/view?usp=sharing";
+const RESUME_DOWNLOAD_URL =
+  "https://drive.google.com/uc?export=download&id=1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2";
+
+const INTENT_DETAIL =
+  "As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience—one that can delight, inspire, or simply make someone feel considered.";
 
 // Keep the accepted final light study as the permanent wall treatment.
 const WALL_LIGHT_COLOR = "#fffdf5";
 const WALL_GLOW_COLOR = "#ead4a6";
-
-const chapters = [
-  { id: "home", label: "Hi, I am Parth" },
-  { id: "work", label: "Selected work" },
-  { id: "about", label: "About / contact" },
-];
 
 const projectPlaceholderColumns = [
   [
@@ -34,122 +33,194 @@ const projectPlaceholderColumns = [
   ],
 ] as const;
 
+const experienceItems = [
+  {
+    company: "Superr.ai",
+    date: "2025—26 (Present)",
+    id: "superr",
+    logo: "/assets/invoice-folio/superr-current-mark.svg",
+    role: "Technical product design",
+  },
+  {
+    company: "WizCommerce",
+    date: "2023—25",
+    id: "wizcommerce",
+    logo: "/assets/invoice-folio/wizcommerce-current-mark.svg",
+    role: "Product design / B2B systems",
+  },
+  {
+    company: "Polygon (cope studio)",
+    date: "2022",
+    id: "polygon",
+    logo: "/assets/invoice-folio/polygon-current-mark.svg",
+    role: "Product design intern",
+  },
+] as const;
+
+const EXPERIENCE_PLACEHOLDER =
+  "A short introduction to the work, responsibilities, and outcomes from this role will go here.";
+
 export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const [intentExpanded, setIntentExpanded] = useState(false);
+  const [designerExpanded, setDesignerExpanded] = useState(false);
+  const [expandedExperienceId, setExpandedExperienceId] = useState<string | null>(null);
+  const [emDashNoteVisible, setEmDashNoteVisible] = useState(false);
+  const emDashNoteTimerRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
 
   useEffect(() => {
     if (!menuOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    const firstLink = menuRef.current?.querySelector<HTMLElement>("a, button");
-    document.body.style.overflow = "hidden";
-    firstLink?.focus();
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        return;
-      }
-
-      if (event.key !== "Tab" || !menuRef.current) return;
-      const focusable = Array.from(
-        menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
     };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-      menuButtonRef.current?.focus();
-    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
   }, [menuOpen]);
 
-  const closeMenu = () => setMenuOpen(false);
+  const showEmDashNote = () => {
+    window.clearTimeout(emDashNoteTimerRef.current);
+    setEmDashNoteVisible(true);
+    emDashNoteTimerRef.current = window.setTimeout(() => setEmDashNoteVisible(false), 1800);
+  };
 
   return (
     <main className="invoice-folio invoice-folio--wall">
-      <button
-        aria-expanded={menuOpen}
-        aria-controls="folio-index-menu"
-        className="folio-index-tab"
-        onClick={() => setMenuOpen((open) => !open)}
-        ref={menuButtonRef}
-        type="button"
+      <header className="folio-site-header" data-open={menuOpen ? "true" : "false"}>
+        <div className="folio-site-header__top">
+          <div aria-label="Artwork placeholder" className="folio-site-header__artwork" role="img">
+            <span>Artwork / TBD</span>
+          </div>
+        </div>
+        <button
+          aria-controls="folio-paper-menu"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          className="folio-site-header__toggle"
+          onClick={() => setMenuOpen((open) => !open)}
+          type="button"
+        >
+          <span>{menuOpen ? "Close" : "Menu"}</span>
+        </button>
+        <nav aria-label="Primary navigation" className="folio-site-header__nav" id="folio-paper-menu">
+          <a href="#home" onClick={() => setMenuOpen(false)}>
+            <span>Home</span>
+          </a>
+          <a href="#work" onClick={() => setMenuOpen(false)}>
+            <span>Work</span>
+          </a>
+          <a href="#resume" onClick={() => setMenuOpen(false)}>
+            <span>Resume</span>
+          </a>
+          <a href="https://x.com/parosayshi" onClick={() => setMenuOpen(false)} rel="noreferrer" target="_blank">
+            <span>X / @parosayshi</span>
+          </a>
+        </nav>
+      </header>
+
+      <section
+        aria-label="Parosayshi introduction"
+        className="wall-folio wall-folio--hero"
+        data-designer-expanded={designerExpanded ? "true" : "false"}
+        data-intent-expanded={intentExpanded ? "true" : "false"}
+        id="home"
       >
-        <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
-        <span>{menuOpen ? "Close" : "Index"}</span>
-      </button>
-
-      <AnimatePresence>
-        {menuOpen ? (
-          <>
-            <motion.button
-              aria-label="Close index"
-              className="folio-index-scrim"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeMenu}
-              type="button"
+        <div className="wall-folio__hero-composition">
+          <WallLightShader glowColor={WALL_GLOW_COLOR} lightColor={WALL_LIGHT_COLOR} reducedMotion={reducedMotion} />
+          <div aria-hidden="true" className="wall-folio__grain" />
+          <p className="wall-folio__shadow-wordmark">Paro says hi</p>
+          <div className="wall-folio__figma-intro" data-node-id="73:1458">
+            <p>
+              <span className="wall-folio__figma-heading">
+                <strong>Hi, I am Parth</strong>
+                <span aria-hidden="true" className="wall-folio__figma-sticker">
+                  <img alt="" src="/assets/polaroid.jpeg" />
+                </span>
+              </span>
+              <span className="wall-folio__figma-body">
+                A{" "}
+                <SunlightPatchPill
+                  ariaControls="designer-explanation"
+                  ariaExpanded={designerExpanded}
+                  className="wall-folio__intent-trigger"
+                  inactive={designerExpanded}
+                  label="designer"
+                  onClick={() => setDesignerExpanded(true)}
+                />{" "}
+                who believes{" "}
+                <SunlightPatchPill
+                  ariaControls="intentmaxxing-explanation"
+                  ariaExpanded={intentExpanded}
+                  className="wall-folio__intent-trigger"
+                  inactive={intentExpanded}
+                  label="intentmaxxing"
+                  onClick={() => setIntentExpanded(true)}
+                />{" "}
+                is the way to move forward in the coming times.
+              </span>
+            </p>
+            <AnimatePresence initial={false}>
+              {intentExpanded ? (
+                <motion.p
+                  animate={{ clipPath: "inset(0 0 0% 0)", height: "auto", marginTop: "var(--intent-detail-gap)", opacity: 1 }}
+                  className="wall-folio__intent-detail"
+                  exit={{ clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  id="intentmaxxing-explanation"
+                  initial={reducedMotion ? false : { clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  transition={reducedMotion ? { duration: 0 } : {
+                    clipPath: { delay: 0.12, duration: 1.5, ease: [0.22, 1, 0.36, 1] },
+                    height: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
+                    marginTop: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.2 },
+                  }}
+                >
+                  As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience
+                  <span className="wall-folio__dash-wrap">
+                    <button
+                      aria-describedby="human-em-dash-note"
+                      aria-label="Em dash"
+                      className="wall-folio__dash-trigger"
+                      data-note-visible={emDashNoteVisible ? "true" : "false"}
+                      onClick={showEmDashNote}
+                      type="button"
+                    >
+                      —
+                    </button>
+                    <span className="wall-folio__dash-note" id="human-em-dash-note" role="note">
+                      human generated em-dash
+                    </span>
+                  </span>
+                  one that can delight, inspire, or simply make someone feel considered.
+                </motion.p>
+              ) : null}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {designerExpanded ? (
+                <motion.p
+                  animate={{ clipPath: "inset(0 0 0% 0)", height: "auto", marginTop: "var(--intent-detail-gap)", opacity: 1 }}
+                  className="wall-folio__intent-detail"
+                  exit={{ clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  id="designer-explanation"
+                  initial={reducedMotion ? false : { clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  transition={reducedMotion ? { duration: 0 } : {
+                    clipPath: { delay: 0.18, duration: 1.5, ease: [0.22, 1, 0.36, 1] },
+                    height: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
+                    marginTop: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.2 },
+                  }}
+                >
+                  {INTENT_DETAIL}
+                </motion.p>
+              ) : null}
+            </AnimatePresence>
+            <img
+              alt="Parth's signature"
+              className="wall-folio__signature"
+              draggable={false}
+              src="/assets/parth-signature.png"
             />
-            <motion.nav
-              aria-label="Portfolio index"
-              className="folio-index-menu"
-              id="folio-index-menu"
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: reducedMotion ? 0 : 0.45, ease: [0.76, 0, 0.24, 1] }}
-              ref={menuRef}
-            >
-              <p className="folio-index-menu__kicker">Parosayshi / Index</p>
-              <ol>
-                {chapters.map((chapter, index) => (
-                  <li key={chapter.id}>
-                    <a href={`#${chapter.id}`} onClick={closeMenu}>
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      {chapter.label}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-              <div className="folio-index-menu__footer">
-                <a href={RESUME_URL} rel="noreferrer" target="_blank">Resume ↗</a>
-                <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">X / @parosayshi ↗</a>
-              </div>
-            </motion.nav>
-          </>
-        ) : null}
-      </AnimatePresence>
-
-      <section aria-label="Parosayshi introduction" className="wall-folio wall-folio--hero" id="home">
-        <WallLightShader glowColor={WALL_GLOW_COLOR} lightColor={WALL_LIGHT_COLOR} reducedMotion={reducedMotion} />
-        <div aria-hidden="true" className="wall-folio__grain" />
-        <p className="wall-folio__shadow-wordmark">Paro says hi</p>
-        <div className="wall-folio__figma-intro" data-node-id="73:1458">
-          <p>
-            <span className="wall-folio__figma-heading">
-              <strong>Hi, I am Parth</strong>
-              <span aria-hidden="true" className="wall-folio__figma-sticker" />
-            </span>
-            <span className="wall-folio__figma-body">
-              A product designer from Bangalore, India. Someone obsessed
-            </span>
-          </p>
-          <p><em>with how things feel</em></p>
+          </div>
         </div>
       </section>
 
@@ -173,34 +244,64 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
         </div>
       </section>
 
-      <section className="folio-about" id="about">
-        <div className="folio-section-label">
-          <span>04</span>
-          <span>About / if you kept scrolling</span>
-        </div>
-        <div className="folio-about__layout">
-          <h2>I design products,<br />systems, and the occasional proof that a silly idea could work.</h2>
-          <div>
-            <p>
-              I care about software that feels considered without feeling precious. Most of my work lives somewhere between product design, systems thinking, and building enough of the thing to learn what the mock-up could not tell us.
-            </p>
-            <p>
-              Previously at WizCommerce. Currently based in Bengaluru and open to thoughtful collaborations, unreasonable prototypes, and good conversations.
-            </p>
-            <nav aria-label="Contact links" className="folio-about__links">
-              <a href="mailto:parthjha.work@gmail.com">Email me ↗</a>
-              <a href={RESUME_URL} rel="noreferrer" target="_blank">Resume ↗</a>
-              <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">X / Twitter ↗</a>
-            </nav>
-          </div>
+      <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
+        <div className="folio-experience__receipt">
+          <img
+            alt=""
+            aria-hidden="true"
+            className="folio-experience__paperweight"
+            src="/assets/invoice-folio/receipt-prism-paperweight.png"
+          />
+          <a
+            aria-label="Download résumé"
+            className="folio-experience__download"
+            download="Parth-resume.pdf"
+            href={RESUME_DOWNLOAD_URL}
+            rel="noreferrer"
+            title="Download résumé"
+          >
+            <IconDownload aria-hidden="true" stroke={2.2} />
+            <span>Resume</span>
+          </a>
+          <h2 id="experience-receipt-title">Experience</h2>
+          <ol>
+            {experienceItems.map((item) => {
+              const expanded = expandedExperienceId === item.id;
+              const detailId = `experience-${item.id}-detail`;
+
+              return (
+                <li key={item.id}>
+                  <button
+                    aria-controls={detailId}
+                    aria-expanded={expanded}
+                    className="folio-experience__row"
+                    onClick={() => setExpandedExperienceId(expanded ? null : item.id)}
+                    type="button"
+                  >
+                    <img alt="" aria-hidden="true" src={item.logo} />
+                    <strong>{item.company}</strong>
+                    <small>{item.role}</small>
+                    <time>{item.date}</time>
+                    <IconChevronDown aria-hidden="true" className="folio-experience__chevron" stroke={2.4} />
+                  </button>
+                  <div
+                    aria-hidden={!expanded}
+                    className="folio-experience__intro-shell"
+                    data-expanded={expanded ? "true" : "false"}
+                    id={detailId}
+                    style={reducedMotion ? { transition: "none" } : undefined}
+                  >
+                    <div className="folio-experience__intro-clip">
+                      <p className="folio-experience__intro">{EXPERIENCE_PLACEHOLDER}</p>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </section>
 
-      <footer className="folio-home-footer">
-        <p>Paro says hi.</p>
-        <p>Made by Parth Jha / Bengaluru / 2026</p>
-        <a href="#home">Back to the light ↑</a>
-      </footer>
     </main>
   );
 }
