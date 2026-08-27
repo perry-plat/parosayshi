@@ -11,7 +11,7 @@ interface InvoiceFolioHomeProps {
 }
 
 const RESUME_DOWNLOAD_URL =
-  "https://drive.google.com/uc?export=download&id=1t2szuLpJstQ-ktsZ5rvWYJ8svIZWmhT2";
+  "https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072";
 
 const INTENT_DETAIL =
   "As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience—one that can delight, inspire, or simply make someone feel considered.";
@@ -37,28 +37,74 @@ const experienceItems = [
   {
     company: "Superr.ai",
     date: "2025—26 (Present)",
+    detail:
+      "Designing across SuperrBook and SuperrBoard—from classroom tools and search to AI-assisted book creation. Built the shared design system supporting pilots across 5+ schools and 1,000+ students.",
     id: "superr",
     logo: "/assets/invoice-folio/superr-current-mark.svg",
-    role: "Technical product design",
+    role: "Product design / AI learning",
   },
   {
     company: "WizCommerce",
     date: "2023—25",
+    detail:
+      "Led end-to-end design for a US B2B commerce platform. Shipped WizPay and core workflows while contributing to $1.3M ARR and $2M+ in monthly transaction volume.",
     id: "wizcommerce",
     logo: "/assets/invoice-folio/wizcommerce-current-mark.svg",
-    role: "Product design / B2B systems",
+    role: "Product design / B2B commerce",
   },
   {
     company: "Polygon (cope studio)",
     date: "2022",
+    detail:
+      "Prototyped three Web3 R&D concepts at cope studio, including product explorations with Team Liquid and Nothing.",
     id: "polygon",
     logo: "/assets/invoice-folio/polygon-current-mark.svg",
-    role: "Product design intern",
+    role: "Product design intern / Web3",
   },
 ] as const;
 
-const EXPERIENCE_PLACEHOLDER =
-  "A short introduction to the work, responsibilities, and outcomes from this role will go here.";
+const INDIA_TIME_FORMATTER = new Intl.DateTimeFormat("en-IN", {
+  hour: "2-digit",
+  hourCycle: "h23",
+  minute: "2-digit",
+  second: "2-digit",
+  timeZone: "Asia/Kolkata",
+});
+
+function LiveIndiaWatch() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const parts = Object.fromEntries(
+    INDIA_TIME_FORMATTER.formatToParts(now).map(({ type, value }) => [type, value]),
+  );
+  const hours = Number(parts.hour);
+  const minutes = Number(parts.minute);
+  const seconds = Number(parts.second);
+  const hourAngle = ((hours % 12) + minutes / 60 + seconds / 3600) * 30;
+  const minuteAngle = (minutes + seconds / 60) * 6;
+  const secondAngle = seconds * 6;
+
+  return (
+    <div
+      aria-label={`Casio MW-240 showing ${INDIA_TIME_FORMATTER.format(now)} India time`}
+      className="folio-experience__watch"
+      role="img"
+    >
+      <img alt="" aria-hidden="true" src="/assets/invoice-folio/receipt-casio-mw240-7ev-dial.png" />
+      <span aria-hidden="true" className="folio-experience__watch-dial">
+        <span className="folio-experience__watch-hand folio-experience__watch-hand--hour" style={{ transform: `translateX(-50%) rotate(${hourAngle}deg)` }} />
+        <span className="folio-experience__watch-hand folio-experience__watch-hand--minute" style={{ transform: `translateX(-50%) rotate(${minuteAngle}deg)` }} />
+        <span className="folio-experience__watch-hand folio-experience__watch-hand--second" style={{ transform: `translateX(-50%) rotate(${secondAngle}deg)` }} />
+        <span className="folio-experience__watch-pin" />
+      </span>
+    </div>
+  );
+}
 
 export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -246,12 +292,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
 
       <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
         <div className="folio-experience__receipt">
-          <img
-            alt=""
-            aria-hidden="true"
-            className="folio-experience__paperweight"
-            src="/assets/invoice-folio/receipt-prism-paperweight.png"
-          />
+          <LiveIndiaWatch />
           <a
             aria-label="Download résumé"
             className="folio-experience__download"
@@ -292,13 +333,18 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     style={reducedMotion ? { transition: "none" } : undefined}
                   >
                     <div className="folio-experience__intro-clip">
-                      <p className="folio-experience__intro">{EXPERIENCE_PLACEHOLDER}</p>
+                      <p className="folio-experience__intro">{item.detail}</p>
                     </div>
                   </div>
                 </li>
               );
             })}
           </ol>
+          <p className="folio-experience__education">
+            <span>IIIT Nagpur</span>
+            <span>B.Tech</span>
+            <time>2019—23</time>
+          </p>
         </div>
       </section>
 
