@@ -2,11 +2,14 @@ import { AnimatePresence, motion } from "motion/react";
 import { IconChevronDown, IconDownload } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 import type { ProjectId } from "../types/project";
+import { ContactBirdFlock } from "./ContactBirdFlock";
+import { FolioSiteHeader } from "./FolioSiteHeader";
 import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
 
 interface InvoiceFolioHomeProps {
   onOpenProject: (id: ProjectId, trigger: HTMLElement) => void;
+  onOpenPlay: () => void;
   reducedMotion: boolean;
 }
 
@@ -106,8 +109,7 @@ function LiveIndiaWatch() {
   );
 }
 
-export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
+export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHomeProps) {
   const [intentExpanded, setIntentExpanded] = useState(false);
   const [designerExpanded, setDesignerExpanded] = useState(false);
   const [expandedExperienceId, setExpandedExperienceId] = useState<string | null>(null);
@@ -115,15 +117,6 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
   const emDashNoteTimerRef = useRef<number | undefined>(undefined);
 
   useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [menuOpen]);
 
   const showEmDashNote = () => {
     window.clearTimeout(emDashNoteTimerRef.current);
@@ -133,37 +126,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
 
   return (
     <main className="invoice-folio invoice-folio--wall">
-      <header className="folio-site-header" data-open={menuOpen ? "true" : "false"}>
-        <div className="folio-site-header__top">
-          <div aria-label="Artwork placeholder" className="folio-site-header__artwork" role="img">
-            <span>Artwork / TBD</span>
-          </div>
-        </div>
-        <button
-          aria-controls="folio-paper-menu"
-          aria-expanded={menuOpen}
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          className="folio-site-header__toggle"
-          onClick={() => setMenuOpen((open) => !open)}
-          type="button"
-        >
-          <span>{menuOpen ? "Close" : "Menu"}</span>
-        </button>
-        <nav aria-label="Primary navigation" className="folio-site-header__nav" id="folio-paper-menu">
-          <a href="#home" onClick={() => setMenuOpen(false)}>
-            <span>Home</span>
-          </a>
-          <a href="#work" onClick={() => setMenuOpen(false)}>
-            <span>Work</span>
-          </a>
-          <a href="#resume" onClick={() => setMenuOpen(false)}>
-            <span>Resume</span>
-          </a>
-          <a href="https://x.com/parosayshi" onClick={() => setMenuOpen(false)} rel="noreferrer" target="_blank">
-            <span>X / @parosayshi</span>
-          </a>
-        </nav>
-      </header>
+      <FolioSiteHeader onOpenPlay={onOpenPlay} />
 
       <section
         aria-label="Parosayshi introduction"
@@ -292,7 +255,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
 
       <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
         <div className="folio-experience__receipt">
-          <LiveIndiaWatch />
+          {/* <LiveIndiaWatch /> */}
           <a
             aria-label="Download résumé"
             className="folio-experience__download"
@@ -347,6 +310,18 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
           </p>
         </div>
       </section>
+
+      <section aria-label="Contact" className="folio-contact" id="contact">
+        <ContactBirdFlock reducedMotion={reducedMotion} />
+      </section>
+
+      <footer className="folio-footer">
+        <p>© {new Date().getFullYear()} Parth Jha. All rights reserved.</p>
+        <p>
+          Made by{" "}
+          <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">@parosayshi</a>
+        </p>
+      </footer>
 
     </main>
   );

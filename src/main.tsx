@@ -13,6 +13,7 @@ import "./styles/bottom-sheet.css";
 import "./styles/wiz-reader.css";
 import "./styles/annual-cover.css";
 import "./styles/invoice-folio.css";
+import "./styles/play-page.css";
 import App from "./App";
 
 createRoot(document.getElementById("root")!).render(

@@ -22,6 +22,7 @@ import {
   type ProjectBrowseItem,
 } from "./components/ProjectScrollLibrary";
 import { InvoiceFolioHome } from "./components/InvoiceFolioHome";
+import { PlayPage } from "./components/PlayPage";
 import { SunlightShader } from "./components/SunlightShader";
 import { TableStickerLayer } from "./components/TableStickerLayer";
 import { EmbroideredFooter } from "./components/EmbroideredFooter";
@@ -1034,7 +1035,35 @@ export default function App() {
   const [folderCoverVersion] = useState<FolderCoverVersion>(getInitialFolderCoverVersion);
   const [projectViewMode, setProjectViewMode] = useState<ProjectViewMode>(getInitialProjectViewMode);
   const [inlineNotebookOpen, setInlineNotebookOpen] = useState(false);
+  const [playOpen, setPlayOpen] = useState(() => new URLSearchParams(window.location.search).get("page") === "play");
   const reducedMotion = useReducedMotion();
+
+  const openPlay = useCallback(() => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set("page", "play");
+    nextUrl.hash = "";
+    window.history.pushState({ ...window.history.state, play: true }, "", nextUrl);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    setPlayOpen(true);
+  }, []);
+
+  const closePlay = useCallback((hash?: string) => {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.delete("page");
+    if (hash) nextUrl.hash = hash;
+    window.history.replaceState({ ...window.history.state, play: false }, "", nextUrl);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    setPlayOpen(false);
+    if (hash) {
+      window.requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView({ behavior: "auto", block: "start" }));
+    }
+  }, []);
+
+  useEffect(() => {
+    const syncPage = () => setPlayOpen(new URLSearchParams(window.location.search).get("page") === "play");
+    window.addEventListener("popstate", syncPage);
+    return () => window.removeEventListener("popstate", syncPage);
+  }, []);
   const { activeProject, closeSlip, finishClose, focusSlip, openSlip, slipEntryTransform, slipState } = useSlip({
     paperRef,
     slipRef,
@@ -1165,6 +1194,10 @@ export default function App() {
     };
   }, [closeInlineNotebook, inlineNotebookOpen]);
 
+  if (playOpen) {
+    return <PlayPage onClose={closePlay} />;
+  }
+
   return (
     <LayoutGroup id="portfolio-books">
       <main
@@ -1182,6 +1215,7 @@ export default function App() {
         {projectViewMode === "archive" ? (
           <>
             <InvoiceFolioHome
+              onOpenPlay={openPlay}
               onOpenProject={(id, trigger) => {
                 if (trigger.dataset.project === id) openDeskObject(trigger);
               }}

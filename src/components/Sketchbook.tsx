@@ -16,7 +16,7 @@ type NotebookPage = {
   alt: string;
   caption: string;
   image?: string;
-  kind: "cover" | "image";
+  kind: "blank" | "cover" | "image";
   label: string;
 };
 
@@ -64,6 +64,12 @@ const pages: NotebookPage[] = [
     kind: "image",
     label: "Around the city",
   },
+  ...Array.from({ length: 5 }, (_, index): NotebookPage => ({
+    alt: `Blank notebook page ${index + 1}`,
+    caption: "",
+    kind: "blank",
+    label: "",
+  })),
   {
     alt: "Back cover of Parth's field notebook",
     caption: "More loose pages soon",
@@ -107,6 +113,9 @@ function NotebookPageFace({ page, pageIndex }: { page: NotebookPage; pageIndex: 
   const isFrontCover = page.kind === "cover" && pageIndex === 0;
 
   if (isFrontCover) return <NotebookCover ariaLabel={page.alt} />;
+  if (page.kind === "blank") {
+    return <article className="notebook-page is-blank" aria-label={page.alt} />;
+  }
 
   return (
     <article className={`notebook-page is-${page.kind}`} aria-label={page.alt}>
@@ -129,13 +138,26 @@ function NotebookPageFace({ page, pageIndex }: { page: NotebookPage; pageIndex: 
 }
 
 interface SketchbookProps {
+  allowSwipe?: boolean;
   autoOpen?: boolean;
+  closeRequest?: number;
   onClose?: () => void;
+  onOpenRequest?: () => void;
+  openRequest?: number;
   openSlip?: (card: HTMLElement) => void;
   variant?: "preview" | "expanded";
 }
 
-export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "preview" }: SketchbookProps) {
+export function Sketchbook({
+  allowSwipe = true,
+  autoOpen = false,
+  closeRequest,
+  onClose,
+  onOpenRequest,
+  openRequest,
+  openSlip,
+  variant = "preview",
+}: SketchbookProps) {
   const reducedMotion = useReducedMotion();
   const sheets = useMemo(() => pairPages(pages), []);
   const [currentLeaf, setCurrentLeaf] = useState(0);
@@ -146,8 +168,11 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
     () => typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches,
   );
   const [turningIndex, setTurningIndex] = useState<number | null>(null);
+  const [closeRequested, setCloseRequested] = useState(false);
   const pointerStart = useRef<{ pointerId: number; x: number } | null>(null);
   const didSwipe = useRef(false);
+  const lastCloseRequest = useRef(closeRequest);
+  const lastOpenRequest = useRef(openRequest);
 
   useEffect(() => {
     if (variant !== "expanded") return;
@@ -182,6 +207,35 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
     turnTo(currentLeaf + 1, currentLeaf);
   };
 
+  useEffect(() => {
+    if (closeRequest === undefined || closeRequest === lastCloseRequest.current) return;
+    lastCloseRequest.current = closeRequest;
+    setCloseRequested(true);
+  }, [closeRequest]);
+
+  useEffect(() => {
+    if (!closeRequested) return;
+
+    if (isMobileReader) {
+      if (currentMobilePage === 0) {
+        setCloseRequested(false);
+        return;
+      }
+      setMobileDirection(-1);
+      setMobileHasTurned(true);
+      setCurrentMobilePage(0);
+      return;
+    }
+
+    if (turningIndex !== null) return;
+    if (currentLeaf === 0) {
+      setCloseRequested(false);
+      return;
+    }
+    setCurrentLeaf((leaf) => leaf - 1);
+    if (!reducedMotion) setTurningIndex(currentLeaf - 1);
+  }, [closeRequested, currentLeaf, currentMobilePage, isMobileReader, reducedMotion, turningIndex]);
+
   const previousMobilePage = () => {
     if (currentMobilePage <= 0) return;
     setMobileDirection(-1);
@@ -195,6 +249,24 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
     setMobileHasTurned(true);
     setCurrentMobilePage((page) => page + 1);
   };
+
+  useEffect(() => {
+    if (openRequest === undefined || openRequest === lastOpenRequest.current) return;
+    lastOpenRequest.current = openRequest;
+    setCloseRequested(false);
+
+    if (isMobileReader) {
+      if (currentMobilePage !== 0) return;
+      setMobileDirection(1);
+      setMobileHasTurned(true);
+      setCurrentMobilePage(1);
+      return;
+    }
+
+    if (currentLeaf !== 0 || turningIndex !== null) return;
+    setCurrentLeaf(1);
+    if (!reducedMotion) setTurningIndex(0);
+  }, [currentLeaf, currentMobilePage, isMobileReader, openRequest, reducedMotion, turningIndex]);
 
   useEffect(() => {
     if (!autoOpen || variant !== "expanded") return;
@@ -225,6 +297,7 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (!allowSwipe) return;
     if (turningIndex !== null) return;
     pointerStart.current = { pointerId: event.pointerId, x: event.clientX };
     didSwipe.current = false;
@@ -232,6 +305,7 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    if (!allowSwipe) return;
     const start = pointerStart.current;
     pointerStart.current = null;
     if (!start || start.pointerId !== event.pointerId) return;
@@ -250,6 +324,16 @@ export function Sketchbook({ autoOpen = false, onClose, openSlip, variant = "pre
       didSwipe.current = false;
       return;
     }
+
+    // A closed notebook has nowhere to go but forward, so the entire cover
+    // should behave as the open target rather than only its right half.
+    if ((isMobileReader && currentMobilePage === 0) || (!isMobileReader && currentLeaf === 0)) {
+      if (onOpenRequest) onOpenRequest();
+      else if (isMobileReader) nextMobilePage();
+      else nextPage();
+      return;
+    }
+
     const bounds = event.currentTarget.getBoundingClientRect();
     if (event.clientX < bounds.left + bounds.width / 2) {
       if (isMobileReader) previousMobilePage();
