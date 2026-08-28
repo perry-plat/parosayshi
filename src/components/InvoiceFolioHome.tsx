@@ -206,7 +206,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
             </AnimatePresence>
             <AnimatePresence initial={false}>
               {designerExpanded ? (
-                <motion.p
+                <motion.div
                   animate={{ clipPath: "inset(0 0 0% 0)", height: "auto", marginTop: "var(--intent-detail-gap)", opacity: 1 }}
                   className="wall-folio__intent-detail"
                   exit={{ clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
@@ -219,8 +219,13 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                     opacity: { duration: 0.2 },
                   }}
                 >
-                  {INTENT_DETAIL}
-                </motion.p>
+                  <p>
+                    I’ve spent the last <mark className="wall-folio__experience-mark">3 years</mark> designing across Edtech and B2B SaaS, with a small detour into Web3.
+                  </p>
+                  <p className="wall-folio__designer-recent">
+                    Lately, AI-led frontend development has become my current rabbit hole, while design systems keep me thinking about how things scale—and I’m increasingly bullish on product thinking.
+                  </p>
+                </motion.div>
               ) : null}
             </AnimatePresence>
             <img
@@ -305,7 +310,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
           </ol>
           <p className="folio-experience__education">
             <span>IIIT Nagpur</span>
-            <span>B.Tech</span>
+            <span>B.Tech / CS major</span>
             <time>2019—23</time>
           </p>
         </div>
@@ -316,10 +321,11 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
       </section>
 
       <footer className="folio-footer">
-        <p>© {new Date().getFullYear()} Parth Jha. All rights reserved.</p>
-        <p>
-          Made by{" "}
-          <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">@parosayshi</a>
+        <time className="folio-footer__updated" dateTime="2026-08-28">
+          Last updated · 28 Aug 2026
+        </time>
+        <p className="folio-footer__credit">
+          by <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">parosayshi</a>
         </p>
       </footer>
 

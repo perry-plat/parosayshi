@@ -11,11 +11,16 @@ import * as THREE from "three";
 interface ContactBirdFlockProps { reducedMotion: boolean; }
 interface BirdPalette { normal: THREE.Color; }
 type BadgeKind = "linkedin" | "gmail" | "x";
+type GrowItem = {
+  baseScale: THREE.Vector3;
+  delay: number;
+  object: THREE.Group;
+};
 
 const birdChirpSources = [
-  "/assets/audio/bird-chirp-blue.ogg",
-  "/assets/audio/bird-chirp-brown.ogg",
-  "/assets/audio/bird-chirp-charcoal.ogg",
+  "/assets/audio/indian-robin-call.mp3",
+  "/assets/audio/house-sparrow-call.mp3",
+  "/assets/audio/oriental-magpie-robin-call.mp3",
 ];
 
 const palettes: BirdPalette[] = [
@@ -200,6 +205,8 @@ class Bird {
   leftIris: THREE.Mesh;
   rightEye: THREE.Mesh;
   rightIris: THREE.Mesh;
+  wingLeft: THREE.Mesh;
+  wingRight: THREE.Mesh;
 
   constructor(palette: BirdPalette, badgeKind: BadgeKind) {
     const birdMaterial = new THREE.MeshLambertMaterial({ color: palette.normal, flatShading: true });
@@ -209,18 +216,18 @@ class Bird {
 
     const wingGeometry = new THREE.BoxGeometry(0.6, 0.6, 0.05);
     const wingLeftGroup = new THREE.Group();
-    const wingLeft = new THREE.Mesh(wingGeometry, birdMaterial);
-    wingLeftGroup.add(wingLeft);
+    this.wingLeft = new THREE.Mesh(wingGeometry, birdMaterial);
+    wingLeftGroup.add(this.wingLeft);
     wingLeftGroup.position.set(0.7, 0, 0);
     wingLeftGroup.rotation.y = Math.PI / 2;
-    wingLeft.rotation.x = -Math.PI / 4;
+    this.wingLeft.rotation.x = -Math.PI / 4;
 
     const wingRightGroup = new THREE.Group();
-    const wingRight = new THREE.Mesh(wingGeometry, birdMaterial);
-    wingRightGroup.add(wingRight);
+    this.wingRight = new THREE.Mesh(wingGeometry, birdMaterial);
+    wingRightGroup.add(this.wingRight);
     wingRightGroup.position.set(-0.7, 0, 0);
     wingRightGroup.rotation.y = -Math.PI / 2;
-    wingRight.rotation.x = -Math.PI / 4;
+    this.wingRight.rotation.x = -Math.PI / 4;
 
     const bodyGeometry = new THREE.CylinderGeometry(0.4, 0.7, 2, 4, 3);
     this.bodyBird = new THREE.Mesh(bodyGeometry, birdMaterial);
@@ -264,6 +271,12 @@ class Bird {
     this.threegroup.traverse((object) => {
       if (object instanceof THREE.Mesh) { object.castShadow = true; object.receiveShadow = true; }
     });
+  }
+
+  flap(phase: number, strength: number) {
+    const movement = Math.sin(phase) * 0.58 * strength;
+    this.wingLeft.rotation.x = -Math.PI / 4 + movement;
+    this.wingRight.rotation.x = -Math.PI / 4 + movement;
   }
 
   look(hAngle: number, vAngle: number) {
@@ -337,7 +350,7 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     chirpAudioRef.current = birdChirpSources.map((source) => {
       const audio = new Audio(source);
       audio.preload = "auto";
-      audio.volume = 0.42;
+      audio.volume = 0.32;
       return audio;
     });
 
@@ -356,7 +369,7 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     const host = hostRef.current;
     if (!host) return;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, 2.5, 0.01, 20);
+    const camera = new THREE.OrthographicCamera(-15, 15, 6, -6, 0.01, 20);
     camera.position.set(0, 3, 10);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -379,6 +392,38 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     const bird1 = new Bird(palettes[1], "gmail"); bird1.threegroup.scale.setScalar(1.85); scene.add(bird1.threegroup);
     const bird2 = new Bird(palettes[0], "linkedin"); bird2.threegroup.position.set(-2.5, -0.08, 0); bird2.threegroup.scale.setScalar(1.5); scene.add(bird2.threegroup);
     const bird3 = new Bird(palettes[2], "x"); bird3.threegroup.position.set(2.5, -0.08, 0); bird3.threegroup.scale.setScalar(1.5); scene.add(bird3.threegroup);
+
+    const growItems: GrowItem[] = [];
+    let growIndex = 0;
+    const addGrowItem = (object: THREE.Group, baseDelay: number) => {
+      const edgeDelay = (1 - Math.min(Math.abs(object.position.x) / 8, 1)) * 240;
+      const organicDelay = ((growIndex * 47) % 11) * 18;
+      const item = { baseScale: object.scale.clone(), delay: baseDelay + edgeDelay + organicDelay, object };
+      growIndex += 1;
+      growItems.push(item);
+      if (!reducedMotion) object.scale.copy(item.baseScale).multiplyScalar(0.015);
+    };
+
+    const landingBirds = [
+      { bird: bird2, delay: 540, duration: 1500, fromLeft: true, startOffset: new THREE.Vector3(-12, 0.08, 0), swayY: [0.8, -0.18, 1.0] },
+      { bird: bird1, delay: 720, duration: 1750, fromLeft: false, startOffset: new THREE.Vector3(12, 0.24, 0), swayY: [1.55, -0.42, 1.72] },
+      { bird: bird3, delay: 900, duration: 1450, fromLeft: false, startOffset: new THREE.Vector3(12, -0.05, 0), swayY: [0.58, -0.12, 0.92] },
+    ].map((entry) => ({
+      ...entry,
+      finalPosition: entry.bird.threegroup.position.clone(),
+      finalScale: entry.bird.threegroup.scale.clone(),
+      path: new THREE.CatmullRomCurve3([], false, "centripetal"),
+      startPosition: new THREE.Vector3(),
+    }));
+
+    if (!reducedMotion) {
+      landingBirds.forEach(({ bird, finalPosition, finalScale, startOffset }) => {
+        bird.threegroup.position.copy(finalPosition).add(startOffset);
+        bird.threegroup.scale.copy(finalScale);
+        bird.threegroup.rotation.z = 0;
+        bird.threegroup.visible = false;
+      });
+    }
 
     [
       { x: -5.05, z: -0.55, scale: 0.88, rotation: -0.18, color: 0x667d52 },
@@ -445,6 +490,7 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
       const tree = createTree(scale * 1.44, color);
       tree.position.set(x, -0.05, z);
       tree.rotation.y = rotation;
+      addGrowItem(tree, 0);
       scene.add(tree);
     });
 
@@ -465,6 +511,7 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
       const grass = createGrassTuft(scale * 1.44, color);
       grass.position.set(x, -0.02, z);
       grass.rotation.y = index % 2 === 0 ? -0.18 : 0.22;
+      addGrowItem(grass, 250);
       scene.add(grass);
     });
 
@@ -488,12 +535,24 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
         rotation: (index % 2 === 0 ? -1 : 1) * (0.12 + (index % 3) * 0.07),
         color: groveColors[index % groveColors.length],
       })),
+      ...Array.from({ length: 40 }, (_, index) => {
+        const sideIndex = index % 20;
+        const side = index < 20 ? -1 : 1;
+        return {
+          x: side * (7.72 + (sideIndex % 5) * 0.58 + Math.floor(sideIndex / 5) * 0.16),
+          z: -0.38 - Math.floor(sideIndex / 5) * 0.94 - (sideIndex % 2) * 0.34,
+          scale: 0.27 + (sideIndex % 5) * 0.065,
+          rotation: (sideIndex % 2 === 0 ? -1 : 1) * (0.14 + (sideIndex % 4) * 0.055),
+          color: groveColors[(index + 3) % groveColors.length],
+        };
+      }),
     ];
 
     additionalTrees.forEach(({ x, z, scale, rotation, color }) => {
       const tree = createTree(scale * 1.44, color);
       tree.position.set(x, -0.05, z);
       tree.rotation.y = rotation;
+      addGrowItem(tree, 90);
       scene.add(tree);
     });
 
@@ -510,8 +569,11 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
       const grass = createGrassTuft(scale * 1.44, color);
       grass.position.set(x, -0.02, z);
       grass.rotation.y = index % 2 === 0 ? -0.24 : 0.28;
+      addGrowItem(grass, 310);
       scene.add(grass);
     });
+
+    let entranceStartedAt: number | null = reducedMotion ? 0 : null;
 
     let pointerX = 0; let pointerY = 0;
     const handlePointerMove = (event: PointerEvent) => {
@@ -522,9 +584,37 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     const resize = () => {
       const width = Math.max(1, Math.floor(host.clientWidth)); const height = Math.max(1, Math.floor(host.clientHeight));
-      renderer.setSize(width, height, false); camera.aspect = width / height; camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+      const visibleHalfHeight = 6;
+      const visibleHalfWidth = visibleHalfHeight * (width / height);
+      camera.left = -visibleHalfWidth;
+      camera.right = visibleHalfWidth;
+      camera.top = visibleHalfHeight;
+      camera.bottom = -visibleHalfHeight;
+      camera.updateProjectionMatrix();
+      landingBirds.forEach(({ bird, finalPosition, fromLeft, path, startOffset, startPosition, swayY }) => {
+        const screenEdgeX = (visibleHalfWidth + 0.72) * (fromLeft ? -1 : 1);
+        startOffset.x = screenEdgeX - finalPosition.x;
+        startPosition.copy(finalPosition).add(startOffset);
+        startPosition.z = finalPosition.z;
+        path.points = [
+          startPosition.clone(),
+          startPosition.clone().lerp(finalPosition, 0.24).add(new THREE.Vector3(0, swayY[0], 0)),
+          startPosition.clone().lerp(finalPosition, 0.53).add(new THREE.Vector3(0, swayY[1], 0)),
+          startPosition.clone().lerp(finalPosition, 0.82).add(new THREE.Vector3(0, swayY[2], 0)),
+          finalPosition.clone(),
+        ];
+        if (entranceStartedAt === null) bird.threegroup.position.copy(startPosition);
+      });
     };
     const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(host); resize();
+
+    const entranceObserver = reducedMotion ? null : new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting || entry.intersectionRatio < 0.18 || entranceStartedAt !== null) return;
+      entranceStartedAt = performance.now();
+      entranceObserver?.disconnect();
+    }, { threshold: [0.18, 0.3], rootMargin: "0px 0px -8%" });
+    entranceObserver?.observe(host);
 
     let frame = 0;
     const gazeHistory: Array<{ time: number; h: number; v: number }> = [];
@@ -544,21 +634,52 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
       };
     };
     const render = (now = performance.now()) => {
+      const flightProgress = new Map<Bird, number>();
+      const gazeRelease = new Map<Bird, number>();
+      if (!reducedMotion && entranceStartedAt !== null) {
+        const elapsed = now - entranceStartedAt;
+        growItems.forEach(({ baseScale, delay, object }) => {
+          const progress = THREE.MathUtils.clamp((elapsed - delay) / 760, 0, 1);
+          const eased = progress === 1
+            ? 1
+            : 1 + 1.55 * Math.pow(progress - 1, 3) + 0.55 * Math.pow(progress - 1, 2);
+          object.scale.copy(baseScale).multiplyScalar(Math.max(0.015, eased));
+        });
+
+        landingBirds.forEach(({ bird, delay, duration, finalScale, path }, index) => {
+          const progress = THREE.MathUtils.clamp((elapsed - delay) / duration, 0, 1);
+          flightProgress.set(bird, progress);
+          gazeRelease.set(bird, THREE.MathUtils.smoothstep(elapsed, delay + duration + 160, delay + duration + 520));
+          bird.threegroup.visible = progress > 0;
+          path.getPoint(progress, bird.threegroup.position);
+          bird.threegroup.scale.copy(finalScale);
+          bird.threegroup.rotation.z = 0;
+          const flightStrength = Math.min(1, progress * 5) * Math.pow(1 - progress, 0.45);
+          bird.flap(now * 0.024 + index * 1.7, flightStrength);
+        });
+      }
+
       const userHAngle = THREE.MathUtils.clamp(pointerX * 1.35, -Math.PI / 3, Math.PI / 3);
       const userVAngle = THREE.MathUtils.clamp(pointerY * 1.35, -Math.PI / 3, Math.PI / 3);
       gazeHistory.push({ time: now, h: userHAngle, v: userVAngle });
       while (gazeHistory.length > 1 && gazeHistory[1].time < now - 2200) gazeHistory.shift();
       const bird2Gaze = sampleGaze(now - 1000);
       const bird3Gaze = sampleGaze(now - 2000);
-      bird1.look(userHAngle, userVAngle);
-      bird2.look(bird2Gaze.h, bird2Gaze.v);
-      bird3.look(bird3Gaze.h, bird3Gaze.v);
+      const bird1Flying = (flightProgress.get(bird1) ?? 1) < 1;
+      const bird2Flying = (flightProgress.get(bird2) ?? 1) < 1;
+      const bird3Flying = (flightProgress.get(bird3) ?? 1) < 1;
+      const bird1Release = bird1Flying ? 0 : (gazeRelease.get(bird1) ?? 1);
+      const bird2Release = bird2Flying ? 0 : (gazeRelease.get(bird2) ?? 1);
+      const bird3Release = bird3Flying ? 0 : (gazeRelease.get(bird3) ?? 1);
+      bird1.look(userHAngle * bird1Release, userVAngle * bird1Release);
+      bird2.look(bird2Gaze.h * bird2Release, bird2Gaze.v * bird2Release);
+      bird3.look(bird3Gaze.h * bird3Release, bird3Gaze.v * bird3Release);
       renderer.render(scene, camera); frame = window.requestAnimationFrame(render);
     };
     render();
 
     return () => {
-      window.cancelAnimationFrame(frame); window.removeEventListener("pointermove", handlePointerMove); resizeObserver.disconnect();
+      window.cancelAnimationFrame(frame); window.removeEventListener("pointermove", handlePointerMove); resizeObserver.disconnect(); entranceObserver?.disconnect();
       scene.traverse((object) => { if (!(object instanceof THREE.Mesh)) return; object.geometry.dispose(); const materials = Array.isArray(object.material) ? object.material : [object.material]; materials.forEach((material) => { if ("map" in material && material.map instanceof THREE.Texture) material.map.dispose(); material.dispose(); }); });
       renderer.dispose(); renderer.domElement.remove();
     };
