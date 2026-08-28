@@ -220,7 +220,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                   }}
                 >
                   <p>
-                    I’ve spent the last <mark className="wall-folio__experience-mark">3 years</mark> designing across Edtech and B2B SaaS, with a small detour into Web3.
+                    I’ve spent the last <mark className="wall-folio__experience-mark">3 years</mark> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, with a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
                   </p>
                   <p className="wall-folio__designer-recent">
                     Lately, AI-led frontend development has become my current rabbit hole, while design systems keep me thinking about how things scale—and I’m increasingly bullish on product thinking.
