@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type 
 import { FolioSiteHeader } from "./FolioSiteHeader";
 import { Sketchbook } from "./Sketchbook";
 import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useViewportReveal } from "../hooks/useViewportReveal";
 
 interface PlayPageProps {
   onClose: (hash?: string) => void;
@@ -9,6 +10,7 @@ interface PlayPageProps {
 
 export function PlayPage({ onClose }: PlayPageProps) {
   const reducedMotion = useReducedMotion();
+  useViewportReveal(Boolean(reducedMotion));
   const [closeRequest, setCloseRequest] = useState(0);
   const [openRequest, setOpenRequest] = useState(0);
   const [centering, setCentering] = useState(false);
@@ -130,6 +132,7 @@ export function PlayPage({ onClose }: PlayPageProps) {
         className="inline-notebook-reader play-page__notebook"
         data-centering={centering ? "true" : "false"}
         data-dragging={dragging ? "true" : "false"}
+        data-view-reveal
         onClickCapture={stopClickAfterDrag}
         onPointerCancel={endBookDrag}
         onPointerDown={startBookDrag}

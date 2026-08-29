@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { IconChevronDown, IconDownload } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
+import { useViewportReveal } from "../hooks/useViewportReveal";
 import type { ProjectId } from "../types/project";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 import { FolioSiteHeader } from "./FolioSiteHeader";
@@ -116,6 +117,8 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   const [emDashNoteVisible, setEmDashNoteVisible] = useState(false);
   const emDashNoteTimerRef = useRef<number | undefined>(undefined);
 
+  useViewportReveal(reducedMotion);
+
   useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
 
   const showEmDashNote = () => {
@@ -125,7 +128,10 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   };
 
   return (
-    <main className="invoice-folio invoice-folio--wall">
+    <main
+      className="invoice-folio invoice-folio--wall"
+      data-reduced-motion={reducedMotion ? "true" : "false"}
+    >
       <FolioSiteHeader onOpenPlay={onOpenPlay} />
 
       <section
@@ -139,7 +145,10 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
           <WallLightShader glowColor={WALL_GLOW_COLOR} lightColor={WALL_LIGHT_COLOR} reducedMotion={reducedMotion} />
           <div aria-hidden="true" className="wall-folio__grain" />
           <p className="wall-folio__shadow-wordmark">Paro says hi</p>
-          <div className="wall-folio__figma-intro" data-node-id="73:1458">
+          <div
+            className="wall-folio__figma-intro"
+            data-node-id="73:1458"
+          >
             <p>
               <span className="wall-folio__figma-heading">
                 <strong>Hi, I am Parth</strong>
@@ -243,7 +252,11 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
           {projectPlaceholderColumns.map((column, columnIndex) => (
             <div className="folio-projects-placeholder__column" key={`project-column-${columnIndex}`}>
               {column.map((project, projectIndex) => (
-                <article className="folio-project-placeholder" key={`${project.tone}-${projectIndex}`}>
+                <article
+                  className="folio-project-placeholder"
+                  data-view-reveal
+                  key={`${project.tone}-${projectIndex}`}
+                >
                   <div
                     aria-label="Project media placeholder"
                     className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}`}
@@ -259,7 +272,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
       </section>
 
       <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
-        <div className="folio-experience__receipt">
+        <div className="folio-experience__receipt" data-view-reveal>
           {/* <LiveIndiaWatch /> */}
           <a
             aria-label="Download résumé"

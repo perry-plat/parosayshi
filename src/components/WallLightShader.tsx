@@ -355,10 +355,16 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
       );
       delete host.dataset.shadowFailed;
       render(reducedMotion ? 18 : (performance.now() - startedAt) / 1000);
+      window.requestAnimationFrame(() => {
+        if (!disposed) host.dataset.ready = "true";
+      });
     };
     shadowImage.onerror = () => {
       if (disposed) return;
       host.dataset.shadowFailed = "true";
+      window.requestAnimationFrame(() => {
+        if (!disposed) host.dataset.ready = "true";
+      });
     };
     shadowImage.src = "/assets/invoice-folio/photographic-shadow-matte-leafy.png";
 
@@ -404,6 +410,7 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
 
     return () => {
       disposed = true;
+      delete host.dataset.ready;
       renderNowRef.current = () => undefined;
       shadowImage.onload = null;
       shadowImage.onerror = null;
@@ -417,5 +424,12 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
     };
   }, [reducedMotion]);
 
-  return <div ref={hostRef} aria-hidden="true" className="wall-light-shader" />;
+  return (
+    <div
+      ref={hostRef}
+      aria-hidden="true"
+      className="wall-light-shader"
+      data-reduced-motion={reducedMotion ? "true" : "false"}
+    />
+  );
 }
