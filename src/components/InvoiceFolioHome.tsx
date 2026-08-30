@@ -1,7 +1,6 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, type Variants, useScroll, useSpring, useTransform } from "motion/react";
 import { IconChevronDown, IconDownload } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
-import { useViewportReveal } from "../hooks/useViewportReveal";
+import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ProjectId } from "../types/project";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 import { FolioSiteHeader } from "./FolioSiteHeader";
@@ -23,6 +22,75 @@ const INTENT_DETAIL =
 // Keep the accepted final light study as the permanent wall treatment.
 const WALL_LIGHT_COLOR = "#fffdf5";
 const WALL_GLOW_COLOR = "#ead4a6";
+const FOLIO_ENTRANCE_SESSION_KEY = "parosayshi:folio-entrance:v1";
+const FOLIO_SCROLL_REVEAL_SPRING = {
+  damping: 60,
+  mass: 1,
+  stiffness: 600,
+};
+const SHADOW_NOTES = [
+  "Paro says hi",
+  "Currently intentmaxxing",
+  "Vibing is part of the process",
+] as const;
+const SHADOW_NOTE_HOLD_TIMES = [8200, 11300, 9400] as const;
+const SHADOW_NOTE_VARIANTS: Variants = {
+  exit: {
+    filter: "blur(3.2px)",
+    opacity: 0,
+    transition: { duration: 1.08, ease: [0.4, 0, 0.6, 1] },
+  },
+  hidden: { filter: "blur(3.4px)", opacity: 0 },
+  visible: {
+    filter: "blur(0px)",
+    opacity: 1,
+    transition: { duration: 1.28, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+function shouldPlayFolioEntrance(reducedMotion: boolean) {
+  if (reducedMotion || typeof window === "undefined") return false;
+
+  try {
+    return window.sessionStorage.getItem(FOLIO_ENTRANCE_SESSION_KEY) !== "seen";
+  } catch {
+    return true;
+  }
+}
+
+function useFolioScrollReveal<T extends HTMLElement>(reducedMotion: boolean) {
+  const ref = useRef<T>(null);
+  const { scrollYProgress } = useScroll({
+    offset: ["start end", "end end"],
+    target: ref,
+  });
+  const progress = useSpring(scrollYProgress, FOLIO_SCROLL_REVEAL_SPRING);
+  const opacity = useTransform(progress, [0, 1], [0.5, 1]);
+  const y = useTransform(progress, [0, 1], [56, 0]);
+
+  return {
+    ref,
+    style: reducedMotion ? undefined : { opacity, y },
+  };
+}
+
+function FolioScrollRevealArticle({
+  children,
+  className,
+  reducedMotion,
+}: {
+  children: ReactNode;
+  className: string;
+  reducedMotion: boolean;
+}) {
+  const reveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
+
+  return (
+    <motion.article className={className} ref={reveal.ref} style={reveal.style}>
+      {children}
+    </motion.article>
+  );
+}
 
 const projectPlaceholderColumns = [
   [
@@ -111,15 +179,68 @@ function LiveIndiaWatch() {
 }
 
 export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHomeProps) {
+  const [entranceActive, setEntranceActive] = useState(() => shouldPlayFolioEntrance(reducedMotion));
   const [intentExpanded, setIntentExpanded] = useState(false);
   const [designerExpanded, setDesignerExpanded] = useState(false);
   const [expandedExperienceId, setExpandedExperienceId] = useState<string | null>(null);
   const [emDashNoteVisible, setEmDashNoteVisible] = useState(false);
+  const [experienceReceiptHeight, setExperienceReceiptHeight] = useState<number | null>(null);
+  const [promptNudgeActive, setPromptNudgeActive] = useState(false);
+  const [shadowNoteIndex, setShadowNoteIndex] = useState(0);
   const emDashNoteTimerRef = useRef<number | undefined>(undefined);
-
-  useViewportReveal(reducedMotion);
+  const experienceReceiptContentRef = useRef<HTMLDivElement>(null);
+  const promptNudgeDelayRef = useRef(entranceActive ? 1120 : 520);
+  const experienceReveal = useFolioScrollReveal<HTMLDivElement>(reducedMotion);
+  const contactReveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
+  const footerReveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
 
   useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
+
+  useEffect(() => {
+    if (reducedMotion) return undefined;
+    const timer = window.setTimeout(
+      () => setPromptNudgeActive(true),
+      promptNudgeDelayRef.current,
+    );
+    return () => window.clearTimeout(timer);
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setShadowNoteIndex(0);
+      return undefined;
+    }
+
+    const timer = window.setTimeout(
+      () => setShadowNoteIndex((index) => (index + 1) % SHADOW_NOTES.length),
+      SHADOW_NOTE_HOLD_TIMES[shadowNoteIndex],
+    );
+    return () => window.clearTimeout(timer);
+  }, [reducedMotion, shadowNoteIndex]);
+
+  useLayoutEffect(() => {
+    const content = experienceReceiptContentRef.current;
+    if (!content) return undefined;
+
+    const measure = () => setExperienceReceiptHeight(content.offsetHeight);
+    const observer = new ResizeObserver(measure);
+    measure();
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!entranceActive) return undefined;
+
+    try {
+      window.sessionStorage.setItem(FOLIO_ENTRANCE_SESSION_KEY, "seen");
+    } catch {
+      // The entrance can still play when session storage is unavailable.
+    }
+
+    const entranceTimer = window.setTimeout(() => setEntranceActive(false), 980);
+    return () => window.clearTimeout(entranceTimer);
+  }, [entranceActive]);
 
   const showEmDashNote = () => {
     window.clearTimeout(emDashNoteTimerRef.current);
@@ -130,6 +251,8 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   return (
     <main
       className="invoice-folio invoice-folio--wall"
+      data-entrance={entranceActive && !reducedMotion ? "true" : "false"}
+      data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
     >
       <FolioSiteHeader onOpenPlay={onOpenPlay} />
@@ -144,7 +267,24 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         <div className="wall-folio__hero-composition">
           <WallLightShader glowColor={WALL_GLOW_COLOR} lightColor={WALL_LIGHT_COLOR} reducedMotion={reducedMotion} />
           <div aria-hidden="true" className="wall-folio__grain" />
-          <p className="wall-folio__shadow-wordmark">Paro says hi</p>
+          <p
+            aria-label={SHADOW_NOTES.join(". ")}
+            className="wall-folio__shadow-wordmark"
+          >
+            <AnimatePresence initial={false} mode="wait">
+              <motion.span
+                key={SHADOW_NOTES[shadowNoteIndex]}
+                aria-hidden="true"
+                animate="visible"
+                className="wall-folio__shadow-note-line"
+                exit="exit"
+                initial="hidden"
+                variants={SHADOW_NOTE_VARIANTS}
+              >
+                {SHADOW_NOTES[shadowNoteIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </p>
           <div
             className="wall-folio__figma-intro"
             data-node-id="73:1458"
@@ -252,10 +392,10 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
           {projectPlaceholderColumns.map((column, columnIndex) => (
             <div className="folio-projects-placeholder__column" key={`project-column-${columnIndex}`}>
               {column.map((project, projectIndex) => (
-                <article
+                <FolioScrollRevealArticle
                   className="folio-project-placeholder"
-                  data-view-reveal
                   key={`${project.tone}-${projectIndex}`}
+                  reducedMotion={reducedMotion}
                 >
                   <div
                     aria-label="Project media placeholder"
@@ -264,7 +404,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                   />
                   <h2>Project title</h2>
                   <p>Tag</p>
-                </article>
+                </FolioScrollRevealArticle>
               ))}
             </div>
           ))}
@@ -272,7 +412,25 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
       </section>
 
       <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
-        <div className="folio-experience__receipt" data-view-reveal>
+        <motion.div
+          className="folio-experience__receipt-placement"
+          ref={experienceReveal.ref}
+          style={{ ...experienceReveal.style, rotate: -1.5 }}
+        >
+          <motion.div
+            animate={experienceReceiptHeight === null ? undefined : { height: experienceReceiptHeight }}
+            className="folio-experience__receipt"
+            initial={false}
+            transition={reducedMotion ? { duration: 0 } : {
+              height: {
+                damping: 25,
+                mass: 0.7,
+                stiffness: 500,
+                type: "spring",
+              },
+            }}
+          >
+          <div className="folio-experience__receipt-content" ref={experienceReceiptContentRef}>
           {/* <LiveIndiaWatch /> */}
           <a
             aria-label="Download résumé"
@@ -292,7 +450,13 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
               const detailId = `experience-${item.id}-detail`;
 
               return (
-                <li key={item.id}>
+                <motion.li
+                  key={item.id}
+                  layout={reducedMotion ? false : "position"}
+                  transition={reducedMotion ? { duration: 0 } : {
+                    layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                >
                   <button
                     aria-controls={detailId}
                     aria-expanded={expanded}
@@ -306,41 +470,61 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                     <time>{item.date}</time>
                     <IconChevronDown aria-hidden="true" className="folio-experience__chevron" stroke={2.4} />
                   </button>
-                  <div
-                    aria-hidden={!expanded}
-                    className="folio-experience__intro-shell"
-                    data-expanded={expanded ? "true" : "false"}
-                    id={detailId}
-                    style={reducedMotion ? { transition: "none" } : undefined}
-                  >
-                    <div className="folio-experience__intro-clip">
-                      <p className="folio-experience__intro">{item.detail}</p>
-                    </div>
-                  </div>
-                </li>
+                  <AnimatePresence initial={false} mode="popLayout">
+                    {expanded ? (
+                      <motion.div
+                        animate={{ opacity: 1 }}
+                        className="folio-experience__intro-shell"
+                        exit={{ opacity: 0 }}
+                        id={detailId}
+                        initial={reducedMotion ? false : { opacity: 0 }}
+                        transition={reducedMotion ? { duration: 0 } : {
+                          duration: 0.24,
+                          ease: [0.4, 0, 0.2, 1],
+                        }}
+                      >
+                        <p className="folio-experience__intro">{item.detail}</p>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </motion.li>
               );
             })}
           </ol>
-          <p className="folio-experience__education">
+          <motion.p
+            className="folio-experience__education"
+            layout={reducedMotion ? false : "position"}
+            transition={reducedMotion ? { duration: 0 } : {
+              layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+            }}
+          >
             <span>IIIT Nagpur</span>
             <span>B.Tech / CS major</span>
             <time>2019—23</time>
-          </p>
-        </div>
+          </motion.p>
+          </div>
+          </motion.div>
+        </motion.div>
       </section>
 
-      <section aria-label="Contact" className="folio-contact" id="contact">
+      <motion.section
+        aria-label="Contact"
+        className="folio-contact"
+        id="contact"
+        ref={contactReveal.ref}
+        style={contactReveal.style}
+      >
         <ContactBirdFlock reducedMotion={reducedMotion} />
-      </section>
+      </motion.section>
 
-      <footer className="folio-footer">
+      <motion.footer className="folio-footer" ref={footerReveal.ref} style={footerReveal.style}>
         <time className="folio-footer__updated" dateTime="2026-08-28">
           Last updated · 28 Aug 2026
         </time>
         <p className="folio-footer__credit">
           by <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">parosayshi</a>
         </p>
-      </footer>
+      </motion.footer>
 
     </main>
   );

@@ -81,12 +81,12 @@ const fragmentShader = /* glsl */ `
   }
 
   float canopyBreeze(float time, float phase, float index) {
-    float longBreeze = sin(time * (0.72 + index * 0.045) + phase);
-    float passingGust = sin(time * 0.29 + phase * 0.7);
-    float gustEnvelope = 0.76 + (sin(time * 0.13 + phase * 0.41) + 1.0) * 0.2;
-    float gustArrival = pow(max(0.0, sin(time * 0.37 + phase * 1.3)), 3.0);
-    return (longBreeze * 0.68 + passingGust * 0.32) * gustEnvelope
-      + gustArrival * 0.3;
+    float longBreeze = sin(time * (0.94 + index * 0.065) + phase);
+    float passingGust = sin(time * 0.43 + phase * 0.7);
+    float gustEnvelope = 0.82 + (sin(time * 0.19 + phase * 0.41) + 1.0) * 0.24;
+    float gustArrival = pow(max(0.0, sin(time * 0.52 + phase * 1.3)), 3.0);
+    return (longBreeze * 0.64 + passingGust * 0.36) * gustEnvelope
+      + gustArrival * 0.52;
   }
 
   float shadowLumaAt(vec2 uv) {
@@ -129,7 +129,7 @@ const fragmentShader = /* glsl */ `
     float shadowBottomAnchor = -0.5 + 0.48 / shadowScaleY;
     vec2 shadowUv = q * 0.5 + 0.5 + vec2(0.055, shadowBottomAnchor);
     // Keep the trunk, ledge, and bird grounded while the canopy catches the wind.
-    float canopyWeight = pow(smoothstep(0.34, 0.84, shadowUv.y), 1.48);
+    float canopyWeight = pow(smoothstep(0.28, 0.8, shadowUv.y), 1.3);
     // Keep the spatial wind map fixed. Animating this noise field makes the
     // entire projection undulate like water instead of moving like foliage.
     float windField = fbm(shadowUv * vec2(3.2, 5.0) + vec2(5.4, 8.1));
@@ -142,16 +142,16 @@ const fragmentShader = /* glsl */ `
       + canopyBreeze(uTime, 2.4, 1.0) * centerWeight
       + canopyBreeze(uTime, 4.6, 2.0) * rightWeight
     ) / breezeWeight;
-    float primarySway = groupedBreeze * mix(0.028, 0.046, windField);
+    float primarySway = groupedBreeze * mix(0.042, 0.068, windField);
 
     float groupedFlutter = (
-      sin(uTime * 1.37 + 0.2) * leftWeight
-      + sin(uTime * 1.46 + 2.4) * centerWeight
-      + sin(uTime * 1.31 + 4.6) * rightWeight
+      (sin(uTime * 1.72 + 0.2) + sin(uTime * 3.1 + 1.1) * 0.28) * leftWeight
+      + (sin(uTime * 1.84 + 2.4) + sin(uTime * 3.34 + 3.2) * 0.28) * centerWeight
+      + (sin(uTime * 1.65 + 4.6) + sin(uTime * 2.96 + 5.4) * 0.28) * rightWeight
     ) / breezeWeight;
     vec2 windOffset = vec2(
-      (primarySway + groupedFlutter * 0.0065) * canopyWeight * 1.08,
-      groupedFlutter * 0.0018 * canopyWeight
+      (primarySway + groupedFlutter * 0.009) * canopyWeight * 1.16,
+      groupedFlutter * 0.0034 * canopyWeight
     );
     vec2 movingShadowUv = shadowUv + windOffset;
     vec2 shadowTexel = vec2(1.0 / 1254.0);
@@ -202,6 +202,7 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
 
     const canvas = document.createElement("canvas");
     canvas.className = "wall-light-shader__canvas";
+    canvas.setAttribute("aria-hidden", "true");
     host.appendChild(canvas);
 
     const gl = canvas.getContext("webgl", {
@@ -367,7 +368,6 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
       });
     };
     shadowImage.src = "/assets/invoice-folio/photographic-shadow-matte-leafy.png";
-
     const resize = () => {
       const width = Math.max(1, host.clientWidth);
       const height = Math.max(1, host.clientHeight);

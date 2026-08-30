@@ -19,6 +19,9 @@
 }
 
 .play-page__notebook.inline-notebook-reader {
+  --play-book-lift: 0px;
+  --play-book-scale: 1;
+  --play-book-tilt: 0deg;
   position: relative;
   z-index: 2;
   top: auto;
@@ -26,12 +29,18 @@
   width: min(900px, calc(100vw - 80px));
   cursor: default;
   touch-action: none;
-  transform: translate3d(var(--play-book-x, 0), var(--play-book-y, 0), 0);
-  filter: drop-shadow(
-    0 var(--view-reveal-shadow-y, 14px) var(--view-reveal-shadow-blur, 30px)
-    rgb(47 34 20 / var(--view-reveal-shadow-alpha, 0.12))
-  );
+  transform:
+    translate3d(var(--play-book-x, 0), var(--play-book-y, 0), 0)
+    translateY(var(--play-book-lift))
+    rotate(var(--play-book-tilt))
+    scale(var(--play-book-scale));
+  transition: transform 330ms cubic-bezier(0.16, 1.16, 0.3, 1);
   will-change: transform;
+}
+
+.play-page__notebook .notebook-reader-object {
+  filter: drop-shadow(0 8px 9px rgb(50 39 27 / 0.14));
+  transition: filter 160ms ease, transform 760ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .play-page__notebook .css-flipbook-book,
@@ -47,10 +56,44 @@
   pointer-events: auto;
 }
 
+.play-page .sketchbook-realism.is-front-cover .css-flipbook-book:focus-visible {
+  outline: none;
+}
+
+.play-page .sketchbook-realism.is-front-cover .css-flipbook-book:focus-visible .notebook-page.is-photo-cover {
+  outline: 2px solid var(--folio-orange);
+  outline-offset: 4px;
+}
+
+.play-page .mobile-notebook-book:has(.notebook-page.is-photo-cover):focus-visible {
+  outline: none;
+}
+
+.play-page .mobile-notebook-book:has(.notebook-page.is-photo-cover):focus-visible .notebook-page.is-photo-cover {
+  outline: 2px solid var(--folio-orange);
+  outline-offset: 4px;
+}
+
+.play-page__notebook[data-dragging="true"] :is(.css-flipbook-book, .mobile-notebook-book):focus-visible,
+.play-page__notebook[data-dragging="true"] :is(.css-flipbook-book, .mobile-notebook-book):focus-visible .notebook-page.is-photo-cover {
+  outline: none;
+}
+
 .play-page__notebook[data-dragging="true"],
 .play-page__notebook[data-dragging="true"] .css-flipbook-book,
 .play-page__notebook[data-dragging="true"] .mobile-notebook-book,
 .play-page__notebook[data-dragging="true"] .notebook-page.is-photo-cover { cursor: grabbing; }
+
+.play-page__notebook[data-dragging="true"] {
+  --play-book-lift: -8px;
+  --play-book-scale: 1.014;
+  z-index: 3;
+  transition: none;
+}
+
+.play-page__notebook[data-dragging="true"] .notebook-reader-object {
+  filter: drop-shadow(0 17px 16px rgb(50 39 27 / 0.22));
+}
 
 .play-page__notebook[data-centering="true"] {
   pointer-events: none;
@@ -73,5 +116,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .play-page__notebook[data-centering="true"] { transition-duration: 0ms; }
+  .play-page__notebook.inline-notebook-reader {
+    transform: translate3d(var(--play-book-x, 0), var(--play-book-y, 0), 0);
+    transition-duration: 0ms;
+  }
 }
