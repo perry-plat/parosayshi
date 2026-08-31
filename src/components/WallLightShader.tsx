@@ -205,9 +205,12 @@ const fragmentShader = /* glsl */ `
     float definedSilhouette = smoothstep(0.085, 0.235, sharpenedDarkness);
     float projectedShadow = max(softSilhouette * 0.82, definedSilhouette);
 
-    // Let the silhouette land with slightly more optical density than the
-    // ambient wall while retaining the same underlying wall hue.
-    vec3 shadowedWall = wall * 0.955;
+    // Give the pale wall enough density to separate the silhouette from its
+    // new warmer ground while preserving the accepted night treatment.
+    float wallLuma = dot(wall, vec3(0.299, 0.587, 0.114));
+    float lightWallWeight = smoothstep(0.55, 0.85, wallLuma);
+    float shadowDensity = mix(0.955, 0.91, lightWallWeight);
+    vec3 shadowedWall = wall * shadowDensity;
     vec3 projectedSurface = mix(illuminatedSurface, shadowedWall, projectedShadow);
     vec3 color = mix(wall, projectedSurface, lightMask);
     float outsideGlow = lightHalo * (1.0 - lightMask);

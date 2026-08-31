@@ -173,6 +173,28 @@ body[data-wall-theme="night"] .spotlight-cursor__arrow {
     cursor: none !important;
   }
 
+  /* View-transition snapshots sit above the live cursor and otherwise restore
+     the OS pointer. Use the authored arrow as a tracked cursor for the brief
+     ripple, and keep the captured DOM cursor out of the snapshot. */
+  html[data-wall-theme-transition="true"] .spotlight-cursor__halo,
+  html[data-wall-theme-transition="true"] .spotlight-cursor__point {
+    opacity: 0 !important;
+  }
+
+  html[data-wall-theme-transition="true"],
+  html[data-wall-theme-transition="true"] *,
+  html[data-wall-theme-transition="true"]::view-transition-old(root),
+  html[data-wall-theme-transition="true"]::view-transition-new(root) {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23242321' stroke='white' stroke-opacity='.42' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 5 4, none !important;
+  }
+
+  html[data-wall-theme-transition-to="night"],
+  html[data-wall-theme-transition-to="night"] *,
+  html[data-wall-theme-transition-to="night"]::view-transition-old(root),
+  html[data-wall-theme-transition-to="night"]::view-transition-new(root) {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23f1f0ec' stroke='%23080b12' stroke-opacity='.62' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 5 4, none !important;
+  }
+
   body.spotlight-cursor-enabled input,
   body.spotlight-cursor-enabled textarea,
   body.spotlight-cursor-enabled [contenteditable="true"] { cursor: text !important; }

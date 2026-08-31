@@ -5,6 +5,7 @@ import { flushSync } from "react-dom";
 import type { ProjectId } from "../types/project";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 import { FolioSiteHeader } from "./FolioSiteHeader";
+import { ProjectMediaCarousel } from "./ProjectMediaCarousel";
 import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
 
@@ -22,8 +23,8 @@ const INTENT_DETAIL =
 
 // Keep the accepted final light study as the permanent wall treatment.
 const WALL_LIGHT_COLOR = "#fffdf5";
-const WALL_GLOW_COLOR = "#ead4a6";
-const WALL_COLOR = "#f7efe4";
+const WALL_GLOW_COLOR = "#ebc9c0";
+const WALL_COLOR = "#e9e5de";
 const WALL_NIGHT_COLOR = "#0b0f18";
 const WALL_NIGHT_LIGHT_COLOR = "#d9e2f4";
 const WALL_NIGHT_GLOW_COLOR = "#91a8d8";
@@ -434,40 +435,41 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
               </span>
               <span className="wall-folio__figma-body">
                 A{" "}
-                <SunlightPatchPill
-                  ariaControls="designer-explanation"
-                  ariaExpanded={designerExpanded}
-                  className="wall-folio__intent-trigger"
-                  inactive={designerExpanded}
-                  label="designer"
-                  onClick={() => setDesignerExpanded(true)}
-                />{" "}
+                {designerExpanded ? (
+                  <span>designer</span>
+                ) : (
+                  <SunlightPatchPill
+                    ariaControls="designer-explanation"
+                    ariaExpanded={false}
+                    className="wall-folio__intent-trigger"
+                    label="designer"
+                    onClick={() => setDesignerExpanded(true)}
+                  />
+                )}{" "}
                 who believes{" "}
-                <SunlightPatchPill
-                  ariaControls="intentmaxxing-explanation"
-                  ariaExpanded={intentExpanded}
-                  className="wall-folio__intent-trigger"
-                  inactive={intentExpanded}
-                  label="intentmaxxing"
-                  onClick={() => setIntentExpanded(true)}
-                />{" "}
+                {intentExpanded ? (
+                  <span>intentmaxxing</span>
+                ) : (
+                  <SunlightPatchPill
+                    ariaControls="intentmaxxing-explanation"
+                    ariaExpanded={false}
+                    className="wall-folio__intent-trigger"
+                    label="intentmaxxing"
+                    onClick={() => setIntentExpanded(true)}
+                  />
+                )}{" "}
                 is the way to move forward in the coming times.
               </span>
             </p>
             <AnimatePresence initial={false}>
               {intentExpanded ? (
                 <motion.p
-                  animate={{ clipPath: "inset(0 0 0% 0)", height: "auto", marginTop: "var(--intent-detail-gap)", opacity: 1 }}
+                  animate={{ filter: "blur(0px)", opacity: 1 }}
                   className="wall-folio__intent-detail"
-                  exit={{ clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  exit={{ filter: "blur(12px)", opacity: 0 }}
                   id="intentmaxxing-explanation"
-                  initial={reducedMotion ? false : { clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
-                  transition={reducedMotion ? { duration: 0 } : {
-                    clipPath: { delay: 0.12, duration: 1.5, ease: [0.22, 1, 0.36, 1] },
-                    height: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
-                    marginTop: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                    opacity: { duration: 0.2 },
-                  }}
+                  initial={reducedMotion ? false : { filter: "blur(12px)", opacity: 0 }}
+                  transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
                 >
                   As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience
                   <span className="wall-folio__dash-wrap">
@@ -492,17 +494,12 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
             <AnimatePresence initial={false}>
               {designerExpanded ? (
                 <motion.div
-                  animate={{ clipPath: "inset(0 0 0% 0)", height: "auto", marginTop: "var(--intent-detail-gap)", opacity: 1 }}
+                  animate={{ filter: "blur(0px)", opacity: 1 }}
                   className="wall-folio__intent-detail"
-                  exit={{ clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
+                  exit={{ filter: "blur(12px)", opacity: 0 }}
                   id="designer-explanation"
-                  initial={reducedMotion ? false : { clipPath: "inset(0 0 100% 0)", height: 0, marginTop: 0, opacity: 0 }}
-                  transition={reducedMotion ? { duration: 0 } : {
-                    clipPath: { delay: 0.18, duration: 1.5, ease: [0.22, 1, 0.36, 1] },
-                    height: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
-                    marginTop: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                    opacity: { duration: 0.2 },
-                  }}
+                  initial={reducedMotion ? false : { filter: "blur(12px)", opacity: 0 }}
+                  transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
                 >
                   <p>
                     I’ve spent the last <a className="wall-folio__experience-mark wall-folio__experience-link" href="#resume">3 years</a> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, with a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
@@ -539,15 +536,65 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                     role="img"
                   >
                     {columnIndex === 0 && projectIndex === 0 ? (
-                      <img
-                        alt=""
-                        draggable={false}
-                        src="/assets/invoice-folio/superr-project-placeholder-5.png?v=1"
+                      <ProjectMediaCarousel
+                        ariaLabel="Superr project media"
+                        autoAdvanceMs={2300}
+                        hoveredPhotoAdvanceMs={1800}
+                        media={[
+                          {
+                            alt: "Superr library interface",
+                            fit: "cover",
+                            kind: "image",
+                            src: "/assets/invoice-folio/superr-project-placeholder-5.png?v=1",
+                          },
+                          {
+                            ariaLabel: "Superr green interaction demonstration",
+                            fit: "cover",
+                            kind: "video",
+                            src: "/assets/invoice-folio/superr-green.mp4",
+                          },
+                          {
+                            alt: "Superr stretching canvas interface",
+                            fit: "cover",
+                            kind: "image",
+                            src: "/assets/invoice-folio/superr-stretching.png",
+                          },
+                          {
+                            alt: "Superr cookie consent banner",
+                            background: "#ffffff",
+                            fit: "contain",
+                            kind: "image",
+                            src: "/assets/invoice-folio/superr-cookie-banner.png",
+                          },
+                          {
+                            alt: "Profile icons designed for kids",
+                            background: "#faf4ec",
+                            fit: "contain",
+                            kind: "image",
+                            src: "/assets/invoice-folio/superr-profile-icons.png",
+                          },
+                          {
+                            alt: "Superr science crossword activity",
+                            fit: "cover",
+                            kind: "image",
+                            src: "/assets/invoice-folio/superr-crossword.png",
+                          },
+                        ]}
+                        reducedMotion={reducedMotion}
+                          size={{
+                            gap: 0,
+                            height: "calc(100% + 6px)",
+                            peek: 0,
+    width: "100%",
+  }}
+                        tileCount={6}
+                        transitionMs={0}
+                        visibleTiles={1}
                       />
                     ) : null}
                   </div>
-                  <h2>Project title</h2>
-                  <p>Tag</p>
+                  <h2>{columnIndex === 0 && projectIndex === 0 ? "Superr — making learning fun." : "Project title"}</h2>
+                  <p>{columnIndex === 0 && projectIndex === 0 ? "AI / EdTech / B2C" : "Tag"}</p>
                 </FolioScrollRevealArticle>
               ))}
             </div>
