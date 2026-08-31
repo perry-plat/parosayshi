@@ -8,7 +8,10 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-interface ContactBirdFlockProps { reducedMotion: boolean; }
+interface ContactBirdFlockProps {
+  reducedMotion: boolean;
+  theme: "day" | "night";
+}
 interface BirdPalette { normal: THREE.Color; }
 type BadgeKind = "linkedin" | "gmail" | "x";
 type GrowItem = {
@@ -21,6 +24,12 @@ const birdChirpSources = [
   "/assets/audio/indian-robin-call.mp3",
   "/assets/audio/house-sparrow-call.mp3",
   "/assets/audio/oriental-magpie-robin-call.mp3",
+];
+
+const nightBirdCallSources = [
+  "/assets/audio/owl-hoot-breviceps-cc0.mp3",
+  "/assets/audio/barred-owl-distant-cc0.mp3",
+  "/assets/audio/owl-hoot-anthousai-cc0.mp3",
 ];
 
 const palettes: BirdPalette[] = [
@@ -78,6 +87,34 @@ function createGrassTuft(scale = 1, color = 0x697b50) {
     if (object instanceof THREE.Mesh) { object.castShadow = true; object.receiveShadow = true; }
   });
   return tuft;
+}
+
+function createEyeGlowSprite() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = 64;
+  const context = canvas.getContext("2d");
+  if (context) {
+    const glow = context.createRadialGradient(32, 32, 3, 32, 32, 31);
+    glow.addColorStop(0, "rgba(126, 244, 255, 0.98)");
+    glow.addColorStop(0.32, "rgba(74, 222, 255, 0.58)");
+    glow.addColorStop(1, "rgba(28, 151, 255, 0)");
+    context.fillStyle = glow;
+    context.fillRect(0, 0, 64, 64);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const material = new THREE.SpriteMaterial({
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    map: texture,
+    opacity: 0.88,
+    transparent: true,
+  });
+  const sprite = new THREE.Sprite(material);
+  sprite.position.set(0, 1.2, 0.28);
+  sprite.scale.set(1.75, 1.15, 1);
+  return sprite;
 }
 
 function createRaisedBar(start: [number, number], end: [number, number], width: number, material: THREE.Material) {
@@ -193,6 +230,9 @@ function createEnamelBadge(kind: BadgeKind) {
 class Bird {
   bodyBird: THREE.Mesh<THREE.CylinderGeometry, THREE.MeshLambertMaterial>;
   bodyBirdInitialPositions: Float32Array;
+  eyeGlow: THREE.Sprite;
+  eyeGlowLight: THREE.PointLight;
+  eyeMaterial: THREE.MeshStandardMaterial;
   face = new THREE.Group();
   hAngle = 0;
   threegroup = new THREE.Group();
@@ -208,9 +248,15 @@ class Bird {
   wingLeft: THREE.Mesh;
   wingRight: THREE.Mesh;
 
-  constructor(palette: BirdPalette, badgeKind: BadgeKind) {
+  constructor(palette: BirdPalette, badgeKind: BadgeKind, night = false) {
     const birdMaterial = new THREE.MeshLambertMaterial({ color: palette.normal, flatShading: true });
-    const whiteMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
+    this.eyeMaterial = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0x000000,
+      emissiveIntensity: 0,
+      flatShading: true,
+      roughness: 0.7,
+    });
     const blackMaterial = new THREE.MeshLambertMaterial({ color: 0x171717, flatShading: true });
     const orangeMaterial = new THREE.MeshLambertMaterial({ color: 0xef6b36, flatShading: true });
 
@@ -236,18 +282,23 @@ class Bird {
 
     const eyeGeometry = new THREE.BoxGeometry(0.6, 0.6, 0.1);
     const irisGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-    this.leftEye = new THREE.Mesh(eyeGeometry, whiteMaterial);
+    this.leftEye = new THREE.Mesh(eyeGeometry, this.eyeMaterial);
     this.leftEye.position.set(-0.3, 1.2, 0.35);
     this.leftEye.rotation.y = -Math.PI / 4;
     this.leftIris = new THREE.Mesh(irisGeometry, blackMaterial);
     this.leftIris.position.set(-0.3, 1.2, 0.4);
     this.leftIris.rotation.y = -Math.PI / 4;
-    this.rightEye = new THREE.Mesh(eyeGeometry, whiteMaterial);
+    this.rightEye = new THREE.Mesh(eyeGeometry, this.eyeMaterial);
     this.rightEye.position.set(0.3, 1.2, 0.35);
     this.rightEye.rotation.y = Math.PI / 4;
     this.rightIris = new THREE.Mesh(irisGeometry, blackMaterial);
     this.rightIris.position.set(0.3, 1.2, 0.4);
     this.rightIris.rotation.y = Math.PI / 4;
+
+    this.eyeGlow = createEyeGlowSprite();
+    this.eyeGlowLight = new THREE.PointLight(0x45e4ff, 0.68, 1.9, 2);
+    this.eyeGlowLight.position.set(0, 1.2, 0.64);
+    this.face.add(this.eyeGlow, this.eyeGlowLight);
 
     this.beak = new THREE.Mesh(new THREE.CylinderGeometry(0, 0.2, 0.2, 4, 1), orangeMaterial);
     this.beak.position.set(0, 0.7, 0.65);
@@ -271,6 +322,16 @@ class Bird {
     this.threegroup.traverse((object) => {
       if (object instanceof THREE.Mesh) { object.castShadow = true; object.receiveShadow = true; }
     });
+    this.setNight(night);
+  }
+
+  setNight(night: boolean) {
+    this.eyeMaterial.color.setHex(night ? 0xc9faff : 0xffffff);
+    this.eyeMaterial.emissive.setHex(night ? 0x2bdcff : 0x000000);
+    this.eyeMaterial.emissiveIntensity = night ? 3.2 : 0;
+    this.eyeMaterial.needsUpdate = true;
+    this.eyeGlow.visible = night;
+    this.eyeGlowLight.visible = night;
   }
 
   flap(phase: number, strength: number) {
@@ -310,10 +371,13 @@ class Bird {
 
 }
 
-export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
+export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps) {
   const hostRef = useRef<HTMLDivElement>(null);
+  const applyThemeRef = useRef<(nextTheme: "day" | "night") => void>(() => undefined);
+  const themeRef = useRef(theme);
   const copyResetRef = useRef<number | null>(null);
   const chirpAudioRef = useRef<HTMLAudioElement[]>([]);
+  const nightCallAudioRef = useRef<HTMLAudioElement[]>([]);
   const lastChirpAtRef = useRef(0);
   const [emailCopied, setEmailCopied] = useState(false);
 
@@ -321,7 +385,8 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     const now = performance.now();
     if (now - lastChirpAtRef.current < 120) return;
     lastChirpAtRef.current = now;
-    const chirp = chirpAudioRef.current[variant];
+    const activeCalls = theme === "night" ? nightCallAudioRef.current : chirpAudioRef.current;
+    const chirp = activeCalls[variant];
     if (!chirp) return;
     chirp.currentTime = 0;
     void chirp.play().catch(() => undefined);
@@ -353,6 +418,12 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
       audio.volume = 0.32;
       return audio;
     });
+    nightCallAudioRef.current = nightBirdCallSources.map((source) => {
+      const audio = new Audio(source);
+      audio.preload = "auto";
+      audio.volume = 0.24;
+      return audio;
+    });
 
     return () => {
       if (copyResetRef.current !== null) window.clearTimeout(copyResetRef.current);
@@ -362,8 +433,19 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
         audio.load();
       });
       chirpAudioRef.current = [];
+      nightCallAudioRef.current.forEach((audio) => {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+      });
+      nightCallAudioRef.current = [];
     };
   }, []);
+
+  useEffect(() => {
+    themeRef.current = theme;
+    applyThemeRef.current(theme);
+  }, [theme]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -376,22 +458,57 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.domElement.setAttribute("aria-hidden", "true");
     host.prepend(renderer.domElement);
 
-    scene.add(new THREE.HemisphereLight(0xffffff, 0xffffff, 1.4));
+    const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1.4);
+    scene.add(hemisphereLight);
     const shadowLight = new THREE.DirectionalLight(0xffffff, 2.2);
-    shadowLight.position.set(2, 2, 2); shadowLight.castShadow = true; scene.add(shadowLight);
+    shadowLight.position.set(2, 2, 2);
+    shadowLight.castShadow = true;
+    shadowLight.shadow.mapSize.set(1024, 1024);
+    shadowLight.shadow.camera.left = -22;
+    shadowLight.shadow.camera.right = 22;
+    shadowLight.shadow.camera.top = 18;
+    shadowLight.shadow.camera.bottom = -18;
+    shadowLight.shadow.camera.near = 0.1;
+    shadowLight.shadow.camera.far = 50;
+    shadowLight.shadow.bias = -0.0008;
+    shadowLight.shadow.normalBias = 0.035;
+    shadowLight.shadow.camera.updateProjectionMatrix();
+    scene.add(shadowLight);
     const backLight = new THREE.DirectionalLight(0xffffff, 1.1);
     backLight.position.set(-1, 2, 0.5); scene.add(backLight);
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(18, 14), new THREE.ShadowMaterial({ color: 0x47392e, opacity: 0.18 }));
+    const floorMaterial = new THREE.ShadowMaterial({ color: 0x47392e, opacity: 0.18 });
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(44, 34), floorMaterial);
     floor.rotation.x = -Math.PI / 2; floor.position.y = -0.33; floor.receiveShadow = true; scene.add(floor);
 
     const bird1 = new Bird(palettes[1], "gmail"); bird1.threegroup.scale.setScalar(1.85); scene.add(bird1.threegroup);
     const bird2 = new Bird(palettes[0], "linkedin"); bird2.threegroup.position.set(-2.5, -0.08, 0); bird2.threegroup.scale.setScalar(1.5); scene.add(bird2.threegroup);
     const bird3 = new Bird(palettes[2], "x"); bird3.threegroup.position.set(2.5, -0.08, 0); bird3.threegroup.scale.setScalar(1.5); scene.add(bird3.threegroup);
+
+    applyThemeRef.current = (nextTheme) => {
+      const night = nextTheme === "night";
+      renderer.toneMappingExposure = night ? 0.92 : 1;
+      hemisphereLight.color.setHex(night ? 0xa9bce5 : 0xffffff);
+      hemisphereLight.groundColor.setHex(night ? 0x111827 : 0xffffff);
+      hemisphereLight.intensity = night ? 0.88 : 1.4;
+      shadowLight.color.setHex(night ? 0xd4e0ff : 0xffffff);
+      shadowLight.intensity = night ? 1.58 : 2.2;
+      backLight.color.setHex(night ? 0x7089ba : 0xffffff);
+      backLight.intensity = night ? 0.78 : 1.1;
+      floorMaterial.color.setHex(night ? 0x02040a : 0x47392e);
+      floorMaterial.opacity = night ? 0.34 : 0.18;
+      floorMaterial.needsUpdate = true;
+      bird1.setNight(night);
+      bird2.setNight(night);
+      bird3.setNight(night);
+      renderer.shadowMap.needsUpdate = true;
+    };
+    applyThemeRef.current(themeRef.current);
 
     const growItems: GrowItem[] = [];
     let growIndex = 0;
@@ -535,17 +652,6 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
         rotation: (index % 2 === 0 ? -1 : 1) * (0.12 + (index % 3) * 0.07),
         color: groveColors[index % groveColors.length],
       })),
-      ...Array.from({ length: 40 }, (_, index) => {
-        const sideIndex = index % 20;
-        const side = index < 20 ? -1 : 1;
-        return {
-          x: side * (7.72 + (sideIndex % 5) * 0.58 + Math.floor(sideIndex / 5) * 0.16),
-          z: -0.38 - Math.floor(sideIndex / 5) * 0.94 - (sideIndex % 2) * 0.34,
-          scale: 0.27 + (sideIndex % 5) * 0.065,
-          rotation: (sideIndex % 2 === 0 ? -1 : 1) * (0.14 + (sideIndex % 4) * 0.055),
-          color: groveColors[(index + 3) % groveColors.length],
-        };
-      }),
     ];
 
     additionalTrees.forEach(({ x, z, scale, rotation, color }) => {
@@ -679,22 +785,31 @@ export function ContactBirdFlock({ reducedMotion }: ContactBirdFlockProps) {
     render();
 
     return () => {
+      applyThemeRef.current = () => undefined;
       window.cancelAnimationFrame(frame); window.removeEventListener("pointermove", handlePointerMove); resizeObserver.disconnect(); entranceObserver?.disconnect();
-      scene.traverse((object) => { if (!(object instanceof THREE.Mesh)) return; object.geometry.dispose(); const materials = Array.isArray(object.material) ? object.material : [object.material]; materials.forEach((material) => { if ("map" in material && material.map instanceof THREE.Texture) material.map.dispose(); material.dispose(); }); });
+      scene.traverse((object) => {
+        if (object instanceof THREE.Mesh) object.geometry.dispose();
+        if (!(object instanceof THREE.Mesh) && !(object instanceof THREE.Sprite)) return;
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach((material) => {
+          if ("map" in material && material.map instanceof THREE.Texture) material.map.dispose();
+          material.dispose();
+        });
+      });
       renderer.dispose(); renderer.domElement.remove();
     };
   }, [reducedMotion]);
 
   return (
-    <div className="folio-contact__flock" ref={hostRef}>
+    <div className="folio-contact__flock" data-theme={theme} ref={hostRef}>
       <nav aria-label="Contact links" className="folio-contact__actions">
-        <a aria-label="View Parth Jha on LinkedIn" href="https://www.linkedin.com/in/parthjha03/" onPointerEnter={() => playChirp(0)} rel="noreferrer" target="_blank">
+        <a aria-label="View Parth Jha on LinkedIn" data-cursor-keep href="https://www.linkedin.com/in/parthjha03/" onPointerEnter={() => playChirp(0)} rel="noreferrer" target="_blank">
           <span className="folio-contact__pill">View LinkedIn</span>
         </a>
-        <button aria-label="Copy Parth's email address" onClick={copyEmail} onPointerEnter={() => playChirp(1)} type="button">
+        <button aria-label="Copy Parth's email address" data-cursor-keep onClick={copyEmail} onPointerEnter={() => playChirp(1)} type="button">
           <span className="folio-contact__pill">{emailCopied ? "Copied!" : "Copy email"}</span>
         </button>
-        <a aria-label="Follow Parosayshi on X" href="https://x.com/parosayshi" onPointerEnter={() => playChirp(2)} rel="noreferrer" target="_blank">
+        <a aria-label="Follow Parosayshi on X" data-cursor-keep href="https://x.com/parosayshi" onPointerEnter={() => playChirp(2)} rel="noreferrer" target="_blank">
           <span className="folio-contact__pill">Follow on X</span>
         </a>
       </nav>

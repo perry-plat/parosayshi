@@ -24,6 +24,7 @@ import {
 import { InvoiceFolioHome } from "./components/InvoiceFolioHome";
 import { PlayPage } from "./components/PlayPage";
 import { SunlightShader } from "./components/SunlightShader";
+import { SpotlightCursor } from "./components/SpotlightCursor";
 import { TableStickerLayer } from "./components/TableStickerLayer";
 import { EmbroideredFooter } from "./components/EmbroideredFooter";
 import { CaseStudyReader } from "./components/WizCommerceReader";
@@ -1195,11 +1196,17 @@ export default function App() {
   }, [closeInlineNotebook, inlineNotebookOpen]);
 
   if (playOpen) {
-    return <PlayPage onClose={closePlay} />;
+    return (
+      <>
+        <SpotlightCursor reducedMotion={Boolean(reducedMotion)} />
+        <PlayPage onClose={closePlay} />
+      </>
+    );
   }
 
   return (
     <LayoutGroup id="portfolio-books">
+      <SpotlightCursor reducedMotion={Boolean(reducedMotion)} />
       <main
         aria-hidden={slipState !== "closed" ? true : undefined}
         className={`folio-scene${projectViewMode === "archive" ? " archive-garden-scene" : ""}`}

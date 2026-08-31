@@ -1,12 +1,43 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 interface WallLightShaderProps {
   glowColor: string;
+  glowStrength: number;
   lightColor: string;
   reducedMotion: boolean;
+  wallColor: string;
 }
 
 type Rgb = [number, number, number];
+
+const WALL_THEME_TRANSITION_MS = 640;
+
+function cubicBezierCoordinate(t: number, firstControl: number, secondControl: number) {
+  const inverse = 1 - t;
+  return (3 * inverse * inverse * t * firstControl)
+    + (3 * inverse * t * t * secondControl)
+    + (t * t * t);
+}
+
+// Matches CSS cubic-bezier(0.22, 1, 0.36, 1) so the WebGL surface and wall
+// arrive at their day/night palettes together.
+function wallThemeEase(progress: number) {
+  if (progress <= 0) return 0;
+  if (progress >= 1) return 1;
+
+  let lower = 0;
+  let upper = 1;
+  let parameter = progress;
+
+  for (let iteration = 0; iteration < 10; iteration += 1) {
+    const x = cubicBezierCoordinate(parameter, 0.22, 0.36);
+    if (x < progress) lower = parameter;
+    else upper = parameter;
+    parameter = (lower + upper) / 2;
+  }
+
+  return cubicBezierCoordinate(parameter, 1, 1);
+}
 
 function hexToRgb(value: string): Rgb {
   const normalized = value.replace("#", "").trim();
@@ -43,6 +74,7 @@ const fragmentShader = /* glsl */ `
   uniform vec2 uLightSize;
   uniform vec2 uPointer;
   uniform vec3 uGlowColor;
+  uniform float uGlowStrength;
   uniform vec3 uLightColor;
   uniform vec3 uWallColor;
   uniform sampler2D uShadowMap;
@@ -111,7 +143,8 @@ const fragmentShader = /* glsl */ `
     float edgeDistance = sdRoundedBox(lightUv, vec2(0.96), 0.035) + edgeNoise;
     float lightMask = 1.0 - smoothstep(-0.008, 0.008, edgeDistance);
     float lightBloom = 1.0 - smoothstep(-0.34, 0.06, edgeDistance);
-    float lightHalo = 1.0 - smoothstep(0.0, 0.06, max(edgeDistance, 0.0));
+    float haloWidth = mix(0.06, 0.105, clamp((uGlowStrength - 1.0) / 3.6, 0.0, 1.0));
+    float lightHalo = 1.0 - smoothstep(0.0, haloWidth, max(edgeDistance, 0.0));
 
     float exposureCloud = fbm(lightUv * 1.35 + vec2(4.3, 1.7));
     float exposure = mix(0.92, 1.0, exposureCloud);
@@ -178,23 +211,27 @@ const fragmentShader = /* glsl */ `
     vec3 projectedSurface = mix(illuminatedSurface, shadowedWall, projectedShadow);
     vec3 color = mix(wall, projectedSurface, lightMask);
     float outsideGlow = lightHalo * (1.0 - lightMask);
-    color += outsideGlow * uGlowColor * 0.018;
+    color += outsideGlow * uGlowColor * 0.018 * uGlowStrength;
 
     gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
   }
 `;
 
-export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLightShaderProps) {
+export function WallLightShader({ glowColor, glowStrength, lightColor, reducedMotion, wallColor }: WallLightShaderProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const glowColorRef = useRef<Rgb>(hexToRgb(glowColor));
+  const glowStrengthRef = useRef(glowStrength);
   const lightColorRef = useRef<Rgb>(hexToRgb(lightColor));
+  const wallColorRef = useRef<Rgb>(hexToRgb(wallColor));
   const renderNowRef = useRef<() => void>(() => undefined);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     glowColorRef.current = hexToRgb(glowColor);
+    glowStrengthRef.current = glowStrength;
     lightColorRef.current = hexToRgb(lightColor);
+    wallColorRef.current = hexToRgb(wallColor);
     renderNowRef.current();
-  }, [glowColor, lightColor]);
+  }, [glowColor, glowStrength, lightColor, wallColor]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -281,6 +318,7 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
     const lightSize = gl.getUniformLocation(program, "uLightSize");
     const pointer = gl.getUniformLocation(program, "uPointer");
     const glowColorUniform = gl.getUniformLocation(program, "uGlowColor");
+    const glowStrengthUniform = gl.getUniformLocation(program, "uGlowStrength");
     const lightColorUniform = gl.getUniformLocation(program, "uLightColor");
     const wallColorUniform = gl.getUniformLocation(program, "uWallColor");
     const shadowMap = gl.getUniformLocation(program, "uShadowMap");
@@ -307,8 +345,14 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
     const pointerTarget = { x: 0.5, y: 0.5 };
     const pointerCurrent = { x: 0.5, y: 0.5 };
     const currentGlowColor = [...glowColorRef.current] as Rgb;
+    let currentGlowStrength = glowStrengthRef.current;
     const currentLightColor = [...lightColorRef.current] as Rgb;
-    let currentWallColor: Rgb = [0.914, 0.898, 0.871];
+    const currentWallColor = [...wallColorRef.current] as Rgb;
+    const transitionGlowColor = [...currentGlowColor] as Rgb;
+    let transitionGlowStrength = currentGlowStrength;
+    const transitionLightColor = [...currentLightColor] as Rgb;
+    const transitionWallColor = [...currentWallColor] as Rgb;
+    let paletteTransitionStartedAt = performance.now() - WALL_THEME_TRANSITION_MS;
     const startedAt = performance.now();
     let frame = 0;
     let disposed = false;
@@ -325,6 +369,7 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
       gl.uniform2f(lightSize, lightHalfWidth, lightHalfHeight);
       gl.uniform2f(pointer, pointerCurrent.x, pointerCurrent.y);
       gl.uniform3fv(glowColorUniform, currentGlowColor);
+      gl.uniform1f(glowStrengthUniform, currentGlowStrength);
       gl.uniform3fv(lightColorUniform, currentLightColor);
       gl.uniform3fv(wallColorUniform, currentWallColor);
       gl.activeTexture(gl.TEXTURE0);
@@ -332,9 +377,19 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     renderNowRef.current = () => {
-      if (reducedMotion) {
+      transitionGlowColor.splice(0, 3, ...currentGlowColor);
+      transitionGlowStrength = currentGlowStrength;
+      transitionLightColor.splice(0, 3, ...currentLightColor);
+      transitionWallColor.splice(0, 3, ...currentWallColor);
+      paletteTransitionStartedAt = performance.now();
+
+      const rippleTransitionActive = document.documentElement.dataset.wallThemeTransition === "true";
+      if (reducedMotion || rippleTransitionActive) {
         currentGlowColor.splice(0, 3, ...glowColorRef.current);
+        currentGlowStrength = glowStrengthRef.current;
         currentLightColor.splice(0, 3, ...lightColorRef.current);
+        currentWallColor.splice(0, 3, ...wallColorRef.current);
+        paletteTransitionStartedAt = performance.now() - WALL_THEME_TRANSITION_MS;
       }
       render(reducedMotion ? 18 : (performance.now() - startedAt) / 1000);
     };
@@ -377,7 +432,6 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
       viewAspect = width / height;
 
       const styles = window.getComputedStyle(host);
-      currentWallColor = hexToRgb(styles.getPropertyValue("--wall-color") || "#e9e5de");
       const apertureWidth = Number.parseFloat(styles.getPropertyValue("--wall-window-width")) || 296;
       const apertureHeight = Number.parseFloat(styles.getPropertyValue("--wall-window-height")) || 413;
       const softEdgeScale = 0.96;
@@ -395,10 +449,18 @@ export function WallLightShader({ glowColor, lightColor, reducedMotion }: WallLi
     const animate = (now: number) => {
       pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * 0.018;
       pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * 0.018;
+      const paletteProgress = Math.min(1, Math.max(0, (now - paletteTransitionStartedAt) / WALL_THEME_TRANSITION_MS));
+      const easedPaletteProgress = wallThemeEase(paletteProgress);
       for (let channel = 0; channel < 3; channel += 1) {
-        currentGlowColor[channel] += (glowColorRef.current[channel] - currentGlowColor[channel]) * 0.055;
-        currentLightColor[channel] += (lightColorRef.current[channel] - currentLightColor[channel]) * 0.055;
+        currentGlowColor[channel] = transitionGlowColor[channel]
+          + ((glowColorRef.current[channel] - transitionGlowColor[channel]) * easedPaletteProgress);
+        currentLightColor[channel] = transitionLightColor[channel]
+          + ((lightColorRef.current[channel] - transitionLightColor[channel]) * easedPaletteProgress);
+        currentWallColor[channel] = transitionWallColor[channel]
+          + ((wallColorRef.current[channel] - transitionWallColor[channel]) * easedPaletteProgress);
       }
+      currentGlowStrength = transitionGlowStrength
+        + ((glowStrengthRef.current - transitionGlowStrength) * easedPaletteProgress);
       render((now - startedAt) / 1000);
       frame = window.requestAnimationFrame(animate);
     };

@@ -36,11 +36,9 @@ export function FolioSiteHeader({
   };
 
   return (
-    <header className="folio-site-header" data-open={menuOpen ? "true" : "false"}>
-      <div className="folio-site-header__top">
-        <div aria-label="Artwork placeholder" className="folio-site-header__artwork" role="img">
-          <span>Artwork / TBD</span>
-        </div>
+    <header className="folio-site-header" data-cursor-keep data-open={menuOpen ? "true" : "false"}>
+      <div aria-label="Parosayshi menu artwork" className="folio-site-header__artwork" data-node-id="134:1456" role="img">
+        <img alt="" src="/assets/invoice-folio/menu-slip-artwork.svg" />
       </div>
       <button
         aria-controls="folio-paper-menu"
@@ -50,7 +48,7 @@ export function FolioSiteHeader({
         onClick={() => setMenuOpen((open) => !open)}
         type="button"
       >
-        <span>{menuOpen ? "Close" : "Menu"}</span>
+        <span>Menu</span>
       </button>
       <nav aria-label="Primary navigation" className="folio-site-header__nav" id="folio-paper-menu">
         <a href="#home" onClick={(event) => openFolioSection(event, "#home")}><span>Home</span></a>

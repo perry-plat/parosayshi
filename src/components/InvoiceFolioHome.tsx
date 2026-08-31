@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, type Variants, useScroll, useSpring, useTransform } from "motion/react";
 import { IconChevronDown, IconDownload } from "@tabler/icons-react";
 import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import type { ProjectId } from "../types/project";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 import { FolioSiteHeader } from "./FolioSiteHeader";
@@ -22,6 +23,11 @@ const INTENT_DETAIL =
 // Keep the accepted final light study as the permanent wall treatment.
 const WALL_LIGHT_COLOR = "#fffdf5";
 const WALL_GLOW_COLOR = "#ead4a6";
+const WALL_COLOR = "#f7efe4";
+const WALL_NIGHT_COLOR = "#0b0f18";
+const WALL_NIGHT_LIGHT_COLOR = "#d9e2f4";
+const WALL_NIGHT_GLOW_COLOR = "#91a8d8";
+const WALL_THEME_STORAGE_KEY = "parosayshi:wall-theme:v1";
 const FOLIO_ENTRANCE_SESSION_KEY = "parosayshi:folio-entrance:v1";
 const FOLIO_SCROLL_REVEAL_SPRING = {
   damping: 60,
@@ -34,6 +40,61 @@ const SHADOW_NOTES = [
   "Vibing is part of the process",
 ] as const;
 const SHADOW_NOTE_HOLD_TIMES = [8200, 11300, 9400] as const;
+
+type WallTheme = "day" | "night";
+
+const WALL_THEME_PALETTES = {
+  day: {
+    glow: WALL_GLOW_COLOR,
+    light: WALL_LIGHT_COLOR,
+    wall: WALL_COLOR,
+  },
+  night: {
+    glow: WALL_NIGHT_GLOW_COLOR,
+    light: WALL_NIGHT_LIGHT_COLOR,
+    wall: WALL_NIGHT_COLOR,
+  },
+} as const;
+
+const WALL_THEME_TIME_FORMATTER = new Intl.DateTimeFormat("en-IN", {
+  hour: "2-digit",
+  hourCycle: "h23",
+  minute: "2-digit",
+  timeZone: "Asia/Kolkata",
+});
+
+function getInitialWallTheme(): WallTheme {
+  if (typeof window === "undefined") return "day";
+  try {
+    const storedTheme = window.localStorage.getItem(WALL_THEME_STORAGE_KEY);
+    if (storedTheme === "day" || storedTheme === "night") return storedTheme;
+  } catch {
+    // Time-aware fallback still works when persistence is unavailable.
+  }
+
+  const hourPart = WALL_THEME_TIME_FORMATTER
+    .formatToParts(new Date())
+    .find(({ type }) => type === "hour")?.value;
+  const hour = Number(hourPart ?? 12);
+  return hour >= 19 || hour < 7 ? "night" : "day";
+}
+
+function WallThemeControl({ onToggle, theme }: { onToggle: () => void; theme: WallTheme }) {
+  return (
+    <button
+      aria-label={`Switch to ${theme === "night" ? "day" : "night"} mode`}
+      aria-pressed={theme === "night"}
+      className="folio-wall-theme"
+      data-theme={theme}
+      onClick={onToggle}
+      type="button"
+    >
+      <span aria-hidden="true" className="folio-wall-theme__track">
+        <span className="folio-wall-theme__thumb" />
+      </span>
+    </button>
+  );
+}
 const SHADOW_NOTE_VARIANTS: Variants = {
   exit: {
     filter: "blur(3.2px)",
@@ -179,6 +240,7 @@ function LiveIndiaWatch() {
 }
 
 export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHomeProps) {
+  const [wallTheme, setWallTheme] = useState<WallTheme>(getInitialWallTheme);
   const [entranceActive, setEntranceActive] = useState(() => shouldPlayFolioEntrance(reducedMotion));
   const [intentExpanded, setIntentExpanded] = useState(false);
   const [designerExpanded, setDesignerExpanded] = useState(false);
@@ -189,10 +251,25 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   const [shadowNoteIndex, setShadowNoteIndex] = useState(0);
   const emDashNoteTimerRef = useRef<number | undefined>(undefined);
   const experienceReceiptContentRef = useRef<HTMLDivElement>(null);
+  const heroIntroBaselineHeightRef = useRef<number | null>(null);
+  const heroIntroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const promptNudgeDelayRef = useRef(entranceActive ? 1120 : 520);
   const experienceReveal = useFolioScrollReveal<HTMLDivElement>(reducedMotion);
   const contactReveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
-  const footerReveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
+  const wallPalette = WALL_THEME_PALETTES[wallTheme];
+
+  useEffect(() => {
+    document.body.dataset.wallTheme = wallTheme;
+    try {
+      window.localStorage.setItem(WALL_THEME_STORAGE_KEY, wallTheme);
+    } catch {
+      // Theme changes remain available without persistence.
+    }
+    return () => {
+      delete document.body.dataset.wallTheme;
+    };
+  }, [wallTheme]);
 
   useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
 
@@ -229,6 +306,30 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
     return () => observer.disconnect();
   }, []);
 
+  useLayoutEffect(() => {
+    const hero = heroRef.current;
+    const intro = heroIntroRef.current;
+    if (!hero || !intro) return undefined;
+
+    const syncHeroExpansionSpace = () => {
+      const introHeight = intro.getBoundingClientRect().height;
+      if (!intentExpanded && !designerExpanded) {
+        heroIntroBaselineHeightRef.current = introHeight;
+        hero.style.setProperty("--wall-hero-expansion-offset", "0px");
+        return;
+      }
+
+      const baselineHeight = heroIntroBaselineHeightRef.current ?? introHeight;
+      const expansionOffset = Math.max(0, introHeight - baselineHeight);
+      hero.style.setProperty("--wall-hero-expansion-offset", `${expansionOffset}px`);
+    };
+
+    const observer = new ResizeObserver(syncHeroExpansionSpace);
+    observer.observe(intro);
+    syncHeroExpansionSpace();
+    return () => observer.disconnect();
+  }, [designerExpanded, intentExpanded]);
+
   useEffect(() => {
     if (!entranceActive) return undefined;
 
@@ -248,14 +349,41 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
     emDashNoteTimerRef.current = window.setTimeout(() => setEmDashNoteVisible(false), 1800);
   };
 
+  const toggleWallTheme = () => {
+    const nextTheme: WallTheme = wallTheme === "night" ? "day" : "night";
+    const applyTheme = () => {
+      setWallTheme(nextTheme);
+    };
+    if (reducedMotion || typeof document.startViewTransition !== "function") {
+      applyTheme();
+      return;
+    }
+
+    document.documentElement.dataset.wallThemeTransition = "true";
+    document.documentElement.dataset.wallThemeTransitionTo = nextTheme;
+    const transition = document.startViewTransition(() => {
+      flushSync(applyTheme);
+    });
+    const clearTransitionState = () => {
+      delete document.documentElement.dataset.wallThemeTransition;
+      delete document.documentElement.dataset.wallThemeTransitionTo;
+    };
+    void transition.finished.then(clearTransitionState, clearTransitionState);
+  };
+
   return (
     <main
       className="invoice-folio invoice-folio--wall"
       data-entrance={entranceActive && !reducedMotion ? "true" : "false"}
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
+      data-wall-theme={wallTheme}
     >
       <FolioSiteHeader onOpenPlay={onOpenPlay} />
+      <WallThemeControl
+        onToggle={toggleWallTheme}
+        theme={wallTheme}
+      />
 
       <section
         aria-label="Parosayshi introduction"
@@ -263,9 +391,16 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         data-designer-expanded={designerExpanded ? "true" : "false"}
         data-intent-expanded={intentExpanded ? "true" : "false"}
         id="home"
+        ref={heroRef}
       >
         <div className="wall-folio__hero-composition">
-          <WallLightShader glowColor={WALL_GLOW_COLOR} lightColor={WALL_LIGHT_COLOR} reducedMotion={reducedMotion} />
+          <WallLightShader
+            glowColor={wallPalette.glow}
+            glowStrength={wallTheme === "night" ? 4.6 : 1}
+            lightColor={wallPalette.light}
+            reducedMotion={reducedMotion}
+            wallColor={wallPalette.wall}
+          />
           <div aria-hidden="true" className="wall-folio__grain" />
           <p
             aria-label={SHADOW_NOTES.join(". ")}
@@ -288,6 +423,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
           <div
             className="wall-folio__figma-intro"
             data-node-id="73:1458"
+            ref={heroIntroRef}
           >
             <p>
               <span className="wall-folio__figma-heading">
@@ -346,7 +482,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                       —
                     </button>
                     <span className="wall-folio__dash-note" id="human-em-dash-note" role="note">
-                      human generated em-dash
+                      human generated em dash
                     </span>
                   </span>
                   one that can delight, inspire, or simply make someone feel considered.
@@ -369,7 +505,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                   }}
                 >
                   <p>
-                    I’ve spent the last <mark className="wall-folio__experience-mark">3 years</mark> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, with a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
+                    I’ve spent the last <a className="wall-folio__experience-mark wall-folio__experience-link" href="#resume">3 years</a> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, with a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
                   </p>
                   <p className="wall-folio__designer-recent">
                     Lately, AI-led frontend development has become my current rabbit hole, while design systems keep me thinking about how things scale—and I’m increasingly bullish on product thinking.
@@ -398,10 +534,18 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                   reducedMotion={reducedMotion}
                 >
                   <div
-                    aria-label="Project media placeholder"
-                    className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}`}
+                    aria-label={columnIndex === 0 && projectIndex === 0 ? "Superr project preview" : "Project media placeholder"}
+                    className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}${columnIndex === 0 && projectIndex === 0 ? " folio-project-placeholder__media--feature" : ""}`}
                     role="img"
-                  />
+                  >
+                    {columnIndex === 0 && projectIndex === 0 ? (
+                      <img
+                        alt=""
+                        draggable={false}
+                        src="/assets/invoice-folio/superr-project-placeholder-5.png?v=1"
+                      />
+                    ) : null}
+                  </div>
                   <h2>Project title</h2>
                   <p>Tag</p>
                 </FolioScrollRevealArticle>
@@ -514,18 +658,8 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         ref={contactReveal.ref}
         style={contactReveal.style}
       >
-        <ContactBirdFlock reducedMotion={reducedMotion} />
+        <ContactBirdFlock reducedMotion={reducedMotion} theme={wallTheme} />
       </motion.section>
-
-      <motion.footer className="folio-footer" ref={footerReveal.ref} style={footerReveal.style}>
-        <time className="folio-footer__updated" dateTime="2026-08-28">
-          Last updated · 28 Aug 2026
-        </time>
-        <p className="folio-footer__credit">
-          by <a href="https://x.com/parosayshi" rel="noreferrer" target="_blank">parosayshi</a>
-        </p>
-      </motion.footer>
-
     </main>
   );
 }
