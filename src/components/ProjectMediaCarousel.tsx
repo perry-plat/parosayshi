@@ -45,6 +45,7 @@ export interface ProjectMediaCarouselProps {
   size?: ProjectMediaCarouselSize;
   tileCount?: number;
   transitionMs?: number;
+  videoAdvanceMs?: number;
   visibleTiles?: number;
 }
 
@@ -63,13 +64,14 @@ function buildTiles(media: readonly ProjectCarouselMedia[], tileCount?: number) 
 
 export function ProjectMediaCarousel({
   ariaLabel,
-  autoAdvanceMs = 3200,
+  autoAdvanceMs = 700,
   hoveredPhotoAdvanceMs = 1800,
   media,
   reducedMotion = false,
   size,
   tileCount,
   transitionMs = 800,
+  videoAdvanceMs = 1000,
   visibleTiles = 1,
 }: ProjectMediaCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -123,10 +125,14 @@ export function ProjectMediaCarousel({
     if (tiles.length < 2 || reducedMotion || !inView || !pageVisible || resetting) return undefined;
     if (hovered && activeMedia?.kind === "video") return undefined;
 
-    const delay = hovered ? hoveredPhotoAdvanceMs : autoAdvanceMs;
+    const delay = hovered
+      ? hoveredPhotoAdvanceMs
+      : activeMedia?.kind === "video"
+        ? videoAdvanceMs
+        : autoAdvanceMs;
     const timer = window.setTimeout(() => setActiveIndex((index) => index + 1), delay);
     return () => window.clearTimeout(timer);
-  }, [activeIndex, activeMedia?.kind, autoAdvanceMs, hovered, hoveredPhotoAdvanceMs, inView, pageVisible, reducedMotion, resetting, tiles.length]);
+  }, [activeIndex, activeMedia?.kind, autoAdvanceMs, hovered, hoveredPhotoAdvanceMs, inView, pageVisible, reducedMotion, resetting, tiles.length, videoAdvanceMs]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -222,7 +228,7 @@ export function ProjectMediaCarousel({
                   <video
                     aria-label={item.ariaLabel}
                     data-carousel-index={index}
-                    loop={!hovered}
+                    loop={tiles.length < 2 || !hovered}
                     muted
                     onEnded={() => {
                       if (hovered && index === activeIndex) goNext();

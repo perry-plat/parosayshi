@@ -532,13 +532,13 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                 >
                   <div
                     aria-label={columnIndex === 0 && projectIndex === 0 ? "Superr project preview" : "Project media placeholder"}
-                    className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}${columnIndex === 0 && projectIndex === 0 ? " folio-project-placeholder__media--feature" : ""}`}
+                    className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}${columnIndex === 0 && projectIndex === 0 ? " folio-project-placeholder__media--feature" : ""}${columnIndex === 0 && projectIndex === 1 ? " folio-project-placeholder__media--horizontal" : ""}`}
                     role="img"
                   >
                     {columnIndex === 0 && projectIndex === 0 ? (
                       <ProjectMediaCarousel
                         ariaLabel="Superr project media"
-                        autoAdvanceMs={2300}
+                        autoAdvanceMs={700}
                         hoveredPhotoAdvanceMs={1800}
                         media={[
                           {
@@ -589,12 +589,47 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   }}
                         tileCount={6}
                         transitionMs={0}
+                        videoAdvanceMs={1000}
+                        visibleTiles={1}
+                      />
+                    ) : columnIndex === 0 && projectIndex === 1 ? (
+                      <ProjectMediaCarousel
+                        ariaLabel="Second project media"
+                        media={[
+                          {
+                            ariaLabel: "Second project interaction demonstration",
+                            background: "#11191b",
+                            fit: "contain",
+                            kind: "video",
+                            src: "/assets/invoice-folio/project-two-preview.mp4",
+                          },
+                        ]}
+                        reducedMotion={reducedMotion}
+                        size={{
+                          gap: 0,
+                          height: "100%",
+                          peek: 0,
+                          width: "100%",
+                        }}
+                        transitionMs={0}
                         visibleTiles={1}
                       />
                     ) : null}
                   </div>
-                  <h2>{columnIndex === 0 && projectIndex === 0 ? "Superr — making learning fun." : "Project title"}</h2>
-                  <p>{columnIndex === 0 && projectIndex === 0 ? "AI / EdTech / B2C" : "Tag"}</p>
+                  <h2>
+                    {columnIndex === 0 && projectIndex === 0
+                      ? "Superr — making learning fun."
+                      : columnIndex === 0 && projectIndex === 1
+                        ? "journal-desk"
+                        : "Project title"}
+                  </h2>
+                  <p>
+                    {columnIndex === 0 && projectIndex === 0
+                      ? "AI / EdTech / B2C"
+                      : columnIndex === 0 && projectIndex === 1
+                        ? "personal / productivity"
+                        : "Tag"}
+                  </p>
                 </FolioScrollRevealArticle>
               ))}
             </div>
