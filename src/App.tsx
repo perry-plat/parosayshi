@@ -1223,9 +1223,6 @@ export default function App() {
           <>
             <InvoiceFolioHome
               onOpenPlay={openPlay}
-              onOpenProject={(id, trigger) => {
-                if (trigger.dataset.project === id) openDeskObject(trigger);
-              }}
               reducedMotion={Boolean(reducedMotion)}
             />
             {inlineNotebookOpen ? (

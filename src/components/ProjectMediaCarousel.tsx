@@ -1,4 +1,7 @@
 import { motion } from "motion/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import ArrowLeft01Icon from "@hugeicons/core-free-icons/ArrowLeft01Icon";
+import ArrowRight01Icon from "@hugeicons/core-free-icons/ArrowRight01Icon";
 import {
   type CSSProperties,
   useEffect,
@@ -42,6 +45,7 @@ export interface ProjectMediaCarouselProps {
   hoveredPhotoAdvanceMs?: number;
   media: readonly ProjectCarouselMedia[];
   reducedMotion?: boolean;
+  showControls?: boolean;
   size?: ProjectMediaCarouselSize;
   tileCount?: number;
   transitionMs?: number;
@@ -68,6 +72,7 @@ export function ProjectMediaCarousel({
   hoveredPhotoAdvanceMs = 1800,
   media,
   reducedMotion = false,
+  showControls = true,
   size,
   tileCount,
   transitionMs = 800,
@@ -235,7 +240,7 @@ export function ProjectMediaCarousel({
                     }}
                     playsInline
                     poster={item.poster}
-                    preload="metadata"
+                    preload="auto"
                     src={item.src}
                     style={{ objectFit: item.fit, objectPosition: item.position }}
                   />
@@ -245,20 +250,16 @@ export function ProjectMediaCarousel({
           })}
         </motion.div>
       </div>
-      {tiles.length > 1 ? (
+      {showControls && tiles.length > 1 ? (
         <div aria-label="Choose project media" className="project-media-carousel__controls" data-cursor-keep role="group">
           <button aria-label="Show previous project media" data-cursor-keep onClick={goPrevious} type="button">
-            <svg aria-hidden="true" fill="none" viewBox="0 0 32 32">
-              <path d="M21 6 10 16l11 10" />
-            </svg>
+            <HugeiconsIcon aria-hidden="true" icon={ArrowLeft01Icon} size={18} strokeWidth={1.8} />
           </button>
           <span aria-label={`Artifact ${logicalIndex + 1} of ${tiles.length}`} className="project-media-carousel__count">
             {String(logicalIndex + 1).padStart(2, "0")} / {String(tiles.length).padStart(2, "0")}
           </span>
           <button aria-label="Show next project media" data-cursor-keep onClick={goNext} type="button">
-            <svg aria-hidden="true" fill="none" viewBox="0 0 32 32">
-              <path d="m11 6 11 10-11 10" />
-            </svg>
+            <HugeiconsIcon aria-hidden="true" icon={ArrowRight01Icon} size={18} strokeWidth={1.8} />
           </button>
         </div>
       ) : null}

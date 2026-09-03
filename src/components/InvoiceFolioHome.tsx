@@ -1,16 +1,19 @@
-import { AnimatePresence, motion, type Variants, useScroll, useSpring, useTransform } from "motion/react";
-import { IconChevronDown, IconDownload } from "@tabler/icons-react";
-import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { flushSync } from "react-dom";
-import type { ProjectId } from "../types/project";
+import { AnimatePresence, motion, type Variants } from "motion/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import ArrowDown01Icon from "@hugeicons/core-free-icons/ArrowDown01Icon";
+import Download04Icon from "@hugeicons/core-free-icons/Download04Icon";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal, flushSync } from "react-dom";
+import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
 import { ContactBirdFlock } from "./ContactBirdFlock";
+import { FolioBentoCard } from "./FolioBentoCard";
+import { FolioProjectViewer } from "./FolioProjectViewer";
 import { FolioSiteHeader } from "./FolioSiteHeader";
-import { ProjectMediaCarousel } from "./ProjectMediaCarousel";
+import { PaperSurface } from "./PaperSurface";
 import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
 
 interface InvoiceFolioHomeProps {
-  onOpenProject: (id: ProjectId, trigger: HTMLElement) => void;
   onOpenPlay: () => void;
   reducedMotion: boolean;
 }
@@ -18,23 +21,10 @@ interface InvoiceFolioHomeProps {
 const RESUME_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072";
 
-const INTENT_DETAIL =
-  "As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience—one that can delight, inspire, or simply make someone feel considered.";
-
-// Keep the accepted final light study as the permanent wall treatment.
-const WALL_LIGHT_COLOR = "#fffdf5";
-const WALL_GLOW_COLOR = "#ebc9c0";
-const WALL_COLOR = "#e9e5de";
-const WALL_NIGHT_COLOR = "#0b0f18";
-const WALL_NIGHT_LIGHT_COLOR = "#d9e2f4";
-const WALL_NIGHT_GLOW_COLOR = "#91a8d8";
 const WALL_THEME_STORAGE_KEY = "parosayshi:wall-theme:v1";
-const FOLIO_ENTRANCE_SESSION_KEY = "parosayshi:folio-entrance:v1";
-const FOLIO_SCROLL_REVEAL_SPRING = {
-  damping: 60,
-  mass: 1,
-  stiffness: 600,
-};
+// Temporary launch setting: retain the complete theme implementation, but do
+// not expose or initialize dark mode until it is intentionally revisited.
+const DARK_MODE_ENABLED = false;
 const SHADOW_NOTES = [
   "Paro says hi",
   "Currently intentmaxxing",
@@ -43,19 +33,6 @@ const SHADOW_NOTES = [
 const SHADOW_NOTE_HOLD_TIMES = [8200, 11300, 9400] as const;
 
 type WallTheme = "day" | "night";
-
-const WALL_THEME_PALETTES = {
-  day: {
-    glow: WALL_GLOW_COLOR,
-    light: WALL_LIGHT_COLOR,
-    wall: WALL_COLOR,
-  },
-  night: {
-    glow: WALL_NIGHT_GLOW_COLOR,
-    light: WALL_NIGHT_LIGHT_COLOR,
-    wall: WALL_NIGHT_COLOR,
-  },
-} as const;
 
 const WALL_THEME_TIME_FORMATTER = new Intl.DateTimeFormat("en-IN", {
   hour: "2-digit",
@@ -110,62 +87,11 @@ const SHADOW_NOTE_VARIANTS: Variants = {
   },
 };
 
-function shouldPlayFolioEntrance(reducedMotion: boolean) {
-  if (reducedMotion || typeof window === "undefined") return false;
-
-  try {
-    return window.sessionStorage.getItem(FOLIO_ENTRANCE_SESSION_KEY) !== "seen";
-  } catch {
-    return true;
-  }
+function getFolioProjectIdFromUrl(): FolioProjectId | null {
+  if (typeof window === "undefined") return null;
+  const projectId = new URL(window.location.href).searchParams.get("project");
+  return folioProjectOrder.find((candidate) => candidate === projectId) ?? null;
 }
-
-function useFolioScrollReveal<T extends HTMLElement>(reducedMotion: boolean) {
-  const ref = useRef<T>(null);
-  const { scrollYProgress } = useScroll({
-    offset: ["start end", "end end"],
-    target: ref,
-  });
-  const progress = useSpring(scrollYProgress, FOLIO_SCROLL_REVEAL_SPRING);
-  const opacity = useTransform(progress, [0, 1], [0.5, 1]);
-  const y = useTransform(progress, [0, 1], [56, 0]);
-
-  return {
-    ref,
-    style: reducedMotion ? undefined : { opacity, y },
-  };
-}
-
-function FolioScrollRevealArticle({
-  children,
-  className,
-  reducedMotion,
-}: {
-  children: ReactNode;
-  className: string;
-  reducedMotion: boolean;
-}) {
-  const reveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
-
-  return (
-    <motion.article className={className} ref={reveal.ref} style={reveal.style}>
-      {children}
-    </motion.article>
-  );
-}
-
-const projectPlaceholderColumns = [
-  [
-    { ratio: "landscape", tone: "warm" },
-    { ratio: "square", tone: "charcoal" },
-    { ratio: "landscape", tone: "sage" },
-  ],
-  [
-    { ratio: "square", tone: "cobalt" },
-    { ratio: "landscape", tone: "paper" },
-    { ratio: "square", tone: "clay" },
-  ],
-] as const;
 
 const experienceItems = [
   {
@@ -241,8 +167,9 @@ function LiveIndiaWatch() {
 }
 
 export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHomeProps) {
-  const [wallTheme, setWallTheme] = useState<WallTheme>(getInitialWallTheme);
-  const [entranceActive, setEntranceActive] = useState(() => shouldPlayFolioEntrance(reducedMotion));
+  const [wallTheme, setWallTheme] = useState<WallTheme>(() => (
+    DARK_MODE_ENABLED ? getInitialWallTheme() : "day"
+  ));
   const [intentExpanded, setIntentExpanded] = useState(false);
   const [designerExpanded, setDesignerExpanded] = useState(false);
   const [expandedExperienceId, setExpandedExperienceId] = useState<string | null>(null);
@@ -250,15 +177,16 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   const [experienceReceiptHeight, setExperienceReceiptHeight] = useState<number | null>(null);
   const [promptNudgeActive, setPromptNudgeActive] = useState(false);
   const [shadowNoteIndex, setShadowNoteIndex] = useState(0);
+  const [activeFolioProjectId, setActiveFolioProjectId] = useState<FolioProjectId | null>(getFolioProjectIdFromUrl);
   const emDashNoteTimerRef = useRef<number | undefined>(undefined);
+  const folioProjectTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const lastFolioProjectIdRef = useRef<FolioProjectId | null>(activeFolioProjectId);
   const experienceReceiptContentRef = useRef<HTMLDivElement>(null);
   const heroIntroBaselineHeightRef = useRef<number | null>(null);
   const heroIntroRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const promptNudgeDelayRef = useRef(entranceActive ? 1120 : 520);
-  const experienceReveal = useFolioScrollReveal<HTMLDivElement>(reducedMotion);
-  const contactReveal = useFolioScrollReveal<HTMLElement>(reducedMotion);
-  const wallPalette = WALL_THEME_PALETTES[wallTheme];
+  const promptNudgeDelayRef = useRef(520);
+  const experiencePlacementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.dataset.wallTheme = wallTheme;
@@ -273,6 +201,29 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   }, [wallTheme]);
 
   useEffect(() => () => window.clearTimeout(emDashNoteTimerRef.current), []);
+
+  const restoreProjectTriggerFocus = useCallback(() => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const fallbackTrigger = lastFolioProjectIdRef.current
+          ? document.querySelector<HTMLButtonElement>(`[data-folio-project="${lastFolioProjectIdRef.current}"]`)
+          : null;
+        (folioProjectTriggerRef.current ?? fallbackTrigger)?.focus({ preventScroll: true });
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    const syncProjectFromUrl = () => {
+      const nextProjectId = getFolioProjectIdFromUrl();
+      if (nextProjectId) lastFolioProjectIdRef.current = nextProjectId;
+      setActiveFolioProjectId(nextProjectId);
+      if (!nextProjectId) restoreProjectTriggerFocus();
+    };
+
+    window.addEventListener("popstate", syncProjectFromUrl);
+    return () => window.removeEventListener("popstate", syncProjectFromUrl);
+  }, [restoreProjectTriggerFocus]);
 
   useEffect(() => {
     if (reducedMotion) return undefined;
@@ -312,42 +263,59 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
     const intro = heroIntroRef.current;
     if (!hero || !intro) return undefined;
 
-    const syncHeroExpansionSpace = () => {
+    const syncHeroFlow = () => {
       const introHeight = intro.getBoundingClientRect().height;
-      if (!intentExpanded && !designerExpanded) {
+      if (heroIntroBaselineHeightRef.current === null || (!intentExpanded && !designerExpanded)) {
         heroIntroBaselineHeightRef.current = introHeight;
-        hero.style.setProperty("--wall-hero-expansion-offset", "0px");
-        return;
       }
 
-      const baselineHeight = heroIntroBaselineHeightRef.current ?? introHeight;
+      const baselineHeight = heroIntroBaselineHeightRef.current;
       const expansionOffset = Math.max(0, introHeight - baselineHeight);
+      hero.style.setProperty("--wall-intro-anchor-shift", `${introHeight / -2}px`);
       hero.style.setProperty("--wall-hero-expansion-offset", `${expansionOffset}px`);
     };
 
-    const observer = new ResizeObserver(syncHeroExpansionSpace);
+    const observer = new ResizeObserver(syncHeroFlow);
     observer.observe(intro);
-    syncHeroExpansionSpace();
+    syncHeroFlow();
     return () => observer.disconnect();
   }, [designerExpanded, intentExpanded]);
-
-  useEffect(() => {
-    if (!entranceActive) return undefined;
-
-    try {
-      window.sessionStorage.setItem(FOLIO_ENTRANCE_SESSION_KEY, "seen");
-    } catch {
-      // The entrance can still play when session storage is unavailable.
-    }
-
-    const entranceTimer = window.setTimeout(() => setEntranceActive(false), 980);
-    return () => window.clearTimeout(entranceTimer);
-  }, [entranceActive]);
 
   const showEmDashNote = () => {
     window.clearTimeout(emDashNoteTimerRef.current);
     setEmDashNoteVisible(true);
     emDashNoteTimerRef.current = window.setTimeout(() => setEmDashNoteVisible(false), 1800);
+  };
+
+  const openFolioProject = (projectId: FolioProjectId, trigger: HTMLButtonElement) => {
+    folioProjectTriggerRef.current = trigger;
+    lastFolioProjectIdRef.current = projectId;
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set("project", projectId);
+    window.history.pushState(
+      { ...window.history.state, folioProjectViewer: projectId },
+      "",
+      nextUrl,
+    );
+    setActiveFolioProjectId(projectId);
+  };
+
+  const closeFolioProject = () => {
+    if (
+      activeFolioProjectId
+      && window.history.state?.folioProjectViewer === activeFolioProjectId
+    ) {
+      window.history.back();
+      return;
+    }
+
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.delete("project");
+    const nextState = { ...window.history.state };
+    delete nextState.folioProjectViewer;
+    window.history.replaceState(nextState, "", nextUrl);
+    setActiveFolioProjectId(null);
+    restoreProjectTriggerFocus();
   };
 
   const toggleWallTheme = () => {
@@ -373,18 +341,27 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
   };
 
   return (
+    <>
     <main
+      aria-hidden={activeFolioProjectId ? true : undefined}
       className="invoice-folio invoice-folio--wall"
-      data-entrance={entranceActive && !reducedMotion ? "true" : "false"}
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
       data-wall-theme={wallTheme}
+      inert={activeFolioProjectId ? true : undefined}
     >
       <FolioSiteHeader onOpenPlay={onOpenPlay} />
-      <WallThemeControl
-        onToggle={toggleWallTheme}
-        theme={wallTheme}
+      {DARK_MODE_ENABLED ? (
+        <WallThemeControl onToggle={toggleWallTheme} theme={wallTheme} />
+      ) : null}
+      <WallLightShader
+        glowColor={wallTheme === "night" ? "#91a8d8" : "#ebc9c0"}
+        glowStrength={wallTheme === "night" ? 4.6 : 1}
+        lightColor={wallTheme === "night" ? "#d9e2f4" : "#ffdeda"}
+        reducedMotion={reducedMotion}
+        wallColor={wallTheme === "night" ? "#0b0f18" : "#fffaf7"}
       />
+      <PaperSurface />
 
       <section
         aria-label="Parosayshi introduction"
@@ -395,13 +372,6 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         ref={heroRef}
       >
         <div className="wall-folio__hero-composition">
-          <WallLightShader
-            glowColor={wallPalette.glow}
-            glowStrength={wallTheme === "night" ? 4.6 : 1}
-            lightColor={wallPalette.light}
-            reducedMotion={reducedMotion}
-            wallColor={wallPalette.wall}
-          />
           <div aria-hidden="true" className="wall-folio__grain" />
           <p
             aria-label={SHADOW_NOTES.join(". ")}
@@ -461,55 +431,70 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                 is the way to move forward in the coming times.
               </span>
             </p>
-            <AnimatePresence initial={false}>
-              {intentExpanded ? (
-                <motion.p
-                  animate={{ filter: "blur(0px)", opacity: 1 }}
-                  className="wall-folio__intent-detail"
-                  exit={{ filter: "blur(12px)", opacity: 0 }}
-                  id="intentmaxxing-explanation"
-                  initial={reducedMotion ? false : { filter: "blur(12px)", opacity: 0 }}
-                  transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
-                >
-                  As making becomes easier, intention matters more than ever. It shapes the small decisions that turn an idea into an experience
-                  <span className="wall-folio__dash-wrap">
-                    <button
-                      aria-describedby="human-em-dash-note"
-                      aria-label="Em dash"
-                      className="wall-folio__dash-trigger"
-                      data-note-visible={emDashNoteVisible ? "true" : "false"}
-                      onClick={showEmDashNote}
-                      type="button"
-                    >
-                      —
-                    </button>
-                    <span className="wall-folio__dash-note" id="human-em-dash-note" role="note">
-                      human generated em dash
+            <div className="wall-folio__hero-details">
+              <motion.div
+                animate={{ height: intentExpanded ? "auto" : 0 }}
+                className="wall-folio__hero-detail-reveal"
+                data-expanded={intentExpanded ? "true" : "false"}
+                initial={false}
+                transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="wall-folio__hero-detail-reveal-clip">
+                  <motion.p
+                    animate={intentExpanded ? { filter: "blur(0px)", opacity: 1 } : { filter: "blur(12px)", opacity: 0 }}
+                    aria-hidden={!intentExpanded}
+                    className="wall-folio__intent-detail"
+                    id="intentmaxxing-explanation"
+                    initial={false}
+                    transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
+                  >
+                    I think intention matters even more now that making things is getting easier. For me, it lives in the small decisions that turn an idea into an experience
+                    <span className="wall-folio__dash-wrap">
+                      <button
+                        aria-describedby="human-em-dash-note"
+                        aria-label="Em dash"
+                        className="wall-folio__dash-trigger"
+                        data-note-visible={emDashNoteVisible ? "true" : "false"}
+                        onClick={showEmDashNote}
+                        tabIndex={intentExpanded ? 0 : -1}
+                        type="button"
+                      >
+                        —
+                      </button>
+                      <span className="wall-folio__dash-note" id="human-em-dash-note" role="note">
+                        human generated em dash
+                      </span>
                     </span>
-                  </span>
-                  one that can delight, inspire, or simply make someone feel considered.
-                </motion.p>
-              ) : null}
-            </AnimatePresence>
-            <AnimatePresence initial={false}>
-              {designerExpanded ? (
-                <motion.div
-                  animate={{ filter: "blur(0px)", opacity: 1 }}
-                  className="wall-folio__intent-detail"
-                  exit={{ filter: "blur(12px)", opacity: 0 }}
-                  id="designer-explanation"
-                  initial={reducedMotion ? false : { filter: "blur(12px)", opacity: 0 }}
-                  transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
-                >
-                  <p>
-                    I’ve spent the last <a className="wall-folio__experience-mark wall-folio__experience-link" href="#resume">3 years</a> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, with a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
-                  </p>
-                  <p className="wall-folio__designer-recent">
-                    Lately, AI-led frontend development has become my current rabbit hole, while design systems keep me thinking about how things scale—and I’m increasingly bullish on product thinking.
-                  </p>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+                    something that can delight, inspire, or just make someone feel considered.
+                  </motion.p>
+                </div>
+              </motion.div>
+              <motion.div
+                animate={{ height: designerExpanded ? "auto" : 0 }}
+                className="wall-folio__hero-detail-reveal"
+                data-expanded={designerExpanded ? "true" : "false"}
+                initial={false}
+                transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="wall-folio__hero-detail-reveal-clip">
+                  <motion.div
+                    animate={designerExpanded ? { filter: "blur(0px)", opacity: 1 } : { filter: "blur(12px)", opacity: 0 }}
+                    aria-hidden={!designerExpanded}
+                    className="wall-folio__intent-detail"
+                    id="designer-explanation"
+                    initial={false}
+                    transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
+                  >
+                    <p>
+                      I’ve spent the last <a className="wall-folio__experience-mark wall-folio__experience-link" href="#resume" tabIndex={designerExpanded ? 0 : -1}>3 years</a> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, plus a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
+                    </p>
+                    <p className="wall-folio__designer-recent">
+                      Lately, I’ve been going pretty deep into AI-led frontend development. I keep coming back to design systems and how things scale, and I’m slowly getting more bullish on product thinking too.
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
             <img
               alt="Parth's signature"
               className="wall-folio__signature"
@@ -522,116 +507,22 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
 
       <section aria-label="Selected work" className="folio-projects-placeholder" id="work">
         <div className="folio-projects-placeholder__grid">
-          {projectPlaceholderColumns.map((column, columnIndex) => (
-            <div className="folio-projects-placeholder__column" key={`project-column-${columnIndex}`}>
-              {column.map((project, projectIndex) => (
-                <FolioScrollRevealArticle
-                  className="folio-project-placeholder"
-                  key={`${project.tone}-${projectIndex}`}
-                  reducedMotion={reducedMotion}
-                >
-                  <div
-                    aria-label={columnIndex === 0 && projectIndex === 0 ? "Superr project preview" : "Project media placeholder"}
-                    className={`folio-project-placeholder__media folio-project-placeholder__media--${project.ratio} folio-project-placeholder__media--${project.tone}${columnIndex === 0 && projectIndex === 0 ? " folio-project-placeholder__media--feature" : ""}${columnIndex === 0 && projectIndex === 1 ? " folio-project-placeholder__media--horizontal" : ""}`}
-                    role="img"
-                  >
-                    {columnIndex === 0 && projectIndex === 0 ? (
-                      <ProjectMediaCarousel
-                        ariaLabel="Superr project media"
-                        autoAdvanceMs={700}
-                        hoveredPhotoAdvanceMs={1800}
-                        media={[
-                          {
-                            alt: "Superr library interface",
-                            fit: "cover",
-                            kind: "image",
-                            src: "/assets/invoice-folio/superr-project-placeholder-5.png?v=1",
-                          },
-                          {
-                            ariaLabel: "Superr green interaction demonstration",
-                            fit: "cover",
-                            kind: "video",
-                            src: "/assets/invoice-folio/superr-green.mp4",
-                          },
-                          {
-                            alt: "Superr stretching canvas interface",
-                            fit: "cover",
-                            kind: "image",
-                            src: "/assets/invoice-folio/superr-stretching.png",
-                          },
-                          {
-                            alt: "Superr cookie consent banner",
-                            background: "#ffffff",
-                            fit: "contain",
-                            kind: "image",
-                            src: "/assets/invoice-folio/superr-cookie-banner.png",
-                          },
-                          {
-                            alt: "Profile icons designed for kids",
-                            background: "#faf4ec",
-                            fit: "contain",
-                            kind: "image",
-                            src: "/assets/invoice-folio/superr-profile-icons.png",
-                          },
-                          {
-                            alt: "Superr science crossword activity",
-                            fit: "cover",
-                            kind: "image",
-                            src: "/assets/invoice-folio/superr-crossword.png",
-                          },
-                        ]}
-                        reducedMotion={reducedMotion}
-                          size={{
-                            gap: 0,
-                            height: "calc(100% + 6px)",
-                            peek: 0,
-    width: "100%",
-  }}
-                        tileCount={6}
-                        transitionMs={0}
-                        videoAdvanceMs={1000}
-                        visibleTiles={1}
-                      />
-                    ) : columnIndex === 0 && projectIndex === 1 ? (
-                      <ProjectMediaCarousel
-                        ariaLabel="Second project media"
-                        media={[
-                          {
-                            ariaLabel: "Second project interaction demonstration",
-                            background: "#11191b",
-                            fit: "contain",
-                            kind: "video",
-                            src: "/assets/invoice-folio/project-two-preview.mp4",
-                          },
-                        ]}
-                        reducedMotion={reducedMotion}
-                        size={{
-                          gap: 0,
-                          height: "100%",
-                          peek: 0,
-                          width: "100%",
-                        }}
-                        transitionMs={0}
-                        visibleTiles={1}
-                      />
-                    ) : null}
-                  </div>
-                  <h2>
-                    {columnIndex === 0 && projectIndex === 0
-                      ? "Superr — making learning fun."
-                      : columnIndex === 0 && projectIndex === 1
-                        ? "journal-desk"
-                        : "Project title"}
-                  </h2>
-                  <p>
-                    {columnIndex === 0 && projectIndex === 0
-                      ? "AI / EdTech / B2C"
-                      : columnIndex === 0 && projectIndex === 1
-                        ? "personal / productivity"
-                        : "Tag"}
-                  </p>
-                </FolioScrollRevealArticle>
-              ))}
+          {[0, 4].map((groupStart) => (
+            <div
+              className={`folio-bento-group${groupStart === 0 ? " folio-bento-group--featured" : ""}`}
+              key={`folio-bento-${groupStart}`}
+            >
+              {folioProjectOrder.slice(groupStart, groupStart + 4).map((projectId) => {
+                const project = folioProjects[projectId];
+                return (
+                  <FolioBentoCard
+                    active={activeFolioProjectId === project.id}
+                    key={project.id}
+                    onOpen={(trigger) => openFolioProject(project.id, trigger)}
+                    project={project}
+                  />
+                );
+              })}
             </div>
           ))}
         </div>
@@ -640,8 +531,8 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
       <section aria-labelledby="experience-receipt-title" className="folio-experience" id="resume">
         <motion.div
           className="folio-experience__receipt-placement"
-          ref={experienceReveal.ref}
-          style={{ ...experienceReveal.style, rotate: -1.5 }}
+          ref={experiencePlacementRef}
+          style={{ rotate: -1.5 }}
         >
           <motion.div
             animate={experienceReceiptHeight === null ? undefined : { height: experienceReceiptHeight }}
@@ -666,7 +557,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
             rel="noreferrer"
             title="Download résumé"
           >
-            <IconDownload aria-hidden="true" stroke={2.2} />
+            <HugeiconsIcon aria-hidden="true" icon={Download04Icon} size={18} strokeWidth={2.2} />
             <span>Resume</span>
           </a>
           <h2 id="experience-receipt-title">Experience</h2>
@@ -694,7 +585,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                     <strong>{item.company}</strong>
                     <small>{item.role}</small>
                     <time>{item.date}</time>
-                    <IconChevronDown aria-hidden="true" className="folio-experience__chevron" stroke={2.4} />
+                    <HugeiconsIcon aria-hidden="true" className="folio-experience__chevron" icon={ArrowDown01Icon} size={18} strokeWidth={2.4} />
                   </button>
                   <AnimatePresence initial={false} mode="popLayout">
                     {expanded ? (
@@ -737,11 +628,23 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         aria-label="Contact"
         className="folio-contact"
         id="contact"
-        ref={contactReveal.ref}
-        style={contactReveal.style}
       >
         <ContactBirdFlock reducedMotion={reducedMotion} theme={wallTheme} />
       </motion.section>
     </main>
+    {typeof document !== "undefined" ? createPortal(
+      <AnimatePresence>
+        {activeFolioProjectId ? (
+          <FolioProjectViewer
+            key={activeFolioProjectId}
+            onClose={closeFolioProject}
+            project={folioProjects[activeFolioProjectId]}
+            reducedMotion={reducedMotion}
+          />
+        ) : null}
+      </AnimatePresence>,
+      document.body,
+    ) : null}
+    </>
   );
 }
