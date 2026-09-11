@@ -1,4 +1,5 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import { DownloadSimpleIcon, PlusIcon } from "@phosphor-icons/react";
 
 interface FolioSiteHeaderProps {
   currentPage?: "folio" | "play";
@@ -6,57 +7,44 @@ interface FolioSiteHeaderProps {
   onOpenPlay?: () => void;
 }
 
-export function FolioSiteHeader({
-  currentPage = "folio",
-  onNavigate,
-  onOpenPlay,
-}: FolioSiteHeaderProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
+export function FolioSiteHeader(_props: FolioSiteHeaderProps) {
+  const [open, setOpen] = useState(false);
+  const menu = useRef<HTMLElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    if (!open) return;
+    const dismiss = (event: PointerEvent) => {
+      if (!menu.current?.contains(event.target as Node)) setOpen(false);
     };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [menuOpen]);
-
-  const openFolioSection = (event: MouseEvent<HTMLAnchorElement>, hash: string) => {
-    setMenuOpen(false);
-    if (!onNavigate) return;
-    event.preventDefault();
-    onNavigate(hash);
-  };
-
-  const openPlay = (event: MouseEvent<HTMLAnchorElement>) => {
-    setMenuOpen(false);
-    event.preventDefault();
-    if (currentPage !== "play") onOpenPlay?.();
-  };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [open]);
 
   return (
-    <header className="folio-site-header" data-cursor-keep data-open={menuOpen ? "true" : "false"}>
-      <div aria-label="Parosayshi menu artwork" className="folio-site-header__artwork" data-node-id="134:1456" role="img">
-        <img alt="" src="/assets/invoice-folio/menu-slip-artwork.svg" />
-      </div>
-      <button
-        aria-controls="folio-paper-menu"
-        aria-expanded={menuOpen}
-        aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-        className="folio-site-header__toggle"
-        onClick={() => setMenuOpen((open) => !open)}
-        type="button"
-      >
-        <span>Menu</span>
+    <header className="folio-corner-menu" data-cursor-keep ref={menu}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false);
+      }}>
+      <button className="folio-corner-menu__toggle" ref={toggle} type="button"
+        aria-expanded={open} aria-controls="folio-corner-links" onClick={() => setOpen(!open)}>
+        Menu <PlusIcon size={18} aria-hidden="true" style={{ transform: open ? "rotate(45deg)" : undefined }} />
       </button>
-      <nav aria-label="Primary navigation" className="folio-site-header__nav" id="folio-paper-menu">
-        <a href="#home" onClick={(event) => openFolioSection(event, "#home")}><span>Home</span></a>
-        <a href="#work" onClick={(event) => openFolioSection(event, "#work")}><span>Work</span></a>
-        <a href="#resume" onClick={(event) => openFolioSection(event, "#resume")}><span>Resume</span></a>
-        <a aria-current={currentPage === "play" ? "page" : undefined} href="?page=play" onClick={openPlay}><span>Play</span></a>
-        <a href="https://x.com/parosayshi" onClick={() => setMenuOpen(false)} rel="noreferrer" target="_blank"><span>X / @parosayshi</span></a>
-      </nav>
+      {open && <nav className="folio-corner-menu__panel" id="folio-corner-links" aria-label="Menu">
+        <a href="https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072" onClick={() => setOpen(false)}>
+          <DownloadSimpleIcon size={18} aria-hidden="true" /> Download résumé
+        </a>
+      </nav>}
     </header>
   );
 }

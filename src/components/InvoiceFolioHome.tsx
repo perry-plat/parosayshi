@@ -1,14 +1,15 @@
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import ArrowDown01Icon from "@hugeicons/core-free-icons/ArrowDown01Icon";
-import Download04Icon from "@hugeicons/core-free-icons/Download04Icon";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { createPortal, flushSync } from "react-dom";
+import { createPortal } from "react-dom";
 import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
 import { ContactBirdFlock } from "./ContactBirdFlock";
+// Temporarily hidden from the main view.
+// import { SuperrExperimentsCard } from "./superr-experiments/SuperrExperimentsCard";
 import { FolioBentoCard } from "./FolioBentoCard";
 import { FolioProjectViewer } from "./FolioProjectViewer";
-import { FolioSiteHeader } from "./FolioSiteHeader";
 import { PaperSurface } from "./PaperSurface";
 import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
@@ -22,9 +23,6 @@ const RESUME_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072";
 
 const WALL_THEME_STORAGE_KEY = "parosayshi:wall-theme:v1";
-// Temporary launch setting: retain the complete theme implementation, but do
-// not expose or initialize dark mode until it is intentionally revisited.
-const DARK_MODE_ENABLED = false;
 const SHADOW_NOTES = [
   "Paro says hi",
   "Currently intentmaxxing",
@@ -32,47 +30,16 @@ const SHADOW_NOTES = [
 ] as const;
 const SHADOW_NOTE_HOLD_TIMES = [8200, 11300, 9400] as const;
 
-type WallTheme = "day" | "night";
-
-const WALL_THEME_TIME_FORMATTER = new Intl.DateTimeFormat("en-IN", {
-  hour: "2-digit",
-  hourCycle: "h23",
-  minute: "2-digit",
-  timeZone: "Asia/Kolkata",
-});
+type WallTheme = "day" | "evening" | "night";
 
 function getInitialWallTheme(): WallTheme {
-  if (typeof window === "undefined") return "day";
   try {
-    const storedTheme = window.localStorage.getItem(WALL_THEME_STORAGE_KEY);
-    if (storedTheme === "day" || storedTheme === "night") return storedTheme;
-  } catch {
-    // Time-aware fallback still works when persistence is unavailable.
-  }
-
-  const hourPart = WALL_THEME_TIME_FORMATTER
-    .formatToParts(new Date())
-    .find(({ type }) => type === "hour")?.value;
-  const hour = Number(hourPart ?? 12);
-  return hour >= 19 || hour < 7 ? "night" : "day";
+    const saved = window.localStorage.getItem(WALL_THEME_STORAGE_KEY);
+    if (saved === "day" || saved === "evening" || saved === "night") return saved;
+  } catch { /* Use daylight when storage is unavailable. */ }
+  return "day";
 }
 
-function WallThemeControl({ onToggle, theme }: { onToggle: () => void; theme: WallTheme }) {
-  return (
-    <button
-      aria-label={`Switch to ${theme === "night" ? "day" : "night"} mode`}
-      aria-pressed={theme === "night"}
-      className="folio-wall-theme"
-      data-theme={theme}
-      onClick={onToggle}
-      type="button"
-    >
-      <span aria-hidden="true" className="folio-wall-theme__track">
-        <span className="folio-wall-theme__thumb" />
-      </span>
-    </button>
-  );
-}
 const SHADOW_NOTE_VARIANTS: Variants = {
   exit: {
     filter: "blur(3.2px)",
@@ -166,10 +133,8 @@ function LiveIndiaWatch() {
   );
 }
 
-export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHomeProps) {
-  const [wallTheme, setWallTheme] = useState<WallTheme>(() => (
-    DARK_MODE_ENABLED ? getInitialWallTheme() : "day"
-  ));
+export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
+  const [wallTheme] = useState<WallTheme>(getInitialWallTheme);
   const [intentExpanded, setIntentExpanded] = useState(false);
   const [designerExpanded, setDesignerExpanded] = useState(false);
   const [expandedExperienceId, setExpandedExperienceId] = useState<string | null>(null);
@@ -318,48 +283,25 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
     restoreProjectTriggerFocus();
   };
 
-  const toggleWallTheme = () => {
-    const nextTheme: WallTheme = wallTheme === "night" ? "day" : "night";
-    const applyTheme = () => {
-      setWallTheme(nextTheme);
-    };
-    if (reducedMotion || typeof document.startViewTransition !== "function") {
-      applyTheme();
-      return;
-    }
-
-    document.documentElement.dataset.wallThemeTransition = "true";
-    document.documentElement.dataset.wallThemeTransitionTo = nextTheme;
-    const transition = document.startViewTransition(() => {
-      flushSync(applyTheme);
-    });
-    const clearTransitionState = () => {
-      delete document.documentElement.dataset.wallThemeTransition;
-      delete document.documentElement.dataset.wallThemeTransitionTo;
-    };
-    void transition.finished.then(clearTransitionState, clearTransitionState);
-  };
-
   return (
     <>
     <main
       aria-hidden={activeFolioProjectId ? true : undefined}
+      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" ? "true" : undefined}
       className="invoice-folio invoice-folio--wall"
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
       data-wall-theme={wallTheme}
       inert={activeFolioProjectId ? true : undefined}
     >
-      <FolioSiteHeader onOpenPlay={onOpenPlay} />
-      {DARK_MODE_ENABLED ? (
-        <WallThemeControl onToggle={toggleWallTheme} theme={wallTheme} />
-      ) : null}
+      <div aria-hidden="true" className="folio-scroll-blur" />
       <WallLightShader
+        paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay"}
         glowColor={wallTheme === "night" ? "#91a8d8" : "#ebc9c0"}
         glowStrength={wallTheme === "night" ? 4.6 : 1}
         lightColor={wallTheme === "night" ? "#d9e2f4" : "#ffdeda"}
         reducedMotion={reducedMotion}
-        wallColor={wallTheme === "night" ? "#0b0f18" : "#fffaf7"}
+        wallColor={wallTheme === "night" ? "#0b0f18" : wallTheme === "evening" ? "#f0c7b1" : "#fffaf7"}
       />
       <PaperSurface />
 
@@ -495,6 +437,51 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
                 </div>
               </motion.div>
             </div>
+            <svg aria-hidden="true" className="wall-folio__signature-filter" focusable="false">
+              <defs>
+                <filter
+                  colorInterpolationFilters="sRGB"
+                  height="120%"
+                  id="signature-engraved"
+                  width="120%"
+                  x="-10%"
+                  y="-10%"
+                >
+                  <feFlood floodColor={wallTheme === "night" ? "#05080d" : "#242320"} floodOpacity="0.9" result="blackInk" />
+                  <feComposite in="blackInk" in2="SourceAlpha" operator="in" result="blackSignature" />
+
+                  <feGaussianBlur in="SourceAlpha" result="softAlpha" stdDeviation="0.3" />
+                  <feOffset dx="0.45" dy="1.1" in="softAlpha" result="raisedAlpha" />
+                  <feComposite
+                    in="SourceAlpha"
+                    in2="raisedAlpha"
+                    k2="1"
+                    k3="-1"
+                    operator="arithmetic"
+                    result="lowerInnerEdge"
+                  />
+                  <feFlood floodColor={wallTheme === "night" ? "#010307" : "#090909"} floodOpacity="0.82" result="edgeLight" />
+                  <feComposite in="edgeLight" in2="lowerInnerEdge" operator="in" result="engravedHighlight" />
+
+                  <feOffset dx="0.35" dy="1" in="SourceAlpha" result="rimOffset" />
+                  <feComposite in="rimOffset" in2="SourceAlpha" operator="out" result="rimEdge" />
+                  <feFlood floodColor={wallTheme === "night" ? "#a3b4cc" : "#fffaf1"} floodOpacity={wallTheme === "night" ? "0.2" : "0.8"} result="rimLight" />
+                  <feComposite in="rimLight" in2="rimEdge" operator="in" result="litRim" />
+
+                  <feOffset dx="-0.25" dy="-0.65" in="SourceAlpha" result="innerLightOffset" />
+                  <feComposite in="SourceAlpha" in2="innerLightOffset" operator="out" result="innerLightEdge" />
+                  <feFlood floodColor="#ffffff" floodOpacity="0.28" result="innerLight" />
+                  <feComposite in="innerLight" in2="innerLightEdge" operator="in" result="innerHighlight" />
+
+                  <feMerge>
+                    <feMergeNode in="litRim" />
+                    <feMergeNode in="blackSignature" />
+                    <feMergeNode in="engravedHighlight" />
+                    <feMergeNode in="innerHighlight" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
             <img
               alt="Parth's signature"
               className="wall-folio__signature"
@@ -507,24 +494,44 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
 
       <section aria-label="Selected work" className="folio-projects-placeholder" id="work">
         <div className="folio-projects-placeholder__grid">
-          {[0, 4].map((groupStart) => (
-            <div
-              className={`folio-bento-group${groupStart === 0 ? " folio-bento-group--featured" : ""}`}
-              key={`folio-bento-${groupStart}`}
-            >
-              {folioProjectOrder.slice(groupStart, groupStart + 4).map((projectId) => {
-                const project = folioProjects[projectId];
-                return (
-                  <FolioBentoCard
-                    active={activeFolioProjectId === project.id}
-                    key={project.id}
-                    onOpen={(trigger) => openFolioProject(project.id, trigger)}
-                    project={project}
-                  />
-                );
-              })}
-            </div>
-          ))}
+          <div className="folio-bento-group folio-bento-group--featured">
+            <FolioBentoCard
+              active={activeFolioProjectId === "superr-paper"}
+              onOpen={(trigger) => openFolioProject("superr-paper", trigger)}
+              // Previous charcoal viewer: openFolioProject("superr", trigger).
+              project={folioProjects.superr}
+            />
+            {/* Paper preview card retained for future comparisons.
+            <FolioBentoCard
+              active={activeFolioProjectId === "superr-paper"}
+              onOpen={(trigger) => openFolioProject("superr-paper", trigger)}
+              project={folioProjects["superr-paper"]}
+            />
+            */}
+            {([
+              { id: "wizpay", title: "WizPay", heading: "Finding a place for payments. Then room to grow.", description: "From the first collection flow to a dedicated payment workspace.", tone: "data" },
+              { id: "wiz-commerce", title: "WizCommerce", heading: "Helping wholesale teams sell with clarity", description: "Product discovery, better sales decisions, and communication across quotes and orders.", tone: "email" },
+            ] as const).map((study) => (
+              <button className={`folio-wiz-study folio-wiz-study--${study.tone}`} data-cursor-keep data-folio-project={study.id} key={study.id} type="button" aria-label={`Read the ${study.title} case study`} aria-pressed={activeFolioProjectId === study.id} onClick={(event) => openFolioProject(study.id, event.currentTarget)}>
+                <div className="folio-wiz-study__copy">
+                  <div className="folio-wiz-study__brand">
+                    <img src="/assets/invoice-folio/wizcommerce-current-mark.svg" alt="" />
+                    <div><strong>{study.title}</strong><small>B2B commerce</small></div>
+                  </div>
+                  <h3>{study.heading}</h3>
+                  <p>{study.description}</p>
+                  <span className="folio-wiz-study__cta">Read case study</span>
+                </div>
+              </button>
+            ))}
+            <FolioBentoCard
+              active={activeFolioProjectId === "journal-desk"}
+              onOpen={(trigger) => openFolioProject("journal-desk", trigger)}
+              project={folioProjects["journal-desk"]}
+            />
+          </div>
+
+          {/* <SuperrExperimentsCard reducedMotion={reducedMotion} /> */}
         </div>
       </section>
 
@@ -557,7 +564,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
             rel="noreferrer"
             title="Download résumé"
           >
-            <HugeiconsIcon aria-hidden="true" icon={Download04Icon} size={18} strokeWidth={2.2} />
+            <DownloadSimpleIcon aria-hidden="true" size={18} weight="regular" />
             <span>Resume</span>
           </a>
           <h2 id="experience-receipt-title">Experience</h2>
@@ -629,7 +636,7 @@ export function InvoiceFolioHome({ onOpenPlay, reducedMotion }: InvoiceFolioHome
         className="folio-contact"
         id="contact"
       >
-        <ContactBirdFlock reducedMotion={reducedMotion} theme={wallTheme} />
+        <ContactBirdFlock resumeUrl={RESUME_DOWNLOAD_URL} reducedMotion={reducedMotion} theme={wallTheme === "night" ? "night" : "day"} />
       </motion.section>
     </main>
     {typeof document !== "undefined" ? createPortal(

@@ -1,0 +1,42 @@
+{
+  "id": "periodic-table",
+  "name": "Periodic Table",
+  "version": "1.0.0",
+  "entryPoint": "index.html",
+  "orientation": "landscape",
+  "description": "Interactive periodic table with detailed element information, electron configurations, and animated Bohr diagrams",
+  "features": [
+    "Complete 118-element periodic table grid",
+    "Color-coded element categories",
+    "Category filtering (tap legend to highlight)",
+    "Detailed element view with properties",
+    "Animated Bohr diagram with orbiting electrons",
+    "Trivia, real-world uses, and discovery info"
+  ],
+  "views": [
+    "Grid (18x10 periodic table with legend)",
+    "Element Detail (properties, animated Bohr diagram, facts)"
+  ],
+  "subject": "Chemistry",
+  "gradeLevel": "All ages",
+  "interactions": [
+    "tap-element",
+    "tap-legend-filter",
+    "scroll-content"
+  ],
+  "offlineSupport": true,
+  "assetsSummary": {
+    "images": 0,
+    "fonts": 4,
+    "dataFiles": 1
+  },
+  "technicalNotes": "Elements 1-118 only (excludes theoretical element 119). Uses XMLHttpRequest for WebView file:// compatibility. CSS Grid with negative gap for overlapping borders. Bohr animation uses requestAnimationFrame with shell-specific rotation speeds.",
+  "plannedFeatures": [
+    "Element quiz mode",
+    "Search functionality"
+  ],
+  "credits": {
+    "data": "Grokipedia"
+  },
+  "lastUpdated": "2026-02-06"
+}

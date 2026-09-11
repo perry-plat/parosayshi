@@ -1,8 +1,6 @@
 :root {
   --spotlight-cursor-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23242321' stroke='white' stroke-opacity='.42' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 5 4;
   --spotlight-cursor-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23f7f2eb' stroke='%2311100e' stroke-opacity='.72' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 5 4;
-  --spotlight-cursor-dark-action: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23242321' stroke-linecap='square' stroke-width='1.35'%3E%3Cpath d='M12.4 5v-6.5'/%3E%3Cpath d='m17.3 7.2 4.6-4.6'/%3E%3Cpath d='M20.5 12H27'/%3E%3Cpath d='m17.3 16.8 4.6 4.6'/%3E%3Cpath d='M12.4 19v6.5'/%3E%3Cpath d='m7.5 16.8-4.6 4.6'/%3E%3Cpath d='M4.3 12h-6.5'/%3E%3Cpath d='M7.5 7.2 2.9 2.6'/%3E%3C/g%3E%3Cpath transform='translate(8 8)' fill='%23242321' stroke='white' stroke-opacity='.42' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 13 12;
-  --spotlight-cursor-light-action: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23f7f2eb' stroke-linecap='square' stroke-width='1.35'%3E%3Cpath d='M12.4 5v-6.5'/%3E%3Cpath d='m17.3 7.2 4.6-4.6'/%3E%3Cpath d='M20.5 12H27'/%3E%3Cpath d='m17.3 16.8 4.6 4.6'/%3E%3Cpath d='M12.4 19v6.5'/%3E%3Cpath d='m7.5 16.8-4.6 4.6'/%3E%3Cpath d='M4.3 12h-6.5'/%3E%3Cpath d='M7.5 7.2 2.9 2.6'/%3E%3C/g%3E%3Cpath transform='translate(8 8)' fill='%23f7f2eb' stroke='%2311100e' stroke-opacity='.72' stroke-width='.72' stroke-linejoin='round' d='M4.5 3.7 20.1 9c.88.3.95 1.52.1 1.86l-5.05 1.95 5.23 5.22c.43.43.43 1.12 0 1.55l-1.18 1.18c-.43.43-1.12.43-1.55 0l-5.2-5.2-1.95 5.08c-.34.88-1.58.8-1.87-.1L3.22 4.98c-.3-.9.38-1.58 1.28-1.28Z'/%3E%3C/svg%3E") 13 12;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -11,30 +9,15 @@
     cursor: var(--spotlight-cursor-dark), auto !important;
   }
 
-  body.spotlight-cursor-enabled :is(a[href], button:not(:disabled):not([aria-disabled="true"]):not([data-inactive="true"]), [role="button"]:not([aria-disabled="true"]):not([data-inactive="true"]), [draggable="true"], [data-cursor-interactive]) {
-    cursor: var(--spotlight-cursor-dark), pointer !important;
-  }
-
   body.spotlight-cursor-enabled:is([data-wall-theme="night"], .folio-project-viewer-open),
   body.spotlight-cursor-enabled:is([data-wall-theme="night"], .folio-project-viewer-open) * {
     cursor: var(--spotlight-cursor-light), auto !important;
   }
 
-  body.spotlight-cursor-enabled:is([data-wall-theme="night"], .folio-project-viewer-open) :is(a[href], button:not(:disabled):not([aria-disabled="true"]):not([data-inactive="true"]), [role="button"]:not([aria-disabled="true"]):not([data-inactive="true"]), [draggable="true"], [data-cursor-interactive]) {
-    cursor: var(--spotlight-cursor-light), pointer !important;
-  }
-
-  body.spotlight-cursor-enabled input,
+  body.spotlight-cursor-enabled input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
   body.spotlight-cursor-enabled textarea,
   body.spotlight-cursor-enabled [contenteditable="true"] {
     cursor: text !important;
-  }
-
-  body.spotlight-cursor-enabled select,
-  body.spotlight-cursor-enabled [data-cursor-native],
-  body.spotlight-cursor-enabled [data-cursor-keep],
-  body.spotlight-cursor-enabled [data-cursor-keep] * {
-    cursor: auto !important;
   }
 
   html[data-wall-theme-transition="true"],

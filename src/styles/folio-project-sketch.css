@@ -1,0 +1,68 @@
+.folio-project-sketch {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 24px 0;
+  padding: 28px 30px 38px;
+  color: #35433b;
+  background-color: #f4f2e9;
+  background-image: radial-gradient(#77877626 .65px, transparent .65px);
+  background-size: 16px 16px;
+  border: 1px solid #e4e4d6;
+  border-radius: 2px 5px 3px 2px;
+  box-shadow: 0 2px 3px #0000000a;
+}
+.folio-project-sketch .folio-project-sketch__caption {
+  margin: 0 0 28px;
+  color: #66736b;
+  font: 13px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: .02em;
+}
+.folio-project-sketch__steps {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 28px;
+}
+.folio-project-sketch__step {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 0 0 12px;
+  border-bottom: 1px solid #55746066;
+  border-radius: 0 0 45% 12%;
+}
+.folio-project-sketch__number {
+  display: block;
+  margin-bottom: 10px;
+  color: #7b887e;
+  font: 11px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.folio-project-sketch__label {
+  display: block;
+  font: 23px/1.25 "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+  color: #35433b;
+  transform: rotate(-1.5deg);
+}
+.folio-project-sketch__step:nth-child(even) .folio-project-sketch__label { transform: rotate(1deg); }
+.folio-project-sketch__arrow {
+  position: absolute;
+  width: 29px;
+  height: 23px;
+  right: -29px;
+  top: 35px;
+  fill: none;
+  stroke: #688572;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 600px) {
+  .folio-project-sketch { padding: 24px 30px 32px; }
+  .folio-project-sketch__steps { flex-direction: column; gap: 30px; }
+  .folio-project-sketch__step { padding: 0 0 12px; }
+  .folio-project-sketch__number { display: inline-block; width: 30px; margin: 0; vertical-align: middle; }
+  .folio-project-sketch__label { display: inline-block; font-size: 24px; }
+  .folio-project-sketch__arrow { top: auto; bottom: -28px; left: 28px; right: auto; transform: rotate(85deg); width: 28px; }
+}

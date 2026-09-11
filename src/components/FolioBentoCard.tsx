@@ -12,6 +12,7 @@ export function FolioBentoCard({
   onOpen,
   project,
 }: FolioBentoCardProps) {
+  const isSuperr = project.id === "superr" || project.id === "superr-paper";
   return (
     <article
       className="folio-bento-card"
@@ -34,8 +35,11 @@ export function FolioBentoCard({
         />
       </div>
       <div aria-hidden="true" className="folio-bento-card__shade" />
+      {isSuperr ? (
+        <span className="folio-bento-card__nda-stamp">NDA</span>
+      ) : null}
       <header className="folio-bento-card__caption">
-        {project.id === "superr" && project.logo ? (
+        {isSuperr && project.logo ? (
           <img
             alt=""
             aria-hidden="true"
@@ -45,16 +49,17 @@ export function FolioBentoCard({
         ) : null}
         <span>
           <strong>{project.cardTitle}</strong>
-          <small>{project.id === "superr" ? "Edtech" : project.cardMeta}</small>
+          <small>{project.id === "superr-paper" ? "Paper case study / Preview" : isSuperr ? "Edtech" : project.cardMeta}</small>
         </span>
       </header>
-      {project.id === "superr" ? (
+      {isSuperr ? (
         <div className="folio-bento-card__editorial-copy">
-          <p>{project.description}</p>
-          <span>Explore my work</span>
+          <h3>Building toys that make learning fun</h3>
+          <p>A little of what I’ve designed and built with the Superr team. Most is under NDA. This bit’s yours to explore.</p>
+          <div className="folio-bento-card__actions"><span className="folio-bento-card__peek">Take a peek</span></div>
         </div>
       ) : null}
-      {project.id !== "superr" ? (
+      {!isSuperr ? (
         <span aria-hidden="true" className="folio-bento-card__open">↗</span>
       ) : null}
       <button

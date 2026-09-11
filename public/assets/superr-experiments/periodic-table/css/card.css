@@ -1,0 +1,108 @@
+/* ============================================
+   PERIODIC TABLE - Element Cards
+   ============================================ */
+
+/* Element Card */
+.element-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-dark);
+    margin: -1px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    overflow: hidden;
+    /* No aspect-ratio - let grid determine size */
+}
+
+.element-card:hover {
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.element-card:active {
+    transform: scale(0.98);
+}
+
+.element-card.dimmed {
+    background-color: transparent !important;
+    opacity: 0.25;
+}
+
+/* Category Background Colors */
+.element-card[data-category="alkali-metal"] { background-color: var(--alkali-metal); }
+.element-card[data-category="alkaline-earth-metal"] { background-color: var(--alkaline-earth); }
+.element-card[data-category="transition-metal"] { background-color: var(--transition-metal); }
+.element-card[data-category="post-transition-metal"] { background-color: var(--post-transition); }
+.element-card[data-category="metalloid"] { background-color: var(--metalloid); }
+.element-card[data-category="nonmetal"] { background-color: var(--nonmetal); }
+.element-card[data-category="halogen"] { background-color: var(--halogen); }
+.element-card[data-category="noble-gas"] { background-color: var(--noble-gas); }
+.element-card[data-category="lanthanide"] { background-color: var(--lanthanide); }
+.element-card[data-category="actinide"] { background-color: var(--actinide); }
+.element-card[data-category="unknown"] { background-color: var(--unknown); }
+
+/* Atomic Number */
+.element-card .atomic-number {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+/* Symbol */
+.element-card .symbol {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-top: 4px;
+}
+
+/* Name */
+.element-card .name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 2px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 2px;
+}
+
+/* Responsive scaling for smaller screens */
+@media (max-height: 600px) {
+    .element-card .atomic-number {
+        font-size: 9px;
+    }
+    .element-card .symbol {
+        font-size: 18px;
+    }
+    .element-card .name {
+        font-size: 8px;
+    }
+}
+
+@media (max-height: 500px) {
+    .element-card .atomic-number {
+        font-size: 8px;
+    }
+    .element-card .symbol {
+        font-size: 14px;
+    }
+    .element-card .name {
+        font-size: 7px;
+    }
+}

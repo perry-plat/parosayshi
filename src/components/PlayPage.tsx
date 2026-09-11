@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
-import { FolioSiteHeader } from "./FolioSiteHeader";
 import { Sketchbook } from "./Sketchbook";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { useViewportReveal } from "../hooks/useViewportReveal";
@@ -191,7 +190,6 @@ export function PlayPage({ onClose }: PlayPageProps) {
 
   return (
     <main className="invoice-folio invoice-folio--wall play-page" onClick={closeNotebookFromWall}>
-      <FolioSiteHeader currentPage="play" onNavigate={onClose} />
       <div
         className="inline-notebook-reader play-page__notebook"
         data-centering={centering ? "true" : "false"}

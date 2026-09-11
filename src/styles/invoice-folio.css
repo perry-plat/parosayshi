@@ -2579,14 +2579,22 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
   transform: translate(-50%, 0) rotate(-3deg) scale(1);
 }
 
+.wall-folio__signature-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .wall-folio__signature {
   display: block;
   width: clamp(85px, 7.04vw, 113px);
   height: auto;
   margin: 1.5em 0 0;
   opacity: 1;
-  filter: brightness(0);
-  mix-blend-mode: multiply;
+  filter: url("#signature-engraved");
+  mix-blend-mode: normal;
   pointer-events: none;
   transform: rotate(-2deg);
   user-select: none;
@@ -2603,15 +2611,17 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
   overflow: hidden;
   background: transparent;
   border-radius: 5px;
+  backface-visibility: hidden;
   cursor: zoom-in;
   transform-origin: center;
-  transform: translateY(-50%);
-  transition: transform 360ms cubic-bezier(0.2, 1.55, 0.34, 1);
+  transform: translate3d(0, -50%, 0) scale(1);
+  transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .wall-folio__figma-sticker:hover {
   z-index: 2;
-  transform: translateY(-50%) scale(4);
+  transform: translate3d(0, -50%, 0) scale(4);
 }
 
 .wall-folio__figma-sticker img {
@@ -2642,6 +2652,28 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
 }
 
 .wall-folio__continue:hover { color: var(--folio-ink); background: rgb(247 239 228 / 0.72); }
+
+.folio-scroll-blur {
+  position: sticky;
+  top: 0;
+  z-index: 98;
+  height: 96px;
+  margin-bottom: -96px;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.95;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 25%, transparent);
+  mask-image: linear-gradient(to bottom, #000 25%, transparent);
+}
+
+.folio-scroll-blur::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--folio-paper), transparent);
+}
 
 .folio-site-header {
   --folio-slip-peek: 48px;
@@ -3248,23 +3280,20 @@ body.folio-project-viewer-open {
   inset: 0;
   overflow: hidden;
   color: #f7f2eb;
-  background: rgb(24 23 21 / 0.84);
-  -webkit-backdrop-filter: blur(50px) saturate(0.82);
-  backdrop-filter: blur(50px) saturate(0.82);
+  background: transparent;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  isolation: isolate;
+}
+
+.folio-project-viewer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: #393835;
 }
 
 .folio-project-viewer__wash {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background:
-    radial-gradient(circle at 72% 18%, rgb(255 244 224 / 0.09), transparent 42%),
-    repeating-linear-gradient(103deg, rgb(255 255 255 / 0.022) 0 1px, transparent 1px 4px);
-  mix-blend-mode: soft-light;
-  opacity: 0.32;
-  pointer-events: none;
+  display: none;
 }
 
 .folio-project-viewer__details {
@@ -3297,7 +3326,7 @@ body.folio-project-viewer-open {
   border-top: 1px solid rgb(247 242 235 / 0.24);
 }
 
-.folio-project-viewer[data-project="superr"] .folio-project-viewer__identity {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
   padding-top: 0;
   border-top: 0;
 }
@@ -3358,11 +3387,11 @@ body.folio-project-viewer-open {
   text-decoration: none;
 }
 
-.folio-project-viewer[data-project="superr"] .folio-project-viewer__logo {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__logo {
   border-radius: 13px;
 }
 
-.folio-project-viewer[data-project="superr"] .folio-project-viewer__identity h2 {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
   color: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -3371,7 +3400,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer[data-project="superr"] .folio-project-viewer__description {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
   max-width: 240px;
   margin-top: -8px;
   color: #fff;
@@ -3382,7 +3411,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer[data-project="superr"] .folio-project-viewer__external {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external {
   min-height: 30px;
   box-sizing: border-box;
   padding: 6px 10px;
@@ -3396,6 +3425,37 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__close {
+  color: #fff;
+  background: transparent;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+@media (min-width: 1321px) {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__details {
+    width: 280px;
+    gap: 15px;
+  }
+
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 21px;
+  }
+
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+    max-width: 280px;
+    margin-top: 0;
+    font-size: 16px;
+    letter-spacing: normal;
+    line-height: 22px;
+  }
+}
+
 .folio-project-viewer__reel {
   position: absolute;
   z-index: 1;
@@ -3406,9 +3466,34 @@ body.folio-project-viewer-open {
   align-items: center;
   gap: 32px;
   overflow-y: auto;
+  overflow-anchor: none;
   overscroll-behavior: contain;
-  padding: 13vh 0 96px;
+  padding: 32px 0 96px;
   scrollbar-width: none;
+}
+
+.folio-project-viewer__scroll-blur {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  width: min(640px, 56vw);
+  height: 48px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 25%, transparent);
+  mask-image: linear-gradient(to bottom, #000 25%, transparent);
+}
+
+/* The mobile gallery scrolls horizontally, so it has no upper scroll edge. */
+@media (max-width: 760px) {
+  .folio-project-viewer__scroll-blur { display: none; }
+}
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__reel {
+  gap: 10px;
 }
 
 .folio-project-viewer__reel::-webkit-scrollbar {
@@ -3434,6 +3519,153 @@ body.folio-project-viewer-open {
 
 .folio-project-viewer__media--square {
   aspect-ratio: 1;
+}
+
+.folio-project-asset {
+  position: absolute;
+  inset: 0;
+}
+
+/* Keep the cookie artwork inset without changing its media frame. */
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset:has(> img[src*="superr-figma-150-3132.png"]) {
+  background: #fff;
+}
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
+  transform: scale(0.75);
+  transform-origin: center;
+}
+
+.folio-project-asset:has(video) {
+  contain: paint;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.folio-project-asset__status {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #fffaf7;
+  color: #292723;
+  font: 13px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.folio-project-asset__status--loading {
+  animation: folio-media-loading 0s 0.6s both;
+}
+
+@keyframes folio-media-loading {
+  from { visibility: hidden; }
+  to { visibility: visible; }
+}
+
+.folio-project-asset__status button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 12px;
+  background: #292723;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.folio-project-asset__status button:focus-visible {
+  outline: 2px solid #f48120;
+  outline-offset: 3px;
+}
+
+.folio-project-viewer__group {
+  flex: 0 0 auto;
+  width: min(640px, 56vw);
+  margin: 0;
+}
+
+.folio-project-viewer__group > h3 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.folio-project-viewer__group-description {
+  margin: 0 0 12px;
+  color: #cbc9c3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.folio-project-viewer__group-media {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.folio-project-viewer__group-media > .folio-project-viewer__media {
+  width: 100%;
+  box-shadow: none;
+}
+
+@media (max-width: 760px) {
+  .folio-project-viewer__group {
+    width: max-content;
+    margin: 0;
+  }
+
+  .folio-project-viewer__group-media {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .folio-project-viewer__group-media > .folio-project-viewer__media {
+    width: calc(100vw - 40px);
+  }
+}
+
+.folio-project-viewer__note {
+  display: flex;
+  width: min(640px, 56vw);
+  min-height: clamp(230px, 32vh, 340px);
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 44px);
+  color: #f7f2eb;
+}
+
+.folio-project-viewer__note h3,
+.folio-project-viewer__note p {
+  margin: 0;
+}
+
+.folio-project-viewer__note h3 {
+  max-width: 19ch;
+  font-size: clamp(26px, 2.5vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.folio-project-viewer__note p {
+  max-width: 48ch;
+  color: rgb(247 242 235 / 0.72);
+  font-size: clamp(15px, 1.25vw, 18px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.48;
 }
 
 .folio-project-viewer__media img,
@@ -3570,6 +3802,22 @@ body.folio-project-viewer-open {
     scroll-snap-align: start;
   }
 
+  .folio-project-viewer__note {
+    width: calc(100vw - 40px);
+    min-height: auto;
+    flex: 0 0 calc(100vw - 40px);
+    padding: 28px 22px;
+    scroll-snap-align: start;
+  }
+
+  .folio-project-viewer__note h3 {
+    font-size: 24px;
+  }
+
+  .folio-project-viewer__note p {
+    font-size: 14px;
+  }
+
   .folio-project-viewer__close {
     top: 20px;
     right: 20px;
@@ -3594,6 +3842,12 @@ body.folio-project-viewer-open {
   transform: rotate(calc(-1.5deg + var(--view-reveal-rotate, 0deg)));
   transform-origin: 50% 0;
   will-change: transform;
+}
+
+@media (max-width: 760px) {
+  .folio-experience__receipt-placement {
+    zoom: 0.75;
+  }
 }
 
 .folio-experience__receipt {
@@ -4076,8 +4330,8 @@ body.folio-project-viewer-open {
   left: 50%;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: min(300px, 34%);
+  grid-template-columns: repeat(4, 1fr);
+  width: var(--flock-actions-width, 300px);
   height: 62%;
   transform: translateX(-50%);
 }
@@ -4117,8 +4371,9 @@ body.folio-project-viewer-open {
 }
 
 .folio-contact__actions > :nth-child(1) { --bird-color: #326ca5; }
-.folio-contact__actions > :nth-child(2) { --bird-color: #966a48; }
-.folio-contact__actions > :nth-child(3) { --bird-color: #292a2d; }
+.folio-contact__actions > :nth-child(2) { --bird-color: #587346; }
+.folio-contact__actions > :nth-child(3) { --bird-color: #966a48; }
+.folio-contact__actions > :nth-child(4) { --bird-color: #292a2d; }
 
 .folio-contact__actions > :is(a, button):hover .folio-contact__pill,
 .folio-contact__actions > :is(a, button):focus-visible .folio-contact__pill {
@@ -4175,8 +4430,8 @@ body.folio-project-viewer-open {
 }
 
 .invoice-folio--wall[data-wall-theme="night"] .wall-folio__signature {
-  filter: invert(1) brightness(1.08) drop-shadow(0 3px 9px rgb(146 166 207 / 0.16));
-  opacity: 0.88;
+  filter: url("#signature-engraved");
+  opacity: 1;
 }
 
 .invoice-folio--wall[data-wall-theme="night"] .folio-thought-slip {
@@ -4444,7 +4699,7 @@ body.folio-project-viewer-open {
   .folio-about__layout { padding-top: 62px; }
   .folio-contact { padding: 0 12px 56px; }
   .folio-contact__flock { height: auto; min-height: 230px; aspect-ratio: 1.65; }
-  .folio-contact__actions { top: 15%; width: min(250px, 64%); height: 66%; }
+  .folio-contact__actions { top: 15%; width: var(--flock-actions-width, 250px); height: 66%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4457,4 +4712,1240 @@ body.folio-project-viewer-open {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.superr-activity { background: transparent; color: #fff; box-shadow: none; }
+.superr-activity__scene { position: relative; aspect-ratio: 1; overflow: hidden; }
+.superr-activity__zoom { position: absolute; top: 0; left: -38.8889%; width: 177.7778%; height: 100%; transform: scale(1.15); transform-origin: 48% 48%; }
+.superr-activity__frame { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+@media (max-width: 760px) { .superr-activity { overflow-y: auto; } }
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__group > h3 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description,
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note p { white-space: pre-line; }
+
+
+
+.folio-project-viewer__intro-link { display: block; position: relative; justify-self: start; width: 112px; max-width: 100%; aspect-ratio: 148 / 89; overflow: visible; transform: rotate(-5deg); border: 2px solid #2b1a07; border-radius: 3px; }
+.folio-project-viewer__intro-thumbnail { display: block; width: 100%; height: 100%; object-fit: cover; }
+.folio-project-viewer__intro-play { position: absolute; width: 26px; height: 26px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+@media (hover: hover) { .folio-project-viewer__intro-thumbnail { filter: grayscale(1); } .folio-project-viewer__intro-link:hover .folio-project-viewer__intro-thumbnail { filter: none; } }
+.folio-project-viewer__intro-link:focus-visible { outline: 2px solid #f7f2eb; outline-offset: 4px; }
+
+.folio-project-viewer__note-emphasis { display: block; margin-block: 12px; font-weight: 600; color: #fff; }
+
+.folio-project-viewer__contact-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.folio-project-viewer__nda { display: inline-flex; align-items: center; gap: 5px; padding: 6px 11px; border: 1px solid #f7f2eb55; border-radius: 999px; color: #f7f2eb; font-size: 13px; line-height: 18px; }
+
+.folio-project-viewer__intro-tooltip { position: absolute; bottom: calc(100% + 10px); left: 0; white-space: nowrap; padding: 6px 12px; border-radius: 999px; background: #f7f2eb; color: #171612; font-size: 13px; line-height: 18px; opacity: 0; pointer-events: none; transform: rotate(5deg); }
+.folio-project-viewer__intro-link:is(:hover, :focus-visible) .folio-project-viewer__intro-tooltip { opacity: 1; }
+
+.folio-project-viewer__mentions { display: grid; gap: 0; }
+.folio-project-viewer__mention { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid #f7f2eb26; }
+.folio-project-viewer__mentions strong { color: #fff; font-size: 14px; line-height: 20px; font-weight: 600; }
+.folio-project-viewer__mentions span { font-size: 14px; line-height: 20px; color: #c6c3bd; }
+.folio-project-viewer__launch-post { color: #fff; font-size: 16px; line-height: 24px; text-underline-offset: 4px; }
+@media (max-width: 480px) { .folio-project-viewer__mention { grid-template-columns: 1fr; gap: 5px; } }
+
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { min-height: 0; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
+.folio-project-viewer__note[data-note="intro"] p { max-width: 43ch; line-height: 1.65; }
+.folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { margin-block: 22px; line-height: 1.5; }
+@media (max-width: 760px) { .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { padding-top: 24px; padding-bottom: 24px; gap: 24px; } }
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__external, .folio-project-viewer__nda) { font-size: 16px; line-height: 22px; }
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external { position: relative; padding: 7px 16px; justify-content: center; }
+.folio-project-viewer__contact-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff;
+  color: #252421;
+  font-size: 13px;
+  line-height: 18px;
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+.folio-project-viewer__external:is(:hover, :focus-visible) .folio-project-viewer__contact-tooltip { visibility: visible; opacity: 1; }
+
+.folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { display: inline; margin: 0; line-height: inherit; }
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity span {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.folio-project-viewer__logo-link { display: block; width: fit-content; border-radius: 14px; }
+.folio-project-viewer__logo-link:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+.folio-project-viewer__description--editorial p { margin: 0; color: #cbc9c3; text-wrap: pretty; }
+.folio-project-viewer__description--editorial p + p { margin-top: 18px; }
+.folio-project-viewer__description--editorial .folio-project-viewer__contribution-copy { color: #bdbbb6; }
+.folio-project-viewer__contribution-copy strong { color: #fff; font-weight: 600; }
+
+.folio-project-viewer__description--editorial p,
+.folio-project-viewer__description--editorial strong { font-size: 16px; font-weight: 400; line-height: 24px; }
+.folio-project-viewer__description--editorial strong { color: #f7f2eb; font-weight: 500; }
+.folio-project-viewer__details > .folio-project-viewer__intro-link { margin: 20px 0 8px; flex-shrink: 0; }
+
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row { margin-top: 16px; }
+
+/* Case studies share one continuous reading flow on small screens. */
+@media (max-width: 1320px) {
+  .folio-project-viewer { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+  .folio-project-viewer .folio-project-viewer__details {
+    position: relative; inset: auto; display: flex; flex-direction: column;
+    align-items: flex-start; width: 100%; min-height: 0; gap: 16px;
+    padding: 24px 24px 32px; background: none; border: 0;
+  }
+  .folio-project-viewer .folio-project-viewer__identity { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; width: 100%; }
+  .folio-project-viewer .folio-project-viewer__identity h2 { font-size: 20px; line-height: 25px; max-width: 100%; }
+  .folio-project-viewer .folio-project-viewer__description { display: block; max-width: 100%; font-size: 16px; line-height: 24px; }
+  .folio-project-viewer__description--editorial p, .folio-project-viewer__description--editorial strong { line-height: 24px; }
+  .folio-project-viewer .folio-project-viewer__services { white-space: normal; font-size: 12px; line-height: 18px; }
+  .folio-project-viewer .folio-project-viewer__reel {
+    position: relative; inset: auto; flex-direction: column; align-items: stretch;
+    width: 100%; height: auto; overflow: visible; padding: 0 16px max(40px, env(safe-area-inset-bottom));
+    scroll-snap-type: none; gap: 16px;
+  }
+  .folio-project-viewer .folio-project-viewer__reel > *,
+  .folio-project-viewer .folio-project-viewer__group,
+  .folio-project-viewer .folio-project-viewer__media,
+  .folio-project-viewer .folio-project-viewer__note { width: 100%; max-width: 100%; min-width: 0; flex: none; box-sizing: border-box; scroll-snap-align: none; }
+  .folio-project-viewer .folio-project-viewer__note { padding: 24px 8px; min-height: 0; gap: 18px; }
+  .folio-project-viewer .folio-project-viewer__note p { font-size: 16px; line-height: 1.55; max-width: 100%; }
+  .folio-project-viewer .folio-project-viewer__note h3 { font-size: 26px; line-height: 1.15; }
+  .folio-project-viewer .folio-project-viewer__close { position: fixed; top: max(12px, env(safe-area-inset-top)); right: 16px; min-width: 64px; min-height: 44px; background: #393835; border-radius: 999px; }
+  .folio-project-viewer .folio-project-viewer__external { align-self: flex-start; min-height: 44px; box-sizing: border-box; }
+  .folio-project-viewer .folio-project-viewer__contact-row { align-items: center; }
+}
+@media (max-width: 1320px) {
+  .folio-project-viewer .folio-project-viewer__group-media { flex-direction: column; align-items: stretch; width: 100%; min-width: 0; }
+  .folio-project-viewer .folio-project-viewer__group { margin: 0; }
+}
+
+.folio-project-viewer .folio-project-viewer__note {
+  padding-inline: 0;
+}
+.folio-project-viewer .folio-project-viewer__note p {
+  max-width: none;
+  width: 100%;
+}
+.folio-project-viewer .folio-project-viewer__note[data-note="website-intro"] h3 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.folio-project-viewer .folio-project-viewer__note[data-note="website-intro"] h3 {
+  max-width: none;
+  width: 100%;
+  font-size: clamp(20px, 3.2vw, 24px);
+  white-space: nowrap;
+}
+
+.folio-project-viewer__compact-header { display: none; }
+@media (max-width: 1320px) {
+  .folio-project-viewer__compact-header {
+    position: fixed; z-index: 7; inset: auto 0 0; display: grid; gap: 12px;
+    padding: 16px 20px max(16px, env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0; border-top: 1px solid #ffffff26;
+    background: #393835; color: #f7f2eb; box-shadow: 0 -8px 30px #0003;
+  }
+  .folio-project-viewer__compact-identity { display: flex; align-items: center; gap: 12px; }
+  .folio-project-viewer__compact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .folio-project-viewer__compact-actions { align-items: center; }
+  .folio-project-viewer__compact-actions .folio-project-viewer__intro-link { margin: 0; flex-shrink: 0; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__compact-actions .folio-project-viewer__contact-row { margin-top: 0; }
+  .folio-project-viewer .folio-project-viewer__reel { padding-bottom: calc(190px + env(safe-area-inset-bottom)); }
+}
+
+
+
+/* Compact corner menu: one clear action. */
+.folio-corner-menu {
+  position: fixed;
+  z-index: 99;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+}
+.folio-corner-menu__toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #171612;
+  border-radius: 16px;
+  background: #292723;
+  color: #fffaf2;
+  font: 500 14px / 1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  box-shadow: 0 3px 0 #171612, 0 5px 12px #29272318;
+  cursor: pointer;
+}
+.folio-corner-menu__toggle svg { transition: transform 180ms ease; }
+.folio-corner-menu__toggle:active { transform: translateY(2px); box-shadow: 0 1px 0 #171612; }
+.folio-corner-menu__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  padding: 6px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  border: 1px solid #29272326;
+  border-radius: 16px;
+  background: #fffaf2;
+  box-shadow: 0 8px 24px #29272320;
+}
+.folio-corner-menu__panel a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: #292723;
+  border-radius: 10px;
+  font: 500 14px / 1.3 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+.folio-corner-menu__panel a:hover { background: #eee7db; }
+.folio-corner-menu :is(a, button):focus-visible { outline: 2px solid #bd591f; outline-offset: 4px; }
+body.folio-project-viewer-open .folio-corner-menu { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .folio-corner-menu__toggle svg { transition: none; }
+}
+
+@media (max-width: 1320px) {
+  .folio-project-viewer .folio-project-viewer__details { box-sizing: border-box; }
+  .folio-project-viewer__scroll-blur { display: none; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__nda, .folio-project-viewer__external) { min-height: 44px; box-sizing: border-box; }
+}
+
+/* Keep the reading column at desktop width when the sidebar stacks. */
+@media (min-width: 761px) and (max-width: 1320px) {
+  .folio-project-viewer .folio-project-viewer__details {
+    width: min(100%, 672px);
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  .folio-project-viewer .folio-project-viewer__reel {
+    width: min(100%, 672px);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 1320px) {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+/* Narrative copy follows the same quiet hierarchy as Superr's media headings. */
+.folio-project-viewer__hero-image { flex: 0 0 auto; width: min(640px, 56vw); min-width: 0; }
+.folio-project-viewer__hero-image img { display: block; width: 100%; height: auto; }
+@media (max-width: 1320px) { .folio-project-viewer .folio-project-viewer__hero-image { width: 100%; max-width: 100%; } }
+
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note {
+  min-height: 0;
+  padding-block: 24px;
+  gap: 12px;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note h3 {
+  max-width: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: normal;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__note p, .folio-project-viewer__group-description, .folio-project-viewer__callouts p) {
+  color: #e4e1da;
+  font-size: 17px;
+  line-height: 27px;
+  letter-spacing: normal;
+}
+
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 28px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description { white-space: pre-line; margin: 0 0 24px; }
+.folio-project-viewer__journey {
+  display: flex; flex-wrap: wrap; gap: 12px 20px; list-style: none;
+  margin: 0 0 24px; padding: 16px 0; border-block: 1px solid #ffffff26;
+  color: #f7f2eb; font-size: 14px; line-height: 22px;
+}
+.folio-project-viewer__journey li:not(:last-child)::after { content: "→"; margin-left: 20px; color: #bdbbb6; }
+.folio-project-viewer__annotated-media { min-width: 0; width: 100%; }
+.folio-project-viewer__annotated-media .folio-project-viewer__media { width: 100%; }
+.folio-project-viewer__annotated-media > p { margin: 12px 0 4px; color: #cbc9c3; font-size: 14px; line-height: 21px; }
+.folio-project-viewer__annotated-media > a { display: inline-block; padding-block: 8px; color: #f7f2eb; font-size: 13px; text-underline-offset: 4px; }
+.folio-project-viewer__annotated-media > a:focus-visible { outline: 2px solid #f48120; outline-offset: 3px; }
+.folio-project-viewer .folio-project-viewer__group[data-layout="comparison"] .folio-project-viewer__group-media { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.folio-project-viewer__callouts { padding: 0; margin: 24px 0 0; list-style: none; counter-reset: payment-callout; }
+.folio-project-viewer__callouts li { counter-increment: payment-callout; position: relative; padding: 16px 0 16px 32px; border-top: 1px solid #ffffff26; }
+.folio-project-viewer__callouts li::before { content: counter(payment-callout, decimal-leading-zero); position: absolute; left: 0; top: 18px; color: #bdbbb6; font-size: 12px; }
+.folio-project-viewer__callouts strong { color: #f7f2eb; font-size: 16px; font-weight: 500; line-height: 24px; }
+.folio-project-viewer__callouts p { margin: 4px 0 0; color: #cbc9c3; font-size: 16px; line-height: 24px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media:has(img[src$="/order-entry.png"])::after {
+  content: ""; position: absolute; pointer-events: none;
+  left: 59.8%; top: 65.1%; width: 18.9%; height: 7.3%;
+  box-sizing: border-box; border: 2px solid #f48120; border-radius: 4px;
+}
+@media (max-width: 600px) {
+  .folio-project-viewer .folio-project-viewer__group[data-layout="comparison"] .folio-project-viewer__group-media { grid-template-columns: 1fr; gap: 24px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 20px; }
+}
+
+/* Header image expansion keeps the case-study layout in place. */
+.folio-project-viewer__hero-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.folio-project-viewer__hero-trigger:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.folio-hero-overlay { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 24px; border: 0; box-sizing: border-box; background: rgb(18 20 19 / 88%); cursor: zoom-out; }
+.folio-hero-overlay[open] { display: grid; place-items: center; }
+.folio-hero-overlay::backdrop { background: transparent; }
+.folio-hero-overlay button { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 100%; padding: 0; border: 0; background: transparent; color: white; cursor: zoom-out; }
+.folio-hero-overlay button:focus-visible { outline: 2px solid white; outline-offset: 6px; }
+.folio-hero-overlay img { display: block; max-width: 100%; max-height: calc(100dvh - 92px); width: auto; height: auto; object-fit: contain; }
+.folio-hero-overlay span { font-family: inherit; font-size: 12px; line-height: 20px; }
+
+.folio-project-asset__expand { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.folio-project-asset__expand:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+
+.folio-project-viewer__overview { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; flex: 0 0 auto; width: min(640px, 56vw); min-width: 0; margin: 40px 0 28px; color: #f7f2eb; }
+.folio-project-viewer__overview h3 { margin: 0; font-size: 16px; font-weight: 500; line-height: 28px; }
+.folio-project-viewer__overview-content > p { margin: 0; font-size: 18px; line-height: 1.6; letter-spacing: -.015em; }
+.folio-project-viewer__overview-content > p + p { margin-top: 24px; }
+.folio-project-viewer__overview-facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px 24px; margin: 36px 0 0; }
+.folio-project-viewer__overview-facts dt { margin: 0 0 8px; color: #bdbbb6; font-size: 10px; line-height: 16px; letter-spacing: .14em; text-transform: uppercase; }
+.folio-project-viewer__overview-facts dd { margin: 0; font-size: 14px; line-height: 22px; white-space: pre-line; }
+@media (max-width: 600px) {
+  .folio-project-viewer__overview { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-block: 28px; }
+  .folio-project-viewer__overview-content > p { font-size: 17px; }
+  .folio-project-viewer__overview-facts { gap: 24px 16px; margin-top: 28px; }
+}
+
+.folio-project-viewer__reel[data-media-gate]:not([data-media-gate="ready"]) { visibility: hidden; pointer-events: none; }
+.folio-project-viewer__loading { position: absolute; inset: 40% 24px auto; z-index: 4; text-align: center; color: #f7f2eb; font-size: 16px; }
+.folio-project-viewer__loading button { padding: 10px 16px; border: 1px solid #bdbbb6; border-radius: 6px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.folio-project-viewer__loading button:focus-visible { outline: 2px solid #f7f2eb; outline-offset: 4px; }
+
+/* Shadow follows the white UI frame inside the exported WizPay artwork. */
+.folio-hero-overlay__image { position: relative; max-width: 100%; }
+[data-frame-shadow="true"] { position: relative; }
+[data-frame-shadow="true"]::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 5.8%; top: 18.57%; width: 88.4%; height: 62.95%;
+  border-radius: 1.1% / 1.2%;
+  box-shadow: 0 2px 3px rgb(31 67 47 / 7%), 0 8px 16px -4px rgb(31 67 47 / 12%), 0 20px 34px -10px rgb(31 67 47 / 15%);
+}
+
+/* Tint only the green surround; leave the embedded interface untouched. */
+[data-frame-shadow="true"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 12% 8%, rgb(255 255 239 / 70%), transparent 62%), linear-gradient(155deg, rgb(231 250 218 / 25%) 20%, rgb(156 211 184 / 48%) 100%);
+  clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 5.8% 18.57%, 94.2% 18.57%, 94.2% 81.52%, 5.8% 81.52%, 5.8% 18.57%);
+}
+
+/* Trim the exported cover's extra vertical surround without scaling its UI. */
+.folio-project-viewer__hero-image[data-frame-shadow="true"],
+.folio-hero-overlay__image[data-frame-shadow="true"] {
+  overflow: hidden;
+  clip-path: inset(0);
+}
+.folio-project-viewer__hero-image[data-frame-shadow="true"] {
+  aspect-ratio: 1569 / 1590;
+}
+.folio-project-viewer__hero-image[data-frame-shadow="true"] .folio-project-viewer__hero-trigger {
+  margin-top: -14.02%;
+}
+.folio-project-viewer__hero-image[data-frame-shadow="true"]::before,
+.folio-hero-overlay__image[data-frame-shadow="true"]::before {
+  clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 5.8% 9.87%, 94.2% 9.87%, 94.2% 90.24%, 5.8% 90.24%, 5.8% 9.87%);
+}
+.folio-project-viewer__hero-image[data-frame-shadow="true"]::after,
+.folio-hero-overlay__image[data-frame-shadow="true"]::after {
+  top: 9.87%; height: 80.37%;
+}
+.folio-hero-overlay__image[data-frame-shadow="true"] {
+  width: min(calc((100dvh - 92px) * 1569 / 1590), calc(100vw - 48px));
+  aspect-ratio: 1569 / 1590;
+}
+.folio-hero-overlay__image[data-frame-shadow="true"] img {
+  width: 100%; max-height: none; margin-top: -14.02%;
+}
+
+/* WizPay reading hierarchy. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 { font-weight: 500; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p { letter-spacing: normal; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #e4e1da; }
+
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > .folio-project-viewer__pull-quote {
+  margin: 0 0 28px;
+  max-width: 100%;
+  color: #f7f2eb;
+  font-size: clamp(25px, 3vw, 32px);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+/* The Figma export includes a dark outer canvas; crop to the artwork bounds. */
+.folio-project-asset:has(> img[src*="overview-244-15634"]) { overflow: hidden; }
+.folio-project-asset > img[src*="overview-244-15634"],
+.folio-hero-overlay__image[data-payment-crop="true"] img {
+  position: absolute; left: -.1565%; top: -5.8471%;
+  width: 103.8341%; height: 113.0435%; max-width: none; max-height: none;
+}
+.folio-hero-overlay__image[data-payment-crop="true"] {
+  overflow: hidden;
+  width: min(calc((100dvh - 92px) * 1278 / 667), calc(100vw - 48px));
+  aspect-ratio: 1278 / 667;
+}
+
+/* Clip the empty export strip beneath the saved-card artwork. */
+.folio-project-asset:has(> img[src*="overview-244-16150"]) { overflow: hidden; }
+.folio-project-asset > img[src*="overview-244-16150"] {
+  position: absolute; inset: 0 auto auto 0; width: 100%; height: 116.1677%; max-height: none;
+}
+.folio-hero-overlay__image:has(> img[src*="overview-244-16150"]) {
+  overflow: hidden; width: min(calc((100dvh - 92px) * 640 / 668), calc(100vw - 48px)); aspect-ratio: 640 / 668;
+}
+.folio-hero-overlay__image > img[src*="overview-244-16150"] {
+  width: 100%; height: auto; max-height: none;
+}
+
+/* A typographic interlude, sized like the surrounding case-study media. */
+.folio-project-viewer__quote-card {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex: 0 0 auto; box-sizing: border-box;
+  width: min(640px, 56vw); min-height: 340px; margin: 0; padding: 48px 32px;
+  background: #fff;
+  color: #244b3b; text-align: center;
+}
+.folio-project-viewer__quote-card::after {
+  content: ""; position: absolute; inset: 14px; border: 1px solid rgb(36 75 59 / 14%); pointer-events: none;
+}
+.folio-project-viewer__quote-mark { height: 40px; font-family: "Source Serif 4 Variable", Georgia, serif; font-size: 76px; line-height: 1; color: #608975; }
+.folio-project-viewer__quote-card blockquote {
+  max-width: 13ch; margin: 18px 0 28px;
+  font-family: "Source Serif 4 Variable", Georgia, serif;
+  font-size: clamp(38px, 4vw, 54px); font-weight: 400; line-height: 1.08; letter-spacing: -.035em;
+}
+.folio-project-viewer__quote-card figcaption { font-size: 11px; line-height: 18px; letter-spacing: .08em; color: #4d7060; }
+@media (max-width: 600px) {
+  .folio-project-viewer__quote-card { min-height: 300px; padding: 40px 24px; }
+}
+
+.folio-project-viewer__quote-card { min-height: 180px; padding: 40px 24px; }
+.folio-project-viewer__quote-card::after { display: none; }
+.folio-project-viewer__quote-card > p { margin: 0; font-family: "Inter Variable", sans-serif; font-size: clamp(25px, 3vw, 32px); font-weight: 400; line-height: 1.25; letter-spacing: -.02em; transition: font-weight 450ms cubic-bezier(.22, 1, .36, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .folio-project-viewer__quote-card:hover > p { font-weight: 700; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-project-viewer__quote-card > p { transition: none; }
+}
+
+.folio-project-asset:has(> img[src*="payment-collage-transparent"]),
+.folio-hero-overlay__image[data-payment-gradient="true"] {
+  background: radial-gradient(ellipse at 12% 8%, rgb(255 255 239 / 70%), transparent 62%), linear-gradient(155deg, rgb(231 250 218 / 25%) 20%, rgb(156 211 184 / 48%) 100%), #ecfbea;
+}
+
+/* Quiet WizPay reading column; media retains its full width. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: normal;
+  color: #fffaf2;
+  margin: 0 auto 12px;
+  text-wrap: pretty;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+  width: calc(100% - 64px);
+  max-width: 576px;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: #e4e1da;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 32px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description strong { font-weight: inherit; color: inherit; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p + p { margin-top: 20px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts strong { font-weight: 500; font-size: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #c2bfb8; }
+@media (max-width: 600px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: 100%; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 30px; }
+}
+
+/* WizPay spacing is owned by block boundaries, without additive reel gaps. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview { margin-block: 56px 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 56px 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note { margin-block: 56px 0; padding-block: 0; gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { margin-bottom: 0; }
+
+/* WizPay full-page reading prototype. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) { background: #fdfcf9; color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__details, .folio-project-viewer__compact-header, .folio-project-viewer__scroll-blur, .folio-project-viewer__close) { display: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+  position: absolute; inset: 0; width: 100%; max-width: none; margin: 0;
+  padding: 64px 32px 100px; gap: 0;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__hero-image, .folio-project-viewer__reel > .folio-project-viewer__media, .folio-project-viewer__group, .folio-project-viewer__note) { width: min(100%, 680px); max-width: 680px; }
+.folio-reading-header { width: min(100%, 600px); flex: 0 0 auto; margin: 0 0 56px; }
+.folio-reading-header button { display: block; background: none; border: 0; padding: 0; margin: 0 0 48px; color: #55554e; font: inherit; font-size: 14px; cursor: pointer; }
+.folio-reading-header button:focus-visible { outline: 2px solid #255443; outline-offset: 6px; }
+.folio-reading-header h1 { font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 8px; }
+.folio-reading-header p { font-size: 16px; line-height: 24px; color: #494943; margin: 20px 0 0; }
+.folio-reading-header .folio-reading-header__date { font-size: 13px; color: #71716a; margin: 0 0 28px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3, .folio-project-viewer__callouts strong) { color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) { color: #494943; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: min(100%, 600px); max-width: 600px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media { box-shadow: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #6a6a63; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li { border-color: #deded6; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li::before { color: #77776f; }
+@media (max-width: 600px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 28px 20px 64px; }
+  .folio-reading-header { margin-bottom: 40px; }
+  .folio-reading-header button { margin-bottom: 32px; }
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { align-items: center; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { width: min(100%, 600px); max-width: 600px; }
+
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+  position: absolute; top: 1px; left: -72px; display: grid; place-items: center;
+  width: 36px; height: 36px; margin: 0; padding: 0; border-radius: 50%; background: #f0efeb;
+  color: #494943; transition: background 160ms ease;
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button:hover { background: #e6e5df; }
+@media (max-width: 800px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 0; }
+  .folio-reading-header h1 { padding-left: 52px; min-height: 36px; display: flex; align-items: center; }
+  .folio-reading-header .folio-reading-header__date { padding-left: 52px; }
+}
+
+/* Keep the reading-page exit available throughout the story. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+  position: fixed;
+  top: 65px;
+  left: calc(50% - 372px);
+  z-index: 10;
+}
+@media (max-width: 800px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: max(32px, calc(50% - 300px)); }
+}
+@media (max-width: 600px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { top: 29px; left: 20px; }
+}
+
+/* Reserve a separate gutter for the fixed back control. */
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: calc(50% - 412px); }
+@media (max-width: 880px) {
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-left: 80px; padding-right: 24px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 20px; }
+  .folio-reading-header h1, .folio-reading-header .folio-reading-header__date { padding-left: 0; }
+}
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header > p:last-child { font-size: 14px; }
+
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]),
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* WizPay material study: a quiet sheet in the portfolio's lit workspace. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) {
+  background:
+    radial-gradient(ellipse at 12% 0%, #fffdf3 0%, transparent 48%),
+    radial-gradient(ellipse at 95% 80%, #d7d8cc 0%, transparent 55%),
+    #eae7df;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"])::before {
+  content: ""; position: absolute; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(117deg, transparent 0 140px, #747d6710 180px 230px, transparent 300px 430px);
+  filter: blur(28px);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  inset: 20px 0 0; height: calc(100% - 20px);
+  width: min(100%, 1000px); margin-inline: auto;
+  background-color: #fdfcf9;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23504b3e' opacity='.025' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  border: 1px solid #ffffffb3; border-bottom: 0; border-radius: 5px 5px 0 0;
+  box-shadow: 0 2px 4px #403c3010, 0 18px 65px #403c3017;
+  animation: wizpay-paper-arrive 550ms cubic-bezier(.22,1,.36,1) backwards;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header::before {
+  content: "01 / SELECTED WORK"; display: block; margin-bottom: 24px;
+  font-family: "Departure Mono", monospace; font-size: 10px; line-height: 16px;
+  letter-spacing: .06em; color: #77786b;
+}
+@keyframes wizpay-paper-arrive {
+  from { opacity: 0; translate: 0 18px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (max-width: 800px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { inset: 0; height: 100%; border: 0; border-radius: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { animation: none; }
+}
+
+/* Journal-inspired material: the sheet moves through the reading viewport. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at 10% 0%, #f8f7f0, transparent 65%), #e5e4dc;
+  padding: 32px 0 0;
+  box-sizing: border-box;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"])::before { display: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  position: relative; inset: auto; height: auto; min-height: calc(100dvh - 32px);
+  overflow: visible; isolation: isolate;
+  background: #fff; border: 0; border-radius: 0;
+  box-shadow: 0 1px 1px #3a342f17;
+  animation: none;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::before {
+  content: ""; position: absolute; inset: 3px -3px 0; z-index: -1; pointer-events: none;
+  background: #39352e; opacity: .17; filter: blur(7px);
+  clip-path: polygon(.3% .7%,16% .2%,39% .8%,63% .25%,84% .65%,99.6% .2%,100% 99.2%,86% 99.75%,62% 99.1%,39% 99.8%,15% 99.25%,.2% 99.7%);
+  transform: translate(4px, 7px);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(128deg,#ffffffed,#ffffffef 38%,#fffefaeb), url('/assets/textures/paper-fiber-cc0.jpg') center / 620px auto;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header::before { content: none; }
+@keyframes wizpay-paper-materialize {
+  from { opacity: 0; filter: blur(1px) brightness(1.035); }
+  45% { opacity: .48; filter: blur(.35px) brightness(1.012); }
+  to { opacity: 1; filter: none; }
+}
+@media (max-width: 800px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) { padding-top: 0; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { min-height: 100dvh; height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { animation: none; }
+}
+
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) { background: transparent; }
+.folio-reading-light { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .32; overflow: hidden; }
+.folio-reading-light .wall-light-shader { position: absolute; inset: 0; width: 100%; height: 100%; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { background: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::after { background: #fff; }
+
+/* The desk stays fully visible around the open white sheet. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-light { opacity: 1; }
+
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { width: min(100%, 840px); }
+
+/* Place the paper's close control in its upper-right corner. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header { position: static; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  left: auto;
+}
+
+/* A quieter text column with room between reading sections. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  padding: 136px 40px 120px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-reading-header, .folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin-inline: auto;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header { margin-bottom: 104px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header h1 { font-size: 40px; margin-bottom: 14px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header .folio-reading-header__date { font-size: 12px; margin-bottom: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-reading-header > p:not(.folio-reading-header__date), p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+  font-size: 14px;
+  line-height: 1.5625;
+  letter-spacing: -0.01em;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header > p + p { margin-top: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 112px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) { font-size: 16px; line-height: 1.5; margin-bottom: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) p.folio-project-viewer__group-description { margin-bottom: 64px; }
+@media (max-width: 600px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { padding: 112px 24px 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header { margin-bottom: 72px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) p.folio-project-viewer__group-description { margin-bottom: 48px; }
+}
+
+/* Match Journal Desk's resting paper edge and narrow top cast shadow. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  inset: auto;
+  top: -14px;
+  right: 2px;
+  bottom: auto;
+  left: -3px;
+  height: 17px;
+  background: linear-gradient(180deg, rgb(22 18 15 / 0) 0%, rgb(22 18 15 / .14) 43%, rgb(22 18 15 / .38) 82%, rgb(22 18 15 / .49) 100%);
+  clip-path: polygon(0 94%, 5% 70%, 14% 53%, 27% 59%, 43% 46%, 59% 58%, 75% 51%, 89% 61%, 96% 75%, 100% 93%, 100% 100%, 0 100%);
+  filter: blur(2px);
+  opacity: .9;
+  transform: skewX(-.2deg);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+/* Fixed paper edges surround an independently scrolling story. */
+.folio-reading-paper { display: contents; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) { overflow: hidden; padding: 32px 0 0; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  display: block; position: relative; isolation: isolate;
+  width: min(100%, 840px); height: calc(100dvh - 32px); margin-inline: auto;
+  box-sizing: border-box; padding-top: 0; background: #fff;
+  border: 1px solid #d2d0c9; border-bottom: 0;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  width: 100%; height: 100%; min-height: 0; overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior-y: contain; box-shadow: none; padding-top: 136px; animation: none;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::before { content: none; }
+.folio-reading-paper__close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  display: grid; place-items: center; width: 36px; height: 36px;
+  padding: 0; border: 0; border-radius: 50%; background: #f0efeb; color: #494943; cursor: pointer;
+}
+.folio-reading-paper__close:hover { background: #e6e5df; }
+.folio-reading-paper__close:focus-visible { outline: 2px solid #255443; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) { padding-top: 16px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper { height: calc(100dvh - 16px); }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { padding-top: 112px; }
+}
+
+/* Keep the cast shadow outside the bordered paper face. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  top: -18px;
+}
+
+/* A visible scroll indicator belongs to the paper's reading area. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  scrollbar-width: thin;
+  scrollbar-color: #b8b5ad transparent;
+  scrollbar-gutter: stable;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::-webkit-scrollbar-track { background: transparent; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb {
+  background: #b8b5ad;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb:hover { background: #918e86; }
+
+/* Reuse the site's soft blur and fade at the paper's scroll boundary. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade {
+  --folio-paper: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 10px;
+  z-index: 5;
+  margin: 0;
+  height: 64px;
+}
+
+/* A wider paper proportion between the original sheet and A-series paper. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  width: min(840px, calc(100vw - 32px), calc((100dvh - 32px) / 1.2));
+  height: min(calc(840px * 1.2), calc((100vw - 32px) * 1.2), calc(100dvh - 32px));
+  aspect-ratio: 1 / 1.2;
+}
+@media (max-width: 600px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+    width: min(calc(100vw - 24px), calc((100dvh - 16px) / 1.2));
+    height: min(calc((100vw - 24px) * 1.2), calc(100dvh - 16px));
+  }
+}
+
+/* Give consecutive project images room within the paper. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 32px; }
+
+/* A crisp paper outline replaces the raised top-shadow treatment. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  border: 1px solid #111;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  content: none;
+}
+
+/* Soft contact shadows follow the top and right edges of the sheet. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  border: 1px solid #cbc8c1;
+  box-shadow: 2px 0 3px rgb(45 39 31 / .07), 8px 2px 16px -8px rgb(45 39 31 / .16);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  content: "";
+  top: -3px;
+  right: 8px;
+  bottom: auto;
+  left: 8px;
+  height: 3px;
+  background: rgb(45 39 31 / .2);
+  border-radius: 50%;
+  clip-path: none;
+  filter: blur(2px);
+  opacity: 1;
+  transform: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.folio-reading-paper__title {
+  position: absolute; top: 0; left: 0; right: 10px; z-index: 6;
+  display: flex; align-items: center; height: 68px; padding: 0 72px 0 32px;
+  box-sizing: border-box;
+  background: linear-gradient(#fff 85%, rgb(255 255 255 / .96));
+  color: #292923; font: 500 16px / 22px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -.01em; pointer-events: none;
+  opacity: 0; transition: opacity 180ms ease;
+}
+.folio-reading-paper__title::after {
+  content: ""; position: absolute; left: 32px; right: 22px; bottom: 0;
+  height: 1px; background: linear-gradient(90deg, #d8d6cf, #e9e7e100);
+}
+.folio-reading-paper__title[data-visible="true"] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .folio-reading-paper__title { transition: none; } }
+
+/* Keep a tight contact edge, with softer uneven depth underneath the paper. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  border-color: #c8c5bd;
+  box-shadow: 0 1px 2px rgb(35 29 22 / .13), 3px 4px 7px -4px rgb(35 29 22 / .18);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  top: -4px; left: 2%; right: 2%; height: 6px;
+  background: linear-gradient(180deg, transparent, rgb(22 18 15 / .2));
+  clip-path: polygon(0 94%, 5% 70%, 14% 53%, 27% 59%, 43% 46%, 59% 58%, 75% 51%, 89% 61%, 96% 75%, 100% 93%, 100% 100%, 0 100%);
+  filter: blur(2px); opacity: .65; border-radius: 0;
+}
+.folio-reading-paper__cast-shadow {
+  position: absolute; z-index: -1; pointer-events: none;
+  top: 8%; bottom: 4%; right: -5px; width: 12px;
+  border-radius: 50%; background: rgb(35 29 22 / .16);
+  filter: blur(5px); transform: rotate(.35deg);
+}
+
+/* Resting paper: a fine edge, tight contact, and soft directional falloff. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  border: 1px solid rgb(74 66 57 / .16);
+  box-shadow: 0 -1px 3px rgb(38 31 24 / .07),
+    1px 2px 3px rgb(38 31 24 / .10),
+    5px 7px 12px -6px rgb(38 31 24 / .18),
+    12px 16px 30px -16px rgb(38 31 24 / .16);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  inset: 5px 8px 12px 6px;
+  height: auto;
+  background: transparent;
+  border-radius: 45% / 4%;
+  box-shadow: 5px 2px 9px rgb(38 31 24 / .12);
+  clip-path: none; filter: none; opacity: 1; transform: rotate(.25deg);
+  -webkit-mask-image: none; mask-image: none;
+}
+.folio-reading-paper__cast-shadow { display: none; }
+
+/* The compact title floats above a longer, continuous reading fade. */
+.folio-reading-paper__title {
+  height: 76px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 500;
+  background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .97) 55%, rgb(255 255 255 / 0) 100%);
+}
+.folio-reading-paper__title::after { content: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade {
+  height: 112px;
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade::after {
+  background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .95) 32%, transparent 100%);
+}
+
+/* Fade only at the paper's top edge, not across the reading area. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade {
+  height: 28px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade::after {
+  background: linear-gradient(to bottom, #fff, transparent);
+}
+.folio-reading-paper__title { background: transparent; }
+.folio-reading-paper__title[data-visible="true"] {
+  background: linear-gradient(to bottom, #fff 55%, rgb(255 255 255 / 0));
+}
+
+/* Start fading earlier while the compact reading header is visible. */
+.folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade {
+  height: 112px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+  background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
+}
+
+/* Original Journal Desk resting-sheet treatment. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  top: -14px;
+  right: 2px;
+  bottom: auto;
+  left: -3px;
+  height: 17px;
+  background: linear-gradient(180deg, rgb(22 18 15 / 0) 0%, rgb(22 18 15 / 0.14) 43%, rgb(22 18 15 / 0.38) 82%, rgb(22 18 15 / 0.49) 100%);
+  clip-path: polygon(0 94%, 5% 70%, 14% 53%, 27% 59%, 43% 46%, 59% 58%, 75% 51%, 89% 61%, 96% 75%, 100% 93%, 100% 100%, 0 100%);
+  filter: blur(2px);
+  opacity: 0.9;
+  transform: skewX(-0.2deg);
+  transition: filter 520ms cubic-bezier(0.2, 0.72, 0.22, 1), opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.72, 0.22, 1);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+/* Keep the paper outline above its contents and the cast shadow underneath. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  box-shadow: none;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgb(74 66 57 / .18);
+}
+
+/* Keep image sequences free of visible captions. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__annotated-media > p { display: none; }
+
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::after {
+  box-shadow: inset 0 0 0 1px var(--paper-border-color, rgb(74 66 57 / .28));
+}
+
+/* Narrow screens use the available height instead of a fixed paper ratio. */
+@media (max-width: 800px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+    height: calc(100dvh - 32px);
+    aspect-ratio: auto;
+  }
+}
+@media (max-width: 600px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+    height: calc(100dvh - 16px);
+  }
+}
+
+/* Superr starts directly with its first story section after the introduction. */
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header + .folio-project-viewer__group { margin-top: 0; }
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header > p { white-space: pre-line; }
+
+/* White paper and matching fades for the Superr duplicate. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel::after {
+  background: #fff;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade { --folio-paper: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade::after {
+  background: linear-gradient(to bottom, #fff, transparent);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__title[data-visible="true"] {
+  background: linear-gradient(to bottom, #fff 55%, rgb(255 255 255 / 0));
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+  background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
+}
+
+/* Pale media outlines separate white artwork from the white paper. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-project-viewer__media, .folio-project-viewer__hero-image, .superr-activity) {
+  outline: none;
+  outline-offset: -1px;
+}
+
+/* Draw the media border above the artwork so images cannot cover it. */
+.folio-paper-media { position: relative; }
+.folio-paper-media__border {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+  border: 1px solid rgb(163 163 163 / .2); border-radius: inherit; box-sizing: border-box;
+}
+.folio-project-viewer[data-project="superr-paper"] .folio-project-viewer__annotated-media > p { display: block; }
+
+/* Preserve the original Superr media rhythm within the paper reader. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__group .folio-project-viewer__group-media {
+  gap: 10px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media {
+  margin-top: 10px;
+}
+
+/* Keep original Superr section labels aligned with their media. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__group > h3 {
+  width: 100%; max-width: none; margin: 0 0 10px;
+  font-size: 18px; line-height: 24px; font-weight: 400; letter-spacing: normal;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) p.folio-project-viewer__group-description {
+  width: 100%; max-width: none; margin: 0 0 12px;
+  font-size: 14px; line-height: 1.5;
+}
+
+/* Reuse Superr's red ink stamp on its paper introduction. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header { position: relative; }
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header__nda-stamp { top: 0; right: 0; }
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header h1 { padding-right: 84px; }
+
+/* Bring the original film thumbnail into the Superr paper introduction. */
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header > .folio-project-viewer__intro-link {
+  margin-top: 32px;
+}
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header > .folio-project-viewer__intro-link:focus-visible {
+  outline-color: #292723;
+}
+
+/* Slightly tighter paragraph rhythm in the Superr introduction. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header > p:not(.folio-reading-header__date) + p {
+  margin-top: 28px;
+}
+
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header > p:not(.folio-reading-header__date) {
+  font-size: 16px;
+}
+
+/* Superr identity sits above a closely paired title and date. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__project-logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header h1 {
+  margin-bottom: 4px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header .folio-reading-header__date {
+  margin-top: 0;
+}
+
+/* A compact identity stack: supporting mark, title, then quiet metadata. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__project-logo {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header h1 {
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  margin-bottom: 6px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header .folio-reading-header__date {
+  font-size: 12px;
+  line-height: 18px;
+  color: #85857e;
+  margin-top: 0;
+}
+
+/* Superr paper: card identity and live border tuning. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__identity {
+  display: flex; align-items: center; gap: 12px;
+  padding-right: 76px; margin-bottom: 40px;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__project-logo {
+  width: 60px; height: 60px; flex: 0 0 60px; margin: 0;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__identity h1 {
+  padding: 0; margin: 0;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-header__identity .folio-reading-header__date {
+  margin: 2px 0 0;
+}
+/* Final paper colour and original inset media, retaining the shorter opening. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper {
+  --paper-border-color: #ededed;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel {
+  padding-top: 112px;
+}
+@media (max-width: 600px) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-project-viewer__reel { padding-top: 96px; }
+}
+/* Cover the entire top edge, including the scrollbar side. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) :is(.folio-reading-paper__fade, .folio-reading-paper__title) {
+  right: 0;
+}
+
+/* Let the site's backdrop blur soften Superr media without a white wash. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__fade::after {
+  content: none;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper__title[data-visible="true"] {
+  background: transparent;
+}
+
+/* The top contact edge shares the shadow's grey, fading into the pale corners. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::after {
+  box-shadow:
+    inset 1px 0 0 var(--paper-border-color),
+    inset -1px 0 0 var(--paper-border-color),
+    inset 0 -1px 0 var(--paper-border-color);
+  background: linear-gradient(90deg, #ededed, #b9b8b7 4%, #b9b8b7 96%, #ededed) top / 100% 1px no-repeat;
+}
+
+/* WizPay shares the paper identity without reserving space for an NDA stamp. */
+.folio-project-viewer[data-project="wizpay"] .folio-reading-header__identity { padding-right: 0; margin-bottom: 56px; }
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image { position: relative; }
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 10px; }
+
+/* WizPay chapter labels and reflections share the introduction's reading column. */
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin: 0 auto 12px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* WizPay explanations read as body copy, rather than media captions. */
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper p.folio-project-viewer__group-description {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin: 0 auto 28px;
+  font-size: 16px;
+  line-height: 1.5625;
+  letter-spacing: -0.01em;
+}
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper :is(.folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+  font-size: 16px;
+  line-height: 1.5625;
+  letter-spacing: -0.01em;
+}
+
+/* Fade homepage content alongside the paper entrance. */
+.invoice-folio > section {
+  transition: opacity 400ms ease;
+}
+[data-paper-open="true"] > section {
+  opacity: 0;
+  transition: opacity 440ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .invoice-folio > section { transition: none; }
+}
+
+/* Contact shadow appears only after the sheet has landed. */
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before {
+  animation: paper-contact-shadow 120ms ease 440ms both;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper[data-present="false"]::before {
+  animation: none;
+  opacity: 0;
+}
+@keyframes paper-contact-shadow {
+  from { opacity: 0; }
+  to { opacity: .9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"]) .folio-reading-paper::before { animation: none; }
+}
+
+/* Small ink-coloured labels inside Superr's contribution sentence. */
+.folio-skill-pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(49 45 40 / 0.16);
+  color: inherit;
+  font-size: .875em;
+  font-weight: 400;
+  line-height: 1.55;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.folio-reading-header .folio-skill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 12px 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+}
+.folio-skill-grid .folio-skill-pill { flex: 0 0 auto; text-align: left; }
+
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image > .folio-paper-media__border {
+  border-color: #46866b;
 }

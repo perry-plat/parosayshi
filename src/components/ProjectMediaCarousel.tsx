@@ -40,6 +40,7 @@ export interface ProjectMediaCarouselSize {
 }
 
 export interface ProjectMediaCarouselProps {
+  manual?: boolean;
   ariaLabel: string;
   autoAdvanceMs?: number;
   hoveredPhotoAdvanceMs?: number;
@@ -67,6 +68,7 @@ function buildTiles(media: readonly ProjectCarouselMedia[], tileCount?: number) 
 }
 
 export function ProjectMediaCarousel({
+  manual = false,
   ariaLabel,
   autoAdvanceMs = 700,
   hoveredPhotoAdvanceMs = 1800,
@@ -81,6 +83,7 @@ export function ProjectMediaCarousel({
 }: ProjectMediaCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const resetFrameRef = useRef<number | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [inView, setInView] = useState(false);
@@ -127,7 +130,7 @@ export function ProjectMediaCarousel({
   }, []);
 
   useEffect(() => {
-    if (tiles.length < 2 || reducedMotion || !inView || !pageVisible || resetting) return undefined;
+    if (manual || tiles.length < 2 || reducedMotion || !inView || !pageVisible || resetting) return undefined;
     if (hovered && activeMedia?.kind === "video") return undefined;
 
     const delay = hovered
@@ -137,7 +140,7 @@ export function ProjectMediaCarousel({
         : autoAdvanceMs;
     const timer = window.setTimeout(() => setActiveIndex((index) => index + 1), delay);
     return () => window.clearTimeout(timer);
-  }, [activeIndex, activeMedia?.kind, autoAdvanceMs, hovered, hoveredPhotoAdvanceMs, inView, pageVisible, reducedMotion, resetting, tiles.length, videoAdvanceMs]);
+  }, [activeIndex, activeMedia?.kind, autoAdvanceMs, hovered, hoveredPhotoAdvanceMs, inView, pageVisible, reducedMotion, resetting, tiles.length, videoAdvanceMs, manual]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -173,7 +176,7 @@ export function ProjectMediaCarousel({
 
   const goNext = () => {
     if (tiles.length < 2 || resetting) return;
-    setActiveIndex((index) => Math.min(index + 1, tiles.length));
+    setActiveIndex((index) => reducedMotion ? (index + 1) % tiles.length : Math.min(index + 1, tiles.length));
   };
 
   const rootStyle: CSSProperties = {
@@ -190,13 +193,30 @@ export function ProjectMediaCarousel({
       aria-label={ariaLabel}
       className="project-media-carousel"
       data-reduced-motion={reducedMotion ? "true" : "false"}
+      aria-roledescription={manual ? "carousel" : undefined}
+      tabIndex={manual ? 0 : undefined}
+      onKeyDown={manual ? (event) => {
+        if (event.key === "ArrowRight") { event.preventDefault(); goNext(); }
+        if (event.key === "ArrowLeft") { event.preventDefault(); goPrevious(); }
+      } : undefined}
+      onTouchStart={manual ? (event) => { const touch = event.touches[0]; touchStartRef.current = { x: touch.clientX, y: touch.clientY }; } : undefined}
+      onTouchEnd={manual ? (event) => {
+        const start = touchStartRef.current;
+        touchStartRef.current = null;
+        if (!start) return;
+        const touch = event.changedTouches[0];
+        const dx = touch.clientX - start.x;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(touch.clientY - start.y)) {
+          if (dx < 0) goNext(); else goPrevious();
+        }
+      } : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={rootStyle}
     >
       <div className="project-media-carousel__viewport" ref={viewportRef}>
         <motion.div
-          animate={{ x: reducedMotion ? 0 : -(activeIndex * step) }}
+          animate={{ x: -(activeIndex * step) }}
           className="project-media-carousel__track"
           onAnimationComplete={onShiftComplete}
           style={{ gap }}
@@ -255,7 +275,7 @@ export function ProjectMediaCarousel({
           <button aria-label="Show previous project media" data-cursor-keep onClick={goPrevious} type="button">
             <HugeiconsIcon aria-hidden="true" icon={ArrowLeft01Icon} size={18} strokeWidth={1.8} />
           </button>
-          <span aria-label={`Artifact ${logicalIndex + 1} of ${tiles.length}`} className="project-media-carousel__count">
+          <span aria-live={manual ? "polite" : undefined} aria-atomic="true" aria-label={`Artifact ${logicalIndex + 1} of ${tiles.length}`} className="project-media-carousel__count">
             {String(logicalIndex + 1).padStart(2, "0")} / {String(tiles.length).padStart(2, "0")}
           </span>
           <button aria-label="Show next project media" data-cursor-keep onClick={goNext} type="button">
