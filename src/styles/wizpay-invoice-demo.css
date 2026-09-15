@@ -315,3 +315,7 @@ html body .folio-project-viewer .wi-stage[data-static="true"] .wi-toggle-row * {
 .wf-transactions-web > * { margin: 0; }
 
 .wf-transactions-figure { margin: 0; width: 100%; }
+
+/* Keep the artwork and annotation overlay on the same coordinate plane. */
+.wf-annotated { min-width: 0; max-width: 100%; }
+.wf-annotated > .folio-project-viewer__media { width: 100%; max-width: 100%; }
