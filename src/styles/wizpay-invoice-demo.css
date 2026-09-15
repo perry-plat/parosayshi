@@ -1,0 +1,317 @@
+@font-face { font-family: "Wizpay Satoshi"; src: url("/assets/fonts/satoshi/Satoshi-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Wizpay Satoshi"; src: url("/assets/fonts/satoshi/Satoshi-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+.wi-stage { container-type: inline-size; border-radius: 8px; overflow: hidden; padding: 20px 16px; background: radial-gradient(ellipse at 50% 45%, #ffffffb8 0%, #ffffff00 65%), linear-gradient(145deg, #dfe7e3 0%, #e9eceb 48%, #f4f5f5 100%); }
+.wi-form { width: 480px; margin: 0 auto; min-height: 685px; zoom: .7; font: 400 14px/1.5 "Wizpay Satoshi", "Helvetica Neue", sans-serif; color: #25282d; }
+.wi-form * { box-sizing: border-box; }
+.wi-card { display: flex; flex-direction: column; gap: 16px; padding: 16px; background: white; border-radius: 12px; }
+.wi-form strong { font-weight: 700; }
+.wi-heading { font-size: 16px; line-height: 24px; }
+.wi-summary { background: #f7f8fa; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.wi-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wi-icon { display: block; width: 24px; height: 24px; flex: 0 0 24px; }
+.wi-order { color: #16885f; display: flex; align-items: center; gap: 8px; }
+.wi-divider { border-top: 1px dashed #adb6c4; }
+.wi-invoices { padding: 8px 16px 16px; border-radius: 12px; background: #f7f8fa; }
+.wi-toggle-row { display: flex; align-items: center; justify-content: space-between; min-height: 38px; font-size: 16px; }
+.wi-switch { position: relative; width: 58px; height: 44px; padding: 0; flex-shrink: 0; background: transparent; border: 0; cursor: pointer; }
+.wi-switch-track { position: absolute; width: 34px; height: 14px; top: 15px; left: 12px; border-radius: 10px; background: #d1d5db; transition: background 200ms; }
+.wi-switch > img { position: absolute; width: 38px; height: 38px; left: 0; top: 3px; transition: transform 200ms ease; }
+.wi-toggle-row[aria-checked="true"] .wi-switch .wi-switch-track { background: #6ab39980; }
+.wi-toggle-row[aria-checked="true"] .wi-switch > img { transform: translateX(20px); }
+.wi-toggle-row:focus-visible { outline: 2px solid #16885f; outline-offset: 2px; border-radius: 8px; }
+.wi-expand { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 300ms ease, opacity 200ms ease; }
+.wi-expand[data-open="true"] { grid-template-rows: 1fr; opacity: 1; }
+.wi-expand-inner { overflow: hidden; min-height: 0; }
+.wi-invoice-list { padding-top: 8px; display: grid; gap: 8px; }
+.wi-invoice-item { background: white; border-radius: 8px; padding: 6px 12px; }
+.wi-invoice-item:first-child { padding: 12px; }
+.wi-invoice-item .wi-row { justify-content: flex-start; gap: 16px; }
+.wi-push { margin-left: auto; }
+.wi-invoice-item .wi-collected { padding-left: 40px; margin-top: 8px; color: #777; justify-content: space-between; }
+.wi-charges { display: grid; gap: 8px; }
+.wi-charge { display: grid; grid-template-columns: 1fr 198px; align-items: center; gap: 8px; }
+.wi-charge > span { padding-left: 8px; }
+.wi-charge:first-child { padding: 8px; border-radius: 12px; background: #f7f8fa; grid-template-columns: 1fr 190px; }
+.wi-charge em { color: #d74c10; font-style: normal; }
+.wi-field { border: 1px solid #d1d6dd; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; background: white; min-height: 40px; }
+.wi-total { padding: 6px 8px; background: #fbefd6; border-radius: 8px; }
+@container (max-width: 340px) { .wi-form { zoom: .6; } }
+@container (max-width: 290px) { .wi-form { zoom: .53; } }
+@media (prefers-reduced-motion: reduce) { .wi-expand, .wi-switch-track, .wi-switch > img { transition: none; } }
+
+/* Match the Figma block measurements without changing the demo scale. */
+.wi-form { min-height: 685px; }
+.wi-switch { height: 38px; }
+.wi-switch-track { top: 12px; }
+.wi-switch > img { top: 0; }
+.wi-invoices:not(:has(.wi-expand[data-open="true"])) { padding: 12px; }
+.wi-invoice-item .wi-row { line-height: 24px; }
+.wi-charge .wi-field { height: 40px; min-height: 40px; padding: 7px 12px; }
+.wi-total { height: 32px; line-height: 20px; }
+.wi-divider { height: 0; border: 0; background: none; position: relative; }
+.wi-divider::after { content: ""; position: absolute; inset: 0 0 auto; border-top: 1px dashed #adb6c4; }
+
+/* Center both form states within the reserved expansion space. */
+.wi-form { display: flex; flex-direction: column; justify-content: center; }
+
+.wi-invoices { position: relative; }
+.wi-invoices::before { content: ""; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; opacity: 0; box-shadow: 0 0 0 2px #16885f; }
+.wi-invoices[data-nudge="true"]::before { animation: wi-switch-invite 2.4s ease-out infinite; }
+@keyframes wi-switch-invite { 0%, 65%, 100% { opacity: 0; transform: scale(1); } 12% { opacity: .65; } 55% { opacity: 0; transform: scale(1.035, 1.3); } }
+@media (prefers-reduced-motion: reduce) { .wi-invoices[data-nudge="true"]::before { animation: none; opacity: .16; } }
+
+.wi-toggle-row { width: calc(100% + 32px); margin: -8px -16px -16px; min-height: 62px; padding: 8px 16px 16px; border: 0; border-radius: 12px; background: transparent; color: inherit; font-family: inherit; text-align: left; cursor: pointer; }
+.wi-invoices:not(:has(.wi-expand[data-open="true"])) .wi-toggle-row { width: calc(100% + 24px); margin: -12px; padding: 12px; }
+.wi-toggle-row:hover { background: #16885f08; }
+.wi-toggle-row[aria-checked="true"] { margin-bottom: 0; padding-bottom: 0; min-height: 46px; }
+
+/* Override the portfolio-wide custom arrow on this interactive control. */
+html body .folio-project-viewer .wi-toggle-row,
+html body .folio-project-viewer .wi-toggle-row * { cursor: url("/assets/cursors/hand-cream.svg?v=3") 12 4, pointer !important; }
+.wi-invoices::before { box-shadow: none; background: transparent; }
+.wi-invoices[data-nudge="true"]::before { animation: wi-row-ripple 2.2s ease-out infinite; }
+@keyframes wi-row-ripple {
+  0% { opacity: 1; box-shadow: 0 0 0 0 rgba(22,136,95,.24), 0 0 8px 0 rgba(22,136,95,.16); }
+  70%, 100% { opacity: 0; box-shadow: 0 0 0 14px rgba(22,136,95,0), 0 0 22px 18px rgba(22,136,95,0); }
+}
+@media (prefers-reduced-motion: reduce) { .wi-invoices[data-nudge="true"]::before { animation: none; opacity: 1; box-shadow: 0 0 0 2px #16885f30; } }
+
+/* A gentle spring on the thumb, with a restrained overshoot as the form opens. */
+.wi-switch > img { transition: transform 380ms cubic-bezier(.34, 1.56, .64, 1); }
+.wi-switch-track { transition: background 240ms ease; }
+.wi-expand { transition: grid-template-rows 420ms cubic-bezier(.22, 1, .36, 1), opacity 220ms ease; }
+.wi-invoice-list { transform: translateY(-7px); transition: transform 420ms cubic-bezier(.34, 1.35, .64, 1); }
+.wi-expand[data-open="true"] .wi-invoice-list { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .wi-switch > img, .wi-switch-track, .wi-expand, .wi-invoice-list { transition: none; }
+  .wi-invoice-list { transform: none; }
+}
+
+/* Continuous invitation: two ripples radiate from the full invoice row. */
+.wi-invoices::before,
+.wi-invoices::after { content: ""; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; opacity: 0; }
+.wi-invoices[data-nudge="true"]::before,
+.wi-invoices[data-nudge="true"]::after { animation: wi-invoice-radiate 2s ease-out infinite; }
+.wi-invoices[data-nudge="true"]::after { animation-delay: 1s; }
+@keyframes wi-invoice-radiate {
+  0% { opacity: .65; box-shadow: 0 0 0 0 #16885f50, 0 0 4px 0 #16885f30; }
+  80%, 100% { opacity: 0; box-shadow: 0 0 0 18px #16885f00, 0 0 16px 20px #16885f00; }
+}
+.wi-invoices[data-nudge="true"] { background: #edf5f1; }
+@media (prefers-reduced-motion: reduce) {
+  .wi-invoices[data-nudge="true"]::before { animation: none; opacity: 1; box-shadow: 0 0 0 2px #16885f50; }
+  .wi-invoices[data-nudge="true"]::after { animation: none; }
+}
+
+.wi-recurring-stage { display: flex; align-items: center; justify-content: center; min-height: 400px; }
+.wi-recurring-art { display: block; width: 336px; max-width: 100%; height: auto; }
+
+.wi-schedule-card { width: 336px; max-width: 100%; padding: 12px; background: white; border-radius: 9px; box-sizing: border-box; }
+.wi-schedule-card img { display: block; width: 100%; height: auto; }
+
+.wi-recurring-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 20px; padding: 32px 24px; }
+.wi-recurring-pair .wi-recurring-art, .wi-recurring-pair .wi-schedule-card { width: 100%; max-width: 336px; justify-self: center; }
+@media (max-width: 600px) { .wi-recurring-pair { grid-template-columns: 1fr; gap: 24px; padding: 24px 16px; } }
+
+.wr-stage { position: relative; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+.wr-original { width: 336px; max-width: 100%; position: relative; }
+.wr-original > img { display: block; width: 100%; height: auto; }
+.wr-view { position: absolute; left: 3.333%; bottom: 3.2%; width: 68%; height: 5.6%; border: 0; background: white; padding: 0; text-align: left; color: #16885f; font: 700 9.8px/1.4 "Wizpay Satoshi", sans-serif; }
+.wr-view:focus-visible { outline: 2px solid #16885f; outline-offset: 3px; }
+.wr-backdrop { position: absolute; inset: 0; background: #17362c24; animation: wr-fade 220ms ease; }
+.wr-sheet { position: absolute; right: 0; top: 0; bottom: 0; width: min(360px, 92%); background: white; box-shadow: -8px 0 32px #17362c18; padding: 16px; box-sizing: border-box; overflow-y: auto; animation: wr-enter 360ms cubic-bezier(.22,1,.36,1); }
+.wr-sheet header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid #eceeed; font: 700 14px/1.5 "Wizpay Satoshi", sans-serif; }
+.wr-sheet > img { width: 100%; height: auto; display: block; }
+@keyframes wr-enter { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes wr-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .wr-sheet, .wr-backdrop { animation: none; } }
+
+.wr-stage { min-height: 480px; }
+.wr-sheet { height: 100%; font: 400 10px/1.5 "Wizpay Satoshi", sans-serif; }
+.wr-schedule-summary { display: grid; grid-template-columns: 1fr auto; gap: 6px; padding: 14px; border-radius: 8px; background: #f7f8fa; margin-bottom: 16px; }
+.wr-schedule-summary strong { font-size: 16px; }
+.wr-schedule-summary small { grid-column: 1 / -1; font-size: 10px; color: #777; }
+.wr-schedule-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 10px; }
+.wr-schedule-table th { background: #f0f6ff; font-weight: 700; }
+.wr-schedule-table th, .wr-schedule-table td { padding: 9px 6px; border-bottom: 1px solid #f0f1f2; white-space: nowrap; }
+.wr-schedule-table td span { color: #16885f; background: #e8f3ef; padding: 3px 5px; border-radius: 12px; }
+
+/* Schedule opens as a second card in the same stack. */
+.wr-stage:has(.wr-sheet) .wr-original { transform: none; opacity: 1; }
+.wr-original { transition: transform 520ms cubic-bezier(.22,1,.36,1), opacity 420ms ease; }
+.wr-backdrop { background: transparent; }
+.wr-sheet { inset: calc(50% + 24px) auto auto 50%; width: min(360px, calc(100% - 48px)); height: auto; max-height: calc(100% - 100px); transform: translate(-50%, -50%); border-radius: 12px; box-shadow: 0 14px 36px #17362c25, 0 2px 5px #17362c12; animation: wr-stack-enter 520ms cubic-bezier(.22,.8,.3,1) both; }
+@keyframes wr-stack-enter { 0% { transform: translate(-50%, calc(-50% + 520px)); } 76% { transform: translate(-50%, calc(-50% - 6px)); } 100% { transform: translate(-50%, -50%); } }
+@media (prefers-reduced-motion: reduce) { .wr-original { transition: none; } .wr-sheet { animation: none; } }
+
+.wr-sheet { border: 1px solid #e3e3e3; padding: 11px; border-radius: 18px; box-shadow: 0 2px 5px #0000000d, 0 9px 9px #0000000a, 0 19px 12px #00000008; }
+.wr-sheet header { position: relative; border: 0; padding: 0; margin: 0 0 10px; gap: 6px; font-size: 11.2px; }
+.wr-next-date { margin-left: auto; background: #e1edff; border-radius: 4px; padding: 2px 5px; color: #60656b; font-size: 9.8px; font-weight: 400; }
+.wr-schedule-table { border-collapse: separate; border-spacing: 0 8px; font-size: 9.8px; }
+.wr-schedule-table th { color: #60656b; font-size: 9.8px; }
+.wr-schedule-table th, .wr-schedule-table td { border: 0; padding: 6px 8px; }
+.wr-schedule-table td { background: #f7f8fa; height: 30px; }
+.wr-schedule-table tr > :first-child { border-radius: 6px 0 0 6px; }
+.wr-schedule-table tr > :last-child { border-radius: 0 6px 6px 0; }
+.wr-schedule-table td .wr-visa { display: flex; align-items: center; gap: 3px; color: #25282d; padding: 0; border-radius: 0; background: transparent; }
+.wr-visa img { width: 22px; height: 14px; object-fit: contain; }
+.wr-schedule-note { margin: 6px 0 0; text-align: center; color: #777; font-size: 9px; }
+
+.wr-next-date { display: flex; align-items: center; gap: 3px; }
+.wr-next-date img { width: 11px; height: 11px; }
+
+/* Keep the rear card a clean, clipped surface while the schedule is open. */
+.wr-original { background: #fff; border-radius: 18px; overflow: hidden; }
+.wr-original > img, .wr-original > .wr-view { transition: opacity 180ms ease; }
+.wr-stage:has(.wr-sheet) .wr-original { box-shadow: 0 0 0 1px #e3e3e3; }
+.wr-stage:has(.wr-sheet) .wr-original > img,
+.wr-stage:has(.wr-sheet) .wr-original > .wr-view { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .wr-original > img, .wr-original > .wr-view { transition: none; }
+}
+
+/* Shared live values keep the setup and five-payment schedule consistent. */
+.wr-details { box-sizing: border-box; height: 350px; padding: 12px; color: #25282d; font: 400 9.8px/1.5 "Wizpay Satoshi", sans-serif; transition: opacity 180ms ease; }
+.wr-details > strong { display: block; font-size: 11.2px; margin-bottom: 12px; }
+.wr-field { position: relative; display: flex; align-items: center; gap: 10px; min-height: 32px; box-sizing: border-box; padding: 7px 10px; background: white; border: 1px solid #d1d6dd; border-radius: 6px; }
+.wr-amount { margin-top: 11px; padding: 9px; border-radius: 9px; background: #f7f8fa; }
+.wr-amount > span { display: block; margin-bottom: 5px; }
+.wr-required { color: #d74c10; }
+.wr-dates { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #b5bbc3; }
+.wr-date-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 9px 0 12px; }
+.wr-field small { position: absolute; top: -7px; left: 8px; padding: 0 3px; background: white; font-size: 8px; color: #60656b; }
+.wr-field img { width: 14px; height: 14px; margin-left: auto; }
+.wr-total { display: flex; justify-content: space-between; margin-top: 11px; padding: 6px 8px; border-radius: 6px; background: #fcefd6; }
+.wr-stage:has(.wr-sheet) .wr-details { opacity: 1; }
+.wr-sheet { overflow: hidden; max-height: none; }
+.wr-stage:has(.wr-sheet) .wr-original { transform: none; }
+@media (prefers-reduced-motion: reduce) { .wr-details { transition: none; } }
+
+/* Invite visitors to open the schedule until their first interaction. */
+.wr-original { overflow: visible; }
+.wr-view { width: auto; height: 34px; bottom: 7px; padding: 6px 12px; border-radius: 6px; font-size: 14px; background: #e8f3ef; }
+.wr-view::before, .wr-view::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; }
+.wr-view[data-nudge="true"]::before,
+.wr-view[data-nudge="true"]::after { animation: wr-button-pulse 2s ease-out infinite; }
+.wr-view[data-nudge="true"]::after { animation-delay: 1s; }
+@keyframes wr-button-pulse {
+  0% { opacity: .9; box-shadow: 0 0 0 0 #16885f80; }
+  85%, 100% { opacity: 0; box-shadow: 0 0 0 12px #16885f00; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wr-view[data-nudge="true"]::before { animation: none; opacity: 1; box-shadow: 0 0 0 1px #16885f40; }
+  .wr-view[data-nudge="true"]::after { animation: none; }
+}
+
+/* Anchor the schedule at its existing top edge; extra rows extend downward. */
+.wr-stage:has(.wr-sheet) { overflow: clip; }
+.wr-sheet { top: 74px; transform: translateX(-50%); max-height: none; overflow: visible; animation-name: wr-schedule-rise; }
+@keyframes wr-schedule-rise {
+  0% { transform: translate(-50%, 520px); }
+  76% { transform: translate(-50%, -6px); }
+  100% { transform: translate(-50%, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .wr-sheet { animation: none; } }
+
+.wi-stage[data-static="true"] .wi-toggle-row:disabled { opacity: 1; }
+.wi-stage[data-static="true"] .wi-toggle-row:hover { background: transparent; }
+html body .folio-project-viewer .wi-stage[data-static="true"] .wi-toggle-row,
+html body .folio-project-viewer .wi-stage[data-static="true"] .wi-toggle-row * { cursor: default !important; }
+
+.wc-static-stage { display: flex; justify-content: center; align-items: center; min-height: 480px; }
+.wc-static-stage img { display: block; width: 336px; max-width: 100%; height: auto; border-radius: 5% / 3.27%; }
+
+/* Credits shares the invoice card's 480px canvas, .7 scale and 16px padding. */
+.wc-stage { display: flex; align-items: center; justify-content: center; min-height: 480px; padding: 48px 16px; }
+.wc-form { min-height: 0; }
+.wc-form .wi-card { gap: 16px; padding: 16px; }
+.wc-customer { display: flex; gap: 8px; align-items: center; padding: 16px; border-radius: 8px; background: #f2f6e7; }
+.wc-customer > div { flex: 1; min-width: 0; }
+.wc-customer .wi-row { margin-top: 4px; }
+.wc-avatar { width: 56px; height: 56px; flex-shrink: 0; display: grid; place-items: center; border: 1.6px solid white; border-radius: 50%; background: #f9dfac; color: #f0af30; font-weight: 700; }
+.wc-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wc-method { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; height: 64px; padding: 10px; border: 1px solid #0000001f; border-radius: 8px; }
+.wc-method[data-selected="true"] { background: #e8f3ef; border-color: #16885f; font-weight: 700; }
+.wc-card-heading { margin-top: 12px; margin-bottom: 12px; font-size: 16px; line-height: 24px; }
+.wc-card-heading > strong:last-child { color: #16885f; }
+.wc-saved-card { display: flex; align-items: flex-start; gap: 16px; padding: 4px 0 8px; position: relative; }
+.wc-saved-card > .wi-icon { margin-top: 4px; }
+.wc-saved-card small { display: block; font-size: 14px; color: #0009; margin-top: 4px; }
+.wc-visa { width: 39px; height: 24px; object-fit: contain; }
+.wc-mastercard { position: relative; display: block; width: 36px; height: 38px; overflow: hidden; border-radius: 8px; }
+.wc-mastercard > img { position: absolute; height: 1929.03%; width: 1815.91%; max-width: none; left: -613.13%; top: -661.29%; }
+.wc-assigned { margin-left: auto; background: #f0af30; color: white; padding: 4px 8px; border-radius: 43px; font-size: 12px; font-weight: 700; }
+.wc-footer { margin-top: 16px; font-size: 16px; }
+.wc-charge { display: flex; gap: 32px; padding: 8px 12px; background: #e8f3ef; border-radius: 8px; }
+.wc-charge-label { padding: 8px 16px; border-radius: 8px; background: #16885f; color: white; font-weight: 700; }
+
+.wc-method { font: inherit; color: inherit; background: white; cursor: pointer; transition: background 160ms, border-color 160ms; }
+.wc-method .wi-icon { width: 20px; height: 20px; flex-basis: 20px; }
+.wc-method:focus-visible { outline: 2px solid #16885f; outline-offset: 3px; }
+
+/* Slightly larger text inside the Customer credits card. */
+.wc-form { font-size: 15px; }
+.wc-form .wi-heading, .wc-card-heading { font-size: 17px; }
+.wc-saved-card small { font-size: 15px; }
+.wc-assigned { font-size: 13px; }
+
+.wc-form .wi-card { box-shadow: 0 2px 5px #0000000d, 0 9px 9px #0000000a, 0 19px 12px #00000008; }
+
+/* Keep the schedule CTA in the card flow, with room for its pulse. */
+.wr-details { height: auto; padding-bottom: 0; }
+.wr-view { position: relative; left: auto; bottom: auto; display: block; margin: 18px 12px 18px; }
+.wr-original { display: flow-root; }
+
+.wc-panels { min-width: 0; }
+.wc-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 380ms cubic-bezier(.22,1,.36,1), opacity 200ms ease; }
+.wc-panel[data-open="true"] { grid-template-rows: 1fr; opacity: 1; }
+.wc-panel-inner { min-height: 0; overflow: hidden; }
+.wc-input-label { display: flex; flex-direction: column; gap: 4px; color: #525252; }
+.wc-input-label input, .wc-input-label select { width: 100%; min-width: 0; padding: 8px 12px; border: 1px solid #d1d6dd; border-radius: 8px; background: white; color: #171717; font: inherit; line-height: 1.5; }
+.wc-input-label input:focus-visible, .wc-input-label select:focus-visible { outline: 2px solid #16885f; outline-offset: 2px; }
+.wc-offline-fields { display: flex; flex-direction: column; gap: 16px; }
+.wc-accounts-heading { display: block; }
+.wc-account { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; }
+.wc-account-name { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wc-account small { display: block; font-size: 14px; margin-top: 4px; }
+.wc-bank-type { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; background: #e1edff; font-size: 12px; }
+.wc-bank-type img { width: 12px; height: 12px; }
+@media (prefers-reduced-motion: reduce) { .wc-panel { transition: none; } }
+
+.wc-method { color: #4f555e; }
+.wc-method[data-selected="true"] { color: #16885f; }
+.wc-method-icon { background-color: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; }
+
+.folio-project-viewer__group-media.wf-stage { display: flex; justify-content: center; align-items: center; padding: 48px 16px; }
+.wf-stage > * { width: min(100%, 480px); margin: 0; }
+
+.wf-annotated { position: relative; }
+.wf-annotated > .wf-ink-notes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; object-fit: fill; }
+.wf-annotated > :first-child { margin: 0; }
+
+.wf-device-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 20px; }
+.wf-device-slot { margin: 0; min-width: 0; }
+.wf-device-stage { box-sizing: border-box; min-height: 440px; }
+@media (max-width: 600px) { .wf-device-row { grid-template-columns: 1fr; } }
+
+.wf-device-stage { display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+.wf-device-stage > * { width: 100%; margin: 0; }
+
+
+.wf-device-stage { padding: 48px 32px; }
+.wf-device-stage > .wf-device-shell { position: relative; box-sizing: border-box; background: #17181a; border: 2px solid #707277; box-shadow: 0 2px 3px #0003, 0 18px 32px #15251b26; }
+.wf-device-shell > * { margin: 0; width: 100%; border-radius: inherit; overflow: hidden; }
+.wf-device-stage > .wf-device-shell--tablet { width: min(100%, 580px); padding: 14px 19px; border-radius: 16px; }
+.wf-device-shell--tablet::before { content: ""; position: absolute; left: 6px; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #30343c; box-shadow: inset 0 0 0 1px #080a0d; }
+.wf-device-stage > .wf-device-shell--mobile { width: min(52%, 240px); padding: 6px; border-radius: 28px; }
+.wf-device-shell--mobile > * { border-radius: 21px; }
+@media (max-width: 600px) { .wf-device-stage { padding: 32px 16px; min-height: 320px; } .wf-device-stage > .wf-device-shell--mobile { width: min(70%, 240px); } }
+
+.wf-device-shell--tablet > * { border-radius: 8px; }
+
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__group:has(> #wizpay-collaboration-heading, #wizpay-responsive-transactions-heading) > .folio-project-viewer__group-media { display: flex; flex-direction: column; gap: 28px; }
+.wf-transactions-stage { width: 100%; }
+.wf-transactions-web { width: 100%; }
+.wf-transactions-web > * { margin: 0; }
+
+.wf-transactions-figure { margin: 0; width: 100%; }

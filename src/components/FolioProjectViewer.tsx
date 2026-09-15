@@ -1,6 +1,12 @@
+import { WizpayImpact } from "./WizpayImpact";
+import { WizpayCreditsDemo } from "./WizpayCreditsDemo";
+import { WizpayRecurringDemo } from "./WizpayRecurringDemo";
+import { WizpayInvoiceDemo } from "./WizpayInvoiceDemo";
+import { WizpayPaymentBlocks } from "./WizpayPaymentBlocks";
+import { WizpayProblems } from "./WizpayProblems";
 import { createPortal } from "react-dom";
 import { SuperrActivitySection } from "./SuperrActivitySection";
-import { motion, useIsPresent } from "motion/react";
+import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import ArrowUpRight01Icon from "@hugeicons/core-free-icons/ArrowUpRight01Icon";
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -15,6 +21,9 @@ interface FolioProjectViewerProps {
 }
 
 export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioProjectViewerProps) {
+  const [orgSlide, setOrgSlide] = useState(0);
+  const [orgDirection, setOrgDirection] = useState(1);
+  const navigateOrg = (direction: number) => { setOrgDirection(direction); setOrgSlide(value => (value + direction + 3) % 3); };
   const isPaper = project.id === "wizpay" || project.id === "superr-paper";
   const heroDialogRef = useRef<HTMLDialogElement>(null);
   const heroButtonRef = useRef<HTMLButtonElement>(null);
@@ -273,6 +282,21 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
     return <Fragment key={`${item.src}-${index}`}>{asset}</Fragment>;
   };
 
+  const heroImage = (project.heroImage && <div className="folio-project-viewer__hero-image" data-frame-shadow={project.heroImage.src.includes("hero-header-237-14572-v2") || undefined}>
+          {project.heroImage.expandable ? <button
+            type="button"
+            className="folio-project-viewer__hero-trigger"
+            aria-label={`Expand ${project.title} header image`}
+            aria-haspopup="dialog"
+            data-cursor-keep
+            ref={heroButtonRef}
+            onClick={(event) => { expandedTriggerRef.current = event.currentTarget; setExpandedMedia(project.heroImage!); }}
+          >
+            <img src={project.heroImage.src} alt={project.heroImage.alt} width={project.heroImage.width ?? 1569} height={project.heroImage.height ?? 2030} />
+          </button> : <img src={project.heroImage.src} alt={project.heroImage.alt} width={project.heroImage.width ?? 1569} height={project.heroImage.height ?? 2030} />}
+          {isPaper && project.id !== "wizpay" && <span className="folio-paper-media__border" aria-hidden="true" />}
+        </div>);
+
   return (
     <>
     {!isPaper && <motion.div
@@ -328,10 +352,10 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
       <motion.div
         className="folio-reading-paper"
         data-present={isPresent}
-        initial={isPaper && !reducedMotion ? { y: "110vh", rotate: -4, boxShadow: "0 28px 48px -18px rgb(40 35 30 / 18%)" } : false}
-        animate={isPaper ? { y: 0, rotate: 0, boxShadow: "0 0px 0px 0px rgb(40 35 30 / 0%)" } : undefined}
+        initial={isPaper && !reducedMotion ? { y: "110vh", rotate: -10 } : false}
+        animate={isPaper ? { y: 0, rotate: 0 } : undefined}
         exit={isPaper && !reducedMotion ? {
-          y: "110vh", rotate: -4, boxShadow: "0 28px 48px -18px rgb(40 35 30 / 18%)",
+          y: "110vh", rotate: -10,
           transition: { duration: 0.32, ease: [0.78, 0, 0.8, 0.22] },
         } : undefined}
         transition={{ duration: isPaper && !reducedMotion ? 0.44 : 0, ease: [0.2, 0.78, 0.22, 1] }}
@@ -362,7 +386,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
           {project.id === "superr-paper" && <span className="folio-bento-card__nda-stamp folio-reading-header__nda-stamp" aria-label="Non-disclosure agreement">NDA</span>}
           {isPaper ? <div className="folio-reading-header__identity">
             {project.logo && <img className="folio-reading-header__project-logo" src={project.logo} alt="" aria-hidden="true" />}
-            <div><h1>{project.title}</h1><p className="folio-reading-header__date">{project.year}</p></div>
+            <div><h1>{project.headline ?? project.title}</h1>{project.id !== "wizpay" && <p className="folio-reading-header__date">{project.year}</p>}</div>
           </div> : <><h1>{project.title}</h1><p className="folio-reading-header__date">{project.year}</p></>}
           {project.id === "superr-paper" ? project.description.split("\n\n").map((paragraph, index) => (
             paragraph.startsWith("My work spans ") ? (
@@ -377,28 +401,21 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
             ) : <p key={index} className={index === 1 ? "folio-project-viewer__contribution-copy" : undefined}>{paragraph}</p>
           )) : <>
             <p>{project.overview?.context}</p>
-            <p>{project.overview?.contribution}</p>
+            {project.overview?.contribution && <p>{project.overview.contribution}</p>}
           </>}
+
           {project.id === "superr-paper" && <a className="folio-project-viewer__intro-link" href="https://x.com/superr_ai/status/2022163063542362244" target="_blank" rel="noreferrer" aria-label="Meet SuperrBook — watch the film">
                   <img className="folio-project-viewer__intro-thumbnail" src="/assets/invoice-folio/superr-case-study/intro-film-thumbnail.png" alt="Meet SuperrBook" />
                   <span className="folio-project-viewer__intro-tooltip">Meet SuperrBook</span>
                   <img className="folio-project-viewer__intro-play" src="/assets/invoice-folio/superr-case-study/intro-film-play.svg" alt="" aria-hidden="true" />
                 </a>}
         </header>}
-        {project.heroImage && <div className="folio-project-viewer__hero-image" data-frame-shadow={project.heroImage.src.includes("hero-header-237-14572-v2") || undefined}>
-          {project.heroImage.expandable ? <button
-            type="button"
-            className="folio-project-viewer__hero-trigger"
-            aria-label={`Expand ${project.title} header image`}
-            aria-haspopup="dialog"
-            data-cursor-keep
-            ref={heroButtonRef}
-            onClick={(event) => { expandedTriggerRef.current = event.currentTarget; setExpandedMedia(project.heroImage!); }}
-          >
-            <img src={project.heroImage.src} alt={project.heroImage.alt} width={1569} height={2030} />
-          </button> : <img src={project.heroImage.src} alt={project.heroImage.alt} width={1569} height={2030} />}
-          {isPaper && <span className="folio-paper-media__border" aria-hidden="true" />}
-        </div>}
+        {heroImage}
+        {project.overview?.companyIntro && <section className="folio-project-viewer__company-intro" aria-labelledby={`${project.id}-company-intro-heading`}>
+          <h2 id={`${project.id}-company-intro-heading`}>{project.overview.companyIntro.heading}</h2>
+          {project.overview.companyIntro.body.split("\n\n").map((paragraph, index) => <p key={index}>{project.id === "wizpay" && paragraph.startsWith("WizCommerce") ? <><a href="https://wizcommerce.com/" target="_blank" rel="noreferrer" className="wizpay-company-link wall-folio__experience-mark">WizCommerce</a>{paragraph.slice("WizCommerce".length)}</> : paragraph}</p>)}
+        </section>}
+        {project.id === "wizpay" && <><hr className="folio-project-viewer__section-divider" /><WizpayProblems reducedMotion={reducedMotion} /><hr className="folio-project-viewer__section-divider" /></>}
         {(!isPaper && project.id !== "wiz-commerce") && project.introMedia?.map(renderMedia)}
         {project.overview?.pullQuote && <figure className="folio-project-viewer__quote-card">
           <p>{project.overview.pullQuote}</p>
@@ -441,22 +458,43 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
           if (item.kind === "group") {
             return (
               <section
-                aria-labelledby={`${project.id}-${item.id}-heading`}
+                aria-labelledby={project.id === "wizpay" && item.id === "impact" ? undefined : `${project.id}-${item.id}-heading`}
                 className="folio-project-viewer__group"
                 data-layout={item.layout}
                 key={`${project.id}-group-${item.id}`}
               >
-                <h3 id={`${project.id}-${item.id}-heading`}>{item.heading}</h3>
-                {item.description && <p className="folio-project-viewer__group-description">{item.emphasis && item.description.includes(item.emphasis) ? <>{item.description.split(item.emphasis)[0]}<strong>{item.emphasis}</strong>{item.description.split(item.emphasis).slice(1).join(item.emphasis)}</> : item.description}</p>}
+                {!(project.id === "wizpay" && item.id === "impact") && <h3 id={`${project.id}-${item.id}-heading`}>{item.heading}</h3>}
+                {item.description?.split("\n\n").map((paragraph, paragraphIndex) => <Fragment key={paragraphIndex}><p className="folio-project-viewer__group-description">{item.emphasis && paragraph.includes(item.emphasis) ? <>{paragraph.split(item.emphasis)[0]}<strong>{item.emphasis}</strong>{paragraph.split(item.emphasis).slice(1).join(item.emphasis)}</> : paragraph}</p>{item.paymentTimelineAfterParagraph === paragraphIndex && <div className="wizpay-order-flow-image">{renderMedia({ kind: "image", src: "/assets/invoice-folio/wizpay-case-study/order-flow-black-ink.png", alt: "Order-taking flow: sales rep reaches out to the customer, cart, quote creation, order confirmation, shipment. Quote creation and order confirmation are connected in both directions. Annotations: direct customer payment before a cart; payment against a quote or order; partial or remaining payment at shipment.", ratio: "landscape", aspectRatio: "2163 / 727", expandable: true }, paragraphIndex)}</div>}</Fragment>)}
+                {item.introduction && <div className="folio-project-viewer__group-introduction"><h4>{item.introduction.heading}</h4><p>{item.introduction.body}</p></div>}
+                {project.id === "wizpay" && item.id === "impact" && <WizpayImpact />}
+                {project.id === "wizpay" && item.id === "payment-space" && <WizpayPaymentBlocks />}
+                {project.id === "wizpay" && item.id === "invoice-payments" && <WizpayInvoiceDemo />}
+                {project.id === "wizpay" && item.id === "recurring-payments" && <WizpayRecurringDemo />}
+                {project.id === "wizpay" && item.id === "payment-credits" && <WizpayCreditsDemo />}
+                {project.id === "wizpay" && item.id === "org-settings" && <div className="wi-stage wo-carousel" role="region" aria-roledescription="carousel" aria-label="Organisation payment settings" onKeyDown={event => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); navigateOrg(event.key === "ArrowRight" ? 1 : -1); } }}>
+                  <div className="wo-stage"><AnimatePresence initial={false} custom={orgDirection}><motion.div className="wo-slide" key={orgSlide} custom={orgDirection} variants={{ enter: (direction: number) => ({ opacity: 0, x: reducedMotion ? 0 : direction * 36 }), center: { opacity: 1, x: 0 }, exit: (direction: number) => ({ opacity: 0, x: reducedMotion ? 0 : direction * -36 }) }} initial="enter" animate="center" exit="exit" transition={{ duration: reducedMotion ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }}>{renderMedia({kind: "image", src: `/assets/invoice-folio/wizpay-case-study/org-settings-${orgSlide + 1}.png?v=3`, alt: `Organisation payment settings, screen ${orgSlide + 1} of 3`, aspectRatio: orgSlide === 1 ? "1440 / 1244" : "1440 / 1024", ratio: "landscape"}, orgSlide)}</motion.div></AnimatePresence><button className="wo-hit wo-hit--previous" onMouseDown={event => event.preventDefault()} type="button" data-cursor-keep aria-label="Previous settings screen" onClick={() => navigateOrg(-1)} /><button className="wo-hit wo-hit--next" onMouseDown={event => event.preventDefault()} type="button" data-cursor-keep aria-label="Next settings screen" onClick={() => navigateOrg(1)} /></div>
+                  <div className="wo-controls">
+                    <div className="wo-dots">{[0,1,2].map(index => <button type="button" data-cursor-keep key={index} aria-label={`Show settings screen ${index + 1}`} aria-pressed={orgSlide === index} onClick={() => { setOrgDirection(index > orgSlide ? 1 : -1); setOrgSlide(index); }}><i /></button>)}</div>
+                  </div>
+                </div>}
+                {project.id === "wizpay" && item.id === "org-settings" && <p className="wp-blocks-caption">Payment methods and terms, configured around each wholesaler’s needs</p>}
+                {item.challenge && <section className="wizpay-challenge" aria-label="The challenge"><p>{item.challenge.heading}: {item.challenge.body.charAt(0).toLowerCase() + item.challenge.body.slice(1)}</p></section>}
                 {item.sketch && <FolioProjectSketchMedia sketch={item.sketch} />}
-                <div className="folio-project-viewer__group-media">
+                <div className={project.id === "wizpay" && item.id === "payment-form" ? "folio-project-viewer__group-media wi-stage wf-stage" : "folio-project-viewer__group-media"}>
                   {item.media.map((media, mediaIndex) => item.captions ? (
                     <div className="folio-project-viewer__annotated-media" key={`${item.id}-${mediaIndex}`}>
                       {renderMedia(media, mediaIndex)}
                       <p>{item.captions[mediaIndex]}</p>
                     </div>
-                  ) : renderMedia(media, mediaIndex))}
+                  ) : project.id === "wizpay" && (item.id === "collaboration" || item.id === "responsive-transactions") ? <figure className="wf-transactions-figure" key={mediaIndex}><div className="wi-stage wf-device-stage wf-transactions-stage"><div className={item.id === "collaboration" ? "wf-transactions-web" : "wf-device-shell wf-device-shell--" + (mediaIndex === 0 ? "tablet" : "mobile")}>{renderMedia(media, mediaIndex)}</div></div>{item.id === "collaboration" && <figcaption className="wp-blocks-caption">And yes, a long table—bringing collections, refunds, and credits into one place to scan and track</figcaption>}{item.id === "responsive-transactions" && <figcaption className="wp-blocks-caption">{mediaIndex === 0 ? "Expandable rows keep payment details within reach on tablet" : "Compact cards keep the essentials visible, with more details a tap away"}</figcaption>}</figure> : project.id === "wizpay" && item.id === "payment-form" ? <div className="wf-annotated" key={mediaIndex}>{renderMedia(media, mediaIndex)}<img className="wf-ink-notes" src="/assets/invoice-folio/wizpay-case-study/payment-form-notes.svg?v=4" alt="Start with the customer. Linked to the order. Choose the invoice. Surcharge is automatically added when enabled in organisation settings. Review the total, then charge." /></div> : renderMedia(media, mediaIndex))}
                 </div>
+                {project.id === "wizpay" && item.id === "payment-form" && <div className="wf-device-row">
+                  <figure className="wf-device-slot"><div className="wi-stage wf-device-stage"><div className="wf-device-shell wf-device-shell--tablet">{renderMedia({kind: "image", src: "/assets/invoice-folio/wizpay-case-study/payment-tablet.png", alt: "Tablet payment form", aspectRatio: "1193 / 831", ratio: "portrait", expandable: true}, 0)}</div></div><figcaption className="wp-blocks-caption">The payment form adapted for tablet, with the total and charge action always in view</figcaption></figure>
+                  <figure className="wf-device-slot"><div className="wi-stage wf-device-stage"><div className="wf-device-shell wf-device-shell--mobile">{renderMedia({kind: "image", src: "/assets/invoice-folio/wizpay-case-study/payment-mobile.png", alt: "Mobile payment form", aspectRatio: "360 / 838", ratio: "portrait", expandable: true}, 1)}</div></div><figcaption className="wp-blocks-caption">A single-column payment flow for smaller screens</figcaption></figure>
+                </div>}
+                {project.id === "wizpay" && item.id === "payment-form" && <hr className="folio-project-viewer__section-divider" />}
+                {project.id === "wizpay" && item.id === "responsive-transactions" && <hr className="folio-project-viewer__section-divider wf-dashboard-divider" />}
+                {project.id === "wizpay" && item.id === "org-settings" && <hr className="folio-project-viewer__section-divider wf-dashboard-divider" />}
                 {item.callouts && <ol className="folio-project-viewer__callouts">{item.callouts.map(callout => <li key={callout.title}><strong>{callout.title}</strong><p>{callout.body}</p></li>)}</ol>}
               </section>
             );
@@ -505,6 +543,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
       <dialog
         ref={heroDialogRef}
         className="folio-hero-overlay"
+        data-annotated-form={expandedMedia.src.includes("/payment-form.png") || undefined}
         aria-label="Expanded image"
         onCancel={(event) => { event.preventDefault(); closeHero(); }}
         onClick={closeHero}
@@ -512,6 +551,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
         <button type="button" autoFocus data-cursor-keep aria-label="Close expanded image" onClick={closeHero}>
           <div ref={expandedImageRef} className="folio-hero-overlay__image" data-payment-gradient={expandedMedia.src.includes("payment-collage-mint") || undefined} data-frame-shadow={expandedMedia.src.includes("hero-header-237-14572-v2") || undefined}>
             <img src={expandedMedia.src} alt={expandedMedia.alt} />
+            {expandedMedia.src.includes("/payment-form.png") && <img className="folio-hero-overlay__annotations" src="/assets/invoice-folio/wizpay-case-study/payment-form-notes.svg?v=4" alt="Start with the customer. Linked to the order. Choose the invoice. Surcharge is automatically added when enabled in organisation settings. Review the total, then charge." />}
           </div>
           <span>Click to close · Esc</span>
         </button>

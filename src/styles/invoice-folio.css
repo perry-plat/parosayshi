@@ -2589,7 +2589,7 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
 
 .wall-folio__signature {
   display: block;
-  width: clamp(85px, 7.04vw, 113px);
+  width: clamp(93.5px, 7.744vw, 124.3px);
   height: auto;
   margin: 1.5em 0 0;
   opacity: 1;
@@ -4330,7 +4330,7 @@ body.folio-project-viewer-open {
   left: 50%;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: var(--flock-actions-width, 300px);
   height: 62%;
   transform: translateX(-50%);
@@ -4371,9 +4371,8 @@ body.folio-project-viewer-open {
 }
 
 .folio-contact__actions > :nth-child(1) { --bird-color: #326ca5; }
-.folio-contact__actions > :nth-child(2) { --bird-color: #587346; }
-.folio-contact__actions > :nth-child(3) { --bird-color: #966a48; }
-.folio-contact__actions > :nth-child(4) { --bird-color: #292a2d; }
+.folio-contact__actions > :nth-child(2) { --bird-color: #966a48; }
+.folio-contact__actions > :nth-child(3) { --bird-color: #292a2d; }
 
 .folio-contact__actions > :is(a, button):hover .folio-contact__pill,
 .folio-contact__actions > :is(a, button):focus-visible .folio-contact__pill {
@@ -4625,10 +4624,32 @@ body.folio-project-viewer-open {
     --wall-window-height: 390px;
     --wall-intro-copy-height: 120px;
   }
-  .wall-folio--hero { min-height: 620px; }
+  /* Keep long disclosures in document flow so expansion cannot escape above
+     the scroll origin or reserve the same content height twice. */
+  .wall-folio--hero {
+    height: auto;
+    min-height: max(620px, 82svh);
+    padding-bottom: 64px;
+    transition: none;
+  }
   .wall-folio--hero[data-intent-expanded="true"],
   .wall-folio--hero[data-designer-expanded="true"] {
-    min-height: calc(620px + var(--wall-hero-expansion-offset, 0px));
+    height: auto;
+    min-height: 0;
+  }
+  .wall-folio__hero-composition {
+    position: relative;
+    padding-top: max(80px, calc(max(290px, 42svh) - var(--wall-intro-baseline-height, 270px) / 2));
+  }
+  .wall-folio--hero .wall-folio__figma-intro,
+  .wall-folio--hero[data-intent-expanded="true"] .wall-folio__figma-intro,
+  .wall-folio--hero[data-designer-expanded="true"] .wall-folio__figma-intro {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-inline: auto;
+    transform: none;
+    transition: none;
   }
   .wall-light-tuner { top: 12px; right: 12px; width: 174px; }
   .wall-folio__shadow-wordmark {
@@ -5861,7 +5882,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* WizPay shares the paper identity without reserving space for an NDA stamp. */
-.folio-project-viewer[data-project="wizpay"] .folio-reading-header__identity { padding-right: 0; margin-bottom: 56px; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-header__identity { padding-right: 0; margin-bottom: 8px; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-reading-header { margin-bottom: 40px; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-reading-header > p { margin-top: 0; color: #b0a79b; font-size: 14px; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-reading-header__identity h1 { white-space: pre-line; font-size: 28px; }
 .folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image { position: relative; }
 .folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 10px; }
 
@@ -5946,6 +5970,547 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 .folio-skill-grid .folio-skill-pill { flex: 0 0 auto; text-align: left; }
 
-.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__hero-image > .folio-paper-media__border {
-  border-color: #46866b;
+/* A short company introduction sits immediately after the hero artwork. */
+.folio-project-viewer .folio-project-viewer__company-intro {
+  box-sizing: border-box;
+  width: min(100%, 440px);
+  margin: 48px auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: #494943;
 }
+.folio-project-viewer__company-intro h2 {
+  max-width: 100%;
+  margin: 0 auto 8px;
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #262622;
+}
+.folio-project-viewer__company-intro p {
+  max-width: 100%;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #b0a79b;
+  line-height: 1.5625;
+  letter-spacing: -0.01em;
+}
+.folio-project-viewer__company-intro p + p { margin-top: 16px; }
+@media (max-width: 600px) {
+  .folio-project-viewer .folio-project-viewer__company-intro { padding: 0; }
+}
+
+/* Case-study default: 64px between text blocks and media unless explicitly
+   overridden. Heading/body spacing and consecutive media keep their own rhythm. */
+.folio-project-viewer { --case-study-text-media-gap: 64px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header {
+  margin-bottom: var(--case-study-text-media-gap);
+}
+.folio-project-viewer .folio-reading-paper .folio-project-viewer__company-intro {
+  margin-block: var(--case-study-text-media-gap);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-project-viewer__group, .folio-project-viewer__note) {
+  margin-top: var(--case-study-text-media-gap);
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header + .folio-project-viewer__group {
+  margin-top: 0;
+}
+.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-project-viewer__group > :is(h3, p):has(+ .folio-project-viewer__group-media:not(:empty)) {
+  margin-bottom: var(--case-study-text-media-gap);
+}
+
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__section-divider {
+  flex: 0 0 auto;
+  width: calc(100% + 80px);
+  max-width: none;
+  margin: 0 -40px;
+  border: 0;
+  border-top: 1px solid #ededed;
+}
+@media (max-width: 600px) {
+  .folio-project-viewer[data-project="wizpay"] .folio-project-viewer__section-divider {
+    width: calc(100% + 48px);
+    margin-inline: -24px;
+  }
+}
+
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> :is(#wizpay-entry-heading, #wizpay-payment-space-heading, #wizpay-invoice-payments-heading, #wizpay-recurring-payments-heading, #wizpay-payment-credits-heading, #wizpay-payment-form-heading, #wizpay-collaboration-heading, #wizpay-responsive-transactions-heading, #wizpay-org-settings-heading)) > h3 {
+  white-space: pre-line;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #262622;
+  margin-bottom: 8px;
+}
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> :is(#wizpay-entry-heading, #wizpay-payment-space-heading, #wizpay-invoice-payments-heading, #wizpay-recurring-payments-heading, #wizpay-payment-credits-heading, #wizpay-payment-form-heading, #wizpay-collaboration-heading, #wizpay-responsive-transactions-heading, #wizpay-org-settings-heading)) > p.folio-project-viewer__group-description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5625;
+  letter-spacing: -0.01em;
+  color: #b0a79b;
+  margin-bottom: 16px;
+}
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> :is(#wizpay-entry-heading, #wizpay-payment-space-heading, #wizpay-invoice-payments-heading, #wizpay-recurring-payments-heading, #wizpay-payment-credits-heading, #wizpay-payment-form-heading, #wizpay-collaboration-heading, #wizpay-responsive-transactions-heading, #wizpay-org-settings-heading)) > p.folio-project-viewer__group-description:has(+ .folio-project-viewer__group-media) {
+  margin-bottom: var(--case-study-text-media-gap);
+}
+
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__group:has(> #wizpay-entry-heading) .folio-project-viewer__group-description strong {
+  background: linear-gradient(transparent 12%, #fff09a 12%, #fff09a 92%, transparent 92%);
+  color: inherit;
+  font-weight: inherit;
+  padding-inline: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Reading-edge blur belongs to the settled sheet, never the moving paper. */
+.wizpay-order-flow-image { width: 100%; margin: 40px auto 12px; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-order-flow-image .folio-project-viewer__media { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.wizpay-order-flow-image .folio-paper-media__border { display: none; }
+
+/* Reading-edge blur belongs to the settled sheet, never the moving paper. */
+.folio-reading-paper > .folio-reading-paper__fade {
+  animation: paper-reading-fade 120ms ease 440ms both;
+}
+.folio-reading-paper[data-present="false"] > .folio-reading-paper__fade {
+  animation: none;
+  visibility: hidden;
+}
+@keyframes paper-reading-fade {
+  from { opacity: 0; visibility: hidden; }
+  to { opacity: 1; visibility: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-reading-paper > .folio-reading-paper__fade { animation: none; }
+}
+
+/* Frame the challenge statement beneath the order-flow diagram. */
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> #wizpay-entry-heading) > .wizpay-challenge {
+  position: relative;
+  padding-block: 48px;
+  border: 0;
+}
+
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper { container-type: inline-size; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-challenge { width: min(100%, 440px); margin: 0 auto var(--case-study-text-media-gap); }
+.wizpay-challenge p { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; color: #262622; }
+
+/* Wizpay problem overview: two columns within the paper, stacked on small screens. */
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems { margin: 64px auto; width: 100%; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems > h2 { width: min(100%, 440px); margin: 0 auto 32px; font-size: 18px; font-weight: 500; line-height: 1.15; letter-spacing: -.025em; color: #262622; }
+.wizpay-problems__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.wizpay-problems__grid article { padding: 24px; border-bottom: 1px solid #e9e5df; }
+.wizpay-problems__grid article:nth-child(odd) { border-right: 1px solid #e9e5df; }
+.wizpay-problems__grid article:nth-last-child(-n+2) { border-bottom: 0; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid h3 { margin: 20px 0 8px; font-size: 18px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; color: #262622; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid p { margin: 0; font-size: 14px; font-weight: 400; line-height: 1.5625; letter-spacing: -.01em; color: #b0a79b; }
+.wizpay-problems svg { display: block; width: 100%; height: auto; overflow: visible; }
+.wizpay-problems svg rect, .wizpay-problems svg circle { fill: #f3f0eb; }
+.wizpay-problems svg text { fill: #262622; font: 11px Arial, sans-serif; text-anchor: middle; }
+.wizpay-problems .wp-problem-line { fill: none; stroke: #b0a79b; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.wizpay-problems .wp-payment-point { animation: wp-point 6s ease-in-out 2; }
+.wizpay-problems .wp-payment-point--1 { animation-delay: .8s; }
+.wizpay-problems .wp-payment-point--2 { animation-delay: 1.6s; }
+.wizpay-problems .wp-method rect { animation: wp-method 6s ease-in-out 2; }
+.wizpay-problems .wp-method--1 rect { animation-delay: 2s; }
+.wizpay-problems .wp-method--2 rect { animation-delay: 4s; }
+.wizpay-problems .wp-method-fields { fill: #d8d1c6; transform-box: fill-box; transform-origin: left; animation: wp-fields 6s ease-in-out 2; }
+.wizpay-problems .wp-method-fields--second { animation-delay: 1s; }
+.wizpay-problems .wp-installment { fill: #b7cfc1; transform-box: fill-box; transform-origin: left; animation: wp-installment 6s ease-in-out 2; }
+.wizpay-problems .wp-installment--1 { animation-delay: 1s; }
+.wizpay-problems .wp-installment--2 { animation-delay: 2s; }
+.wizpay-problems .wp-refund-dot { fill: #b7cfc1; animation: wp-refund 5s ease-in-out 2; }
+@keyframes wp-point { 0%, 65%, 100% { opacity: 1; transform: translateY(0); } 25%, 45% { opacity: .35; transform: translateY(5px); } }
+@keyframes wp-method { 0%, 30%, 100% { fill: #f3f0eb; } 8%, 23% { fill: #d9e6df; } }
+@keyframes wp-fields { 0%, 100% { transform: scaleX(1); } 35%, 65% { transform: scaleX(.6); } }
+@keyframes wp-installment { 0%, 12% { transform: scaleX(.05); } 45%, 100% { transform: scaleX(1); } }
+@keyframes wp-refund { 0%, 15% { transform: translateX(30px); } 65%, 100% { transform: translateX(-30px); } }
+.wizpay-problems[data-reduced-motion="true"] svg * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .wizpay-problems svg * { animation: none !important; } }
+@media (max-width: 600px) {
+  .wizpay-problems__grid { grid-template-columns: 1fr; }
+  .wizpay-problems__grid article { padding: 24px 0; }
+  .wizpay-problems__grid article:nth-child(odd) { border-right: 0; }
+  .wizpay-problems__grid article:nth-last-child(2) { border-bottom: 1px solid #e9e5df; }
+  .wizpay-problems svg { max-width: 280px; margin: 0 auto; }
+}
+
+/* Extend the problem grid to the paper edges while retaining inset cell content. */
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid { width: 100cqw; position: relative; left: 50%; transform: translateX(-50%); }
+.wizpay-problems__grid article { padding: 32px 40px; }
+.wizpay-problems .wp-problem-icon { fill: none; stroke: #78736c; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.wizpay-problems svg { max-width: 320px; margin-inline: auto; }
+@media (max-width: 600px) { .wizpay-problems__grid article { padding: 28px 24px; } }
+
+/* Problem copy leads into larger illustrative panels. */
+.wizpay-problems__grid { gap: 40px 24px; padding-inline: 32px; box-sizing: border-box; }
+.wizpay-problems__grid article { display: flex; flex-direction: column; padding: 0; border: 0 !important; min-width: 0; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid h3 { margin: 0 0 8px; font-size: 16px; line-height: 1.3; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid p { margin-bottom: 24px; color: #8a837a; }
+.wizpay-problems__visual { display: flex; align-items: center; justify-content: center; min-height: 240px; aspect-ratio: 1.15; margin-top: auto; padding: 20px 12px; background: #f7f5f2; border: 1px solid #e9e5df; border-radius: 12px; }
+.wizpay-problems .wizpay-problems__visual svg { width: 100%; max-width: none; }
+@media (max-width: 600px) { .wizpay-problems__grid { padding-inline: 24px; gap: 36px; } .wizpay-problems__visual { min-height: 220px; aspect-ratio: 1.3; } }
+
+/* Problems follow the case study's vertical reading rhythm. */
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+  position: static;
+  transform: none;
+  padding: 0;
+}
+.wizpay-problems__grid article { display: block; padding: 0; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid h3 {
+  width: min(100%, 440px);
+  margin: 0 auto 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  color: #000000;
+}
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid p {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.5625;
+  color: #b0a79b;
+}
+.wizpay-problems__visual {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 32px auto 0;
+  min-height: 0;
+  aspect-ratio: auto;
+  padding: 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.wizpay-problems .wizpay-problems__visual svg { max-width: 440px; }
+
+/* Keep each compact illustration attached to its problem copy. */
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__visual {
+  width: min(100%, 440px);
+  margin: 8px auto 0;
+  padding: 0;
+  justify-content: flex-start;
+}
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems .wizpay-problems__visual svg {
+  width: min(100%, 280px);
+  max-width: 280px;
+  margin: 0;
+}
+
+/* Compact product UI studies, using Wizpay's green actions and grey form surfaces. */
+.wp-ui { width: min(100%, 310px); padding: 12px; box-sizing: border-box; border: 1px solid #edf0f2; border-radius: 9px; background: #f6f7f9; color: #26292b; font: 11px/1.4 Arial, sans-serif; box-shadow: 0 3px 12px #17232b06; }
+.wp-ui__title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 600; }
+.wp-ui__tabs { display: flex; gap: 5px; margin-bottom: 10px; }
+.wp-ui__tabs > span { background: white; border: 1px solid transparent; border-radius: 5px; padding: 6px 7px; color: #9aa2ae; font-size: 10px; white-space: nowrap; }
+.wp-ui__tabs > .wp-ui__active { border-color: #138b67; color: #138b67; }
+.wp-ui__card { padding: 10px; background: white; border-radius: 7px; }
+.wp-ui__customer { display: flex; align-items: center; gap: 8px; padding: 8px; background: #f6f7f9; border-radius: 5px; margin-bottom: 8px; }
+.wp-ui__customer small { display: block; color: #95999e; font-size: 9px; margin-top: 2px; }
+.wp-ui__avatar { display: grid; place-items: center; width: 26px; height: 26px; background: #fbe1a7; color: #d49a20; border-radius: 50%; font-size: 10px; }
+.wp-ui__row { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; }
+.wp-ui__link, .wp-ui__radio, .wp-ui__add { color: #138b67; }
+.wp-ui__muted, .wp-ui__foot { color: #8a929d; }
+.wp-ui__action { margin-top: 8px; padding: 7px 9px; border-radius: 5px; background: #138b67; color: white; text-align: center; animation: wp-ui-action 5s ease 2; }
+.wp-ui__add { border-top: 1px solid #edf0f2; padding-top: 8px; margin-top: 7px; }
+.wp-ui__notice { margin-top: 8px; padding: 7px; background: #eef5ff; border-radius: 5px; color: #737d89; font-size: 9px; }
+.wp-ui__input { border: 1px solid #d8dee5; padding: 3px 7px; border-radius: 4px; }
+.wp-ui__total { display: flex; justify-content: space-between; padding: 8px; margin-top: 9px; border-radius: 5px; background: #fcf0d6; }
+.wp-ui__progress { height: 4px; margin: 7px 0; background: #eef1f3; border-radius: 4px; overflow: hidden; }
+.wp-ui__progress i { display: block; height: 100%; width: 35%; background: #138b67; transform-origin: left; animation: wp-ui-progress 5s ease 2; }
+.wp-ui__foot { padding-top: 8px; font-size: 9px; }
+@keyframes wp-ui-action { 0%, 100% { opacity: 1; } 45% { opacity: .72; } }
+@keyframes wp-ui-progress { 0% { transform: scaleX(.1); } 55%, 100% { transform: scaleX(1); } }
+.wizpay-problems[data-reduced-motion="true"] .wp-ui * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .wp-ui * { animation: none !important; } }
+
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__grid h3 { margin-bottom: 0; font-size: 14px; font-weight: 400; line-height: 1.5625; letter-spacing: -.01em; color: #000; }
+
+/* Editorial illustrations: floating fragments and connections, not miniature forms. */
+.wp-story { width: min(100%, 320px); aspect-ratio: 32 / 21; position: relative; overflow: hidden; border-radius: 0; background: radial-gradient(ellipse at center, #f4f0e9 0%, #faf8f4 55%, #ffffff00 78%); container-type: inline-size; }
+.wp-story__canvas { position: relative; width: 100%; height: 100%; color: #37342e; font: 11px/1.3 Arial, sans-serif; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems .wp-story svg.wp-story__connections { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; margin: 0; }
+.wp-story__connections path { fill: none; stroke: #a49a8b; stroke-width: 1.2; }
+.wizpay-problems .wp-story__connections circle { fill: #766b5b; }
+.wp-story__ticket { box-sizing: border-box; position: absolute; background: #fff; border: 1px solid #e7e1d8; border-radius: 3px; padding: 10px; box-shadow: 0 5px 12px #483d3010; }
+.wp-story__ticket > span:first-child { display: block; font: 12px/1.3 "Helvetica Neue", Arial, sans-serif; }
+.wp-story__ticket small { display: block; font-size: 8px; color: #928a7e; margin-top: 5px; }
+.wp-story__ticket b { font-size: 12px; font-weight: 500; }
+.wp-story__entry { left: 5%; width: 32%; padding: 8px; }
+.wp-story__entry--a { top: 9%; }.wp-story__entry--b { top: 37%; }.wp-story__entry--c { top: 65%; }
+.wp-story__collection { right: 4%; top: 27%; width: 43%; padding: 12px 9px; border-color: #d5cabc; }
+.wp-story__collection .wp-story__symbol { display: grid; place-items: center; width: 23px; height: 23px; margin-bottom: 9px; border-radius: 50%; background: #e1f5e9; color: #1c9a72; }
+.wp-story__badge { background: #ece9e0; border-radius: 3px; padding: 4px 5px; font-size: 7px; margin-top: 8px; color: #716b5f; }
+.wp-story__method--a { top: 9%; left: 5%; width: 50%; transform: rotate(-3deg); }
+.wp-story__method--b { top: 37%; right: 4%; width: 53%; border-color: #78b9a1; }
+.wp-story__method--c { bottom: 7%; left: 9%; width: 53%; }
+.wp-story__cardmark { display: flex; justify-content: space-between; background: #f3f5f4; margin-top: 8px; padding: 5px; font-size: 8px; }
+.wp-story__cardmark b { color: #214b7a; font-size: 7px; }
+.wp-story__detail { font-size: 7px; margin-top: 7px; padding: 5px; background: #e9f1fa; color: #6581a0; }
+.wp-story__order { top: 10%; left: 7%; width: 47%; display: flex; align-items: center; justify-content: space-between; }
+.wp-story__ledger { top: 39%; right: 5%; width: 76%; padding: 4px 8px; }
+.wp-story__ledger > div { display: grid; grid-template-columns: 1fr 34px 46px; gap: 5px; align-items: center; padding: 9px 0; border-bottom: 1px solid #f0f2f0; font-size: 8px; }
+.wp-story__ledger > div:last-child { border: 0; }.wp-story__ledger b { font-size: 9px; }
+.wp-story__ledger i { font-size: 7px; font-style: normal; background: #dcf5e4; padding: 3px; text-align: center; border-radius: 3px; }
+.wp-story__ledger i.wp-story__due { background: #f3ead6; }
+.wp-story__original { top: 9%; left: 6%; width: 45%; }.wp-story__original b, .wp-story__return b { display: block; margin-top: 8px; }
+.wp-story__return { top: 34%; right: 5%; width: 48%; border-color: #d5cabc; }
+.wp-story__retained { bottom: 7%; left: 9%; width: 69%; display: flex; justify-content: space-between; background: #f4eddf; }
+@media (prefers-reduced-motion: reduce) { .wp-story__traveller { display: none; } }
+
+/* First problem: the order timeline asks where payment fits. */
+.wp-story__timeline { position: absolute; inset: 20px auto 20px 22px; width: 145px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; justify-content: space-between; }
+.wp-story__timeline::before { content: ""; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: #b7ad9f; }
+.wp-story__timeline li { position: relative; display: flex; align-items: center; gap: 9px; min-height: 24px; color: #575147; font-size: 10px; line-height: 1.25; }
+.wp-story__timeline-dot { flex: 0 0 7px; height: 7px; border-radius: 50%; border: 1px solid #aa9e8c; background: #fff; }
+.wp-story__payment-question { width: 94px; right: 12px; top: calc(50% - 23px); padding: 13px 8px; text-align: center; border-color: #d5cabc; }
+.wp-story__question-mark { margin-left: 5px; color: #9b7951; }
+.wp-story--0 .wp-story__connections path { stroke-dasharray: 3 4; opacity: .65; }
+
+/* Payment methods are recognizable objects rather than form fragments. */
+.wp-story--1 .wp-story__connections { display: none; }
+.wp-object { position: absolute; text-align: center; }
+.wp-object > span { display: block; margin-top: 3px; font: 10px/1.3 Arial, sans-serif; color: #847b6f; }
+.wp-object--card { left: 7%; top: 10%; width: 43%; transform: rotate(-8deg); }
+.wp-object--bank { right: 7%; top: 22%; width: 30%; }
+.wp-object--cash { left: 17%; bottom: 7%; width: 39%; transform: rotate(5deg); }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems .wp-object svg { display: block; width: 100%; height: auto; max-width: none; margin: 0; filter: drop-shadow(0 4px 3px #55463714); }
+.wizpay-problems .wp-object .wp-object__card-face { fill: #fff; stroke: #d1c7b8; stroke-width: 1; }
+.wp-object__card-shine { fill: #f1ece3; }
+.wizpay-problems .wp-object .wp-object__chip { fill: #d9c8a2; }
+.wp-object__chip-line { fill: none; stroke: #a9946a; stroke-width: .6; }
+.wp-object__contactless { fill: none; stroke: #a79980; stroke-width: 1.2; stroke-linecap: round; }
+.wizpay-problems .wp-object .wp-object__card-dots { text-anchor: start; font: 11px Arial; fill: #9e907b; }
+.wizpay-problems .wp-object .wp-object__brand-a { fill: #a08e77; }
+.wizpay-problems .wp-object .wp-object__brand-b { fill: #d6c6ac; fill-opacity: .85; }
+.wp-object__bank-shadow { fill: #d6cbbd; opacity: .45; }
+.wp-object__bank-roof { fill: #fff; stroke: #b3a690; stroke-width: 1; }
+.wizpay-problems .wp-object .wp-object__bank-seal { fill: #b9a581; }
+.wizpay-problems .wp-object .wp-object__bank-pillar { fill: #fff; stroke: #d7cdbd; stroke-width: 1; }
+.wp-object__bank-flute { stroke: #ebe4d8; stroke-width: 3; }
+.wp-object__bank-base { fill: #fff; stroke: #cabca7; stroke-width: 1; }
+.wizpay-problems .wp-object .wp-object__note-back { fill: #b6b7a3; }
+.wizpay-problems .wp-object .wp-object__note-middle { fill: #d4d6c6; stroke: #a3a88d; stroke-width: .7; }
+.wizpay-problems .wp-object .wp-object__note { fill: #eaebdd; stroke: #acaf98; stroke-width: 1; }
+.wp-object__note-border { fill: none; stroke: #b2b59e; stroke-width: .8; }
+.wp-object__note-medallion { fill: #d4d7c0; }
+.wizpay-problems .wp-object .wp-object__dollar { fill: #7f8668; font: 28px Georgia, serif; text-anchor: middle; }
+.wp-object__note-lines { stroke: #b2b59e; stroke-width: 1.5; }
+
+/* One paper slip holds the order and its payments. */
+.wp-story--2 .wp-story__connections { display: none; }
+.wp-story__receipt { position: absolute; width: 82%; left: 9%; top: 12%; padding: 12px 12px 17px; box-sizing: border-box; background: #fffefb; filter: drop-shadow(0 5px 5px #574b3914); }
+.wp-story__receipt::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 7px; background: linear-gradient(135deg, #fffefb 25%, transparent 25%) -7px 0 / 14px 14px repeat-x, linear-gradient(225deg, #fffefb 25%, transparent 25%) -7px 0 / 14px 14px repeat-x; }
+.wp-story__receipt-heading { display: flex; justify-content: space-between; gap: 8px; padding-bottom: 12px; margin-bottom: 2px; border-bottom: 1px dashed #d6cbbd; font: 10px/1.3 "Courier New", monospace; }
+.wp-story__receipt-heading b { font: 12px/1.3 Arial, sans-serif; }
+.wp-story__receipt-row { display: grid; grid-template-columns: 1fr 34px 47px; gap: 5px; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee9e1; font-size: 9px; }
+.wp-story__receipt-row:last-child { border: 0; }
+.wp-story__receipt-row b { font-weight: 400; }
+.wp-story__receipt-row i { font-style: normal; font-size: 7px; background: #eaece2; border-radius: 3px; padding: 4px 3px; text-align: center; }
+.wp-story__receipt-row .wp-story__receipt-due { background: #f3ead6; }
+
+/* Horizontal order journey with the payment question beneath it. */
+.wp-story--0 .wp-story__timeline { inset: 30px 10px auto; width: auto; height: 60px; flex-direction: row; align-items: flex-start; }
+.wp-story--0 .wp-story__timeline::before { left: 10%; right: 10%; top: 4px; bottom: auto; width: auto; height: 1px; }
+.wp-story--0 .wp-story__timeline li { flex: 1; min-width: 0; flex-direction: column; gap: 8px; text-align: center; font-size: 8px; line-height: 1.3; padding: 0 2px; }
+.wp-story--0 .wp-story__timeline-dot { flex: 0 0 7px; width: 7px; }
+.wp-story--0 .wp-story__payment-question { left: 50%; right: auto; top: 145px; transform: translateX(-50%); }
+
+/* A quiet collection of paper objects for the portfolio. */
+.wp-story__receipt { transform: rotate(-2deg); }
+.wp-story__receipt-heading { letter-spacing: .02em; }
+.wp-story__original { transform: rotate(-3deg); }
+.wp-story__return { transform: rotate(2deg); }
+.wp-story__badge, .wp-story__receipt-row i { background: transparent; color: #8a8978; padding-inline: 0; }
+.wp-story__receipt-row .wp-story__receipt-due { background: #f3ead6; color: #8d7852; }
+.wp-story__retained { background: #fffdf8; border-top: 1px dashed #d5cabc; }
+.wp-story__payment-question { box-shadow: 0 3px 8px #483d3008; }
+
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__visual:has(> .wp-original-timeline) { width: min(100%, 440px); margin-inline: auto; }
+.wp-original-timeline { display: block; width: 100%; height: auto; transform: translateX(-2%); }
+
+/* Light pencil outlines, paper labels and handwritten receipt annotations. */
+.wp-story--1, .wp-story--2 { background: radial-gradient(ellipse at center, #f5f0e6 0%, #fcfaf600 76%); }
+.wizpay-problems .wp-object .wp-object__card-face { fill: #fcf4e4; stroke: #706352; stroke-width: 1.2; }
+.wp-object__card-shine { fill: #eadcc544; }
+.wp-object__bank-roof, .wp-object__bank-base { fill: #f9f1df; stroke: #786d59; stroke-width: 1.2; stroke-linejoin: round; }
+.wizpay-problems .wp-object .wp-object__bank-pillar { fill: #fffaf0; stroke: #8e816a; }
+.wp-object__bank-flute { stroke: #d8c9ac; }
+.wp-pencil-hatch { fill: none; stroke: #8c8168; stroke-width: .6; opacity: .55; stroke-linecap: round; }
+.wizpay-problems .wp-object .wp-object__note { fill: #e5e8cc; stroke: #7f8769; stroke-width: 1.2; }
+.wp-object > span { display: inline-block; font-family: "Bradley Hand", "Segoe Print", cursive; font-size: 13px; color: #615649; margin-top: 5px; }
+.wp-object--bank { transform: rotate(3deg); }
+.wp-story__receipt { background: #fffdf5; box-shadow: inset 0 0 20px #b8a68009; border: 1px solid #e4dbca; border-bottom: 0; transform: rotate(-3deg); padding-top: 16px; }
+.wp-story__receipt::after { background: linear-gradient(135deg, #fffdf5 25%, transparent 25%) -7px 0 / 14px 14px repeat-x, linear-gradient(225deg, #fffdf5 25%, transparent 25%) -7px 0 / 14px 14px repeat-x; }
+.wp-receipt-tape { position: absolute; top: -7px; left: 38%; width: 60px; height: 15px; transform: rotate(5deg); background: #d9c8a266; border-inline: 1px dashed #c0af8a55; }
+.wp-story__receipt-heading, .wp-story__receipt-heading b, .wp-story__receipt-row { font-family: "Courier New", monospace; }
+.wp-story__receipt-row i { font: 11px/1 "Bradley Hand", "Segoe Print", cursive; color: #697e6e; transform: rotate(-5deg); }
+.wp-story__receipt-row .wp-story__receipt-due { background: transparent; color: #9d6f4e; border-bottom: 1px solid #c9a580; border-radius: 45%; transform: rotate(-4deg); }
+
+.wp-object--card > span { position: absolute; top: 8px; left: 12px; margin: 0; font-size: 10px; }
+
+/* Saturated blue-pen drawings, scoped to the two supporting illustrations. */
+.wp-story--1, .wp-story--2 { --wp-pen: #2457d6; background: none; }
+.wp-story--1 .wp-object > span, .wp-story--2 .wp-story__receipt-heading, .wp-story--2 .wp-story__receipt-heading b, .wp-story--2 .wp-story__receipt-row, .wp-story--2 .wp-story__receipt-row i { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; color: var(--wp-pen); }
+.wp-story--1 .wp-object > span { font-size: 12px; }
+.wp-story--1 .wp-object--card > span { font-size: 10px; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems .wp-story--1 .wp-object svg { filter: none; }
+.wizpay-problems .wp-story--1 .wp-object :is(.wp-object__card-face, .wp-object__chip, .wp-object__bank-pillar, .wp-object__note-back, .wp-object__note-middle, .wp-object__note) { fill: #fff; stroke: var(--wp-pen); stroke-width: 1.25; }
+.wp-story--1 :is(.wp-object__bank-roof, .wp-object__bank-base) { fill: #fff; stroke: var(--wp-pen); stroke-width: 1.25; }
+.wp-story--1 :is(.wp-object__chip-line, .wp-object__contactless, .wp-object__bank-flute, .wp-object__note-border, .wp-object__note-lines, .wp-pencil-hatch) { stroke: var(--wp-pen); }
+.wp-story--1 :is(.wp-object__card-shine, .wp-object__bank-shadow) { display: none; }
+.wizpay-problems .wp-story--1 .wp-object :is(.wp-object__bank-seal, .wp-object__brand-a) { fill: var(--wp-pen); }
+.wizpay-problems .wp-story--1 .wp-object .wp-object__brand-b { fill: #fff; stroke: var(--wp-pen); fill-opacity: 1; }
+.wp-story--1 .wp-object__note-medallion { fill: none; stroke: var(--wp-pen); stroke-width: 1; }
+.wizpay-problems .wp-story--1 .wp-object :is(.wp-object__card-dots, .wp-object__dollar) { fill: var(--wp-pen); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.wp-story--2 .wp-story__receipt { background: #fff; border-color: var(--wp-pen); border-width: 1.2px; box-shadow: none; filter: none; }
+.wp-story--2 .wp-story__receipt::after { height: 7px; background: linear-gradient(135deg, #fff 25%, transparent 25%) -7px 0 / 14px 14px repeat-x, linear-gradient(225deg, #fff 25%, transparent 25%) -7px 0 / 14px 14px repeat-x; filter: drop-shadow(0 1px 0 #2457d6); }
+.wp-story--2 .wp-receipt-tape { display: none; }
+.wp-story--2 .wp-story__receipt-heading { border-color: var(--wp-pen); font-size: 11px; }
+.wp-story--2 .wp-story__receipt-heading b { font-size: 12px; }
+.wp-story--2 .wp-story__receipt-row { border-color: #2457d64d; font-size: 10px; }
+.wp-story--2 .wp-story__receipt-row i { font-size: 9px; background: transparent; }
+.wp-story--2 .wp-story__receipt-row .wp-story__receipt-due { color: var(--wp-pen); border-color: var(--wp-pen); }
+
+@font-face { font-family: "Wizpay Pen"; src: url("/assets/fonts/caveat/Caveat-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+/* Compensate for the sketch asset’s blank left margin so the card meets the text edge. */
+.wp-ballpoint-methods { display: block; width: 100%; height: auto; transform: translateX(-2%); }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems__visual:has(> .wp-story--2) { margin-top: 20px; }
+.wp-story--2 { width: min(100%, 240px); aspect-ratio: auto; height: auto; overflow: visible; }
+.wp-story--2 .wp-story__canvas { height: auto; padding-bottom: 8px; }
+.wp-story--2 .wp-receipt-editorial { position: relative; top: 0; left: 0; width: 100%; padding: 20px 16px 24px; border: 0; background: #f2f1ee; box-shadow: none; filter: none; transform: rotate(-1.5deg); color: #25231f; font-family: "Courier New", monospace; }
+.wp-story--2 .wp-receipt-editorial::after { content: none; }
+.wp-receipt-order-id { text-align: center; font: 700 9px/1.5 "Courier New", monospace; letter-spacing: .7px; }
+.wp-receipt-order-id { margin-top: 6px; }
+.wp-receipt-columns { display: flex; justify-content: space-between; font: 8px/1.4 "Courier New", monospace; padding-bottom: 8px; border-bottom: 2px dotted #8c877e; margin: 26px 0 6px; }
+.wp-receipt-line { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; font: 10px/1.3 "Courier New", monospace; }
+.wp-receipt-summary { margin-top: 8px; padding: 4px 0; border-top: 2px dotted #8c877e; border-bottom: 2px dotted #8c877e; }
+.wp-receipt-circled { position: relative; }
+.wp-receipt-circled::after { content: ""; position: absolute; inset: -4px -7px; border: 1.5px solid #204dcc; border-radius: 48% 55% 43% 51%; transform: rotate(-8deg); }
+.wp-receipt-note { margin-top: 20px; color: #204dcc; font: 10px/1.4 "Courier New", monospace; transform: none; }
+.folio-project-viewer[data-project="wizpay"] .wizpay-problems .wizpay-problems__visual .wp-receipt-pen-arrow { position: absolute; width: 48px; height: 40px; max-width: none; top: calc(100% + 7px); right: 0; bottom: auto; margin: 0; overflow: visible; }
+.wp-receipt-pen-arrow path { fill: none; stroke: #204dcc; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.wp-receipt-due-label { background: linear-gradient(transparent 18%, #204dcc24 18%, #204dcc24 90%, transparent 90%); }
+
+.wp-receipt-method { display: block; margin-top: 2px; color: #777168; font: inherit; font-size: 8px; line-height: 1.4; }
+
+.folio-project-viewer__group-introduction { width: min(100%, 440px); margin: 28px auto var(--case-study-text-media-gap, 40px); }
+.folio-project-viewer__group-introduction > h4 { margin: 0; font-size: 14px; line-height: 1.5625; font-weight: 400; letter-spacing: -.01em; color: #000; }
+.folio-project-viewer__group-introduction > p { margin: 0; font-size: 14px; line-height: 1.5625; color: #b0a79b; }
+
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group > :is(#wizpay-payment-space-heading, #wizpay-invoice-payments-heading, #wizpay-recurring-payments-heading, #wizpay-payment-credits-heading, #wizpay-payment-form-heading) + p.folio-project-viewer__group-description {
+  margin-bottom: 24px;
+}
+
+/* Match the intro-to-demo gap used by the other WizPay blocks. */
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> #wizpay-payment-form-heading) > p.folio-project-viewer__group-description:has(+ .folio-project-viewer__group-media) { margin-bottom: 24px; }
+
+.folio-project-viewer[data-project="wizpay"] .wf-device-row + .folio-project-viewer__section-divider { margin-top: 64px; }
+
+/* Keep the full annotated form readable when expanded. */
+.folio-hero-overlay[data-annotated-form="true"][open] { display: block; overflow-y: auto; }
+.folio-hero-overlay[data-annotated-form="true"] > button { width: min(100%, 760px); margin: 0 auto; }
+.folio-hero-overlay[data-annotated-form="true"] .folio-hero-overlay__image { width: 100%; }
+.folio-hero-overlay[data-annotated-form="true"] .folio-hero-overlay__image > img { width: 100%; max-height: none; }
+.folio-hero-overlay[data-annotated-form="true"] .folio-hero-overlay__image > .folio-hero-overlay__annotations { position: absolute; inset: 0; height: 100%; object-fit: fill; pointer-events: none; }
+
+.folio-project-viewer[data-project="wizpay"] .folio-project-viewer__section-divider.wf-dashboard-divider { margin-top: 64px; }
+
+.wo-carousel { margin-top: 24px; }
+.wo-stage { padding: 48px 32px; }
+.wo-stage figure { width: 100%; margin: 0; }
+.wo-controls { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:12px; }
+.wo-controls button { border:0; background:transparent; color:#626b66; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:20px; }
+.wo-controls button:hover { background:#e9eeeb; }
+.wo-controls button:focus-visible { outline:2px solid #16885f; outline-offset:2px; }
+.wo-dots { display:flex; gap:0; }
+.wo-dots button { display:grid; place-items:center; width:24px; }
+.wo-dots i { width:6px; height:6px; border-radius:50%; background:#c5ccc8; }
+.wo-dots [aria-pressed="true"] i { background:#16885f; }
+.wo-count { color:#999; font-size:12px; }
+@media(max-width:600px) { .wo-stage { padding:24px 16px; } }
+
+.wo-carousel.wi-stage { padding: 32px 32px 12px; }
+.wo-carousel .wo-stage { padding: 0; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> #wizpay-org-settings-heading) > p.folio-project-viewer__group-description { margin-bottom: 24px; }
+@media(max-width:600px) { .wo-carousel.wi-stage { padding: 24px 16px 8px; } }
+
+.wo-controls .wo-dots { gap: 0; }
+.wo-controls .wo-dots button { width: 12px; height: 28px; }
+.wo-controls .wo-dots button:hover { background: transparent; }
+.wo-controls .wo-dots i { width: 4px; height: 4px; background: #c3c8c6; transition: background 160ms ease, transform 160ms ease; }
+.wo-controls .wo-dots [aria-pressed="true"] i { background: #3897f0; transform: scale(1.15); }
+@media(prefers-reduced-motion:reduce) { .wo-controls .wo-dots i { transition: none; } }
+
+.wo-stage { position: relative; }
+.wo-hit { position: absolute; top: 0; bottom: 0; width: 50%; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.wo-hit--previous { left: 0; }
+.wo-hit--next { right: 0; }
+.wo-hit:focus-visible { outline: 2px solid #16885f; outline-offset: -3px; }
+
+/* Reserve the tallest settings frame so navigating never shifts the page. */
+.wo-carousel .wo-stage {
+  aspect-ratio: 1440 / 1244;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wo-carousel .wo-stage > figure {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.wo-carousel .wo-stage > figure {
+  box-shadow: 0 2px 5px #0000000d, 0 9px 9px #0000000a, 0 19px 12px #00000008;
+}
+
+.wo-hit:focus:not(:focus-visible) { outline: none; }
+
+.wo-carousel .wo-stage { display: grid; grid-template-columns: minmax(0, 1fr); }
+.wo-slide { grid-area: 1 / 1; width: 100%; min-width: 0; pointer-events: none; }
+.wo-slide > figure { width: 100%; margin: 0; box-shadow: 0 2px 5px #0000000d, 0 9px 9px #0000000a, 0 19px 12px #00000008; }
+.wo-hit { z-index: 2; }
+
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> #wizpay-impact-heading) > h3 { font-size:18px; font-weight:500; line-height:1.15; letter-spacing:-.025em; margin-bottom:8px; color:#262622; }
+.folio-project-viewer[data-project="wizpay"] .folio-reading-paper .folio-project-viewer__group:has(> #wizpay-impact-heading) > p { font-size:14px; line-height:1.5625; color:#b0a79b; }
+.wimpact { margin:24px auto 0; max-width:600px; font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif; color:#666b67; }
+.wimpact-metrics { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.wimpact-metrics > div { padding:24px; border-radius:8px; background:#edf2ef; display:flex; flex-direction:column; gap:8px; }
+.wimpact-metrics strong { font-size:34px; line-height:1.15; color:#16885f; letter-spacing:-.04em; }
+.wimpact-source { font-size:11px; color:#999; margin:12px 0 32px; }
+.wimpact h4 { font-size:17px; color:#262622; margin:0 0 8px; font-weight:500; }
+.wimpact h5 { font-size:14px; color:#262622; margin:0 0 8px; font-weight:500; }
+.wimpact-note { font-size:12px; color:#999; }
+.wimpact article { padding:20px 0; border-bottom:1px solid #ededed; }
+.wimpact p { margin-top:0; }
+.wimpact a { color:#16885f; font-size:12px; text-underline-offset:3px; }
+.wimpact details { margin-top:24px; }
+.wimpact summary { cursor:pointer; color:#262622; margin-bottom:12px; }
+@media(max-width:480px) { .wimpact-metrics { grid-template-columns:1fr; } }
+
+.wizpay-outro { max-width: 440px; margin: 0 auto; }
+.wizpay-outro > p { font-size: 16px; font-weight: 400; line-height: 1.5625; color: #494943; margin: 0; }
+.wizpay-outro > p + p { margin-top: 28px; }
+
+.wizpay-outro-highlight {
+  color: inherit;
+  padding: 0 .1em;
+  background: linear-gradient(90deg, rgb(221 134 31 / .56), rgb(244 177 70 / .31) 22%, rgb(244 177 70 / .31) 76%, rgb(216 127 27 / .58)) 0 80% / 100% 72% no-repeat;
+  border-radius: .08em .14em .1em .06em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.wizpay-company-link { color: inherit; text-decoration: none; }

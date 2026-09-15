@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 interface ContactBirdFlockProps {
-  resumeUrl: string;
   reducedMotion: boolean;
   theme: "day" | "night";
 }
@@ -379,7 +378,7 @@ class Bird {
 
 }
 
-export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBirdFlockProps) {
+export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const applyThemeRef = useRef<(nextTheme: "day" | "night") => void>(() => undefined);
   const themeRef = useRef(theme);
@@ -494,14 +493,10 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(44, 34), floorMaterial);
     floor.rotation.x = -Math.PI / 2; floor.position.y = -0.33; floor.receiveShadow = true; scene.add(floor);
 
-    const bird1 = new Bird(palettes[1], "gmail"); bird1.threegroup.position.set(1.25, -0.08, 0); bird1.threegroup.scale.setScalar(1.5); scene.add(bird1.threegroup);
-    const bird2 = new Bird(palettes[0], "linkedin"); bird2.threegroup.position.set(-3.75, -0.08, 0); bird2.threegroup.scale.setScalar(1.5); scene.add(bird2.threegroup);
-    const bird3 = new Bird(palettes[2], "x"); bird3.threegroup.position.set(3.75, -0.08, 0); bird3.threegroup.scale.setScalar(1.5); scene.add(bird3.threegroup);
+    const bird1 = new Bird(palettes[1], "gmail"); bird1.threegroup.position.set(0, -0.08, 0); bird1.threegroup.scale.setScalar(1.5); scene.add(bird1.threegroup);
+    const bird2 = new Bird(palettes[0], "linkedin"); bird2.threegroup.position.set(-2.5, -0.08, 0); bird2.threegroup.scale.setScalar(1.5); scene.add(bird2.threegroup);
+    const bird3 = new Bird(palettes[2], "x"); bird3.threegroup.position.set(2.5, -0.08, 0); bird3.threegroup.scale.setScalar(1.5); scene.add(bird3.threegroup);
 
-    const resumeBird = new Bird({ normal: new THREE.Color(0x718653) }, "resume");
-    resumeBird.threegroup.position.set(-1.25, 0, 0.15);
-    resumeBird.threegroup.scale.setScalar(1.85);
-    scene.add(resumeBird.threegroup);
 
     applyThemeRef.current = (nextTheme) => {
       const night = nextTheme === "night";
@@ -516,7 +511,6 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
       floorMaterial.color.setHex(night ? 0x02040a : 0x47392e);
       floorMaterial.opacity = night ? 0.34 : 0.18;
       floorMaterial.needsUpdate = true;
-      resumeBird.setNight(night);
       bird1.setNight(night);
       bird2.setNight(night);
       bird3.setNight(night);
@@ -536,7 +530,6 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
     };
 
     const landingBirds = [
-      { bird: resumeBird, delay: 360, duration: 1500, fromLeft: true, startOffset: new THREE.Vector3(-12, 0.24, 0), swayY: [1.55, -0.42, 1.72] },
       { bird: bird2, delay: 540, duration: 1500, fromLeft: true, startOffset: new THREE.Vector3(-12, 0.08, 0), swayY: [0.8, -0.18, 1.0] },
       { bird: bird1, delay: 720, duration: 1750, fromLeft: false, startOffset: new THREE.Vector3(12, 0.24, 0), swayY: [1.55, -0.42, 1.72] },
       { bird: bird3, delay: 900, duration: 1450, fromLeft: false, startOffset: new THREE.Vector3(12, -0.05, 0), swayY: [0.58, -0.12, 0.92] },
@@ -713,7 +706,7 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
       camera.top = visibleHalfHeight;
       camera.bottom = -visibleHalfHeight;
       camera.updateProjectionMatrix();
-      host.style.setProperty("--flock-actions-width", `${height * 10 / 12}px`);
+      host.style.setProperty("--flock-actions-width", `${height * 7.5 / 12}px`);
       landingBirds.forEach(({ bird, finalPosition, fromLeft, path, startOffset, startPosition, swayY }) => {
         const screenEdgeX = (visibleHalfWidth + 0.72) * (fromLeft ? -1 : 1);
         startOffset.x = screenEdgeX - finalPosition.x;
@@ -793,8 +786,6 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
       const bird1Release = bird1Flying ? 0 : (gazeRelease.get(bird1) ?? 1);
       const bird2Release = bird2Flying ? 0 : (gazeRelease.get(bird2) ?? 1);
       const bird3Release = bird3Flying ? 0 : (gazeRelease.get(bird3) ?? 1);
-      const resumeRelease = (flightProgress.get(resumeBird) ?? 1) < 1 ? 0 : (gazeRelease.get(resumeBird) ?? 1);
-      resumeBird.look(userHAngle * resumeRelease, userVAngle * resumeRelease);
       bird1.look(userHAngle * bird1Release, userVAngle * bird1Release);
       bird2.look(bird2Gaze.h * bird2Release, bird2Gaze.v * bird2Release);
       bird3.look(bird3Gaze.h * bird3Release, bird3Gaze.v * bird3Release);
@@ -823,9 +814,6 @@ export function ContactBirdFlock({ reducedMotion, theme, resumeUrl }: ContactBir
       <nav aria-label="Contact links" className="folio-contact__actions">
         <a aria-label="View Parth Jha on LinkedIn" data-cursor-keep href="https://www.linkedin.com/in/parthjha03/" onPointerEnter={() => playChirp(0)} rel="noreferrer" target="_blank">
           <span className="folio-contact__pill">View LinkedIn</span>
-        </a>
-        <a className="folio-contact__resume" aria-label="Download résumé" data-cursor-keep href={resumeUrl} download="Parth-resume.pdf" onPointerEnter={() => playChirp(0)}>
-          <span className="folio-contact__pill">Download résumé</span>
         </a>
         <button aria-label="Copy Parth's email address" data-cursor-keep onClick={copyEmail} onPointerEnter={() => playChirp(1)} type="button">
           <span className="folio-contact__pill">{emailCopied ? "Copied!" : "Copy email"}</span>

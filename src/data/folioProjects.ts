@@ -41,8 +41,11 @@ export interface FolioProjectSketch {
 }
 
 export interface FolioProjectMediaGroup {
+  introduction?: { heading: string; body: string };
   layout?: "comparison";
   sketch?: FolioProjectSketch;
+  paymentTimelineAfterParagraph?: number;
+  challenge?: { heading: string; body: string };
   captions?: readonly string[];
   callouts?: readonly { title: string; body: string }[];
   id: string;
@@ -65,12 +68,13 @@ export interface FolioFolderPreview {
 export interface FolioProject {
   introMedia?: readonly FolioProjectMedia[];
   overview?: {
+    companyIntro?: { heading: string; body: string };
     pullQuote?: string;
     context: string;
     contribution: string;
     facts: readonly { label: string; value: string }[];
   };
-  heroImage?: { src: string; alt: string; expandable?: boolean };
+  heroImage?: { src: string; alt: string; expandable?: boolean; width?: number; height?: number };
   cardMeta: string;
   cardTitle: string;
   description: string;
@@ -83,6 +87,7 @@ export interface FolioProject {
   previewMedia: readonly ProjectCarouselMedia[];
   services: readonly string[];
   title: string;
+  headline?: string;
   tone: "charcoal" | "cobalt";
   year: string;
 }
@@ -178,110 +183,101 @@ const farevvMedia = [
 ] as const satisfies readonly FolioProjectMedia[];
 
 const wizPayStory = [
+{
+  "kind": "group",
+  "id": "payment-space",
+  "heading": "Payment blocks",
+  "description": "Each payment action used the blocks it needed, giving us a shared structure that could grow with new scenarios.",
+  "media": []
+},
+{
+  "kind": "group",
+  "id": "invoice-payments",
+  "heading": "Payments against invoices",
+  "description": "We introduced invoices to link payments to an order, a quote, or a customer.",
+  "media": []
+},
+{
+  "kind": "group",
+  "id": "recurring-payments",
+  "heading": "Recurring payments",
+  "description": "Teams could set up recurring collections and keep track of them through a payment schedule.",
+  "media": []
+},
+{
+  "kind": "group",
+  "id": "payment-credits",
+  "heading": "Customer credits",
+  "description": "Teams could add customer credits from the dashboard and use them for future payments.",
+  "media": []
+},
+{
+  "kind": "group",
+  "id": "payment-form",
+  "heading": "Bringing it all together",
+  "description": "These pieces came together in one payment form—a standalone module that could work within existing workflows or on its own.",
+  "media": [{
+    "kind": "image",
+    "src": "/assets/invoice-folio/wizpay-case-study/payment-form.png?v=2",
+    "alt": "Complete standalone payment form bringing together customer details, invoice collection, charges, payment methods and available credits",
+    "aspectRatio": "1386 / 2322",
+    "ratio": "portrait",
+    "expandable": true
+  }]
+},
+{
+  "kind": "group",
+  "id": "collaboration",
+  "heading": "Dashboards - most b2b-ish thingy to exist",
+  "description": "Taking a payment was one part. Teams also needed a place to track what happened next.",
+  "media": [
   {
-    "kind": "group",
-    "id": "entry",
-    "emphasis": "payment actions and balances into the order screen",
-    "heading": "01 / Finding the entry point",
-    "description": "Upfront payments and pay-later commitments challenged our initial placement at the end of ordering. I explored bringing payment actions and balances into the order screen.",
-    "media": [
-      {
-        "kind": "image",
-        "alt": "Early order screen with Collect payment beside the order summary",
-        "src": "/assets/invoice-folio/wizpay-case-study/order-entry.png",
-        "aspectRatio": "1930 / 1236",
-        "ratio": "landscape",
-        "fit": "contain",
-        "background": "#d1d1d1"
-      }
-    ],
-    "captions": [
-      "Early order exploration. The Collect payment entry sits beneath the summary; received, due and pending amounts appear alongside the order total."
-    ]
-  },
-  {
-    "kind": "group",
-    "id": "collection",
-    "emphasis": "the amount, timing and payment state",
-    "heading": "02 / Beyond payment methods",
-    "description": "Recurring payments, partial payments and refunds needed more than a method picker. We moved to side and bottom sheets that clarified the amount, timing and payment state.",
-    "layout": "comparison",
-    "media": [
-      {
-        "kind": "image",
-        "alt": "First-cut payment sheet with Card, ACH and Cash options",
-        "src": "/assets/invoice-folio/wizpay-case-study/first-cut.png",
-        "aspectRatio": "740 / 530",
-        "ratio": "landscape",
-        "fit": "contain",
-        "background": "#d1d1d1"
-      },
-      {
-        "kind": "image",
-        "alt": "Layered collection exploration showing amount, invoice association, collection options, available credits and charge summary",
-        "src": "/assets/invoice-folio/wizpay-case-study/layered-collection.png",
-        "aspectRatio": "1094 / 1510",
-        "ratio": "landscape",
-        "fit": "contain",
-        "background": "#d1d1d1"
-      }
-    ],
-    "captions": [
-      "First cut — choose a preferred payment method for the order.",
-      "Later exploration — bring the amount, invoice association, method and charge summary into the collection flow."
-    ],
-    "callouts": [
-      {
-        "title": "Establish the amount",
-        "body": "The later design separates the total amount due from the amount being collected."
-      },
-      {
-        "title": "Give context its own place",
-        "body": "Invoice association appears alongside the amount, rather than being left to the payment-method choice."
-      },
-      {
-        "title": "Connect the details to the action",
-        "body": "Card selection and available credits sit within the flow, with a charge summary next to the final action."
-      }
-    ]
-  },
-  {
-    "kind": "group",
-    "id": "module",
-    "emphasis": "expanded payments into a dedicated module",
-    "heading": "03 / A dedicated payment workspace",
-    "description": "Scheduling, refunds and credits outgrew the existing flow. We expanded payments into a dedicated module, with customer payment history across desktop, tablet and mobile.",
-    "media": [
-      {
-        "kind": "image",
-        "alt": "Dedicated payment workspace with collection, credits, refunds and pre-authorisation, plus customer, order and invoice context",
-        "src": "/assets/invoice-folio/wizpay-case-study/payments-module.png",
-        "aspectRatio": "1234 / 1718",
-        "ratio": "landscape",
-        "fit": "contain",
-        "background": "#d1d1d1"
-      },
-      {
-        "kind": "image",
-        "alt": "Customer dashboard with payment history, completed and pending states, and expanded transaction details",
-        "src": "/assets/invoice-folio/wizpay-case-study/customer-payments.png",
-        "aspectRatio": "1554 / 1848",
-        "ratio": "landscape",
-        "fit": "contain",
-        "background": "#d1d1d1"
-      }
-    ],
-    "captions": [
-      "A dedicated workspace for payment actions, with customer, order and invoice information kept close to the task.",
-      "Customer history brings transactions and their details alongside orders, invoices and credits."
-    ]
-  },
-  {
-    "kind": "note",
-    "id": "reflection",
-    "heading": "What I took from it",
-    "body": "What began as a placement question became a dedicated payment workspace. Each new use case helped us understand what the flow needed."
+    "kind": "image",
+    "src": "/assets/invoice-folio/wizpay-case-study/transactions-web.png?v=3",
+    "alt": "Web transaction view showing payment statuses and transaction details",
+    "aspectRatio": "1504 / 683",
+    "ratio": "landscape",
+    "expandable": true
   }
+  ]
+},
+{
+  "kind": "group",
+  "id": "responsive-transactions",
+  "heading": "Same payments, smaller screens",
+  "description": "That big table couldn’t simply shrink to fit every screen. We needed the layout to make sense across breakpoints without losing any payment details. On tablet, we made the rows expandable. On mobile, we turned each row into an expandable card, keeping the key information visible and the rest a tap away.",
+  "media": [
+  {
+    "kind": "image",
+    "src": "/assets/invoice-folio/wizpay-case-study/transactions-tablet.png",
+    "alt": "Tablet transaction view showing payment statuses and transaction details",
+    "aspectRatio": "1193 / 883",
+    "ratio": "landscape",
+    "expandable": true
+  },
+  {
+    "kind": "image",
+    "src": "/assets/invoice-folio/wizpay-case-study/transactions-mobile.png?v=2",
+    "alt": "Mobile transaction view showing payment statuses and transaction details",
+    "aspectRatio": "360 / 843",
+    "ratio": "portrait",
+    "expandable": true
+  }
+]
+},
+  {
+    "kind": "group",
+    "id": "org-settings",
+    "heading": "Giving wholesalers control over how they get paid",
+    "description": "Every wholesaler had their own way of collecting payments. Organisation settings let them choose the methods they accepted and define payment terms that worked for their business.",
+    "media": []
+  },
+  {
+    "kind": "group",
+    "id": "impact",
+    "heading": "Impact",
+    "media": []
+  },
 ] as const satisfies readonly FolioProjectStoryItem[];
 
 const superrProject: FolioProject = {
@@ -311,25 +307,20 @@ export const folioProjects: Record<FolioProjectId, FolioProject> = {
     },
   },
   wizpay: {
-    introMedia: [{
-      kind: "image", src: "/assets/invoice-folio/wizpay-case-study/overview-213-8552-3x.png",
-      alt: "WizPay invoice selection with collected amounts and order, shipping and miscellaneous charges",
-      aspectRatio: "1776 / 1290", ratio: "landscape", fit: "contain", expandable: true,
-    }, {
-      kind: "image", src: "/assets/invoice-folio/wizpay-case-study/overview-244-16150-3x.png",
-      alt: "WizPay payment method selection with saved cards and an option to add a new card",
-      aspectRatio: "640 / 668", ratio: "landscape", fit: "contain", expandable: true,
-    }],
     overview: {
-      context: "WizCommerce helps wholesalers sell to retailers. WizPay brings payment collection and tracking into the order journey.",
-      contribution: "I designed collection flows and customer payment history with the WizCommerce team, from early explorations to a dedicated payments module across desktop, tablet and mobile.",
+      context: "It’s not every day you get to design the core flow of a B2B payments system from scratch. Wizpay was that chance for me, and these are some of the small stories, endless questions and little victories along the way.",
+      contribution: "",
+      companyIntro: {
+        heading: "What does WizCommerce do?",
+        body: "WizCommerce brings wholesale selling into one connected platform—from showing products and building quotes to taking orders and collecting payments. Sales reps and buyers work with the same customer, pricing, and inventory information, whether they’re at a trade show, in the field, or ordering online.",
+      },
       facts: [],
     },
-    heroImage: { expandable: true, src: "/assets/invoice-folio/wizpay-case-study/hero-header-237-14572-v2.png", alt: "WizPay payment workspace with collection, refunds, pre-authorisation, recurring payments and credits" },
+    heroImage: { expandable: true, src: "/assets/invoice-folio/wizpay-case-study/hero-final.png", width: 3138, height: 3184, alt: "WizPay payment collection workspace with customer details, invoice charges, payment method, surcharge summary and available credits" },
     id: "wizpay", cardTitle: "WizPay", cardMeta: "Payments / Product design",
     title: "WizPay", year: "Oct 2024–Mar 2025", tone: "charcoal",
+    headline: "Designing Wizpay\nB2B payments solution for wholesalers",
     description: "WizCommerce is a B2B commerce platform for wholesalers. It brings product browsing, order taking, quotes and payments into one place, helping sales reps work with retailers through the sales process.",
-    logo: "/assets/invoice-folio/wizcommerce-current-mark.svg",
     services: ["Product design", "Payment workflows", "Cross-device design"],
     media: wizPayStory, folderPreviews: [],
     previewMedia: [{kind: "image", alt: "WizPay payment interface", src: "/assets/new/wizcommerce-frame32/wizpay-table.png", fit: "contain"}],

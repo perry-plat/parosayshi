@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1386 2322" fill="none">
+<g stroke="#204dcc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M220 400 Q286 442 399 414 M383 405 L400 414 L384 427"/>
+<path d="M1140 1435 Q1090 1470 979 1430 M991 1447 L978 1430 L999 1425"/>
+<path d="M245 2210 Q305 2270 400 2280 M383 2268 L400 2280 L380 2288"/>
+</g>
+<g fill="#204dcc" font-family="Courier New, monospace" font-size="29">
+<text x="65" y="335" transform="rotate(-3 65 335)"><tspan x="65">Start with</tspan><tspan x="65" dy="37">the customer</tspan></text>
+<text x="1030" y="1260" transform="rotate(2 1030 1260)"><tspan x="1030">Surcharge is</tspan><tspan x="1030" dy="37">auto-added</tspan><tspan x="1030" dy="37">when enabled</tspan><tspan x="1030" dy="37">in org settings</tspan></text>
+<text x="65" y="2140" transform="rotate(-2 65 2140)"><tspan x="65">Review the total,</tspan><tspan x="65" dy="37">then charge</tspan></text>
+</g>
+<g stroke="#204dcc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<path d="M1140 560 C1130 608 1050 625 984 594 M999 590 L984 594 L992 611"/>
+<path d="M245 880 Q315 910 432 895 M413 887 L432 895 L416 909"/>
+</g>
+<g fill="#204dcc" font-family="Courier New, monospace" font-size="29">
+<text x="1050" y="475" transform="rotate(3 1050 475)"><tspan x="1050">Linked to</tspan><tspan x="1050" dy="37">the order</tspan></text>
+<text x="65" y="820" transform="rotate(-2 65 820)"><tspan x="65">Choose the</tspan><tspan x="65" dy="37">invoice</tspan></text>
+</g>
+</svg>

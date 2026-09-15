@@ -34,3 +34,11 @@
     cursor: var(--spotlight-cursor-light), auto !important;
   }
 }
+
+/* Shared hand for interactive controls; descendants inherit the same affordance. */
+@media (hover: hover) and (pointer: fine) {
+  html body.spotlight-cursor-enabled :is(a[href], button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [role="switch"]:not([aria-disabled="true"]), [role="tab"]:not([aria-disabled="true"]), summary, select:not(:disabled), input:is([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"]):not(:disabled)),
+  html body.spotlight-cursor-enabled :is(a[href], button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [role="switch"]:not([aria-disabled="true"]), [role="tab"]:not([aria-disabled="true"]), summary) * {
+    cursor: url("/assets/cursors/hand-cream.svg?v=3") 12 4, pointer !important;
+  }
+}

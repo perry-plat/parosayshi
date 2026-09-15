@@ -236,6 +236,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
 
       const baselineHeight = heroIntroBaselineHeightRef.current;
       const expansionOffset = Math.max(0, introHeight - baselineHeight);
+      hero.style.setProperty("--wall-intro-baseline-height", `${baselineHeight}px`);
       hero.style.setProperty("--wall-intro-anchor-shift", `${introHeight / -2}px`);
       hero.style.setProperty("--wall-hero-expansion-offset", `${expansionOffset}px`);
     };
@@ -636,7 +637,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
         className="folio-contact"
         id="contact"
       >
-        <ContactBirdFlock resumeUrl={RESUME_DOWNLOAD_URL} reducedMotion={reducedMotion} theme={wallTheme === "night" ? "night" : "day"} />
+        <ContactBirdFlock reducedMotion={reducedMotion} theme={wallTheme === "night" ? "night" : "day"} />
       </motion.section>
     </main>
     {typeof document !== "undefined" ? createPortal(
