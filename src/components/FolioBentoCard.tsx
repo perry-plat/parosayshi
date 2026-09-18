@@ -56,11 +56,7 @@ export function FolioBentoCard({
         <div className="folio-bento-card__editorial-copy">
           <h3>Building toys that make learning fun</h3>
           <p>A little of what I’ve designed and built with the Superr team. Most is under NDA. This bit’s yours to explore.</p>
-          <div className="folio-bento-card__actions"><span className="folio-bento-card__peek">Take a peek</span></div>
         </div>
-      ) : null}
-      {!isSuperr ? (
-        <span aria-hidden="true" className="folio-bento-card__open">↗</span>
       ) : null}
       <button
         aria-label={`Open ${project.cardTitle} project`}

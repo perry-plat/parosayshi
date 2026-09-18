@@ -11,7 +11,8 @@ export function FolioProjectAsset({ media, reducedMotion, onExpand }: { media: F
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<AssetState>("loading");
   const label = media.kind === "image" ? media.alt : media.ariaLabel;
-  const source = attempt === 0 ? media.src : `${media.src}${media.src.includes("?") ? "&" : "?"}retry=${attempt}`;
+  const assetSrc = reducedMotion && media.reducedMotionSrc ? media.reducedMotionSrc : media.src;
+  const source = attempt === 0 ? assetSrc : `${assetSrc}${assetSrc.includes("?") ? "&" : "?"}retry=${attempt}`;
 
   useEffect(() => {
     let active = true;

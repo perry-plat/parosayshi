@@ -16,6 +16,10 @@ export type FolioProjectId =
 export type FolioProjectMedia = ProjectCarouselMedia & {
   /** Opt image media into the animated click-to-expand overlay. */
   expandable?: boolean;
+  /** Static alternative for animated images when reduced motion is requested. */
+  reducedMotionSrc?: string;
+  caption?: string;
+  introduction?: { heading: string; body: string };
   playbackRate?: number;
   presentation?: "activity-section";
   aspectRatio?: CSSProperties["aspectRatio"];
@@ -52,6 +56,8 @@ export interface FolioProjectMediaGroup {
   kind: "group";
   heading: string;
   description?: string;
+  textSections?: readonly { heading: string; body: string; highlight?: string; bullets?: readonly string[] }[];
+  solutionDetails?: readonly { heading: string; body: string }[];
   emphasis?: string;
   media: readonly FolioProjectMedia[];
 }
@@ -316,7 +322,7 @@ export const folioProjects: Record<FolioProjectId, FolioProject> = {
       },
       facts: [],
     },
-    heroImage: { expandable: true, src: "/assets/invoice-folio/wizpay-case-study/hero-final.png", width: 3138, height: 3184, alt: "WizPay payment collection workspace with customer details, invoice charges, payment method, surcharge summary and available credits" },
+    heroImage: { expandable: true, src: "/assets/invoice-folio/wizpay-case-study/hero-338-25712.png", width: 1568, height: 1295, alt: "WizPay transaction dashboard with payment details, upcoming payments, invoice collection and refunds" },
     id: "wizpay", cardTitle: "WizPay", cardMeta: "Payments / Product design",
     title: "WizPay", year: "Oct 2024–Mar 2025", tone: "charcoal",
     headline: "Designing Wizpay\nB2B payments solution for wholesalers",
@@ -328,29 +334,71 @@ export const folioProjects: Record<FolioProjectId, FolioProject> = {
   "wiz-commerce": {
     cardMeta: "B2B commerce", cardTitle: "WizCommerce", id: "wiz-commerce",
     title: "WizCommerce", year: "2023—25", tone: "charcoal",
+    headline: "Building tools for B2B wholesale — a collection",
     logo: "/assets/invoice-folio/wizcommerce-current-mark.svg",
     description: "Helping wholesale teams make clearer product decisions and keep customers informed.",
     overview: {
       context: "WizCommerce brings product discovery, quotes and orders into one workflow for wholesale sales teams.",
-      contribution: "I redesigned product information and explored recommendations, then worked on email entry, order touchpoints and organization-wide email settings with product and engineering.",
+      contribution: "We redesigned product information and explored recommendations, then worked on email entry, order touchpoints and organization-wide email settings with product and engineering.",
       facts: [],
     },
     services: ["Product design", "Product discovery", "Customer communication"], folderPreviews: [],
     previewMedia: [wizCommerceMedia[0]],
     media: [
-      { kind: "group", id: "product-data", heading: "01 / Make the product card useful",
-        description: "Reps needed stock, restock dates and variant information during sales conversations. I reorganized the cards so availability sat beside the image and the cart action explained variant selection.",
+      { kind: "group", id: "product-data", heading: "1. Redesigning Product cards on listing page helping reps make informed decisions during sale.",
+        description: "Sales reps use the product listing page during customer calls to browse the catalogue, recommend products, and add items to an order. Product cards bring together the information they need to decide what to offer.",
+        textSections: [
+          { heading: "The problem", highlight: "reps couldn’t quickly make informed decisions about which products to upsell", body: "During sales calls, reps couldn’t quickly make informed decisions about which products to upsell because the listing cards didn’t surface the information they needed." },
+          { heading: "Identifying what to show", body: "Conversations with the product team and early customers helped identify the information reps needed on product cards:", bullets: ["Stock availability", "Restock timelines", "Variant details", "Promotional information"] },
+          { heading: "The solution", body: "We redesigned the product cards to make key information easier to scan and the next action clearer. The design also needed to accommodate different product states and work across desktop, tablet, and mobile." }
+        ],
+        solutionDetails: [
+          { heading: "More options, one card", body: "Similar variants were grouped together to help reps offer more options during a sale. The count beneath “Add to cart” makes that grouping explicit: “+3 products” means three additional variants, while this example shows two. Selecting the CTA opens the variant selection step before adding to the cart." },
+          { heading: "Extra information when relevant", body: "Optional scrolling tags for promotions." }
+        ],
         media: [{ kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/product-cards.png", aspectRatio: "2264 / 1556", alt: "Redesigned product cards with stock and variant information", fit: "contain", ratio: "landscape", expandable: true }] },
-      { kind: "group", id: "discovery", heading: "02 / Help reps discover what to recommend",
-        description: "I extended these data cues into previously bought cards, variant sheets and cart review across devices. Recommendation explorations grouped related products to support discovery and upselling; these were still work in progress.",
-        media: [{ kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/recommendations.png", aspectRatio: "1509 / 950", alt: "Product recommendation grouping exploration", fit: "contain", ratio: "landscape", expandable: true }] },
-      { kind: "group", id: "communication", heading: "03 / Make recipients part of the flow",
-        description: "Typing an email looked complete even when the separate Add action was missed. I introduced suggested recipients and selection-based confirmation, then integrated an email checkpoint into quote and order submission.",
-        media: [{ kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/email-web.png", aspectRatio: "4320 / 3072", alt: "Quote and order email flow on web", fit: "contain", ratio: "landscape", expandable: true }, { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/email-mobile.png", aspectRatio: "5070 / 2652", alt: "Email recipient flow adapted for mobile", fit: "contain", ratio: "landscape", expandable: true }] },
-      { kind: "note", id: "email-settings", heading: "04 / Give organizations control",
-        body: "Different teams needed different email policies. I worked on organization settings for trigger and recipient management, separating internal and external communication so teams could configure their own workflows." },
-      { kind: "note", id: "reflection", heading: "What connected the work",
-        body: "Across product discovery and communication, the goal was to put the right information at the point of action. I iterated with product stakeholders and engineering, balancing useful detail with a flow that stayed easy to follow." },
+      { kind: "group", id: "tables", heading: "2. Turning saved table views into daily workflows",
+        description: "We enabled sales reps to save views of the tables they worked with. They could apply filters, save the view, and return to it later.\n\nIt seemed like a small ask, but we saw it become something much more useful. Reps at our customers’ businesses started using saved views like a scratchpad—turning them into to-do lists and lists of line items to track.",
+        captions: ["Saved table views.", "Actions for a saved view.", "Choosing a global filter.", "Right-side table controls."],
+        media: [
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/tables/saved-views-full.png", aspectRatio: "1535 / 485", alt: "Customer table with All Customers, To do, Archived, Next Week and Priority views", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/tables/view-actions-full.png", aspectRatio: "1532 / 489", alt: "To do view menu with delete, duplicate, edit, default and rename actions", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/tables/global-filter-full.png", aspectRatio: "1538 / 541", alt: "Customer table with the global filter field menu open", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/tables/global-filter-full.png", aspectRatio: "1538 / 541", alt: "Right-side controls on the customer table", fit: "contain", ratio: "landscape", expandable: true },
+        ] },
+      { kind: "group", id: "notifications", heading: "3. Tracking background tasks without interrupting work",
+        description: "Updates such as price changes and modifier approvals were scattered across tools and email threads. Users had to leave the task to understand its context.\n\nWe structured notification cards around category, state and action: what happened, its current status, and what the user could do next. The same structure carried through desktop hover actions and mobile action bars.",
+        media: [
+          { kind: "image", src: "/assets/case-studies/wW4SVPDeec1uQCfQzsVHps8sxzA.png", aspectRatio: "2704 / 1832", alt: "Notification card anatomy: category, status, summary and action", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/notifications-desktop.png", aspectRatio: "1439 / 983", alt: "Desktop notifications panel with exported inventory, collections, documents and quote downloads", caption: "Large exports trigger an email and an in-app notification when ready.", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/case-studies/MoruwIByXULy13qj1FasE6MtC40.png", aspectRatio: "5408 / 3320", alt: "Notification action bars on mobile", caption: "Track progress, retry failed exports, and download files—all from mobile notifications.", fit: "contain", ratio: "landscape", expandable: true }
+        ] },
+      { kind: "group", id: "discovery", heading: "4. Turning purchase history into product recommendations",
+        description: "We extended these data cues into previously bought cards, variant sheets and cart review across devices. Recommendation explorations grouped related products to support discovery and upselling; these were still work in progress.",
+        media: [{ kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/recommendations.png", aspectRatio: "1509 / 950", alt: "Product recommendation grouping exploration", fit: "contain", ratio: "landscape", expandable: true }, { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/kai-smart-picks.png", aspectRatio: "1024 / 768", alt: "Kai’s smart picks with personalized product groups, previously ordered products, categories and collections", fit: "contain", ratio: "landscape", expandable: true }] },
+      { kind: "group", id: "offline", heading: "5. Redefining offline mode",
+        description: "Offline mode lets sales reps browse downloaded data and take orders without an internet connection at trade shows. But the initial sync often ran to several hundred GB, with multiple images for each product. In the worst cases, it took almost 20–30 minutes, blocking reps from getting started.",
+        emphasis: "Offline mode lets sales reps browse downloaded data and take orders without an internet connection at trade shows.",
+        media: [
+          { kind: "image", src: "/assets/case-studies/QUw1WXKgCUja2aez716hxK52wwA.png", aspectRatio: "2598 / 1560", alt: "Sync split into stages by data type", introduction: { heading: "Sync essentials first", body: "We split the download into stages: customers and orders first, heavier product images later. Reps could start working with the essentials while the rest continued syncing." }, fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/offline-primary-card.png", aspectRatio: "329 / 440", alt: "Separate data and media sync, with primary images downloading", caption: "Data and media sync separately.", fit: "contain", ratio: "portrait", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/offline-all-images-card.png", aspectRatio: "329 / 440", alt: "Customer, order and product data synced while remaining images continue downloading", caption: "Data is ready while the remaining images sync.", fit: "contain", ratio: "portrait", expandable: true }
+        ],
+        solutionDetails: [{ heading: "Results & impact", body: "Incremental sync saved 15–30+ minutes. Active usage of offline mode increased by 40% after the sync updates." }] },
+      { kind: "group", id: "visuals", heading: "6. Designing beyond product",
+        description: "As a team of two designers, we worked at the intersection of product, marketing and engineering. Our visual work spanned emailers, website interfaces, Google ads, App Store artwork and presentation decks.\n\nWe also designed the pitch deck used for WizCommerce’s $8 million Series A fundraise.",
+        emphasis: "We also designed the pitch deck used for WizCommerce’s $8 million Series A fundraise.",
+        media: [
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/google-ads/google-ads.gif", reducedMotionSrc: "/assets/invoice-folio/wizcommerce-case-study/google-ads/google-ads-poster.png", alt: "Google display ads designed for WizCommerce in four formats", fit: "contain", ratio: "landscape", aspectRatio: "3 / 2", caption: "Google display ads, adapted across four formats." },
+          { kind: "image", src: "/assets/new/wizcommerce-frame32/visuals-grid-111.png", alt: "WizCommerce presentation design", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/new/wizcommerce-frame32/visuals-grid-222.png", alt: "Wholesale market presentation slide", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/new/wizcommerce-frame32/visuals-grid-333.png", alt: "WizCommerce visual communication", fit: "contain", ratio: "landscape", expandable: true },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/app-store/ipad-slides.gif", reducedMotionSrc: "/assets/invoice-folio/wizcommerce-case-study/app-store/ipad-poster.png", alt: "WizCommerce iPad App Store visuals", ratio: "landscape", aspectRatio: "17 / 12", fit: "contain", caption: "iPad App Store visuals designed for WizCommerce." },
+          { kind: "image", src: "/assets/invoice-folio/wizcommerce-case-study/email-headers/email-headers.gif?v=3", reducedMotionSrc: "/assets/invoice-folio/wizcommerce-case-study/email-headers/email-headers-poster.png", alt: "Email headers designed for WizCommerce customer communications", ratio: "landscape", aspectRatio: "17 / 11", fit: "contain", caption: "Email headers designed for customer communications." }
+        ] },
+      { kind: "note", id: "reflection", heading: "Want to see more?",
+        body: "There’s more to share on discounts, CRM and email communication. Reach out for a walkthrough.",
+        },
     ],
   },
   "journal-desk": {

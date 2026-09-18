@@ -288,7 +288,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     <>
     <main
       aria-hidden={activeFolioProjectId ? true : undefined}
-      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" ? "true" : undefined}
+      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" || activeFolioProjectId === "wiz-commerce" ? "true" : undefined}
       className="invoice-folio invoice-folio--wall"
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
@@ -297,7 +297,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     >
       <div aria-hidden="true" className="folio-scroll-blur" />
       <WallLightShader
-        paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay"}
+        paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay" && activeFolioProjectId !== "wiz-commerce"}
         glowColor={wallTheme === "night" ? "#91a8d8" : "#ebc9c0"}
         glowStrength={wallTheme === "night" ? 4.6 : 1}
         lightColor={wallTheme === "night" ? "#d9e2f4" : "#ffdeda"}
@@ -510,18 +510,29 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
             />
             */}
             {([
-              { id: "wizpay", title: "WizPay", heading: "Finding a place for payments. Then room to grow.", description: "From the first collection flow to a dedicated payment workspace.", tone: "data" },
-              { id: "wiz-commerce", title: "WizCommerce", heading: "Helping wholesale teams sell with clarity", description: "Product discovery, better sales decisions, and communication across quotes and orders.", tone: "email" },
+              { id: "wizpay", title: "WizPay", heading: <>Designing WizPay —<br />A B2B payments solution for wholesalers</>, description: "Owning and building a payments module from ground up!", tone: "data" },
+              { id: "wiz-commerce", title: "WizCommerce", heading: "Helping wholesale teams sell with clarity", description: "Building WizCommerce—a collection of products and features I’ve helped shape", tone: "email" },
             ] as const).map((study) => (
               <button className={`folio-wiz-study folio-wiz-study--${study.tone}`} data-cursor-keep data-folio-project={study.id} key={study.id} type="button" aria-label={`Read the ${study.title} case study`} aria-pressed={activeFolioProjectId === study.id} onClick={(event) => openFolioProject(study.id, event.currentTarget)}>
                 <div className="folio-wiz-study__copy">
                   <div className="folio-wiz-study__brand">
                     <img src="/assets/invoice-folio/wizcommerce-current-mark.svg" alt="" />
-                    <div><strong>{study.title}</strong><small>B2B commerce</small></div>
+                    <div><strong>{study.id === "wizpay" ? "WizCommerce" : study.title}</strong><small>{study.id === "wizpay" ? "B2B SaaS" : "B2B commerce"}</small></div>
                   </div>
+                  {study.id === "wizpay" && (
+                    <div className="folio-wiz-study__dashboard" aria-hidden="true">
+                      <img src="/assets/invoice-folio/wizpay-case-study/home-card-341-31817-v2.png" alt="" width="1057" height="1295" loading="lazy" draggable={false} />
+                    </div>
+                  )}
+                  {study.id === "wiz-commerce" && (
+                    <div className="folio-wiz-study__collage" aria-hidden="true">
+                      <img className="folio-wiz-study__collage-sync" src="/assets/invoice-folio/wizcommerce-case-study/offline-primary-card.png" alt="" loading="lazy" draggable={false} />
+                      <img className="folio-wiz-study__collage-notifications" src="/assets/invoice-folio/wizcommerce-case-study/notifications-desktop.png" alt="" loading="lazy" draggable={false} />
+                      <img className="folio-wiz-study__collage-products" src="/assets/invoice-folio/wizcommerce-case-study/kai-smart-picks.png" alt="" loading="lazy" draggable={false} />
+                    </div>
+                  )}
                   <h3>{study.heading}</h3>
                   <p>{study.description}</p>
-                  <span className="folio-wiz-study__cta">Read case study</span>
                 </div>
               </button>
             ))}

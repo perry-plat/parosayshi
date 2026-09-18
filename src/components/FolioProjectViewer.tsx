@@ -1,3 +1,5 @@
+import { WizProductCardComparison, WizProductHistoryDemo, WizProductVariantsDemo } from "./WizProductCardComparison";
+import { WizProductListingPreview } from "./WizProductListingPreview";
 import { WizpayImpact } from "./WizpayImpact";
 import { WizpayCreditsDemo } from "./WizpayCreditsDemo";
 import { WizpayRecurringDemo } from "./WizpayRecurringDemo";
@@ -24,7 +26,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
   const [orgSlide, setOrgSlide] = useState(0);
   const [orgDirection, setOrgDirection] = useState(1);
   const navigateOrg = (direction: number) => { setOrgDirection(direction); setOrgSlide(value => (value + direction + 3) % 3); };
-  const isPaper = project.id === "wizpay" || project.id === "superr-paper";
+  const isPaper = project.id === "wizpay" || project.id === "superr-paper" || project.id === "wiz-commerce";
   const heroDialogRef = useRef<HTMLDialogElement>(null);
   const heroButtonRef = useRef<HTMLButtonElement>(null);
   const expandedTriggerRef = useRef<HTMLElement | null>(null);
@@ -279,7 +281,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
         {isPaperMedia && <span className="folio-paper-media__border" aria-hidden="true" />}
       </figure>
     );
-    return <Fragment key={`${item.src}-${index}`}>{asset}</Fragment>;
+    return <Fragment key={`${item.src}-${index}`}>{item.introduction && <div className="folio-project-viewer__group-introduction"><h4>{item.introduction.heading}</h4><p>{item.introduction.body}</p></div>}{asset}{item.caption && <p className="folio-project-viewer__media-caption">{item.caption}</p>}</Fragment>;
   };
 
   const heroImage = (project.heroImage && <div className="folio-project-viewer__hero-image" data-frame-shadow={project.heroImage.src.includes("hero-header-237-14572-v2") || undefined}>
@@ -362,7 +364,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
         style={isPaper ? { transformOrigin: "50% 85%" } : undefined}
       >
         {isPaper && <div className="folio-reading-paper__cast-shadow" aria-hidden="true" />}
-        {isPaper && <div className="folio-reading-paper__title" data-visible={showPaperTitle} aria-hidden="true">{project.title}</div>}
+        {isPaper && <div className="folio-reading-paper__title" data-visible={showPaperTitle} aria-hidden="true">{project.id === "wiz-commerce" ? "WizCommerce - a collection" : project.title}</div>}
         {isPaper && <div className="folio-scroll-blur folio-reading-paper__fade" aria-hidden="true" />}
         {isPaper && <button className="folio-reading-paper__close" type="button" onClick={onClose} ref={closeButtonRef} aria-label="Close project" title="Close project"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg></button>}
       <div
@@ -385,7 +387,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
           {!isPaper && <button type="button" onClick={onClose} ref={closeButtonRef} aria-label="Back to projects" title="Back to projects"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14 6-6 6 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>}
           {project.id === "superr-paper" && <span className="folio-bento-card__nda-stamp folio-reading-header__nda-stamp" aria-label="Non-disclosure agreement">NDA</span>}
           {isPaper ? <div className="folio-reading-header__identity">
-            {project.logo && <img className="folio-reading-header__project-logo" src={project.logo} alt="" aria-hidden="true" />}
+            {project.logo && project.id !== "wiz-commerce" && <img className="folio-reading-header__project-logo" src={project.logo} alt="" aria-hidden="true" />}
             <div><h1>{project.headline ?? project.title}</h1>{project.id !== "wizpay" && <p className="folio-reading-header__date">{project.year}</p>}</div>
           </div> : <><h1>{project.title}</h1><p className="folio-reading-header__date">{project.year}</p></>}
           {project.id === "superr-paper" ? project.description.split("\n\n").map((paragraph, index) => (
@@ -399,7 +401,13 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 </ul>
               </Fragment>
             ) : <p key={index} className={index === 1 ? "folio-project-viewer__contribution-copy" : undefined}>{paragraph}</p>
-          )) : <>
+          )) : project.id === "wiz-commerce" ? <>
+            <p><a href="https://wizcommerce.com/" target="_blank" rel="noreferrer" className="wizpay-company-link wall-folio__experience-mark">WizCommerce</a> helps wholesalers and distributors manage rep-led, online, EDI, and marketplace sales in one platform, eliminate repetitive operational work, and grow revenue without increasing overhead.</p>
+                <p>Over the past 2 years, we’ve worked as a small, focused design team shaping WizCommerce into a full suite of tools for wholesale teams. It’s a lot of work to fit into one page.</p>
+                <p>This collection brings together systems and modules designed over that time. Behind these screens are conversations with the team, ideas we tried, and details we kept coming back to. We’ve picked a few to go deeper into and kept others brief.</p>
+                <p>There’s more to the work than we can show here, but we hope this gives you a sense of what we built together—and how we approached it.</p>
+
+          </> : <>
             <p>{project.overview?.context}</p>
             {project.overview?.contribution && <p>{project.overview.contribution}</p>}
           </>}
@@ -410,6 +418,26 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                   <img className="folio-project-viewer__intro-play" src="/assets/invoice-folio/superr-case-study/intro-film-play.svg" alt="" aria-hidden="true" />
                 </a>}
         </header>}
+        {project.id === "wiz-commerce" && <nav className="wiz-collection-contents" aria-label="Explore the work">
+              <span>Explore the work</span>
+              {[
+                ["product-data", "Redesigning Product cards on listing page helping reps make informed decisions during sale.", ""],
+                ["tables", "Turning saved table views into daily workflows", ""],
+                ["notifications", "Tracking background tasks without interrupting work", ""],
+                ["discovery", "Turning purchase history into product recommendations", ""],
+                ["offline", "Redefining offline mode", ""],
+                ["visuals", "Designing beyond product", ""],
+              ].map(([id, label, description], index) => {
+                const available = project.media.some(item => "id" in item && item.id === id);
+                return <a key={id} href={available ? `#wiz-commerce-${id}` : undefined} aria-disabled={!available || undefined} onClick={event => {
+                  event.preventDefault();
+                  if (!available) return;
+                  const target = reelRef.current?.querySelector<HTMLElement>(`#wiz-commerce-${id}`);
+                  target?.scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth", block: "start" });
+                  target?.focus({ preventScroll: true });
+                }}><span className="wiz-note__paper"><span className="wiz-note__number">{index + 1}</span><span className="wiz-note__label">{label}</span>{description && <span className="wiz-note__description">{description}</span>}{!available && <span className="wiz-note__pending">Case study coming next</span>}</span></a>;
+              })}
+            </nav>}
         {heroImage}
         {project.overview?.companyIntro && <section className="folio-project-viewer__company-intro" aria-labelledby={`${project.id}-company-intro-heading`}>
           <h2 id={`${project.id}-company-intro-heading`}>{project.overview.companyIntro.heading}</h2>
@@ -448,6 +476,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 >
                 {item.heading && <h3>{item.heading}</h3>}
                 <p>{item.emphasis && item.body.includes(item.emphasis) ? <>{item.body.split(item.emphasis)[0]}<strong className="folio-project-viewer__note-emphasis">{item.emphasis}</strong>{item.body.split(item.emphasis)[1]}</> : item.body}</p>
+                {item.link && <a className="folio-project-viewer__launch-post" href={item.link.href}>{item.link.label} ↗</a>}
                 {item.launchPost && <a className="folio-project-viewer__launch-post" href={item.launchPost.href} target="_blank" rel="noreferrer">{item.launchPost.label} ↗</a>}
                 {item.mentions && <div className="folio-project-viewer__mentions">{item.mentions.map(mention => <div className="folio-project-viewer__mention" key={mention.title}><strong>{mention.title}</strong><span>{mention.excerpt}</span></div>)}</div>}
 
@@ -461,10 +490,15 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 aria-labelledby={project.id === "wizpay" && item.id === "impact" ? undefined : `${project.id}-${item.id}-heading`}
                 className="folio-project-viewer__group"
                 data-layout={item.layout}
+                id={project.id === "wiz-commerce" ? `${project.id}-${item.id}` : undefined}
+                tabIndex={project.id === "wiz-commerce" ? -1 : undefined}
                 key={`${project.id}-group-${item.id}`}
               >
+                {project.id === "wiz-commerce" && ["product-data", "tables", "discovery", "offline", "notifications", "visuals", "communication"].includes(item.id) && <hr className="folio-project-viewer__section-divider" />}
                 {!(project.id === "wizpay" && item.id === "impact") && <h3 id={`${project.id}-${item.id}-heading`}>{item.heading}</h3>}
-                {item.description?.split("\n\n").map((paragraph, paragraphIndex) => <Fragment key={paragraphIndex}><p className="folio-project-viewer__group-description">{item.emphasis && paragraph.includes(item.emphasis) ? <>{paragraph.split(item.emphasis)[0]}<strong>{item.emphasis}</strong>{paragraph.split(item.emphasis).slice(1).join(item.emphasis)}</> : paragraph}</p>{item.paymentTimelineAfterParagraph === paragraphIndex && <div className="wizpay-order-flow-image">{renderMedia({ kind: "image", src: "/assets/invoice-folio/wizpay-case-study/order-flow-black-ink.png", alt: "Order-taking flow: sales rep reaches out to the customer, cart, quote creation, order confirmation, shipment. Quote creation and order confirmation are connected in both directions. Annotations: direct customer payment before a cart; payment against a quote or order; partial or remaining payment at shipment.", ratio: "landscape", aspectRatio: "2163 / 727", expandable: true }, paragraphIndex)}</div>}</Fragment>)}
+                {item.description?.split("\n\n").map((paragraph, paragraphIndex) => <Fragment key={paragraphIndex}><p className="folio-project-viewer__group-description">{item.emphasis && paragraph.includes(item.emphasis) ? <>{paragraph.split(item.emphasis)[0]}<strong className={project.id === "wiz-commerce" && (item.id === "offline" || item.id === "visuals") ? "folio-text-highlight" : undefined}>{item.emphasis}</strong>{project.id === "wiz-commerce" && item.id === "offline" ? paragraph.split(item.emphasis).slice(1).join(item.emphasis).split(/(several hundred GB|almost 20–30 minutes)/g).map((part, index) => /^(several hundred GB|almost 20–30 minutes)$/.test(part) ? <mark className="folio-text-highlight" style={{ color: "#000" }} key={index}>{part}</mark> : part) : paragraph.split(item.emphasis).slice(1).join(item.emphasis)}</> : paragraph}</p>{item.paymentTimelineAfterParagraph === paragraphIndex && <div className="wizpay-order-flow-image">{renderMedia({ kind: "image", src: "/assets/invoice-folio/wizpay-case-study/order-flow-black-ink.png", alt: "Order-taking flow: sales rep reaches out to the customer, cart, quote creation, order confirmation, shipment. Quote creation and order confirmation are connected in both directions. Annotations: direct customer payment before a cart; payment against a quote or order; partial or remaining payment at shipment.", ratio: "landscape", aspectRatio: "2163 / 727", expandable: true }, paragraphIndex)}</div>}</Fragment>)}
+                {project.id === "wiz-commerce" && item.id === "product-data" && <WizProductListingPreview />}
+                {item.textSections?.map(section => <div className="folio-project-viewer__group-introduction" key={section.heading}><h4>{section.heading}</h4><p>{section.highlight && section.body.includes(section.highlight) ? <>{section.body.split(section.highlight)[0]}<mark className="folio-text-highlight">{section.highlight}</mark>{section.body.split(section.highlight).slice(1).join(section.highlight)}</> : section.body}</p>{section.bullets && <ul className="folio-text-pointers">{section.bullets.map(point => <li key={point}>{point}</li>)}</ul>}</div>)}
                 {item.introduction && <div className="folio-project-viewer__group-introduction"><h4>{item.introduction.heading}</h4><p>{item.introduction.body}</p></div>}
                 {project.id === "wizpay" && item.id === "impact" && <WizpayImpact />}
                 {project.id === "wizpay" && item.id === "payment-space" && <WizpayPaymentBlocks />}
@@ -481,7 +515,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 {item.challenge && <section className="wizpay-challenge" aria-label="The challenge"><p>{item.challenge.heading}: {item.challenge.body.charAt(0).toLowerCase() + item.challenge.body.slice(1)}</p></section>}
                 {item.sketch && <FolioProjectSketchMedia sketch={item.sketch} />}
                 <div className={project.id === "wizpay" && item.id === "payment-form" ? "folio-project-viewer__group-media wi-stage wf-stage" : "folio-project-viewer__group-media"}>
-                  {item.media.map((media, mediaIndex) => item.captions ? (
+                  {project.id === "wiz-commerce" && item.id === "product-data" ? <WizProductCardComparison /> : project.id === "wiz-commerce" && item.id === "offline" ? <>{renderMedia(item.media[0], 0)}<div className="wiz-offline-screen-pair">{item.media.slice(1).map((media, index) => <div className="wiz-offline-screen" key={media.src}>{renderMedia(media, index + 1)}</div>)}</div></> : item.media.map((media, mediaIndex) => item.captions ? (
                     <div className="folio-project-viewer__annotated-media" key={`${item.id}-${mediaIndex}`}>
                       {renderMedia(media, mediaIndex)}
                       <p>{item.captions[mediaIndex]}</p>
@@ -495,6 +529,8 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 {project.id === "wizpay" && item.id === "payment-form" && <hr className="folio-project-viewer__section-divider" />}
                 {project.id === "wizpay" && item.id === "responsive-transactions" && <hr className="folio-project-viewer__section-divider wf-dashboard-divider" />}
                 {project.id === "wizpay" && item.id === "org-settings" && <hr className="folio-project-viewer__section-divider wf-dashboard-divider" />}
+                {item.solutionDetails && <div className="folio-solution-details">{item.solutionDetails.map(detail => <div className="folio-solution-detail" key={detail.heading}><div className="folio-project-viewer__group-introduction"><h4>{detail.heading}</h4><p>{project.id === "wiz-commerce" && item.id === "offline" && detail.heading === "Results & impact" ? detail.body.split(/(Incremental sync saved 15–30\+ minutes|Active usage of offline mode increased by 40%)/g).map((part, index) => /^(Incremental sync saved 15–30\+ minutes|Active usage of offline mode increased by 40%)$/.test(part) ? <mark className="folio-text-highlight" style={{ color: "#000" }} key={index}>{part}</mark> : part) : detail.body}</p></div>{project.id === "wiz-commerce" && item.id === "product-data" && detail.heading === "More options, one card" && <WizProductVariantsDemo />}</div>)}</div>}
+                {project.id === "wiz-commerce" && item.id === "product-data" && <WizProductHistoryDemo />}
                 {item.callouts && <ol className="folio-project-viewer__callouts">{item.callouts.map(callout => <li key={callout.title}><strong>{callout.title}</strong><p>{callout.body}</p></li>)}</ol>}
               </section>
             );
