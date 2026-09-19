@@ -39,7 +39,7 @@
 .folio-bento-group--featured {
   aspect-ratio: auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(2, clamp(280px, calc((100vw - 32px) * 0.713), 656px));
+  grid-template-rows: repeat(3, clamp(280px, calc((100vw - 32px) * 0.713), 656px));
 }
 
 .folio-bento-group--featured .folio-bento-card:nth-child(1) { grid-area: 1 / 1 / 2 / 3; }
@@ -572,8 +572,12 @@
 }
 
 .folio-bento-group--featured .folio-bento-card[data-project="journal-desk"] {
-  grid-area: 3 / 1 / 4 / -1;
-  min-height: clamp(360px, 56vw, 640px);
+  grid-area: 3 / 2 / 4 / 3;
+  min-height: 0;
+}
+@media (min-width: 681px) {
+  .folio-bento-group--featured > [data-folio-project="wizpay"] { grid-area: 2 / 1 / 3 / 3; }
+  .folio-bento-group--featured > [data-folio-project="wiz-commerce"] { grid-area: 3 / 1 / 4 / 2; }
 }
 @media (max-width: 680px) {
   .folio-bento-group--featured .folio-bento-card[data-project="journal-desk"] { grid-area: auto; }
@@ -611,3 +615,139 @@
   width: 100%; min-height: 480px; border: 0; padding: 0; text-align: left;
 }
 button.folio-wiz-study { border: 0; padding: 0; text-align: left; font: inherit; }
+
+/* Match the Superr lead card's image, identity, and editorial placement. */
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__copy { inset: 0; }
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__dashboard {
+  position: absolute;
+  inset: 0 38% 0 0;
+  width: 62%;
+  border-radius: 0;
+}
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__dashboard img {
+  object-position: left bottom;
+  transform: none;
+}
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__brand {
+  position: absolute;
+  top: clamp(14px, 1.8vw, 20px);
+  right: clamp(14px, 1.8vw, 20px);
+  left: 65%;
+  padding: 0;
+  gap: clamp(4px, .65vw, 8px);
+}
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__brand > img {
+  width: clamp(34px, 4vw, 52px);
+  height: clamp(34px, 4vw, 52px);
+  flex-shrink: 0;
+}
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__editorial-copy {
+  position: absolute;
+  right: clamp(14px, 1.8vw, 20px);
+  bottom: clamp(16px, 2vw, 24px);
+  left: 65%;
+  display: grid;
+  gap: 16px;
+}
+.folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__editorial-copy :is(h3, p) { padding-left: 4px; }
+@media (max-width: 680px) {
+  .folio-wiz-study[data-folio-project="wizpay"] { height: 712px; min-height: 712px; }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__brand { top: 20px; left: 20px; right: 94px; gap: 8px; }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__brand > img { width: 42px; height: 42px; }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__dashboard { inset: 86px 0 256px; width: 100%; }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__editorial-copy { left: 20px; right: 20px; bottom: 20px; }
+}
+
+.folio-bento-card__journal-tagline {
+  position: absolute;
+  z-index: 2;
+  left: 24px;
+  right: 24px;
+  bottom: 28px;
+  margin: 0;
+  color: #f7f5e9;
+  font: 500 clamp(24px, 2.6vw, 36px) / 1.15 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -.035em;
+  pointer-events: none;
+}
+
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__caption {
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__logo {
+  display: block;
+}
+
+/* Match the neighboring project cards' type hierarchy. */
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__caption strong {
+  font-size: 20px;
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__caption small {
+  font: 400 13px / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__journal-tagline {
+  font-size: 28px;
+  line-height: 1.14;
+}
+@media (max-width: 760px) {
+  .folio-bento-card[data-project="journal-desk"] .folio-bento-card__journal-tagline {
+    font-size: 26px;
+  }
+}
+
+/* A quiet sage field lets the collection's identity and story lead. */
+.folio-wiz-study[data-folio-project="wiz-commerce"] {
+  background: linear-gradient(145deg, #fafbe5 0%, #f3f7c4 50%, #dfe9b0 100%);
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__logo {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.folio-bento-card[data-project="journal-desk"] .folio-bento-card__caption {
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.folio-wiz-study[data-folio-project="wiz-commerce"] .folio-wiz-study__brand {
+  margin-bottom: auto;
+}
+
+.folio-wiz-study[data-folio-project="wiz-commerce"] .folio-wiz-study__copy > :is(h3, p) {
+  width: 100%;
+  max-width: none;
+}
+
+/* Dappled shade adds depth while leaving the identity and copy quiet. */
+.folio-wiz-study[data-folio-project="wiz-commerce"] {
+  isolation: isolate;
+}
+.folio-wiz-study[data-folio-project="wiz-commerce"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: url('/assets/invoice-folio/journal-desk-case-study/card-shadow.png') 65% center / cover no-repeat;
+  mix-blend-mode: multiply;
+  opacity: .18;
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent 90%);
+}
+.folio-wiz-study[data-folio-project="wiz-commerce"] .folio-wiz-study__copy {
+  z-index: 1;
+}

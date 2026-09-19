@@ -3339,7 +3339,7 @@ body.folio-project-viewer-open {
   border-top: 1px solid rgb(247 242 235 / 0.24);
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
   padding-top: 0;
   border-top: 0;
 }
@@ -3400,11 +3400,11 @@ body.folio-project-viewer-open {
   text-decoration: none;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__logo {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__logo {
   border-radius: 13px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
   color: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -3413,7 +3413,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
   max-width: 240px;
   margin-top: -8px;
   color: #fff;
@@ -3424,7 +3424,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external {
   min-height: 30px;
   box-sizing: border-box;
   padding: 6px 10px;
@@ -3438,7 +3438,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__close {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__close {
   color: #fff;
   background: transparent;
   border-radius: 0;
@@ -3448,19 +3448,19 @@ body.folio-project-viewer-open {
 }
 
 @media (min-width: 1321px) {
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__details {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__details {
     width: 280px;
     gap: 15px;
   }
 
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
     font-size: 20px;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 21px;
   }
 
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
     max-width: 280px;
     margin-top: 0;
     font-size: 16px;
@@ -3505,7 +3505,7 @@ body.folio-project-viewer-open {
   .folio-project-viewer__scroll-blur { display: none; }
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__reel {
   gap: 10px;
 }
 
@@ -3540,11 +3540,11 @@ body.folio-project-viewer-open {
 }
 
 /* Keep the cookie artwork inset without changing its media frame. */
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset:has(> img[src*="superr-figma-150-3132.png"]) {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset:has(> img[src*="superr-figma-150-3132.png"]) {
   background: #fff;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
   transform: scale(0.75);
   transform-origin: center;
 }
@@ -3840,6 +3840,7 @@ body.folio-project-viewer-open {
 }
 
 .folio-experience {
+  --folio-mono: "Geist Mono Variable", "Geist Mono", monospace;
   position: relative;
   z-index: 2;
   display: grid;
@@ -4754,13 +4755,13 @@ body.folio-project-viewer-open {
 .superr-activity__frame { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 @media (max-width: 760px) { .superr-activity { overflow-y: auto; } }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__group > h3 {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__group > h3 {
   font-size: 18px;
   line-height: 24px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description,
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note p { white-space: pre-line; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description,
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note p { white-space: pre-line; }
 
 
 
@@ -4786,14 +4787,14 @@ body.folio-project-viewer-open {
 @media (max-width: 480px) { .folio-project-viewer__mention { grid-template-columns: 1fr; gap: 5px; } }
 
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { min-height: 0; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { min-height: 0; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
 .folio-project-viewer__note[data-note="intro"] p { max-width: 43ch; line-height: 1.65; }
 .folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { margin-block: 22px; line-height: 1.5; }
-@media (max-width: 760px) { .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { padding-top: 24px; padding-bottom: 24px; gap: 24px; } }
+@media (max-width: 760px) { .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { padding-top: 24px; padding-bottom: 24px; gap: 24px; } }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__external, .folio-project-viewer__nda) { font-size: 16px; line-height: 22px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__external, .folio-project-viewer__nda) { font-size: 16px; line-height: 22px; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external { position: relative; padding: 7px 16px; justify-content: center; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external { position: relative; padding: 7px 16px; justify-content: center; }
 .folio-project-viewer__contact-tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -4813,13 +4814,13 @@ body.folio-project-viewer-open {
 
 .folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { display: inline; margin: 0; line-height: inherit; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
 }
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity span {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity span {
   font-family: inherit;
   font-size: 14px;
   line-height: 20px;
@@ -4840,7 +4841,7 @@ body.folio-project-viewer-open {
 .folio-project-viewer__description--editorial strong { color: #f7f2eb; font-weight: 500; }
 .folio-project-viewer__details > .folio-project-viewer__intro-link { margin: 20px 0 8px; flex-shrink: 0; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row { margin-top: 16px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row { margin-top: 16px; }
 
 /* Case studies share one continuous reading flow on small screens. */
 @media (max-width: 1320px) {
@@ -4907,7 +4908,7 @@ body.folio-project-viewer-open {
   .folio-project-viewer__compact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
   .folio-project-viewer__compact-actions { align-items: center; }
   .folio-project-viewer__compact-actions .folio-project-viewer__intro-link { margin: 0; flex-shrink: 0; }
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__compact-actions .folio-project-viewer__contact-row { margin-top: 0; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__compact-actions .folio-project-viewer__contact-row { margin-top: 0; }
   .folio-project-viewer .folio-project-viewer__reel { padding-bottom: calc(190px + env(safe-area-inset-bottom)); }
 }
 
@@ -4969,7 +4970,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 @media (max-width: 1320px) {
   .folio-project-viewer .folio-project-viewer__details { box-sizing: border-box; }
   .folio-project-viewer__scroll-blur { display: none; }
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__nda, .folio-project-viewer__external) { min-height: 44px; box-sizing: border-box; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__nda, .folio-project-viewer__external) { min-height: 44px; box-sizing: border-box; }
 }
 
 /* Keep the reading column at desktop width when the sidebar stacks. */
@@ -4986,7 +4987,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 @media (max-width: 1320px) {
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
     width: 100%;
     max-width: none;
     margin-top: 0;
@@ -4998,27 +4999,27 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer__hero-image img { display: block; width: 100%; height: auto; }
 @media (max-width: 1320px) { .folio-project-viewer .folio-project-viewer__hero-image { width: 100%; max-width: 100%; } }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note {
   min-height: 0;
   padding-block: 24px;
   gap: 12px;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note h3 {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note h3 {
   max-width: none;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
   letter-spacing: normal;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__note p, .folio-project-viewer__group-description, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__note p, .folio-project-viewer__group-description, .folio-project-viewer__callouts p) {
   color: #e4e1da;
   font-size: 17px;
   line-height: 27px;
   letter-spacing: normal;
 }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 28px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description { white-space: pre-line; margin: 0 0 24px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 28px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description { white-space: pre-line; margin: 0 0 24px; }
 .folio-project-viewer__journey {
   display: flex; flex-wrap: wrap; gap: 12px 20px; list-style: none;
   margin: 0 0 24px; padding: 16px 0; border-block: 1px solid #ffffff26;
@@ -5036,14 +5037,14 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer__callouts li::before { content: counter(payment-callout, decimal-leading-zero); position: absolute; left: 0; top: 18px; color: #bdbbb6; font-size: 12px; }
 .folio-project-viewer__callouts strong { color: #f7f2eb; font-size: 16px; font-weight: 500; line-height: 24px; }
 .folio-project-viewer__callouts p { margin: 4px 0 0; color: #cbc9c3; font-size: 16px; line-height: 24px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media:has(img[src$="/order-entry.png"])::after {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media:has(img[src$="/order-entry.png"])::after {
   content: ""; position: absolute; pointer-events: none;
   left: 59.8%; top: 65.1%; width: 18.9%; height: 7.3%;
   box-sizing: border-box; border: 2px solid #f48120; border-radius: 4px;
 }
 @media (max-width: 600px) {
   .folio-project-viewer .folio-project-viewer__group[data-layout="comparison"] .folio-project-viewer__group-media { grid-template-columns: 1fr; gap: 24px; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 20px; }
 }
 
 /* Header image expansion keeps the case-study layout in place. */
@@ -5129,11 +5130,11 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* WizPay reading hierarchy. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 { font-weight: 500; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p { letter-spacing: normal; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #e4e1da; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 { font-weight: 500; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p { letter-spacing: normal; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #e4e1da; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > .folio-project-viewer__pull-quote {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > .folio-project-viewer__pull-quote {
   margin: 0 0 28px;
   max-width: 100%;
   color: #f7f2eb;
@@ -5207,7 +5208,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Quiet WizPay reading column; media retains its full width. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   font-weight: 500;
@@ -5217,125 +5218,125 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   margin: 0 auto 12px;
   text-wrap: pretty;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
   width: calc(100% - 64px);
   max-width: 576px;
   margin-inline: auto;
   box-sizing: border-box;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
   letter-spacing: normal;
   color: #e4e1da;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 32px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description strong { font-weight: inherit; color: inherit; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p + p { margin-top: 20px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts strong { font-weight: 500; font-size: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #c2bfb8; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 32px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description strong { font-weight: inherit; color: inherit; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p + p { margin-top: 20px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts strong { font-weight: 500; font-size: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #c2bfb8; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: 100%; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 30px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: 100%; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 30px; }
 }
 
 /* WizPay spacing is owned by block boundaries, without additive reel gaps. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { gap: 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview { margin-block: 56px 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 56px 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note { margin-block: 56px 0; padding-block: 0; gap: 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { margin-bottom: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview { margin-block: 56px 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 56px 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note { margin-block: 56px 0; padding-block: 0; gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { margin-bottom: 0; }
 
 /* WizPay full-page reading prototype. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) { background: #fdfcf9; color: #262622; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__details, .folio-project-viewer__compact-header, .folio-project-viewer__scroll-blur, .folio-project-viewer__close) { display: none; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) { background: #fdfcf9; color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__details, .folio-project-viewer__compact-header, .folio-project-viewer__scroll-blur, .folio-project-viewer__close) { display: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   position: absolute; inset: 0; width: 100%; max-width: none; margin: 0;
   padding: 64px 32px 100px; gap: 0;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__hero-image, .folio-project-viewer__reel > .folio-project-viewer__media, .folio-project-viewer__group, .folio-project-viewer__note) { width: min(100%, 680px); max-width: 680px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__hero-image, .folio-project-viewer__reel > .folio-project-viewer__media, .folio-project-viewer__group, .folio-project-viewer__note) { width: min(100%, 680px); max-width: 680px; }
 .folio-reading-header { width: min(100%, 600px); flex: 0 0 auto; margin: 0 0 56px; }
 .folio-reading-header button { display: block; background: none; border: 0; padding: 0; margin: 0 0 48px; color: #55554e; font: inherit; font-size: 14px; cursor: pointer; }
 .folio-reading-header button:focus-visible { outline: 2px solid #255443; outline-offset: 6px; }
 .folio-reading-header h1 { font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 8px; }
 .folio-reading-header p { font-size: 16px; line-height: 24px; color: #494943; margin: 20px 0 0; }
 .folio-reading-header .folio-reading-header__date { font-size: 13px; color: #71716a; margin: 0 0 28px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3, .folio-project-viewer__callouts strong) { color: #262622; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) { color: #494943; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: min(100%, 600px); max-width: 600px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media { box-shadow: none; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #6a6a63; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li { border-color: #deded6; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li::before { color: #77776f; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3, .folio-project-viewer__callouts strong) { color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) { color: #494943; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: min(100%, 600px); max-width: 600px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media { box-shadow: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #6a6a63; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li { border-color: #deded6; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li::before { color: #77776f; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 28px 20px 64px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 28px 20px 64px; }
   .folio-reading-header { margin-bottom: 40px; }
   .folio-reading-header button { margin-bottom: 32px; }
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { align-items: center; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { width: min(100%, 600px); max-width: 600px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { align-items: center; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { width: min(100%, 600px); max-width: 600px; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
   position: absolute; top: 1px; left: -72px; display: grid; place-items: center;
   width: 36px; height: 36px; margin: 0; padding: 0; border-radius: 50%; background: #f0efeb;
   color: #494943; transition: background 160ms ease;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button:hover { background: #e6e5df; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button:hover { background: #e6e5df; }
 @media (max-width: 800px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 0; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 0; }
   .folio-reading-header h1 { padding-left: 52px; min-height: 36px; display: flex; align-items: center; }
   .folio-reading-header .folio-reading-header__date { padding-left: 52px; }
 }
 
 /* Keep the reading-page exit available throughout the story. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
   position: fixed;
   top: 65px;
   left: calc(50% - 372px);
   z-index: 10;
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: max(32px, calc(50% - 300px)); }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: max(32px, calc(50% - 300px)); }
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { top: 29px; left: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { top: 29px; left: 20px; }
 }
 
 /* Reserve a separate gutter for the fixed back control. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: calc(50% - 412px); }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: calc(50% - 412px); }
 @media (max-width: 880px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-left: 80px; padding-right: 24px; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-left: 80px; padding-right: 24px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 20px; }
   .folio-reading-header h1, .folio-reading-header .folio-reading-header__date { padding-left: 0; }
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header > p:last-child { font-size: 14px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header > p:last-child { font-size: 14px; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]),
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]),
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* WizPay material study: a quiet sheet in the portfolio's lit workspace. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
   background:
     radial-gradient(ellipse at 12% 0%, #fffdf3 0%, transparent 48%),
     radial-gradient(ellipse at 95% 80%, #d7d8cc 0%, transparent 55%),
     #eae7df;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before {
   content: ""; position: absolute; inset: 0;
   pointer-events: none;
   background: repeating-linear-gradient(117deg, transparent 0 140px, #747d6710 180px 230px, transparent 300px 430px);
   filter: blur(28px);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   inset: 20px 0 0; height: calc(100% - 20px);
   width: min(100%, 1000px); margin-inline: auto;
   background-color: #fdfcf9;
@@ -5344,7 +5345,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   box-shadow: 0 2px 4px #403c3010, 0 18px 65px #403c3017;
   animation: wizpay-paper-arrive 550ms cubic-bezier(.22,1,.36,1) backwards;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before {
   content: "01 / SELECTED WORK"; display: block; margin-bottom: 24px;
   font-family: "Departure Mono", monospace; font-size: 10px; line-height: 16px;
   letter-spacing: .06em; color: #77786b;
@@ -5354,66 +5355,66 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   to { opacity: 1; translate: 0 0; }
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { inset: 0; height: 100%; border: 0; border-radius: 0; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { inset: 0; height: 100%; border: 0; border-radius: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
 }
 
 /* Journal-inspired material: the sheet moves through the reading viewport. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
   overflow-y: auto;
   overflow-x: hidden;
   background: radial-gradient(ellipse at 10% 0%, #f8f7f0, transparent 65%), #e5e4dc;
   padding: 32px 0 0;
   box-sizing: border-box;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before { display: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before { display: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   position: relative; inset: auto; height: auto; min-height: calc(100dvh - 32px);
   overflow: visible; isolation: isolate;
   background: #fff; border: 0; border-radius: 0;
   box-shadow: 0 1px 1px #3a342f17;
   animation: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before {
   content: ""; position: absolute; inset: 3px -3px 0; z-index: -1; pointer-events: none;
   background: #39352e; opacity: .17; filter: blur(7px);
   clip-path: polygon(.3% .7%,16% .2%,39% .8%,63% .25%,84% .65%,99.6% .2%,100% 99.2%,86% 99.75%,62% 99.1%,39% 99.8%,15% 99.25%,.2% 99.7%);
   transform: translate(4px, 7px);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(128deg,#ffffffed,#ffffffef 38%,#fffefaeb), url('/assets/textures/paper-fiber-cc0.jpg') center / 620px auto;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before { content: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before { content: none; }
 @keyframes wizpay-paper-materialize {
   from { opacity: 0; filter: blur(1px) brightness(1.035); }
   45% { opacity: .48; filter: blur(.35px) brightness(1.012); }
   to { opacity: 1; filter: none; }
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 0; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { min-height: 100dvh; height: auto; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 0; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { min-height: 100dvh; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
 }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { background: transparent; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { background: transparent; }
 .folio-reading-light { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .32; overflow: hidden; }
 .folio-reading-light .wall-light-shader { position: absolute; inset: 0; width: 100%; height: 100%; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { background: #fff; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after { background: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { background: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after { background: #fff; }
 
 /* The desk stays fully visible around the open white sheet. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-light { opacity: 1; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-light { opacity: 1; }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { width: min(100%, 840px); }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { width: min(100%, 840px); }
 
 /* Place the paper's close control in its upper-right corner. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: static; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: static; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header button {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -5421,38 +5422,38 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* A quieter text column with room between reading sections. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   padding: 136px 40px 120px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header, .folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header, .folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
   width: min(100%, 440px);
   max-width: 440px;
   margin-inline: auto;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 104px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 { font-size: 40px; margin-bottom: 14px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date { font-size: 12px; margin-bottom: 40px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header > p:not(.folio-reading-header__date), p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 104px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 { font-size: 40px; margin-bottom: 14px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date { font-size: 12px; margin-bottom: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header > p:not(.folio-reading-header__date), p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
   font-size: 14px;
   line-height: 1.5625;
   letter-spacing: -0.01em;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p + p { margin-top: 40px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 112px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) { font-size: 16px; line-height: 1.5; margin-bottom: 32px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 64px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p + p { margin-top: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 112px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) { font-size: 16px; line-height: 1.5; margin-bottom: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 64px; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 112px 24px 80px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 72px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 80px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 48px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 112px 24px 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 72px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 48px; }
 }
 
 /* Match Journal Desk's resting paper edge and narrow top cast shadow. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   inset: auto;
   top: -14px;
   right: 2px;
@@ -5470,19 +5471,19 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 
 /* Fixed paper edges surround an independently scrolling story. */
 .folio-reading-paper { display: contents; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { overflow: hidden; padding: 32px 0 0; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { overflow: hidden; padding: 32px 0 0; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   display: block; position: absolute; bottom: 0; left: 0; right: 0; isolation: isolate;
   width: min(100%, 840px); height: calc(100dvh - 32px); margin-inline: auto;
   box-sizing: border-box; padding-top: 0; background: #fff;
   border: 1px solid #d2d0c9; border-bottom: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { content: ""; position: absolute; z-index: -1; pointer-events: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   width: 100%; height: 100%; min-height: 0; overflow-y: auto; overflow-x: hidden;
   overscroll-behavior-y: contain; box-shadow: none; padding-top: 136px; animation: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before { content: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before { content: none; }
 .folio-reading-paper__close {
   position: absolute; top: 16px; right: 16px; z-index: 10;
   display: grid; place-items: center; width: 36px; height: 36px;
@@ -5491,37 +5492,37 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-reading-paper__close:hover { background: #e6e5df; }
 .folio-reading-paper__close:focus-visible { outline: 2px solid #255443; outline-offset: 3px; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 16px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper { height: calc(100dvh - 16px); }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 112px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 16px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper { height: calc(100dvh - 16px); }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 112px; }
 }
 
 /* Keep the cast shadow outside the bordered paper face. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   top: -18px;
 }
 
 /* A visible scroll indicator belongs to the paper's reading area. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   scrollbar-width: thin;
   scrollbar-color: #b8b5ad transparent;
   scrollbar-gutter: stable;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar {
   display: block;
   width: 8px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-track { background: transparent; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-track { background: transparent; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb {
   background: #b8b5ad;
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 8px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb:hover { background: #918e86; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb:hover { background: #918e86; }
 
 /* Reuse the site's soft blur and fade at the paper's scroll boundary. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
   --folio-paper: #fff;
   position: absolute;
   top: 0;
@@ -5533,37 +5534,37 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* A wider paper proportion between the original sheet and A-series paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   width: min(840px, calc(100vw - 32px), calc((100dvh - 32px) / 1.2));
   height: min(calc(840px * 1.2), calc((100vw - 32px) * 1.2), calc(100dvh - 32px));
   aspect-ratio: 1 / 1.2;
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
     width: min(calc(100vw - 24px), calc((100dvh - 16px) / 1.2));
     height: min(calc((100vw - 24px) * 1.2), calc(100dvh - 16px));
   }
 }
 
 /* Give consecutive project images room within the paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 32px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 32px; }
 
 /* A crisp paper outline replaces the raised top-shadow treatment. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   border: 1px solid #111;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   content: none;
 }
 
 /* Soft contact shadows follow the top and right edges of the sheet. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   border: 1px solid #cbc8c1;
   box-shadow: 2px 0 3px rgb(45 39 31 / .07), 8px 2px 16px -8px rgb(45 39 31 / .16);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   content: "";
   top: -3px;
   right: 8px;
@@ -5597,11 +5598,11 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 @media (prefers-reduced-motion: reduce) { .folio-reading-paper__title { transition: none; } }
 
 /* Keep a tight contact edge, with softer uneven depth underneath the paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   border-color: #c8c5bd;
   box-shadow: 0 1px 2px rgb(35 29 22 / .13), 3px 4px 7px -4px rgb(35 29 22 / .18);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   top: -4px; left: 2%; right: 2%; height: 6px;
   background: linear-gradient(180deg, transparent, rgb(22 18 15 / .2));
   clip-path: polygon(0 94%, 5% 70%, 14% 53%, 27% 59%, 43% 46%, 59% 58%, 75% 51%, 89% 61%, 96% 75%, 100% 93%, 100% 100%, 0 100%);
@@ -5615,14 +5616,14 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Resting paper: a fine edge, tight contact, and soft directional falloff. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   border: 1px solid rgb(74 66 57 / .16);
   box-shadow: 0 -1px 3px rgb(38 31 24 / .07),
     1px 2px 3px rgb(38 31 24 / .10),
     5px 7px 12px -6px rgb(38 31 24 / .18),
     12px 16px 30px -16px rgb(38 31 24 / .16);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   inset: 5px 8px 12px 6px;
   height: auto;
   background: transparent;
@@ -5642,23 +5643,23 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .97) 55%, rgb(255 255 255 / 0) 100%);
 }
 .folio-reading-paper__title::after { content: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
   height: 112px;
   opacity: 1;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .95) 32%, transparent 100%);
 }
 
 /* Fade only at the paper's top edge, not across the reading area. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
   height: 28px;
   -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
   mask-image: linear-gradient(to bottom, #000, transparent);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff, transparent);
 }
 .folio-reading-paper__title { background: transparent; }
@@ -5672,16 +5673,16 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
 }
 
 /* Original Journal Desk resting-sheet treatment. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   border: 0;
   box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -5689,7 +5690,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   box-shadow: none;
   border-radius: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   top: -14px;
   right: 2px;
   bottom: auto;
@@ -5706,10 +5707,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Keep the paper outline above its contents and the cast shadow underneath. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   box-shadow: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -5719,21 +5720,21 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Keep image sequences free of visible captions. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { display: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { display: none; }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
   box-shadow: inset 0 0 0 1px var(--paper-border-color, rgb(74 66 57 / .28));
 }
 
 /* Narrow screens use the available height instead of a fixed paper ratio. */
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
     height: calc(100dvh - 32px);
     aspect-ratio: auto;
   }
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
     height: calc(100dvh - 16px);
   }
 }
@@ -5743,24 +5744,24 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header > p { white-space: pre-line; }
 
 /* White paper and matching fades for the Superr duplicate. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
   background: #fff;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade { --folio-paper: #fff; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade { --folio-paper: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff, transparent);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
   background: linear-gradient(to bottom, #fff 55%, rgb(255 255 255 / 0));
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
 }
 
 /* Pale media outlines separate white artwork from the white paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__media, .folio-project-viewer__hero-image, .superr-activity) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__media, .folio-project-viewer__hero-image, .superr-activity) {
   outline: none;
   outline-offset: -1px;
 }
@@ -5774,25 +5775,37 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer[data-project="superr-paper"] .folio-project-viewer__annotated-media > p { display: block; }
 
 /* Preserve the original Superr media rhythm within the paper reader. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media {
   gap: 10px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media {
   margin-top: 10px;
 }
 
 /* Keep original Superr section labels aligned with their media. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 {
   width: 100%; max-width: none; margin: 0 0 10px;
   font-size: 18px; line-height: 24px; font-weight: 400; letter-spacing: normal;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description {
   width: 100%; max-width: none; margin: 0 0 12px;
   font-size: 14px; line-height: 1.5;
 }
 
+/* Superr chapters use WizPay's reading-column hierarchy above the wider media. */
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-paper .folio-project-viewer__group > h3 {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin-inline: auto;
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #262622;
+}
+
 /* Reuse Superr's red ink stamp on its paper introduction. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header__nda-stamp { top: 0; right: 0; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header h1 { padding-right: 84px; }
 
@@ -5805,43 +5818,43 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Slightly tighter paragraph rhythm in the Superr introduction. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) + p {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) + p {
   margin-top: 28px;
 }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) {
   font-size: 16px;
 }
 
 /* Superr identity sits above a closely paired title and date. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
   display: block;
   width: 40px;
   height: 40px;
   object-fit: contain;
   margin-bottom: 16px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
   margin-bottom: 4px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
   margin-top: 0;
 }
 
 /* A compact identity stack: supporting mark, title, then quiet metadata. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
   width: 28px;
   height: 28px;
   margin-bottom: 10px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
   font-size: 34px;
   line-height: 1.15;
   font-weight: 500;
   letter-spacing: -.025em;
   margin-bottom: 6px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
   font-size: 12px;
   line-height: 18px;
   color: #85857e;
@@ -5849,44 +5862,44 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Superr paper: card identity and live border tuning. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity {
   display: flex; align-items: center; gap: 12px;
   padding-right: 76px; margin-bottom: 40px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
   width: 60px; height: 60px; flex: 0 0 60px; margin: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity h1 {
   padding: 0; margin: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity .folio-reading-header__date {
   margin: 2px 0 0;
 }
 /* Final paper colour and original inset media, retaining the shorter opening. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
   --paper-border-color: #ededed;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   padding-top: 112px;
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 96px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 96px; }
 }
 /* Cover the entire top edge, including the scrollbar side. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-paper__fade, .folio-reading-paper__title) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-paper__fade, .folio-reading-paper__title) {
   right: 0;
 }
 
 /* Let the site's backdrop blur soften Superr media without a white wash. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
   content: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
   background: transparent;
 }
 
 /* The top contact edge shares the shadow's grey, fading into the pale corners. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
   box-shadow:
     inset 1px 0 0 var(--paper-border-color),
     inset -1px 0 0 var(--paper-border-color),
@@ -5944,10 +5957,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Contact shadow appears only after the sheet has landed. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
   animation: paper-contact-shadow 120ms ease 440ms both;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper[data-present="false"]::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper[data-present="false"]::before {
   animation: none;
   opacity: 0;
 }
@@ -5956,7 +5969,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   to { opacity: .9; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { animation: none; }
 }
 
 /* Small ink-coloured labels inside Superr's contribution sentence. */
@@ -6022,19 +6035,19 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 /* Case-study default: 64px between text blocks and media unless explicitly
    overridden. Heading/body spacing and consecutive media keep their own rhythm. */
 .folio-project-viewer { --case-study-text-media-gap: 64px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header {
   margin-bottom: var(--case-study-text-media-gap);
 }
 .folio-project-viewer .folio-reading-paper .folio-project-viewer__company-intro {
   margin-block: var(--case-study-text-media-gap);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-project-viewer__group, .folio-project-viewer__note) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-project-viewer__group, .folio-project-viewer__note) {
   margin-top: var(--case-study-text-media-gap);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header + .folio-project-viewer__group {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header + .folio-project-viewer__group {
   margin-top: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-project-viewer__group > :is(h3, p):has(+ .folio-project-viewer__group-media:not(:empty)) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-project-viewer__group > :is(h3, p):has(+ .folio-project-viewer__group-media:not(:empty)) {
   margin-bottom: var(--case-study-text-media-gap);
 }
 
@@ -7093,4 +7106,123 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 
 #wiz-commerce-visuals .folio-project-viewer__group-description .folio-text-highlight {
   color: #000;
+}
+
+/* Journal Desk uses the same inset editorial hierarchy as the lead stories. */
+.folio-project-viewer[data-project="journal-desk"] .folio-reading-header > p {
+  font-size: 16px;
+  line-height: 1.5625;
+  color: #494943;
+}
+.folio-project-viewer[data-project="journal-desk"] .folio-reading-paper .folio-project-viewer__group > h3 {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin-inline: auto;
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+.folio-project-viewer[data-project="journal-desk"] .folio-project-viewer__media-caption {
+  width: min(100%, 680px);
+  margin: 12px auto 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8c8983;
+  text-align: center;
+}
+
+/* Keep Journal Desk's consecutive media on the same compact rhythm. */
+.folio-project-viewer[data-project="journal-desk"] .folio-project-viewer__hero-image + .folio-project-viewer__media {
+  margin-top: 10px;
+}
+.folio-project-viewer[data-project="journal-desk"] .folio-project-viewer__media-caption a {
+  color: #494943;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.journal-desk-visit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 24px;
+  padding: 16px 18px;
+  border: 1px solid #e5dcc8;
+  border-radius: 2px;
+  background: #faf3df;
+  box-shadow: none;
+  color: #77776e;
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.journal-desk-visit strong {
+  flex-shrink: 0;
+  color: #292923;
+  font-weight: 500;
+}
+.journal-desk-visit:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.journal-desk-visit:focus-visible { outline: 2px solid #77776e; outline-offset: 4px; }
+
+/* Anchor the hero outline to its image instead of the scrolling paper. */
+.folio-project-viewer[data-project="journal-desk"] .folio-project-viewer__hero-image {
+  position: relative;
+}
+
+.folio-project-viewer[data-project="journal-desk"] .folio-reading-header__project-logo {
+  padding: 0;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header__identity {
+  padding-right: 0;
+}
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-header__nda-stamp {
+  position: static;
+  flex: 0 0 62px;
+  margin-left: 12px;
+}
+
+.folio-project-viewer[data-project="superr-paper"] .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
+  transform: scale(.825);
+}
+.folio-project-viewer[data-project="superr-paper"] .folio-project-viewer__media-caption {
+  width: 100%;
+  margin: -2px 0 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
+  color: #999;
+  font: 400 16px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.folio-project-viewer[data-project="superr-paper"] .folio-reading-paper .folio-project-viewer__group:not(:has(> h3)) {
+  margin-top: 10px;
+}
+/* Keep one scene ratio so birds and trees scale together at every width. */
+.folio-contact__flock {
+  height: min(37.74vw, 423px);
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.folio-contact__actions {
+  top: 18%;
+  height: 62%;
+}
+
+/* Let highlighted phrases wrap naturally, painting a stroke on each line. */
+#intentmaxxing-explanation .wall-folio__experience-mark {
+  display: inline;
+  background: linear-gradient(90deg, rgb(221 134 31 / .56), rgb(244 177 70 / .31) 22%, rgb(244 177 70 / .31) 76%, rgb(216 127 27 / .58)) 0 80% / 100% 72% no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+#intentmaxxing-explanation .wall-folio__experience-mark::before {
+  content: none;
 }

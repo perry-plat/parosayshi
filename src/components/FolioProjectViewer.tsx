@@ -26,7 +26,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
   const [orgSlide, setOrgSlide] = useState(0);
   const [orgDirection, setOrgDirection] = useState(1);
   const navigateOrg = (direction: number) => { setOrgDirection(direction); setOrgSlide(value => (value + direction + 3) % 3); };
-  const isPaper = project.id === "wizpay" || project.id === "superr-paper" || project.id === "wiz-commerce";
+  const isPaper = project.id === "wizpay" || project.id === "superr-paper" || project.id === "wiz-commerce" || project.id === "journal-desk";
   const heroDialogRef = useRef<HTMLDialogElement>(null);
   const heroButtonRef = useRef<HTMLButtonElement>(null);
   const expandedTriggerRef = useRef<HTMLElement | null>(null);
@@ -281,7 +281,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
         {isPaperMedia && <span className="folio-paper-media__border" aria-hidden="true" />}
       </figure>
     );
-    return <Fragment key={`${item.src}-${index}`}>{item.introduction && <div className="folio-project-viewer__group-introduction"><h4>{item.introduction.heading}</h4><p>{item.introduction.body}</p></div>}{asset}{item.caption && <p className="folio-project-viewer__media-caption">{item.caption}</p>}</Fragment>;
+    return <Fragment key={`${item.src}-${index}`}>{item.introduction && <div className="folio-project-viewer__group-introduction"><h4>{item.introduction.heading}</h4><p>{item.introduction.body}</p></div>}{asset}{item.caption && <p className="folio-project-viewer__media-caption">{item.captionLink && item.caption.includes(item.captionLink.label) ? <>{item.caption.slice(0, item.caption.indexOf(item.captionLink.label))}<a href={item.captionLink.href} target="_blank" rel="noreferrer">{item.captionLink.label}</a>{item.caption.slice(item.caption.indexOf(item.captionLink.label) + item.captionLink.label.length)}</> : item.caption}</p>}</Fragment>;
   };
 
   const heroImage = (project.heroImage && <div className="folio-project-viewer__hero-image" data-frame-shadow={project.heroImage.src.includes("hero-header-237-14572-v2") || undefined}>
@@ -385,15 +385,20 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
       >
         {(isPaper || project.id === "wiz-commerce") && <header className="folio-reading-header">
           {!isPaper && <button type="button" onClick={onClose} ref={closeButtonRef} aria-label="Back to projects" title="Back to projects"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14 6-6 6 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>}
-          {project.id === "superr-paper" && <span className="folio-bento-card__nda-stamp folio-reading-header__nda-stamp" aria-label="Non-disclosure agreement">NDA</span>}
           {isPaper ? <div className="folio-reading-header__identity">
             {project.logo && project.id !== "wiz-commerce" && <img className="folio-reading-header__project-logo" src={project.logo} alt="" aria-hidden="true" />}
             <div><h1>{project.headline ?? project.title}</h1>{project.id !== "wizpay" && <p className="folio-reading-header__date">{project.year}</p>}</div>
+          {project.id === "superr-paper" && <span className="folio-bento-card__nda-stamp folio-reading-header__nda-stamp" aria-label="Non-disclosure agreement">NDA</span>}
           </div> : <><h1>{project.title}</h1><p className="folio-reading-header__date">{project.year}</p></>}
           {project.id === "superr-paper" ? project.description.split("\n\n").map((paragraph, index) => (
             paragraph.startsWith("My work spans ") ? (
               <Fragment key={index}>
-                <p>My work spans</p>
+                <a className="folio-project-viewer__intro-link" href="https://x.com/superr_ai/status/2022163063542362244" target="_blank" rel="noreferrer" aria-label="Meet SuperrBook — watch the film">
+                  <img className="folio-project-viewer__intro-thumbnail" src="/assets/invoice-folio/superr-case-study/intro-film-thumbnail.png" alt="Meet SuperrBook" />
+                  <span className="folio-project-viewer__intro-tooltip">Meet SuperrBook</span>
+                  <img className="folio-project-viewer__intro-play" src="/assets/invoice-folio/superr-case-study/intro-film-play.svg" alt="" aria-hidden="true" />
+                </a>
+                <p>My work spans across</p>
                 <ul className="folio-skill-grid" aria-label="Areas of contribution">
                   {["product design", "visual design", "animation", "AI-led frontend development"].map(skill => (
                     <li className="folio-skill-pill" key={skill}>{skill}</li>
@@ -408,15 +413,16 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 <p>There’s more to the work than we can show here, but we hope this gives you a sense of what we built together—and how we approached it.</p>
 
           </> : <>
-            <p>{project.overview?.context}</p>
+            <p>{project.overview?.context ?? project.description}</p>
             {project.overview?.contribution && <p>{project.overview.contribution}</p>}
           </>}
 
-          {project.id === "superr-paper" && <a className="folio-project-viewer__intro-link" href="https://x.com/superr_ai/status/2022163063542362244" target="_blank" rel="noreferrer" aria-label="Meet SuperrBook — watch the film">
-                  <img className="folio-project-viewer__intro-thumbnail" src="/assets/invoice-folio/superr-case-study/intro-film-thumbnail.png" alt="Meet SuperrBook" />
-                  <span className="folio-project-viewer__intro-tooltip">Meet SuperrBook</span>
-                  <img className="folio-project-viewer__intro-play" src="/assets/invoice-folio/superr-case-study/intro-film-play.svg" alt="" aria-hidden="true" />
-                </a>}
+          {project.id === "journal-desk" && <a className="journal-desk-visit" href="https://journal-desk.vercel.app/" target="_blank" rel="noreferrer">
+            <span>try it out</span>
+            <HugeiconsIcon aria-hidden="true" icon={ArrowUpRight01Icon} size={20} strokeWidth={1.8} />
+          </a>}
+
+
         </header>}
         {project.id === "wiz-commerce" && <nav className="wiz-collection-contents" aria-label="Explore the work">
               <span>Explore the work</span>
@@ -495,7 +501,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 key={`${project.id}-group-${item.id}`}
               >
                 {project.id === "wiz-commerce" && ["product-data", "tables", "discovery", "offline", "notifications", "visuals", "communication"].includes(item.id) && <hr className="folio-project-viewer__section-divider" />}
-                {!(project.id === "wizpay" && item.id === "impact") && <h3 id={`${project.id}-${item.id}-heading`}>{item.heading}</h3>}
+                {item.heading && !(project.id === "wizpay" && item.id === "impact") && <h3 id={`${project.id}-${item.id}-heading`}>{item.heading}</h3>}
                 {item.description?.split("\n\n").map((paragraph, paragraphIndex) => <Fragment key={paragraphIndex}><p className="folio-project-viewer__group-description">{item.emphasis && paragraph.includes(item.emphasis) ? <>{paragraph.split(item.emphasis)[0]}<strong className={project.id === "wiz-commerce" && (item.id === "offline" || item.id === "visuals") ? "folio-text-highlight" : undefined}>{item.emphasis}</strong>{project.id === "wiz-commerce" && item.id === "offline" ? paragraph.split(item.emphasis).slice(1).join(item.emphasis).split(/(several hundred GB|almost 20–30 minutes)/g).map((part, index) => /^(several hundred GB|almost 20–30 minutes)$/.test(part) ? <mark className="folio-text-highlight" style={{ color: "#000" }} key={index}>{part}</mark> : part) : paragraph.split(item.emphasis).slice(1).join(item.emphasis)}</> : paragraph}</p>{item.paymentTimelineAfterParagraph === paragraphIndex && <div className="wizpay-order-flow-image">{renderMedia({ kind: "image", src: "/assets/invoice-folio/wizpay-case-study/order-flow-black-ink.png", alt: "Order-taking flow: sales rep reaches out to the customer, cart, quote creation, order confirmation, shipment. Quote creation and order confirmation are connected in both directions. Annotations: direct customer payment before a cart; payment against a quote or order; partial or remaining payment at shipment.", ratio: "landscape", aspectRatio: "2163 / 727", expandable: true }, paragraphIndex)}</div>}</Fragment>)}
                 {project.id === "wiz-commerce" && item.id === "product-data" && <WizProductListingPreview />}
                 {item.textSections?.map(section => <div className="folio-project-viewer__group-introduction" key={section.heading}><h4>{section.heading}</h4><p>{section.highlight && section.body.includes(section.highlight) ? <>{section.body.split(section.highlight)[0]}<mark className="folio-text-highlight">{section.highlight}</mark>{section.body.split(section.highlight).slice(1).join(section.highlight)}</> : section.body}</p>{section.bullets && <ul className="folio-text-pointers">{section.bullets.map(point => <li key={point}>{point}</li>)}</ul>}</div>)}

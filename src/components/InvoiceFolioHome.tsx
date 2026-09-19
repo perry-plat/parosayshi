@@ -288,7 +288,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     <>
     <main
       aria-hidden={activeFolioProjectId ? true : undefined}
-      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" || activeFolioProjectId === "wiz-commerce" ? "true" : undefined}
+      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" || activeFolioProjectId === "wiz-commerce" || activeFolioProjectId === "journal-desk" ? "true" : undefined}
       className="invoice-folio invoice-folio--wall"
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
@@ -297,7 +297,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     >
       <div aria-hidden="true" className="folio-scroll-blur" />
       <WallLightShader
-        paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay" && activeFolioProjectId !== "wiz-commerce"}
+        paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay" && activeFolioProjectId !== "wiz-commerce" && activeFolioProjectId !== "journal-desk"}
         glowColor={wallTheme === "night" ? "#91a8d8" : "#ebc9c0"}
         glowStrength={wallTheme === "night" ? 4.6 : 1}
         lightColor={wallTheme === "night" ? "#d9e2f4" : "#ffdeda"}
@@ -359,7 +359,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     onClick={() => setDesignerExpanded(true)}
                   />
                 )}{" "}
-                who believes{" "}
+                who’s currently{" "}
                 {intentExpanded ? (
                   <span>intentmaxxing</span>
                 ) : (
@@ -371,7 +371,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     onClick={() => setIntentExpanded(true)}
                   />
                 )}{" "}
-                is the way to move forward in the coming times.
+                and betting that’s the way forward.
               </span>
             </p>
             <div className="wall-folio__hero-details">
@@ -391,24 +391,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     initial={false}
                     transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
                   >
-                    I think intention matters even more now that making things is getting easier. For me, it lives in the small decisions that turn an idea into an experience
-                    <span className="wall-folio__dash-wrap">
-                      <button
-                        aria-describedby="human-em-dash-note"
-                        aria-label="Em dash"
-                        className="wall-folio__dash-trigger"
-                        data-note-visible={emDashNoteVisible ? "true" : "false"}
-                        onClick={showEmDashNote}
-                        tabIndex={intentExpanded ? 0 : -1}
-                        type="button"
-                      >
-                        —
-                      </button>
-                      <span className="wall-folio__dash-note" id="human-em-dash-note" role="note">
-                        human generated em dash
-                      </span>
-                    </span>
-                    something that can delight, inspire, or just make someone feel considered.
+                    I think <mark className="wall-folio__experience-mark">intention</mark> matters even more now that making things is getting easier. I’m still figuring out what’s worth making. But when I care about something, I want that to show in how it works and how it feels. <mark className="wall-folio__experience-mark">To make something that can delight, inspire</mark>, or just make someone feel considered.
                   </motion.p>
                 </div>
               </motion.div>
@@ -510,7 +493,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
             />
             */}
             {([
-              { id: "wizpay", title: "WizPay", heading: <>Designing WizPay —<br />A B2B payments solution for wholesalers</>, description: "Owning and building a payments module from ground up!", tone: "data" },
+              { id: "wizpay", title: "WizPay", heading: <>Solving payments for wholesalers</>, description: "Owning and building a payments module from ground up!", tone: "data" },
               { id: "wiz-commerce", title: "WizCommerce", heading: "Helping wholesale teams sell with clarity", description: "Building WizCommerce—a collection of products and features I’ve helped shape", tone: "email" },
             ] as const).map((study) => (
               <button className={`folio-wiz-study folio-wiz-study--${study.tone}`} data-cursor-keep data-folio-project={study.id} key={study.id} type="button" aria-label={`Read the ${study.title} case study`} aria-pressed={activeFolioProjectId === study.id} onClick={(event) => openFolioProject(study.id, event.currentTarget)}>
@@ -521,18 +504,13 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                   </div>
                   {study.id === "wizpay" && (
                     <div className="folio-wiz-study__dashboard" aria-hidden="true">
-                      <img src="/assets/invoice-folio/wizpay-case-study/home-card-341-31817-v2.png" alt="" width="1057" height="1295" loading="lazy" draggable={false} />
+                      <img src="/assets/invoice-folio/wizpay-case-study/home-card-409-48615.png?v=2" alt="" width="960" height="1002" loading="lazy" draggable={false} />
                     </div>
                   )}
-                  {study.id === "wiz-commerce" && (
-                    <div className="folio-wiz-study__collage" aria-hidden="true">
-                      <img className="folio-wiz-study__collage-sync" src="/assets/invoice-folio/wizcommerce-case-study/offline-primary-card.png" alt="" loading="lazy" draggable={false} />
-                      <img className="folio-wiz-study__collage-notifications" src="/assets/invoice-folio/wizcommerce-case-study/notifications-desktop.png" alt="" loading="lazy" draggable={false} />
-                      <img className="folio-wiz-study__collage-products" src="/assets/invoice-folio/wizcommerce-case-study/kai-smart-picks.png" alt="" loading="lazy" draggable={false} />
-                    </div>
-                  )}
-                  <h3>{study.heading}</h3>
-                  <p>{study.description}</p>
+                  {study.id === "wizpay" ? <div className="folio-wiz-study__editorial-copy">
+                    <h3>{study.heading}</h3>
+                    <p>{study.description}</p>
+                  </div> : <><h3>{study.heading}</h3><p>{study.description}</p></>}
                 </div>
               </button>
             ))}

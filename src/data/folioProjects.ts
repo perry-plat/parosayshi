@@ -19,6 +19,7 @@ export type FolioProjectMedia = ProjectCarouselMedia & {
   /** Static alternative for animated images when reduced motion is requested. */
   reducedMotionSrc?: string;
   caption?: string;
+  captionLink?: { label: string; href: string };
   introduction?: { heading: string; body: string };
   playbackRate?: number;
   presentation?: "activity-section";
@@ -120,7 +121,7 @@ const superrStory = [
   {
     id: "search",
     kind: "group",
-    heading: "From handwritten notes to finding answers",
+    heading: "",
     media: [
       { ariaLabel: "Superr notebook and folder animation", playbackRate: 0.7, aspectRatio: "2 / 1", background: "#fffbf7", fit: "cover", kind: "video", position: "center", poster: "/assets/invoice-folio/superr-case-study/notebook-flipbook-cream-poster.png", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/notebook-flipbook-cream.mp4" },
       { alt: "Superr My Notes library with colorful notebooks and folders", aspectRatio: "728 / 809", background: "#fffcf8", fit: "contain", kind: "image", ratio: "portrait", src: "/assets/invoice-folio/superr-case-study/figma-frame-1.png" },
@@ -133,18 +134,18 @@ const superrStory = [
   {
     id: "profiles",
     kind: "group",
-    heading: "A little personality for every learner",
+    heading: "",
     media: [
-      { ariaLabel: "Animated profile icons designed for kids", aspectRatio: "2 / 1", background: "#ffffff", fit: "contain", kind: "video", poster: "/assets/invoice-folio/superr-case-study/pfp-pop-loop-v3-poster.png", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/pfp-pop-loop-v4.mp4" },
+      { caption: "A little personality for every learner", ariaLabel: "Animated profile icons designed for kids", aspectRatio: "2 / 1", background: "#ffffff", fit: "contain", kind: "video", poster: "/assets/invoice-folio/superr-case-study/pfp-pop-loop-v3-poster.png", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/pfp-pop-loop-v4.mp4" },
       { alt: "SuperrBook cover selection with a personalized notebook and thirteen cover options", aspectRatio: "1440 / 904", fit: "contain", kind: "image", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/superr-website-figma-8404-17805.png" },
     ],
   },
   {
     id: "details",
     kind: "group",
-    heading: "The joy is in the details",
+    heading: "",
     media: [
-      { alt: "Sketch your day calendar design with a yellow February page, hand-drawn flowers, and colourful stacked sheets", aspectRatio: "728 / 861", fit: "contain", kind: "image", ratio: "portrait", src: "/assets/invoice-folio/superr-case-study/superr-figma-211-2908.png" },
+      { alt: "Sketch your day calendar design with a yellow February page, hand-drawn flowers, and colourful stacked sheets", aspectRatio: "1456 / 2322", fit: "contain", kind: "image", ratio: "portrait", src: "/assets/invoice-folio/superr-case-study/superr-figma-211-2908-v2.png" },
       { alt: "Superr cookie banner with a bitten cookie illustration, playful copy, and Reject and Accept buttons", aspectRatio: "728 / 382", fit: "contain", kind: "image", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/superr-figma-150-3132.png" },
       { ariaLabel: "Superr screen recording demonstration", aspectRatio: "1600 / 896", fit: "contain", kind: "video", poster: "/assets/invoice-folio/superr-case-study/superr-footer-trimmed-poster.jpg", ratio: "landscape", src: "/assets/invoice-folio/superr-case-study/superr-footer-trimmed.mp4" },
     ],
@@ -288,7 +289,7 @@ const wizPayStory = [
 
 const superrProject: FolioProject = {
     cardMeta: "AI / EdTech / Product systems", cardTitle: "Superr",
-    description: "Superr builds tools that make learning more engaging, bringing together writing, exploration, and interactive activities. SuperrBook brings that idea to a familiar notebook.\n\nI worked with the team across a range of products and experiences. Here’s a small selection of what I helped shape.\n\nMy work spans product design, visual design, animation, and AI-led frontend development. Everything here came together with the Superr team.",
+    description: "Superr builds tools that make learning more engaging, bringing together writing, exploration, and interactive activities.\n\nSuperr was working to bring SuperrBoard to teachers and SuperrBook to students in traditional Indian classrooms. Keeping the two in sync opened up new possibilities for teaching and learning.\n\nThis is a loose collection of work I did across SuperrBook, SuperrBoard, and other products during my time at Superr. I can’t show everything here, but I hope this gives you a sense of the care and craft we brought to the work.\n\nMy work spans product design, visual design, animation, and AI-led frontend development. Everything here came together with the Superr team.",
     externalLabel: "Reach out", externalUrl: "mailto:hello@parosayshi.com?subject=Superr%20work%20walkthrough",
     folderPreviews: [
       { color: "#f4efe6", label: "Library", position: "center 24%", src: "/assets/invoice-folio/superr-project-placeholder-5.png?v=1" },
@@ -402,13 +403,18 @@ export const folioProjects: Record<FolioProjectId, FolioProject> = {
     ],
   },
   "journal-desk": {
-    cardMeta: "Personal tool / Local-first", cardTitle: "Journal Desk",
-    description: "A local-first writing desk exploring how digital notes, paper movement, and highlighting can still feel physical.",
+    cardMeta: "Personal software", cardTitle: "Journal Desk",
+    description: "An attempt at creating personal software, because why not? A local-first writing desk exploring how digital notes, paper movement, and highlighting can still feel physical.",
     folderPreviews: [
       { color: "#171918", label: "Notebook", src: "/assets/new/notebook-closed-realistic.png" },
       { color: "#d2ff4d", label: "Highlight" }, { color: "#f5f0e6", label: "Field notes" },
     ],
-    id: "journal-desk", logo: "/assets/invoice-folio/paro-mark.svg", media: journalMedia, previewMedia: journalMedia.slice(0, 1),
+    id: "journal-desk", logo: "/assets/invoice-folio/journal-desk-case-study/favicon.png", media: [
+      journalMedia[0],
+      { kind: "image", src: "/assets/invoice-folio/journal-desk-case-study/shaders.png", alt: "Shaders — experimenting with light and shadows for Journal Desk", aspectRatio: "16 / 9", ratio: "landscape", fit: "contain", expandable: true },
+      { kind: "image", src: "/assets/invoice-folio/journal-desk-case-study/demo-nights.png", alt: "Presenting Journal Desk at Demo Nights, with the writing desk projected on screen", caption: "I also spoke a little about Journal Desk at Demo Nights. That was fun!", captionLink: { label: "Demo Nights", href: "https://x.com/Kenneth/status/2100964953880670538?s=20" }, aspectRatio: "4 / 3", ratio: "landscape", fit: "contain", expandable: true },
+    ], previewMedia: [{ kind: "image", src: "/assets/invoice-folio/journal-desk-case-study/card-shadow.png", alt: "Soft leaf shadows on a charcoal background", fit: "cover", background: "#292b2a" }],
+    heroImage: { src: "/assets/invoice-folio/journal-desk-case-study/hero.png", alt: "Journal Desk — Just write something without AI for once, shall we?", width: 2290, height: 1288, expandable: true },
     services: ["Product design", "Interaction", "Frontend"], title: "Journal Desk", tone: "charcoal", year: "2026",
   },
   "uber-kids": {

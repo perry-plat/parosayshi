@@ -39,7 +39,7 @@ export function FolioBentoCard({
         <span className="folio-bento-card__nda-stamp">NDA</span>
       ) : null}
       <header className="folio-bento-card__caption">
-        {isSuperr && project.logo ? (
+        {(isSuperr || project.id === "journal-desk") && project.logo ? (
           <img
             alt=""
             aria-hidden="true"
@@ -58,6 +58,7 @@ export function FolioBentoCard({
           <p>A little of what I’ve designed and built with the Superr team. Most is under NDA. This bit’s yours to explore.</p>
         </div>
       ) : null}
+      {project.id === "journal-desk" && <p className="folio-bento-card__journal-tagline">Just write without AI for once</p>}
       <button
         aria-label={`Open ${project.cardTitle} project`}
         aria-pressed={active}
