@@ -751,3 +751,31 @@ button.folio-wiz-study { border: 0; padding: 0; text-align: left; font: inherit;
 .folio-wiz-study[data-folio-project="wiz-commerce"] .folio-wiz-study__copy {
   z-index: 1;
 }
+
+@media (max-width: 680px) {
+  .folio-wiz-study[data-folio-project="wizpay"] { height: auto; min-height: 0; }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__copy {
+    position: relative;
+    inset: auto;
+    gap: 16px;
+  }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__brand {
+    position: relative;
+    inset: auto;
+    margin: 20px 20px 0;
+  }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__dashboard {
+    position: relative;
+    inset: auto;
+    order: 1;
+    flex: none;
+    width: 100%;
+    aspect-ratio: 960 / 1002;
+  }
+  .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__editorial-copy {
+    position: relative;
+    inset: auto;
+    padding: 0 20px;
+    gap: 12px;
+  }
+}

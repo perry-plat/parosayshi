@@ -359,7 +359,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     onClick={() => setDesignerExpanded(true)}
                   />
                 )}{" "}
-                who’s currently{" "}
+                who believes{" "}
                 {intentExpanded ? (
                   <span>intentmaxxing</span>
                 ) : (
@@ -371,7 +371,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     onClick={() => setIntentExpanded(true)}
                   />
                 )}{" "}
-                and betting that’s the way forward.
+                is the way to move forward in the coming times.
               </span>
             </p>
             <div className="wall-folio__hero-details">

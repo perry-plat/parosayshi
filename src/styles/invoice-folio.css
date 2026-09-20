@@ -3851,18 +3851,15 @@ body.folio-project-viewer-open {
 
 .folio-experience__receipt-placement {
   position: relative;
-  width: min(400px, calc(100vw - 32px));
+  width: 400px;
+  zoom: clamp(0.68, calc((100vw - 48px) / 400px), 1);
   overflow-anchor: none;
   transform: rotate(calc(-1.5deg + var(--view-reveal-rotate, 0deg)));
   transform-origin: 50% 0;
   will-change: transform;
 }
 
-@media (max-width: 760px) {
-  .folio-experience__receipt-placement {
-    zoom: 0.75;
-  }
-}
+
 
 .folio-experience__receipt {
   position: relative;
@@ -7225,4 +7222,71 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 #intentmaxxing-explanation .wall-folio__experience-mark::before {
   content: none;
+}
+
+/* Mobile reading rhythm: retain the paper treatment without desktop-sized gaps. */
+@media (max-width: 620px) {
+  .wall-folio--hero {
+    min-height: 0;
+    padding-bottom: 56px;
+  }
+  .wall-folio__hero-composition {
+    padding-top: max(96px, calc(env(safe-area-inset-top) + 72px));
+  }
+  .folio-projects-placeholder { padding-bottom: 36px; }
+  .folio-experience { padding-bottom: 64px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+    padding-top: 80px;
+  }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-reading-header > p, .folio-project-viewer__company-intro > p, .wizpay-problems__grid article > p, .folio-project-viewer__group > p, .folio-project-viewer__group-introduction > p, .folio-text-pointers) {
+    color: #62645d;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .folio-reading-paper__close { min-width: 44px; min-height: 44px; }
+}
+
+@media (max-width: 600px) {
+  .wiz-collection-contents a {
+    aspect-ratio: auto;
+    min-height: 160px;
+    padding-top: 24px;
+    background: #eeeee5;
+  }
+  .wiz-collection-contents .wiz-note__paper {
+    position: relative;
+    inset: auto;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 8px 14px 46px;
+  }
+  .wiz-collection-contents a::before { inset: 0; height: 100%; background-size: 100% 100%; }
+  .wiz-collection-contents .wiz-note__paper::before { display: none; }
+  .wiz-collection-contents a:hover .wiz-note__paper { transform: none; }
+  .wiz-collection-contents .wiz-note__label { overflow-wrap: anywhere; }
+  .folio-project-viewer[data-project="wiz-commerce"] .folio-project-viewer__media:has(img:is([src$="/notifications-desktop.png"], [src$="/MoruwIByXULy13qj1FasE6MtC40.png"], [src$="/wW4SVPDeec1uQCfQzsVHps8sxzA.png"], [src$="/kai-smart-picks.png"])) {
+    height: auto;
+    aspect-ratio: auto !important;
+    padding: 16px;
+  }
+  .folio-project-viewer[data-project="wiz-commerce"] .folio-project-viewer__media:has(img:is([src$="/notifications-desktop.png"], [src$="/MoruwIByXULy13qj1FasE6MtC40.png"], [src$="/wW4SVPDeec1uQCfQzsVHps8sxzA.png"], [src$="/kai-smart-picks.png"])) > .folio-project-asset {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    transform: none;
+    border-radius: 4px;
+  }
+  .folio-project-viewer[data-project="wiz-commerce"] .folio-project-viewer__media img[src$="/MoruwIByXULy13qj1FasE6MtC40.png"] { clip-path: none; }
+  .folio-project-viewer[data-project="wiz-commerce"] #wiz-commerce-tables .folio-project-viewer__annotated-media {
+    height: auto;
+    padding: 16px;
+  }
+  .folio-project-viewer[data-project="wiz-commerce"] #wiz-commerce-tables .folio-project-viewer__annotated-media > .folio-project-viewer__media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 100%;
+  }
 }
