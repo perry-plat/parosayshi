@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import ArrowDown01Icon from "@hugeicons/core-free-icons/ArrowDown01Icon";
-import { DownloadSimpleIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
@@ -19,8 +19,8 @@ interface InvoiceFolioHomeProps {
   reducedMotion: boolean;
 }
 
-const RESUME_DOWNLOAD_URL =
-  "https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072";
+const RESUME_URL =
+  "https://drive.google.com/file/d/1Hey3depw6La0gfbqJMN9uv8QBNtiF_qr/view?usp=drive_link";
 
 const WALL_THEME_STORAGE_KEY = "parosayshi:wall-theme:v1";
 const SHADOW_NOTES = [
@@ -547,14 +547,14 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
           <div className="folio-experience__receipt-content" ref={experienceReceiptContentRef}>
           {/* <LiveIndiaWatch /> */}
           <a
-            aria-label="Download résumé"
+            aria-label="View résumé"
             className="folio-experience__download"
-            download="Parth-resume.pdf"
-            href={RESUME_DOWNLOAD_URL}
-            rel="noreferrer"
-            title="Download résumé"
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="View résumé"
           >
-            <DownloadSimpleIcon aria-hidden="true" size={18} weight="regular" />
+            <ArrowUpRightIcon aria-hidden="true" size={18} weight="regular" />
             <span>Resume</span>
           </a>
           <h2 id="experience-receipt-title">Experience</h2>

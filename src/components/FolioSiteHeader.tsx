@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { DownloadSimpleIcon, PlusIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon, PlusIcon } from "@phosphor-icons/react";
 
 interface FolioSiteHeaderProps {
   currentPage?: "folio" | "play";
@@ -41,8 +41,8 @@ export function FolioSiteHeader(_props: FolioSiteHeaderProps) {
         Menu <PlusIcon size={18} aria-hidden="true" style={{ transform: open ? "rotate(45deg)" : undefined }} />
       </button>
       {open && <nav className="folio-corner-menu__panel" id="folio-corner-links" aria-label="Menu">
-        <a href="https://drive.google.com/uc?export=download&id=1IrNNaK6H14wivxoayvdHeeY0i7_WU072" onClick={() => setOpen(false)}>
-          <DownloadSimpleIcon size={18} aria-hidden="true" /> Download résumé
+        <a href="https://drive.google.com/file/d/1Hey3depw6La0gfbqJMN9uv8QBNtiF_qr/view?usp=drive_link" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+          <ArrowUpRightIcon size={18} aria-hidden="true" /> View résumé
         </a>
       </nav>}
     </header>
