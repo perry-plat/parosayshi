@@ -7233,8 +7233,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   .wall-folio__hero-composition {
     padding-top: max(96px, calc(env(safe-area-inset-top) + 72px));
   }
-  .folio-projects-placeholder { padding-bottom: 36px; }
-  .folio-experience { padding-bottom: 64px; }
+  .folio-projects-placeholder { padding-bottom: 160px; }
+  .folio-experience { padding-bottom: 160px; }
+  .folio-contact { padding-bottom: max(48px, env(safe-area-inset-bottom)); }
+  .folio-contact__flock { margin-top: 0; }
   .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
     padding-top: 80px;
   }

@@ -699,14 +699,16 @@ export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps
     const resize = () => {
       const width = Math.max(1, Math.floor(host.clientWidth)); const height = Math.max(1, Math.floor(host.clientHeight));
       renderer.setSize(width, height, false);
-      const visibleHalfHeight = 6;
+      // Enlarge the flock on phones; preserve the original desktop framing.
+      const desktopBlend = THREE.MathUtils.smoothstep(width, 430, 760);
+      const visibleHalfHeight = THREE.MathUtils.lerp(3.6, 6, desktopBlend);
       const visibleHalfWidth = visibleHalfHeight * (width / height);
       camera.left = -visibleHalfWidth;
       camera.right = visibleHalfWidth;
       camera.top = visibleHalfHeight;
       camera.bottom = -visibleHalfHeight;
       camera.updateProjectionMatrix();
-      host.style.setProperty("--flock-actions-width", `${height * 7.5 / 12}px`);
+      host.style.setProperty("--flock-actions-width", `${height * 7.5 / (visibleHalfHeight * 2)}px`);
       landingBirds.forEach(({ bird, finalPosition, fromLeft, path, startOffset, startPosition, swayY }) => {
         const screenEdgeX = (visibleHalfWidth + 0.72) * (fromLeft ? -1 : 1);
         startOffset.x = screenEdgeX - finalPosition.x;
