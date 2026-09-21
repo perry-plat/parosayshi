@@ -65,7 +65,7 @@ const experienceItems = [
     company: "Superr.ai",
     date: "2025—26 (Present)",
     detail:
-      "Designing across SuperrBook and SuperrBoard—from classroom tools and search to AI-assisted book creation. Built the shared design system supporting pilots across 5+ schools and 1,000+ students.",
+      "Designed learning tools across classroom and student experiences, from unified search and AI notebook navigation to book creation. Worked across interface design, working prototypes, and prompt refinement for AI-generated content and imagery.",
     id: "superr",
     logo: "/assets/invoice-folio/superr-current-mark.svg",
     role: "Product design / AI learning",
@@ -74,7 +74,7 @@ const experienceItems = [
     company: "WizCommerce",
     date: "2023—25",
     detail:
-      "Led end-to-end design for a US B2B commerce platform. Shipped WizPay and core workflows while contributing to $1.3M ARR and $2M+ in monthly transaction volume.",
+      "Shaped product direction and end-to-end design across 10+ core modules, spanning orders, payments, CRM, and AI workflows. Designed WizPay’s payment experience, supporting $5M+ in monthly transactions.",
     id: "wizcommerce",
     logo: "/assets/invoice-folio/wizcommerce-current-mark.svg",
     role: "Product design / B2B commerce",
@@ -83,7 +83,7 @@ const experienceItems = [
     company: "Polygon (cope studio)",
     date: "2022",
     detail:
-      "Prototyped three Web3 R&D concepts at cope studio, including product explorations with Team Liquid and Nothing.",
+      "Explored early Web3 product concepts through research and prototyping, including collaborations with Team Liquid and Nothing.",
     id: "polygon",
     logo: "/assets/invoice-folio/polygon-current-mark.svg",
     role: "Product design intern / Web3",
