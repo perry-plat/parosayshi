@@ -3,6 +3,7 @@ import * as THREE from "three";
 
 interface WallLightShaderProps {
   paused?: boolean;
+  blossom?: boolean;
   glowColor: string;
   glowStrength: number;
   lightColor: string;
@@ -36,7 +37,7 @@ function seededRandom(seed: number) {
   };
 }
 
-function makeLeafTexture() {
+function makeLeafTexture(blossom = false) {
   const textureCanvas = document.createElement("canvas");
   textureCanvas.width = 128;
   textureCanvas.height = 128;
@@ -45,6 +46,22 @@ function makeLeafTexture() {
 
   context.clearRect(0, 0, 128, 128);
   context.fillStyle = "#fff";
+  if (blossom) {
+    // Five rounded petals, with a small notch at each tip.
+    context.translate(64, 64);
+    for (let petal = 0; petal < 5; petal += 1) {
+      context.save();
+      context.rotate(petal * Math.PI * 2 / 5);
+      context.beginPath();
+      context.moveTo(0, 7);
+      context.bezierCurveTo(-33, -8, -27, -52, -7, -54);
+      context.lineTo(0, -47);
+      context.lineTo(7, -54);
+      context.bezierCurveTo(27, -52, 33, -8, 0, 7);
+      context.fill();
+      context.restore();
+    }
+  } else {
   context.beginPath();
   context.moveTo(63, 6);
   context.bezierCurveTo(91, 15, 109, 38, 106, 62);
@@ -53,6 +70,7 @@ function makeLeafTexture() {
   context.bezierCurveTo(16, 37, 35, 15, 63, 6);
   context.closePath();
   context.fill();
+  }
 
   const texture = new THREE.CanvasTexture(textureCanvas);
   texture.colorSpace = THREE.NoColorSpace;
@@ -76,7 +94,7 @@ function wallLuma(color: string) {
   return (red * 0.299 + green * 0.587 + blue * 0.114) / 255;
 }
 
-export function WallLightShader({ paused = false, reducedMotion, wallColor }: WallLightShaderProps) {
+export function WallLightShader({ paused = false, blossom = false, glowColor, glowStrength, lightColor, reducedMotion, wallColor }: WallLightShaderProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(paused);
 
@@ -107,8 +125,8 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
 
     const lightWall = wallLuma(wallColor) > 0.55;
     const receiverMaterial = new THREE.ShadowMaterial({
-      color: lightWall ? 0x171311 : 0x050403,
-      opacity: lightWall ? 0.165 : 0.1,
+      color: blossom ? (lightWall ? 0x695066 : 0x211622) : (lightWall ? 0x171311 : 0x050403),
+      opacity: lightWall ? (blossom ? 0.18 : 0.165) : 0.1,
       transparent: true,
       depthWrite: false,
     });
@@ -138,7 +156,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
     sunlight.shadow.radius = constrainedDevice ? 6.5 : 13;
     scene.add(sunlight, sunlight.target);
 
-    const leafTexture = makeLeafTexture();
+    const leafTexture = makeLeafTexture(blossom);
     if (!leafTexture) {
       host.dataset.shaderFailed = "true";
       renderer.dispose();
@@ -191,7 +209,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       z: number,
       depth: number,
     ) => {
-      const count = depth === 0 ? 5 : 3;
+      const count = blossom ? (depth === 0 ? 3 : 2) : (depth === 0 ? 5 : 3);
       for (let index = 0; index < count; index += 1) {
         const angle = branchAngle + (random() - 0.5) * 2.1;
         const distance = 0.16 + random() * 0.52;
@@ -202,7 +220,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
           point.y + Math.sin(angle) * distance,
           z + 0.08 + random() * 0.48,
         );
-        leaf.scale.set(width, width * (0.3 + random() * 0.12), 1);
+        leaf.scale.set(width, width * (blossom ? (0.8 + random() * 0.2) : (0.3 + random() * 0.12)), 1);
         leaf.rotation.z = angle + (random() - 0.5) * 0.55;
         leaf.castShadow = true;
         parent.add(leaf);
@@ -284,6 +302,64 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       scene.add(canopy);
     });
 
+    // An art-directed transmission layer: soft rose pools between the shadows.
+    // One plane in the existing renderer, driven by the canopy's motion clock.
+    const blossomLight = blossom ? new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        uniforms: {
+          time: { value: 0 },
+          rose: { value: new THREE.Color(glowColor) },
+          sun: { value: new THREE.Color(lightColor) },
+          strength: { value: lightWall ? Math.min(glowStrength, 1.4) : 0.28 },
+        },
+        vertexShader: `varying vec2 uvLight;
+          void main() { uvLight = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+        fragmentShader: `
+          varying vec2 uvLight;
+          uniform float time;
+          uniform vec3 rose;
+          uniform vec3 sun;
+          uniform float strength;
+          void main() {
+            vec2 p = uvLight;
+            float pools = 0.0;
+            float halo = 0.0;
+            float gold = 0.0;
+            for (int i = 0; i < 18; i++) {
+              float n = float(i);
+              float phase = n * 2.4;
+              float breeze = sin(time * .72 + phase) * .68 + sin(time * .29 + phase * .7) * .32;
+              vec2 center = vec2(.08 + fract(n * .618) * .84, .1 + fract(n * .382 + .21) * .83);
+              center += vec2(breeze * .015, sin(time * .46 + phase) * .007);
+              vec2 d = (p - center) / vec2(.055 + fract(n * .37) * .085, .06 + fract(n * .23) * .07);
+              float edge = dot(d, d) * (1.0 + .16 * sin(d.x * 3.0 + n) * sin(d.y * 2.0));
+              float petal = exp(-edge * 1.8);
+              // Keep the centre quiet and let the rose colour gather at the
+              // edge, like sunlight catching the translucent petal rim.
+              float rim = exp(-abs(edge - 0.72) * 5.5);
+              pools += petal * (.22 + .10 * sin(n * 1.7));
+              halo += rim * (.62 + .18 * sin(n * 1.7));
+              gold += exp(-dot(d + vec2(.55, -.25), d + vec2(.55, -.25)) * 2.0) * .16;
+            }
+            // Leave the central reading area mostly cream.
+            float quietCenter = 1.0 - .68 * exp(-pow((p.x - .5) / .24, 2.0)) * smoothstep(.15, .4, p.y);
+            float alpha = clamp((pools * .14 + halo * .42) * quietCenter, 0.0, .34) * strength;
+            vec3 tint = mix(rose, sun, clamp(gold / max(pools, .001), .0, .65));
+            gl_FragColor = vec4(tint, alpha);
+            #include <tonemapping_fragment>
+            #include <colorspace_fragment>
+          }`,
+      }),
+    ) : null;
+    if (blossomLight) {
+      blossomLight.position.z = -0.02;
+      blossomLight.renderOrder = -1;
+      scene.add(blossomLight);
+    }
+
     let motionTime = 0;
     let previousFrameTime: number | null = null;
     let animationFrame = 0;
@@ -316,6 +392,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
         leaf.mesh.position.x = leaf.basePosition.x + flutter * 0.026 * airPulse;
         leaf.mesh.position.y = leaf.basePosition.y + tremble * 0.02 * airPulse;
       });
+      if (blossomLight) blossomLight.material.uniforms.time.value = time;
       renderer.render(scene, camera);
     };
 
@@ -340,6 +417,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       const aspect = width / height;
       const sceneHeight = 12.5;
       const sceneWidth = sceneHeight * aspect;
+      if (blossomLight) blossomLight.scale.set(sceneWidth, sceneHeight, 1);
       camera.left = -sceneWidth / 2;
       camera.right = sceneWidth / 2;
       camera.top = sceneHeight / 2;
@@ -415,6 +493,8 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       window.cancelAnimationFrame(animationFrame);
       window.cancelAnimationFrame(scrollFadeFrame);
       scene.clear();
+      blossomLight?.geometry.dispose();
+      blossomLight?.material.dispose();
       receiver.geometry.dispose();
       receiverMaterial.dispose();
       branchGeometry.dispose();
@@ -426,7 +506,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [reducedMotion, wallColor]);
+  }, [blossom, glowColor, glowStrength, lightColor, reducedMotion, wallColor]);
 
   return (
     <div
@@ -434,6 +514,7 @@ export function WallLightShader({ paused = false, reducedMotion, wallColor }: Wa
       aria-hidden="true"
       className="wall-light-shader"
       data-reduced-motion={reducedMotion ? "true" : "false"}
+      data-light-mood={blossom ? "blossom" : "leaf"}
     />
   );
 }

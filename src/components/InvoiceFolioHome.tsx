@@ -5,6 +5,7 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
+import EnvelopeCursorHover from "./EnvelopeCursorHover";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 // Temporarily hidden from the main view.
 // import { SuperrExperimentsCard } from "./superr-experiments/SuperrExperimentsCard";
@@ -297,14 +298,20 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     >
       <div aria-hidden="true" className="folio-scroll-blur" />
       <WallLightShader
+        blossom
         paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay" && activeFolioProjectId !== "wiz-commerce" && activeFolioProjectId !== "journal-desk"}
-        glowColor={wallTheme === "night" ? "#91a8d8" : "#ebc9c0"}
+        glowColor={wallTheme === "night" ? "#b38bae" : "#ef96b7"}
         glowStrength={wallTheme === "night" ? 4.6 : 1}
-        lightColor={wallTheme === "night" ? "#d9e2f4" : "#ffdeda"}
+        lightColor={wallTheme === "night" ? "#dbc9e7" : "#ffe1bd"}
         reducedMotion={reducedMotion}
         wallColor={wallTheme === "night" ? "#0b0f18" : wallTheme === "evening" ? "#f0c7b1" : "#fffaf7"}
       />
       <PaperSurface />
+      <EnvelopeCursorHover className="folio-resume-sticker" reducedMotion={reducedMotion}>
+        <a className="folio-resume-sticker__link" href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="View résumé">
+          <span className="folio-resume-sticker__caption">Resume</span>
+        </a>
+      </EnvelopeCursorHover>
 
       <section
         aria-label="Parosayshi introduction"
