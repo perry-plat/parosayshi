@@ -5,6 +5,7 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
+import { PersonalEnvelope } from "./PersonalEnvelope";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 // Temporarily hidden from the main view.
 // import { SuperrExperimentsCard } from "./superr-experiments/SuperrExperimentsCard";
@@ -57,6 +58,7 @@ const SHADOW_NOTE_VARIANTS: Variants = {
 function getFolioProjectIdFromUrl(): FolioProjectId | null {
   if (typeof window === "undefined") return null;
   const projectId = new URL(window.location.href).searchParams.get("project");
+  if (projectId === "personal-letter") return "personal-letter";
   return folioProjectOrder.find((candidate) => candidate === projectId) ?? null;
 }
 
@@ -226,7 +228,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
   useLayoutEffect(() => {
     const hero = heroRef.current;
     const intro = heroIntroRef.current;
-    if (!hero || !intro) return undefined;
+    if (!hero || !intro || intentExpanded || designerExpanded) return undefined;
 
     const syncHeroFlow = () => {
       const introHeight = intro.getBoundingClientRect().height;
@@ -235,10 +237,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
       }
 
       const baselineHeight = heroIntroBaselineHeightRef.current;
-      const expansionOffset = Math.max(0, introHeight - baselineHeight);
       hero.style.setProperty("--wall-intro-baseline-height", `${baselineHeight}px`);
-      hero.style.setProperty("--wall-intro-anchor-shift", `${introHeight / -2}px`);
-      hero.style.setProperty("--wall-hero-expansion-offset", `${expansionOffset}px`);
     };
 
     const observer = new ResizeObserver(syncHeroFlow);
@@ -288,7 +287,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
     <>
     <main
       aria-hidden={activeFolioProjectId ? true : undefined}
-      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" || activeFolioProjectId === "wiz-commerce" || activeFolioProjectId === "journal-desk" ? "true" : undefined}
+      data-paper-open={activeFolioProjectId === "superr-paper" || activeFolioProjectId === "wizpay" || activeFolioProjectId === "wiz-commerce" || activeFolioProjectId === "journal-desk" || activeFolioProjectId === "personal-letter" ? "true" : undefined}
       className="invoice-folio invoice-folio--wall"
       data-prompt-nudge={promptNudgeActive ? "true" : "false"}
       data-reduced-motion={reducedMotion ? "true" : "false"}
@@ -300,7 +299,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
         blossom
         paused={activeFolioProjectId !== null && activeFolioProjectId !== "superr-paper" && activeFolioProjectId !== "wizpay" && activeFolioProjectId !== "wiz-commerce" && activeFolioProjectId !== "journal-desk"}
         glowColor={wallTheme === "night" ? "#b38bae" : "#ef96b7"}
-        glowStrength={wallTheme === "night" ? 4.6 : 1}
+        glowStrength={0}
         lightColor={wallTheme === "night" ? "#dbc9e7" : "#ffe1bd"}
         reducedMotion={reducedMotion}
         wallColor={wallTheme === "night" ? "#0b0f18" : wallTheme === "evening" ? "#f0c7b1" : "#fffaf7"}
@@ -633,6 +632,8 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
           </motion.div>
         </motion.div>
       </section>
+
+      <PersonalEnvelope onOpen={(event) => openFolioProject("personal-letter", event.currentTarget)} />
 
       <motion.section
         aria-label="Contact"

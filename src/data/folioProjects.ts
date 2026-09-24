@@ -7,6 +7,7 @@ export type FolioProjectId =
   | "wizpay"
   | "wiz-commerce"
   | "journal-desk"
+  | "personal-letter"
   | "uber-kids"
   | "periodic-table"
   | "kriyadex"
@@ -289,7 +290,7 @@ const wizPayStory = [
 
 const superrProject: FolioProject = {
     cardMeta: "AI / EdTech / Product systems", cardTitle: "Superr",
-    description: "Superr builds tools that make learning more engaging, bringing together writing, exploration, and interactive activities.\n\nSuperr was working to bring SuperrBoard to teachers and SuperrBook to students in traditional Indian classrooms. Keeping the two in sync opened up new possibilities for teaching and learning.\n\nThis is a loose collection of work I did across SuperrBook, SuperrBoard, and other products during my time at Superr. I can’t show everything here, but I hope this gives you a sense of the care and craft we brought to the work.\n\nMy work spans product design, visual design, animation, and AI-led frontend development. Everything here came together with the Superr team.",
+    description: "Superr builds tools that make learning more engaging, bringing together writing, exploration, and interactive activities.\n\nSuperr is working to bring SuperrBoard to teachers and SuperrBook to students in traditional Indian classrooms. Keeping the two in sync opened up new possibilities for teaching and learning.\n\nThis is a loose collection of work I did across SuperrBook, SuperrBoard, and other products during my time at Superr. I can’t show everything here, but I hope this gives you a sense of the care and craft we brought to the work.\n\nMy work spans product design, visual design, animation, and AI-led frontend development. Everything here came together with the Superr team.",
     externalLabel: "Reach out", externalUrl: "mailto:hello@parosayshi.com?subject=Superr%20work%20walkthrough",
     folderPreviews: [
       { color: "#f4efe6", label: "Library", position: "center 24%", src: "/assets/invoice-folio/superr-project-placeholder-5.png?v=1" },
@@ -299,6 +300,18 @@ const superrProject: FolioProject = {
     id: "superr", logo: "/assets/invoice-folio/superr-current-mark.svg", media: superrStory, previewMedia: superrPreviewMedia,
     services: ["Visual execution", "Animation", "AI & code"], title: "Superr", tone: "cobalt", year: "2025—26",
   };
+
+const personalPhotos = [
+  ["childhood", "A childhood photograph in a garden"],
+  ["river-sunset", "Boats and swimmers at sunset"],
+  ["forest-light", "Sunlight through forest trees"],
+  ["flower-bowl", "A pink flower in a glass bowl"],
+  ["sketchbook", "Plants and a sketchbook under a warm lamp"],
+  ["paro", "A handwritten Paro label"],
+  ["green-balconies", "Balconies surrounded by green vines"],
+  ["pink-tree", "Pink blossoms against a blue sky"],
+];
+
 
 export const folioProjects: Record<FolioProjectId, FolioProject> = {
   superr: superrProject,
@@ -400,6 +413,14 @@ export const folioProjects: Record<FolioProjectId, FolioProject> = {
       { kind: "note", id: "reflection", heading: "Want to see more?",
         body: "There’s more to share on discounts, CRM and email communication. Reach out for a walkthrough.",
         },
+    ],
+  },
+  "personal-letter": {
+    id: "personal-letter", title: "Vibing is the process", cardTitle: "A letter from Parth", cardMeta: "Personal",
+    year: "", tone: "charcoal", services: [], folderPreviews: [], previewMedia: [],
+    description: "Design found me when I wasn’t really looking for it. I started with a poster for my college’s technical fest and eventually designed its logo. There was something about being able to shape how it looked that felt like control. Something just made sense to me, even before I could explain why.\n\nDuring Covid, while studying at IIIT Nagpur, I realised I was more drawn to design than code. I’ve mostly followed my gut since. Seeing what people make—on Twitter and everywhere else—keeps me curious. I want to get better at turning ideas into things, and develop the judgment to give them a direction of my own.\n\nOutside work, I’m drawn to travel, photography, and cinematography. That last one is still mostly unexplored, but I hope to give it some creative brain cells soon.\n\nAs I grow, I want to care more deeply about whatever I give my time to. That could mean a basic mountaineering course, getting my hands into pottery, or finding a badass team to build with.",
+    media: [
+      ...personalPhotos.map(([name, alt]): FolioProjectMedia => ({ kind: "image", src: `/assets/desk-photos/${name}.png`, alt, ratio: "portrait", fit: "contain" })),
     ],
   },
   "journal-desk": {

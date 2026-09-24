@@ -580,7 +580,11 @@
   .folio-bento-group--featured > [data-folio-project="wiz-commerce"] { grid-area: 3 / 1 / 4 / 2; }
 }
 @media (max-width: 680px) {
-  .folio-bento-group--featured .folio-bento-card[data-project="journal-desk"] { grid-area: auto; }
+  .folio-bento-group--featured .folio-bento-card[data-project="journal-desk"] {
+    grid-area: auto;
+    aspect-ratio: auto;
+    min-height: 480px;
+  }
 }
 
 .folio-wizpay-card {
@@ -665,7 +669,7 @@ button.folio-wiz-study { border: 0; padding: 0; text-align: left; font: inherit;
   right: 24px;
   bottom: 28px;
   display: grid;
-  gap: 8px;
+  gap: 16px;
   pointer-events: none;
 }
 .folio-bento-card__journal-tagline {
@@ -678,7 +682,7 @@ button.folio-wiz-study { border: 0; padding: 0; text-align: left; font: inherit;
   max-width: 620px;
   margin: 0;
   color: rgb(247 245 233 / 68%);
-  font: 400 13px / 1.45 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 17px / 1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: 0;
 }
 

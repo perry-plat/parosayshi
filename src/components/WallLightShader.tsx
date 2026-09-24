@@ -168,7 +168,7 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
 
     const lightWall = wallLuma(wallColor) > 0.55;
     const receiverMaterial = new THREE.ShadowMaterial({
-      color: blossom ? (lightWall ? 0x5b5960 : 0x1f2024) : (lightWall ? 0x171311 : 0x050403),
+      color: lightWall ? 0x242424 : 0x080808,
       opacity: lightWall ? (blossom ? 0.17 : 0.165) : 0.1,
       transparent: true,
       depthWrite: false,
@@ -180,7 +180,7 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
     // A restrained accent pass receives shadows from blossom clusters only.
     // Its small offset lets a blush edge peek out without tinting branches or
     // turning the full canopy shadow pink.
-    const blossomAccentMaterial = blossom ? new THREE.ShadowMaterial({
+    const blossomAccentMaterial = blossom && glowStrength > 0 ? new THREE.ShadowMaterial({
       color: new THREE.Color(glowColor),
       opacity: lightWall ? Math.min(0.095 * glowStrength, 0.12) : 0.04,
       transparent: true,
@@ -220,7 +220,7 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
     sunlight.shadow.radius = constrainedDevice ? 6.5 : 13;
     scene.add(sunlight, sunlight.target);
 
-    const blossomAccentLight = blossom ? new THREE.DirectionalLight(0xfff3dd, 2.2) : null;
+    const blossomAccentLight = blossomAccentMaterial ? new THREE.DirectionalLight(0xfff3dd, 2.2) : null;
     if (blossomAccentLight) {
       blossomAccentLight.position.copy(sunlight.position).add(new THREE.Vector3(-0.44, 0.26, 0));
       blossomAccentLight.target.position.copy(sunlight.target.position);

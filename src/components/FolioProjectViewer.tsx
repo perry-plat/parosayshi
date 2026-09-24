@@ -1,3 +1,4 @@
+import { PersonalPhotoStack } from "./PersonalPhotoStack";
 import { WizProductCardComparison, WizProductHistoryDemo, WizProductVariantsDemo } from "./WizProductCardComparison";
 import { WizProductListingPreview } from "./WizProductListingPreview";
 import { WizpayImpact } from "./WizpayImpact";
@@ -26,7 +27,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
   const [orgSlide, setOrgSlide] = useState(0);
   const [orgDirection, setOrgDirection] = useState(1);
   const navigateOrg = (direction: number) => { setOrgDirection(direction); setOrgSlide(value => (value + direction + 3) % 3); };
-  const isPaper = project.id === "wizpay" || project.id === "superr-paper" || project.id === "wiz-commerce" || project.id === "journal-desk";
+  const isPaper = project.id === "personal-letter" || project.id === "wizpay" || project.id === "superr-paper" || project.id === "wiz-commerce" || project.id === "journal-desk";
   const heroDialogRef = useRef<HTMLDialogElement>(null);
   const heroButtonRef = useRef<HTMLButtonElement>(null);
   const expandedTriggerRef = useRef<HTMLElement | null>(null);
@@ -269,7 +270,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
       </div>
     ) : (
       <figure
-        className={`folio-project-viewer__media folio-project-viewer__media--${item.ratio}`}
+        className={`folio-project-viewer__media folio-project-viewer__media--${item.ratio}${project.id === "personal-letter" ? " personal-letter__photo" : ""}`}
         style={{ aspectRatio: item.aspectRatio, background: item.background }}
       >
         <FolioProjectAsset media={item} reducedMotion={reducedMotion}
@@ -387,8 +388,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
           {!isPaper && <button type="button" onClick={onClose} ref={closeButtonRef} aria-label="Back to projects" title="Back to projects"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14 6-6 6 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>}
           {isPaper ? <div className="folio-reading-header__identity">
             {project.logo && project.id !== "wiz-commerce" && <img className="folio-reading-header__project-logo" src={project.logo} alt="" aria-hidden="true" />}
-            <div><h1>{project.headline ?? project.title}</h1>{project.id !== "wizpay" && <p className="folio-reading-header__date">{project.year}</p>}</div>
-          {project.id === "superr-paper" && <span className="folio-bento-card__nda-stamp folio-reading-header__nda-stamp" aria-label="Non-disclosure agreement">NDA</span>}
+            <div><h1>{project.id === "personal-letter" ? <><del className="personal-letter__old-heading">Vibing is part of the process</del><span className="personal-letter__new-heading"><mark className="wizpay-outro-highlight">Vibing is the process</mark></span></> : project.headline ?? project.title}</h1>{project.id === "personal-letter" ? <p className="personal-letter__subtitle">A heart to heart from Parth</p> : project.id !== "wizpay" && <p className="folio-reading-header__date">{project.year}</p>}</div>
           </div> : <><h1>{project.title}</h1><p className="folio-reading-header__date">{project.year}</p></>}
           {project.id === "superr-paper" ? project.description.split("\n\n").map((paragraph, index) => (
             paragraph.startsWith("My work spans ") ? (
@@ -405,7 +405,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                   ))}
                 </ul>
               </Fragment>
-            ) : <p key={index} className={index === 1 ? "folio-project-viewer__contribution-copy" : undefined}>{paragraph}</p>
+            ) : <p key={index} className={index === 1 ? "folio-project-viewer__contribution-copy" : undefined}>{paragraph.split(/(SuperrBoard to teachers|SuperrBook to students|traditional Indian classrooms)/g).map((part, partIndex) => ["SuperrBoard to teachers", "SuperrBook to students", "traditional Indian classrooms"].includes(part) ? <mark className="folio-text-highlight" key={partIndex}>{part}</mark> : part)}</p>
           )) : project.id === "wiz-commerce" ? <>
             <p><a href="https://wizcommerce.com/" target="_blank" rel="noreferrer" className="wizpay-company-link wall-folio__experience-mark">WizCommerce</a> helps wholesalers and distributors manage rep-led, online, EDI, and marketplace sales in one platform, eliminate repetitive operational work, and grow revenue without increasing overhead.</p>
                 <p>Over the past 2 years, we’ve worked as a small, focused design team shaping WizCommerce into a full suite of tools for wholesale teams. It’s a lot of work to fit into one page.</p>
@@ -413,7 +413,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
                 <p>There’s more to the work than we can show here, but we hope this gives you a sense of what we built together—and how we approached it.</p>
 
           </> : <>
-            <p>{project.overview?.context ?? project.description}</p>
+            {project.id === "personal-letter" ? project.description.split("\n\n").map((paragraph, index) => <Fragment key={index}><p>{paragraph}</p>{index === 0 && project.media[index]?.kind === "image" && <div className={`personal-letter__photo-break personal-letter__photo-break--${index % 2 ? "right" : "left"}`}>{renderMedia(project.media[index], index)}</div>}</Fragment>) : <p>{project.overview?.context ?? project.description}</p>}
             {project.overview?.contribution && <p>{project.overview.contribution}</p>}
           </>}
 
@@ -467,7 +467,9 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
           </div>
         </section>}
         {(isPaper || project.id === "wiz-commerce") && project.introMedia?.map(renderMedia)}
+        {project.id === "personal-letter" && <><PersonalPhotoStack photos={project.media.slice(1).filter((item): item is FolioProjectMedia & { kind: "image" } => item.kind === "image")} /><p className="personal-letter__photo-intro">Experiencing life, sometimes with a camera</p></>}
         {project.media.map((item, index) => {
+          if (project.id === "personal-letter") return null;
 
           if (item.kind === "sketch") {
             return <FolioProjectSketchMedia key={`${project.id}-sketch-${item.id}`} sketch={item} />;

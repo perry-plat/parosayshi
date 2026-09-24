@@ -2039,24 +2039,17 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
 }
 
 .wall-folio--hero {
-  height: 82svh;
-  min-height: 680px;
+  --hero-intro-top: max(80px, calc(max(340px, 44svh) - var(--wall-intro-baseline-height, 220px) / 2));
+  height: auto;
+  min-height: 0;
+  padding-bottom: max(64px, calc(max(680px, 82svh) - var(--hero-intro-top) - var(--wall-intro-baseline-height, 220px)));
   overflow: hidden;
   background: transparent;
-  transition:
-    height 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    min-height 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.wall-folio--hero[data-intent-expanded="true"],
-.wall-folio--hero[data-designer-expanded="true"] {
-  height: calc(82svh + var(--wall-hero-expansion-offset, 0px));
-  min-height: calc(680px + var(--wall-hero-expansion-offset, 0px));
 }
 
 .wall-folio__hero-composition {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  padding-top: var(--hero-intro-top);
   transform: none;
 }
 
@@ -2288,15 +2281,14 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
 }
 
 .wall-folio__figma-intro {
-  position: absolute;
+  position: relative;
   z-index: 4;
-  top: max(340px, 44svh);
-  left: 50%;
+  margin-inline: auto;
   width: var(--wall-content-width);
   padding-inline: 16px;
   color: var(--folio-ink);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 28px;
+  font-size: 26px;
   font-kerning: normal;
   font-stretch: normal;
   font-style: normal;
@@ -2305,13 +2297,6 @@ html:has(.invoice-folio--wall) { scroll-behavior: smooth; }
   letter-spacing: -0.01em;
   line-height: 1.36;
   text-align: left;
-  transform: translate(-50%, var(--wall-intro-anchor-shift, -50%));
-  transition: top 700ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.wall-folio--hero[data-intent-expanded="true"] .wall-folio__figma-intro,
-.wall-folio--hero[data-designer-expanded="true"] .wall-folio__figma-intro {
-  top: 50svh;
 }
 
 .wall-folio__figma-body { display: block; }
@@ -3339,7 +3324,7 @@ body.folio-project-viewer-open {
   border-top: 1px solid rgb(247 242 235 / 0.24);
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
   padding-top: 0;
   border-top: 0;
 }
@@ -3400,11 +3385,11 @@ body.folio-project-viewer-open {
   text-decoration: none;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__logo {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__logo {
   border-radius: 13px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
   color: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -3413,7 +3398,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
   max-width: 240px;
   margin-top: -8px;
   color: #fff;
@@ -3424,7 +3409,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__external {
   min-height: 30px;
   box-sizing: border-box;
   padding: 6px 10px;
@@ -3438,7 +3423,7 @@ body.folio-project-viewer-open {
   line-height: 18px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__close {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__close {
   color: #fff;
   background: transparent;
   border-radius: 0;
@@ -3448,19 +3433,19 @@ body.folio-project-viewer-open {
 }
 
 @media (min-width: 1321px) {
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__details {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__details {
     width: 280px;
     gap: 15px;
   }
 
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity h2 {
     font-size: 20px;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 21px;
   }
 
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
     max-width: 280px;
     margin-top: 0;
     font-size: 16px;
@@ -3505,7 +3490,7 @@ body.folio-project-viewer-open {
   .folio-project-viewer__scroll-blur { display: none; }
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__reel {
   gap: 10px;
 }
 
@@ -3540,11 +3525,11 @@ body.folio-project-viewer-open {
 }
 
 /* Keep the cookie artwork inset without changing its media frame. */
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset:has(> img[src*="superr-figma-150-3132.png"]) {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-asset:has(> img[src*="superr-figma-150-3132.png"]) {
   background: #fff;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-asset > img[src*="superr-figma-150-3132.png"] {
   transform: scale(0.75);
   transform-origin: center;
 }
@@ -4306,6 +4291,70 @@ body.folio-project-viewer-open {
 }
 .folio-about__links a:hover { background: var(--folio-orange); transform: translateY(-2px); }
 
+.folio-desk-keepsakes {
+  position: relative;
+  z-index: 2;
+  width: min(920px, calc(100% - 48px));
+  aspect-ratio: 0.66;
+  margin: -64px auto 140px;
+  padding: 0;
+  color: #35332e;
+}
+.folio-desk-keepsakes__photo {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  width: 29%;
+  margin: 0;
+  padding: clamp(3px, 0.45vw, 5px);
+  background: #f7f6f1;
+  box-shadow: 0 1px 2px #30271d14, 0 5px 12px #30271d0d;
+  rotate: -3deg;
+}
+.folio-desk-keepsakes__photo > img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.folio-desk-keepsakes__photo--uncaptioned > img {
+  aspect-ratio: auto;
+}
+.folio-desk-keepsakes__photo:nth-child(2) { left: 55%; top: 22%; width: 31%; rotate: 4deg; }
+.folio-desk-keepsakes__photo:nth-child(3) { left: 35%; top: 29%; width: 27%; rotate: -4deg; z-index: 1; }
+.folio-desk-keepsakes__photo:nth-child(4) { left: 3%; top: 40%; width: 26%; rotate: 2deg; }
+.folio-desk-keepsakes__photo:nth-child(5) { left: 64%; top: 51%; width: 29%; rotate: -3deg; }
+.folio-desk-keepsakes__photo:nth-child(6) { left: 40%; top: 63%; width: 27%; rotate: 5deg; z-index: 1; }
+.folio-desk-keepsakes__photo:nth-child(7) { left: 8%; top: 73%; width: 28%; rotate: -4deg; }
+.folio-desk-keepsakes__photo:nth-child(8) { left: 65%; top: 79%; width: 26%; rotate: 3deg; }
+.folio-desk-keepsakes__note {
+  position: absolute;
+  left: 58%;
+  top: 3%;
+  width: 33%;
+  aspect-ratio: 1.15;
+  padding: 10% 3% 3%;
+  background: #fff;
+  color: #171717;
+  text-align: left;
+  box-shadow: 0 1px 2px #30271d10, 0 5px 12px #30271d0a;
+  transform: rotate(2deg);
+}
+.folio-desk-keepsakes__note p {
+  margin: 0;
+  font: 400 12px / 1.6 "Geist Mono Variable", "Geist Mono", monospace;
+}
+@media (max-width: 620px) {
+  .folio-desk-keepsakes { width: calc(100% - 28px); margin-top: -48px; margin-bottom: 80px; }
+  .folio-desk-keepsakes__note { left: 55%; width: 40%; }
+  .folio-desk-keepsakes__note p { font-size: 9px; }
+}
+
 .folio-contact {
   position: relative;
   z-index: 2;
@@ -4752,13 +4801,13 @@ body.folio-project-viewer-open {
 .superr-activity__frame { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 @media (max-width: 760px) { .superr-activity { overflow-y: auto; } }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__group > h3 {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__group > h3 {
   font-size: 18px;
   line-height: 24px;
 }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description,
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note p { white-space: pre-line; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__description,
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__note p { white-space: pre-line; }
 
 
 
@@ -4784,14 +4833,14 @@ body.folio-project-viewer-open {
 @media (max-width: 480px) { .folio-project-viewer__mention { grid-template-columns: 1fr; gap: 5px; } }
 
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { min-height: 0; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { min-height: 0; gap: 28px; padding-top: 36px; padding-bottom: 40px; }
 .folio-project-viewer__note[data-note="intro"] p { max-width: 43ch; line-height: 1.65; }
 .folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { margin-block: 22px; line-height: 1.5; }
-@media (max-width: 760px) { .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { padding-top: 24px; padding-bottom: 24px; gap: 24px; } }
+@media (max-width: 760px) { .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__note[data-note="intro"] { padding-top: 24px; padding-bottom: 24px; gap: 24px; } }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__external, .folio-project-viewer__nda) { font-size: 16px; line-height: 22px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__external, .folio-project-viewer__nda) { font-size: 16px; line-height: 22px; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__external { position: relative; padding: 7px 16px; justify-content: center; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__external { position: relative; padding: 7px 16px; justify-content: center; }
 .folio-project-viewer__contact-tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -4811,13 +4860,13 @@ body.folio-project-viewer-open {
 
 .folio-project-viewer__note[data-note="intro"] .folio-project-viewer__note-emphasis { display: inline; margin: 0; line-height: inherit; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
 }
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity span {
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__identity span {
   font-family: inherit;
   font-size: 14px;
   line-height: 20px;
@@ -4838,7 +4887,7 @@ body.folio-project-viewer-open {
 .folio-project-viewer__description--editorial strong { color: #f7f2eb; font-weight: 500; }
 .folio-project-viewer__details > .folio-project-viewer__intro-link { margin: 20px 0 8px; flex-shrink: 0; }
 
-.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row { margin-top: 16px; }
+.folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row { margin-top: 16px; }
 
 /* Case studies share one continuous reading flow on small screens. */
 @media (max-width: 1320px) {
@@ -4905,7 +4954,7 @@ body.folio-project-viewer-open {
   .folio-project-viewer__compact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
   .folio-project-viewer__compact-actions { align-items: center; }
   .folio-project-viewer__compact-actions .folio-project-viewer__intro-link { margin: 0; flex-shrink: 0; }
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__compact-actions .folio-project-viewer__contact-row { margin-top: 0; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__compact-actions .folio-project-viewer__contact-row { margin-top: 0; }
   .folio-project-viewer .folio-project-viewer__reel { padding-bottom: calc(190px + env(safe-area-inset-bottom)); }
 }
 
@@ -4967,7 +5016,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 @media (max-width: 1320px) {
   .folio-project-viewer .folio-project-viewer__details { box-sizing: border-box; }
   .folio-project-viewer__scroll-blur { display: none; }
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__nda, .folio-project-viewer__external) { min-height: 44px; box-sizing: border-box; }
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__contact-row :is(.folio-project-viewer__nda, .folio-project-viewer__external) { min-height: 44px; box-sizing: border-box; }
 }
 
 /* Keep the reading column at desktop width when the sidebar stacks. */
@@ -4984,7 +5033,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 @media (max-width: 1320px) {
-  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
+  .folio-project-viewer:is([data-project="superr"], :is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"])) .folio-project-viewer__description {
     width: 100%;
     max-width: none;
     margin-top: 0;
@@ -4996,27 +5045,27 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer__hero-image img { display: block; width: 100%; height: auto; }
 @media (max-width: 1320px) { .folio-project-viewer .folio-project-viewer__hero-image { width: 100%; max-width: 100%; } }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__note {
   min-height: 0;
   padding-block: 24px;
   gap: 12px;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note h3 {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__note h3 {
   max-width: none;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
   letter-spacing: normal;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__note p, .folio-project-viewer__group-description, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__note p, .folio-project-viewer__group-description, .folio-project-viewer__callouts p) {
   color: #e4e1da;
   font-size: 17px;
   line-height: 27px;
   letter-spacing: normal;
 }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 28px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description { white-space: pre-line; margin: 0 0 24px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 28px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description { white-space: pre-line; margin: 0 0 24px; }
 .folio-project-viewer__journey {
   display: flex; flex-wrap: wrap; gap: 12px 20px; list-style: none;
   margin: 0 0 24px; padding: 16px 0; border-block: 1px solid #ffffff26;
@@ -5034,14 +5083,14 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer__callouts li::before { content: counter(payment-callout, decimal-leading-zero); position: absolute; left: 0; top: 18px; color: #bdbbb6; font-size: 12px; }
 .folio-project-viewer__callouts strong { color: #f7f2eb; font-size: 16px; font-weight: 500; line-height: 24px; }
 .folio-project-viewer__callouts p { margin: 4px 0 0; color: #cbc9c3; font-size: 16px; line-height: 24px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media:has(img[src$="/order-entry.png"])::after {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__media:has(img[src$="/order-entry.png"])::after {
   content: ""; position: absolute; pointer-events: none;
   left: 59.8%; top: 65.1%; width: 18.9%; height: 7.3%;
   box-sizing: border-box; border: 2px solid #f48120; border-radius: 4px;
 }
 @media (max-width: 600px) {
   .folio-project-viewer .folio-project-viewer__group[data-layout="comparison"] .folio-project-viewer__group-media { grid-template-columns: 1fr; gap: 24px; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 20px; }
 }
 
 /* Header image expansion keeps the case-study layout in place. */
@@ -5127,11 +5176,11 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* WizPay reading hierarchy. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 { font-weight: 500; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p { letter-spacing: normal; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #e4e1da; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 { font-weight: 500; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p { letter-spacing: normal; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #e4e1da; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > .folio-project-viewer__pull-quote {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > .folio-project-viewer__pull-quote {
   margin: 0 0 28px;
   max-width: 100%;
   color: #f7f2eb;
@@ -5205,7 +5254,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Quiet WizPay reading column; media retains its full width. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   font-weight: 500;
@@ -5215,125 +5264,125 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   margin: 0 auto 12px;
   text-wrap: pretty;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
   width: calc(100% - 64px);
   max-width: 576px;
   margin-inline: auto;
   box-sizing: border-box;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
   letter-spacing: normal;
   color: #e4e1da;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 32px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description strong { font-weight: inherit; color: inherit; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p + p { margin-top: 20px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts strong { font-weight: 500; font-size: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #c2bfb8; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 32px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group-description strong { font-weight: inherit; color: inherit; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview-content > p + p { margin-top: 20px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts strong { font-weight: 500; font-size: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #c2bfb8; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: 100%; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 30px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: 100%; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 30px; }
 }
 
 /* WizPay spacing is owned by block boundaries, without additive reel gaps. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { gap: 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview { margin-block: 56px 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 56px 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 40px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__note { margin-block: 56px 0; padding-block: 0; gap: 0; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { margin-bottom: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__overview { margin-block: 56px 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group { margin-block: 56px 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 40px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__note { margin-block: 56px 0; padding-block: 0; gap: 0; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { margin-bottom: 0; }
 
 /* WizPay full-page reading prototype. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) { background: #fdfcf9; color: #262622; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__details, .folio-project-viewer__compact-header, .folio-project-viewer__scroll-blur, .folio-project-viewer__close) { display: none; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) { background: #fdfcf9; color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__details, .folio-project-viewer__compact-header, .folio-project-viewer__scroll-blur, .folio-project-viewer__close) { display: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel {
   position: absolute; inset: 0; width: 100%; max-width: none; margin: 0;
   padding: 64px 32px 100px; gap: 0;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__hero-image, .folio-project-viewer__reel > .folio-project-viewer__media, .folio-project-viewer__group, .folio-project-viewer__note) { width: min(100%, 680px); max-width: 680px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__hero-image, .folio-project-viewer__reel > .folio-project-viewer__media, .folio-project-viewer__group, .folio-project-viewer__note) { width: min(100%, 680px); max-width: 680px; }
 .folio-reading-header { width: min(100%, 600px); flex: 0 0 auto; margin: 0 0 56px; }
 .folio-reading-header button { display: block; background: none; border: 0; padding: 0; margin: 0 0 48px; color: #55554e; font: inherit; font-size: 14px; cursor: pointer; }
 .folio-reading-header button:focus-visible { outline: 2px solid #255443; outline-offset: 6px; }
 .folio-reading-header h1 { font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 8px; }
 .folio-reading-header p { font-size: 16px; line-height: 24px; color: #494943; margin: 20px 0 0; }
 .folio-reading-header .folio-reading-header__date { font-size: 13px; color: #71716a; margin: 0 0 28px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 16px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3, .folio-project-viewer__callouts strong) { color: #262622; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) { color: #494943; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: min(100%, 600px); max-width: 600px; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__media { box-shadow: none; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #6a6a63; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li { border-color: #deded6; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li::before { color: #77776f; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 16px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3, .folio-project-viewer__callouts strong) { color: #262622; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(p.folio-project-viewer__group-description, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) { color: #494943; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) { width: min(100%, 600px); max-width: 600px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__media { box-shadow: none; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { color: #6a6a63; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li { border-color: #deded6; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__callouts li::before { color: #77776f; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 28px 20px 64px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 28px 20px 64px; }
   .folio-reading-header { margin-bottom: 40px; }
   .folio-reading-header button { margin-bottom: 32px; }
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { align-items: center; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { width: min(100%, 600px); max-width: 600px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { align-items: center; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header { width: min(100%, 600px); max-width: 600px; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button {
   position: absolute; top: 1px; left: -72px; display: grid; place-items: center;
   width: 36px; height: 36px; margin: 0; padding: 0; border-radius: 50%; background: #f0efeb;
   color: #494943; transition: background 160ms ease;
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button:hover { background: #e6e5df; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button:hover { background: #e6e5df; }
 @media (max-width: 800px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 0; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 0; }
   .folio-reading-header h1 { padding-left: 52px; min-height: 36px; display: flex; align-items: center; }
   .folio-reading-header .folio-reading-header__date { padding-left: 52px; }
 }
 
 /* Keep the reading-page exit available throughout the story. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button {
   position: fixed;
   top: 65px;
   left: calc(50% - 372px);
   z-index: 10;
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: max(32px, calc(50% - 300px)); }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: max(32px, calc(50% - 300px)); }
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { top: 29px; left: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button { top: 29px; left: 20px; }
 }
 
 /* Reserve a separate gutter for the fixed back control. */
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: calc(50% - 412px); }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: calc(50% - 412px); }
 @media (max-width: 880px) {
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-left: 80px; padding-right: 24px; }
-  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 20px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-left: 80px; padding-right: 24px; }
+  .folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header button { left: 20px; }
   .folio-reading-header h1, .folio-reading-header .folio-reading-header__date { padding-left: 0; }
 }
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) .folio-reading-header > p:last-child { font-size: 14px; }
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) .folio-reading-header > p:last-child { font-size: 14px; }
 
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]),
-.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]),
+.folio-project-viewer:is(:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="personal-letter"]), [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* WizPay material study: a quiet sheet in the portfolio's lit workspace. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) {
   background:
     radial-gradient(ellipse at 12% 0%, #fffdf3 0%, transparent 48%),
     radial-gradient(ellipse at 95% 80%, #d7d8cc 0%, transparent 55%),
     #eae7df;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"])::before {
   content: ""; position: absolute; inset: 0;
   pointer-events: none;
   background: repeating-linear-gradient(117deg, transparent 0 140px, #747d6710 180px 230px, transparent 300px 430px);
   filter: blur(28px);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   inset: 20px 0 0; height: calc(100% - 20px);
   width: min(100%, 1000px); margin-inline: auto;
   background-color: #fdfcf9;
@@ -5342,7 +5391,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   box-shadow: 0 2px 4px #403c3010, 0 18px 65px #403c3017;
   animation: wizpay-paper-arrive 550ms cubic-bezier(.22,1,.36,1) backwards;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header::before {
   content: "01 / SELECTED WORK"; display: block; margin-bottom: 24px;
   font-family: "Departure Mono", monospace; font-size: 10px; line-height: 16px;
   letter-spacing: .06em; color: #77786b;
@@ -5352,66 +5401,66 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   to { opacity: 1; translate: 0 0; }
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { inset: 0; height: 100%; border: 0; border-radius: 0; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { inset: 0; height: 100%; border: 0; border-radius: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { animation: none; }
 }
 
 /* Journal-inspired material: the sheet moves through the reading viewport. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) {
   overflow-y: auto;
   overflow-x: hidden;
   background: radial-gradient(ellipse at 10% 0%, #f8f7f0, transparent 65%), #e5e4dc;
   padding: 32px 0 0;
   box-sizing: border-box;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"])::before { display: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"])::before { display: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   position: relative; inset: auto; height: auto; min-height: calc(100dvh - 32px);
   overflow: visible; isolation: isolate;
   background: #fff; border: 0; border-radius: 0;
   box-shadow: 0 1px 1px #3a342f17;
   animation: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::before {
   content: ""; position: absolute; inset: 3px -3px 0; z-index: -1; pointer-events: none;
   background: #39352e; opacity: .17; filter: blur(7px);
   clip-path: polygon(.3% .7%,16% .2%,39% .8%,63% .25%,84% .65%,99.6% .2%,100% 99.2%,86% 99.75%,62% 99.1%,39% 99.8%,15% 99.25%,.2% 99.7%);
   transform: translate(4px, 7px);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(128deg,#ffffffed,#ffffffef 38%,#fffefaeb), url('/assets/textures/paper-fiber-cc0.jpg') center / 620px auto;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header::before { content: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header::before { content: none; }
 @keyframes wizpay-paper-materialize {
   from { opacity: 0; filter: blur(1px) brightness(1.035); }
   45% { opacity: .48; filter: blur(.35px) brightness(1.012); }
   to { opacity: 1; filter: none; }
 }
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 0; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { min-height: 100dvh; height: auto; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) { padding-top: 0; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { min-height: 100dvh; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { animation: none; }
 }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { background: transparent; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) { background: transparent; }
 .folio-reading-light { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .32; overflow: hidden; }
 .folio-reading-light .wall-light-shader { position: absolute; inset: 0; width: 100%; height: 100%; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { background: #fff; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after { background: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { background: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::after { background: #fff; }
 
 /* The desk stays fully visible around the open white sheet. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-light { opacity: 1; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-light { opacity: 1; }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { width: min(100%, 840px); }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { width: min(100%, 840px); }
 
 /* Place the paper's close control in its upper-right corner. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: static; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header button {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header { position: static; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header button {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -5419,38 +5468,38 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* A quieter text column with room between reading sections. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   padding: 136px 40px 120px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header, .folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-reading-header, .folio-project-viewer__group > h3, p.folio-project-viewer__group-description, .folio-project-viewer__overview-content, .folio-project-viewer__note > h3, .folio-project-viewer__note > p, .folio-project-viewer__callouts) {
   width: min(100%, 440px);
   max-width: 440px;
   margin-inline: auto;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 104px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 { font-size: 40px; margin-bottom: 14px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date { font-size: 12px; margin-bottom: 40px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-header > p:not(.folio-reading-header__date), p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header { margin-bottom: 104px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header h1 { font-size: 40px; margin-bottom: 14px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header .folio-reading-header__date { font-size: 12px; margin-bottom: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-reading-header > p:not(.folio-reading-header__date), p.folio-project-viewer__group-description, .folio-project-viewer__overview-content > p, .folio-project-viewer__note > p, .folio-project-viewer__callouts p) {
   font-size: 14px;
   line-height: 1.5625;
   letter-spacing: -0.01em;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p + p { margin-top: 40px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 112px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) { font-size: 16px; line-height: 1.5; margin-bottom: 32px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 64px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header > p + p { margin-top: 40px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 112px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-project-viewer__group > h3, .folio-project-viewer__note > h3) { font-size: 16px; line-height: 1.5; margin-bottom: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) p.folio-project-viewer__group-description { margin-bottom: 64px; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding: 112px 24px 80px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { margin-bottom: 72px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 80px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description { margin-bottom: 48px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { padding: 112px 24px 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header { margin-bottom: 72px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-project-viewer__group, .folio-project-viewer__note) { margin-top: 80px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) p.folio-project-viewer__group-description { margin-bottom: 48px; }
 }
 
 /* Match Journal Desk's resting paper edge and narrow top cast shadow. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   inset: auto;
   top: -14px;
   right: 2px;
@@ -5468,19 +5517,19 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 
 /* Fixed paper edges surround an independently scrolling story. */
 .folio-reading-paper { display: contents; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { overflow: hidden; padding: 32px 0 0; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) { overflow: hidden; padding: 32px 0 0; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   display: block; position: absolute; bottom: 0; left: 0; right: 0; isolation: isolate;
   width: min(100%, 840px); height: calc(100dvh - 32px); margin-inline: auto;
   box-sizing: border-box; padding-top: 0; background: #fff;
   border: 1px solid #d2d0c9; border-bottom: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { content: ""; position: absolute; z-index: -1; pointer-events: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   width: 100%; height: 100%; min-height: 0; overflow-y: auto; overflow-x: hidden;
   overscroll-behavior-y: contain; box-shadow: none; padding-top: 136px; animation: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::before { content: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::before { content: none; }
 .folio-reading-paper__close {
   position: absolute; top: 16px; right: 16px; z-index: 10;
   display: grid; place-items: center; width: 36px; height: 36px;
@@ -5489,37 +5538,37 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-reading-paper__close:hover { background: #e6e5df; }
 .folio-reading-paper__close:focus-visible { outline: 2px solid #255443; outline-offset: 3px; }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) { padding-top: 16px; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper { height: calc(100dvh - 16px); }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 112px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) { padding-top: 16px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper { height: calc(100dvh - 16px); }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { padding-top: 112px; }
 }
 
 /* Keep the cast shadow outside the bordered paper face. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   top: -18px;
 }
 
 /* A visible scroll indicator belongs to the paper's reading area. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   scrollbar-width: thin;
   scrollbar-color: #b8b5ad transparent;
   scrollbar-gutter: stable;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::-webkit-scrollbar {
   display: block;
   width: 8px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-track { background: transparent; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::-webkit-scrollbar-track { background: transparent; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb {
   background: #b8b5ad;
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 8px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb:hover { background: #918e86; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::-webkit-scrollbar-thumb:hover { background: #918e86; }
 
 /* Reuse the site's soft blur and fade at the paper's scroll boundary. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade {
   --folio-paper: #fff;
   position: absolute;
   top: 0;
@@ -5531,37 +5580,37 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* A wider paper proportion between the original sheet and A-series paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   width: min(840px, calc(100vw - 32px), calc((100dvh - 32px) / 1.2));
   height: min(calc(840px * 1.2), calc((100vw - 32px) * 1.2), calc(100dvh - 32px));
   aspect-ratio: 1 / 1.2;
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
     width: min(calc(100vw - 24px), calc((100dvh - 16px) / 1.2));
     height: min(calc((100vw - 24px) * 1.2), calc(100dvh - 16px));
   }
 }
 
 /* Give consecutive project images room within the paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 32px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__group .folio-project-viewer__group-media { gap: 32px; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__hero-image + .folio-project-viewer__media { margin-top: 32px; }
 
 /* A crisp paper outline replaces the raised top-shadow treatment. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   border: 1px solid #111;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   content: none;
 }
 
 /* Soft contact shadows follow the top and right edges of the sheet. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   border: 1px solid #cbc8c1;
   box-shadow: 2px 0 3px rgb(45 39 31 / .07), 8px 2px 16px -8px rgb(45 39 31 / .16);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   content: "";
   top: -3px;
   right: 8px;
@@ -5595,11 +5644,11 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 @media (prefers-reduced-motion: reduce) { .folio-reading-paper__title { transition: none; } }
 
 /* Keep a tight contact edge, with softer uneven depth underneath the paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   border-color: #c8c5bd;
   box-shadow: 0 1px 2px rgb(35 29 22 / .13), 3px 4px 7px -4px rgb(35 29 22 / .18);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   top: -4px; left: 2%; right: 2%; height: 6px;
   background: linear-gradient(180deg, transparent, rgb(22 18 15 / .2));
   clip-path: polygon(0 94%, 5% 70%, 14% 53%, 27% 59%, 43% 46%, 59% 58%, 75% 51%, 89% 61%, 96% 75%, 100% 93%, 100% 100%, 0 100%);
@@ -5613,14 +5662,14 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Resting paper: a fine edge, tight contact, and soft directional falloff. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   border: 1px solid rgb(74 66 57 / .16);
   box-shadow: 0 -1px 3px rgb(38 31 24 / .07),
     1px 2px 3px rgb(38 31 24 / .10),
     5px 7px 12px -6px rgb(38 31 24 / .18),
     12px 16px 30px -16px rgb(38 31 24 / .16);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   inset: 5px 8px 12px 6px;
   height: auto;
   background: transparent;
@@ -5640,23 +5689,23 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .97) 55%, rgb(255 255 255 / 0) 100%);
 }
 .folio-reading-paper__title::after { content: none; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade {
   height: 112px;
   opacity: 1;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / .95) 32%, transparent 100%);
 }
 
 /* Fade only at the paper's top edge, not across the reading area. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade {
   height: 28px;
   -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
   mask-image: linear-gradient(to bottom, #000, transparent);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff, transparent);
 }
 .folio-reading-paper__title { background: transparent; }
@@ -5670,16 +5719,16 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
 }
 
 /* Original Journal Desk resting-sheet treatment. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   border: 0;
   box-shadow: inset 0 0 0 1px rgb(74 66 57 / .13);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -5687,7 +5736,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   box-shadow: none;
   border-radius: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   top: -14px;
   right: 2px;
   bottom: auto;
@@ -5704,10 +5753,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Keep the paper outline above its contents and the cast shadow underneath. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   box-shadow: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -5717,21 +5766,21 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Keep image sequences free of visible captions. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__annotated-media > p { display: none; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__annotated-media > p { display: none; }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::after {
   box-shadow: inset 0 0 0 1px var(--paper-border-color, rgb(74 66 57 / .28));
 }
 
 /* Narrow screens use the available height instead of a fixed paper ratio. */
 @media (max-width: 800px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
     height: calc(100dvh - 32px);
     aspect-ratio: auto;
   }
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
     height: calc(100dvh - 16px);
   }
 }
@@ -5741,24 +5790,24 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header > p { white-space: pre-line; }
 
 /* White paper and matching fades for the Superr duplicate. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel,
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel,
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel::after {
   background: #fff;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade { --folio-paper: #fff; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade { --folio-paper: #fff; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff, transparent);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__title[data-visible="true"] {
   background: linear-gradient(to bottom, #fff 55%, rgb(255 255 255 / 0));
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper:has(.folio-reading-paper__title[data-visible="true"]) .folio-reading-paper__fade::after {
   background: linear-gradient(to bottom, #fff 0%, #fff 45%, rgb(255 255 255 / .75) 65%, transparent 100%);
 }
 
 /* Pale media outlines separate white artwork from the white paper. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-project-viewer__media, .folio-project-viewer__hero-image, .superr-activity) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-project-viewer__media, .folio-project-viewer__hero-image, .superr-activity) {
   outline: none;
   outline-offset: -1px;
 }
@@ -5772,19 +5821,19 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 .folio-project-viewer[data-project="superr-paper"] .folio-project-viewer__annotated-media > p { display: block; }
 
 /* Preserve the original Superr media rhythm within the paper reader. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group .folio-project-viewer__group-media {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__group .folio-project-viewer__group-media {
   gap: 10px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media {
   margin-top: 10px;
 }
 
 /* Keep original Superr section labels aligned with their media. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__group > h3 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__group > h3 {
   width: 100%; max-width: none; margin: 0 0 10px;
   font-size: 18px; line-height: 24px; font-weight: 400; letter-spacing: normal;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) p.folio-project-viewer__group-description {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) p.folio-project-viewer__group-description {
   width: 100%; max-width: none; margin: 0 0 12px;
   font-size: 14px; line-height: 1.5;
 }
@@ -5802,7 +5851,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Reuse Superr's red ink stamp on its paper introduction. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header { position: relative; }
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header { position: relative; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header__nda-stamp { top: 0; right: 0; }
 .folio-project-viewer[data-project="superr-paper"] .folio-reading-header h1 { padding-right: 84px; }
 
@@ -5815,43 +5864,43 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Slightly tighter paragraph rhythm in the Superr introduction. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) + p {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header > p:not(.folio-reading-header__date) + p {
   margin-top: 28px;
 }
 
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header > p:not(.folio-reading-header__date) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header > p:not(.folio-reading-header__date) {
   font-size: 16px;
 }
 
 /* Superr identity sits above a closely paired title and date. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__project-logo {
   display: block;
   width: 40px;
   height: 40px;
   object-fit: contain;
   margin-bottom: 16px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header h1 {
   margin-bottom: 4px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header .folio-reading-header__date {
   margin-top: 0;
 }
 
 /* A compact identity stack: supporting mark, title, then quiet metadata. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__project-logo {
   width: 28px;
   height: 28px;
   margin-bottom: 10px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header h1 {
   font-size: 34px;
   line-height: 1.15;
   font-weight: 500;
   letter-spacing: -.025em;
   margin-bottom: 6px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header .folio-reading-header__date {
   font-size: 12px;
   line-height: 18px;
   color: #85857e;
@@ -5859,44 +5908,44 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Superr paper: card identity and live border tuning. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__identity {
   display: flex; align-items: center; gap: 12px;
   padding-right: 76px; margin-bottom: 40px;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__project-logo {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__project-logo {
   width: 60px; height: 60px; flex: 0 0 60px; margin: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity h1 {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__identity h1 {
   padding: 0; margin: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-header__identity .folio-reading-header__date {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-header__identity .folio-reading-header__date {
   margin: 2px 0 0;
 }
 /* Final paper colour and original inset media, retaining the shorter opening. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper {
   --paper-border-color: #ededed;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
   padding-top: 112px;
 }
 @media (max-width: 600px) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel { padding-top: 96px; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel { padding-top: 96px; }
 }
 /* Cover the entire top edge, including the scrollbar side. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) :is(.folio-reading-paper__fade, .folio-reading-paper__title) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) :is(.folio-reading-paper__fade, .folio-reading-paper__title) {
   right: 0;
 }
 
 /* Let the site's backdrop blur soften Superr media without a white wash. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__fade::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__fade::after {
   content: none;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper__title[data-visible="true"] {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper__title[data-visible="true"] {
   background: transparent;
 }
 
 /* The top contact edge shares the shadow's grey, fading into the pale corners. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::after {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::after {
   box-shadow:
     inset 1px 0 0 var(--paper-border-color),
     inset -1px 0 0 var(--paper-border-color),
@@ -5954,10 +6003,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 
 /* Contact shadow appears only after the sheet has landed. */
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before {
   animation: paper-contact-shadow 120ms ease 440ms both;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper[data-present="false"]::before {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper[data-present="false"]::before {
   animation: none;
   opacity: 0;
 }
@@ -5966,7 +6015,7 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   to { opacity: .9; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper::before { animation: none; }
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper::before { animation: none; }
 }
 
 /* Small ink-coloured labels inside Superr's contribution sentence. */
@@ -6032,19 +6081,19 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 /* Case-study default: 64px between text blocks and media unless explicitly
    overridden. Heading/body spacing and consecutive media keep their own rhythm. */
 .folio-project-viewer { --case-study-text-media-gap: 64px; }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper .folio-reading-header {
   margin-bottom: var(--case-study-text-media-gap);
 }
 .folio-project-viewer .folio-reading-paper .folio-project-viewer__company-intro {
   margin-block: var(--case-study-text-media-gap);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-project-viewer__group, .folio-project-viewer__note) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper :is(.folio-project-viewer__group, .folio-project-viewer__note) {
   margin-top: var(--case-study-text-media-gap);
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-reading-header + .folio-project-viewer__group {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper .folio-reading-header + .folio-project-viewer__group {
   margin-top: 0;
 }
-.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper .folio-project-viewer__group > :is(h3, p):has(+ .folio-project-viewer__group-media:not(:empty)) {
+.folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper .folio-project-viewer__group > :is(h3, p):has(+ .folio-project-viewer__group-media:not(:empty)) {
   margin-bottom: var(--case-study-text-media-gap);
 }
 
@@ -7237,10 +7286,10 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   .folio-experience { padding-bottom: 160px; }
   .folio-contact { padding-bottom: max(48px, env(safe-area-inset-bottom)); }
   .folio-contact__flock { margin-top: 0; }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-project-viewer__reel {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-project-viewer__reel {
     padding-top: 80px;
   }
-  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"]) .folio-reading-paper :is(.folio-reading-header > p, .folio-project-viewer__company-intro > p, .wizpay-problems__grid article > p, .folio-project-viewer__group > p, .folio-project-viewer__group-introduction > p, .folio-text-pointers) {
+  .folio-project-viewer:is([data-project="wizpay"], [data-project="journal-desk"], [data-project="superr-paper"], [data-project="wiz-commerce"], [data-project="personal-letter"]) .folio-reading-paper :is(.folio-reading-header > p, .folio-project-viewer__company-intro > p, .wizpay-problems__grid article > p, .folio-project-viewer__group > p, .folio-project-viewer__group-introduction > p, .folio-text-pointers) {
     color: #62645d;
     font-size: 16px;
     line-height: 1.6;
@@ -7302,17 +7351,17 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   height: 102px;
   color: var(--folio-ink);
   filter:
-    drop-shadow(0 0 1px rgb(66 66 63 / 72%))
-    drop-shadow(0 4px 3px rgb(38 38 36 / 20%));
+    drop-shadow(0 0 0.6px rgb(77 77 77 / 38%))
+    drop-shadow(0 2px 2px rgb(48 48 48 / 14%));
 }
 .folio-resume-sticker__caption {
   position: relative;
   z-index: 2;
   white-space: nowrap;
-  color: #686966;
+  color: #484848;
   font: 600 13px / 1 "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: -0.018em;
-  text-shadow: 0 1px rgb(255 255 255 / 82%);
+  text-shadow: 0 0.5px rgb(255 255 255 / 55%);
 }
 .folio-resume-sticker__link {
   position: relative;
@@ -7325,12 +7374,11 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
   overflow: hidden;
   color: inherit;
   background:
-    linear-gradient(90deg, rgb(91 55 68 / 10%) 0, transparent 12% 84%, rgb(86 52 64 / 12%) 100%),
-    linear-gradient(180deg, #987884 0%, #c6a8b3 8%, #fff5f8 27%, #f0dce3 48%, #d8bcc6 79%, #b08b98 100%);
+    linear-gradient(180deg, #bfbfbf 0%, #dedede 22%, #e3e3e3 64%, #c8c8c8 100%);
   border-radius: 0;
   box-shadow:
-    inset 1px 0 rgb(255 255 255 / 55%),
-    inset -1px 0 rgb(66 66 63 / 20%),
+    inset 1px 0 rgb(255 255 255 / 75%),
+    inset -1px 0 rgb(83 83 83 / 16%),
     inset 0 1px rgb(255 255 255 / 22%);
   clip-path: url(#resume-ribbon-outline);
   flex-direction: column;
@@ -7347,15 +7395,15 @@ body.folio-project-viewer-open .folio-corner-menu { display: none; }
 }
 .folio-resume-sticker__link::before {
   inset: 1px;
-  background: linear-gradient(90deg, transparent 0 28%, rgb(255 255 255 / 24%) 49%, transparent 70%);
+  background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 58%) 42%, rgb(255 255 255 / 30%) 65%, transparent 100%);
   clip-path: inherit;
 }
 .folio-resume-sticker__link::after {
   top: 0;
   right: 0;
   left: 0;
-  height: 12px;
-  background: linear-gradient(180deg, rgb(33 33 31 / 25%), rgb(255 255 255 / 8%) 72%, transparent);
+  height: 8px;
+  background: linear-gradient(180deg, rgb(65 65 65 / 12%), transparent);
 }
 .folio-resume-sticker__link:hover,
 .folio-resume-sticker__link:focus-visible {
@@ -7373,4 +7421,115 @@ body.folio-project-viewer-open .folio-resume-sticker { display: none; }
   }
   .folio-resume-sticker__link { padding: 0 5px 14px; }
   .folio-resume-sticker__caption { font-size: 11px; }
+}
+
+.personal-envelope { position: relative; z-index: 2; display: grid; place-items: center; margin: -48px 24px 220px; }
+/* Photographic paper mailer with a live ink label. */
+.personal-envelope__cover { position: relative; width: min(252px, 61.6vw); aspect-ratio: 2 / 3; padding: 0; border: 0; background: transparent; color: #34312c; transform: rotate(4deg); cursor: pointer; text-align: left; font-family: "Geist Mono Variable", monospace; isolation: isolate; }
+.personal-envelope__image { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.personal-envelope__card { position: absolute; top: 60%; left: 16%; right: 16%; color: #a33820; text-align: center; transform: rotate(-5deg); pointer-events: none; }
+.personal-envelope__card small { display: block; font-size: clamp(7px, 2vw, 9px); letter-spacing: .05em; margin-bottom: 14px; }
+.personal-envelope__card > span { display: block; font: 400 clamp(8.4px, 2.24vw, 10.5px)/1.4 "Geist Mono Variable", monospace; letter-spacing: .02em; }
+.personal-envelope__cover:focus-visible { outline: 2px solid #555; outline-offset: 4px; border-radius: 12px; }
+@media (max-width: 620px) { .personal-envelope { margin-bottom: 150px; } }
+
+/* Matching photo prints inside the personal letter reader. */
+.folio-project-viewer[data-project="personal-letter"] .folio-project-viewer__media {
+  width: min(100%, 300px);
+  max-width: 300px;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  margin: 28px auto;
+  padding: 9px 9px 25px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 0;
+  background: #f3eee4;
+  box-shadow: none;
+}
+.folio-project-viewer[data-project="personal-letter"] .folio-project-viewer__reel > .folio-project-viewer__media + .folio-project-viewer__media { margin-top: 32px; }
+.folio-project-viewer[data-project="personal-letter"] .folio-project-viewer__media img {
+  height: auto;
+  border-radius: 0;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.folio-project-viewer[data-project="personal-letter"] .folio-paper-media__border { display: none; }
+.folio-project-viewer[data-project="personal-letter"] .folio-project-viewer__media .folio-project-asset { position: relative; inset: auto; }
+
+.personal-letter__old-heading { position: relative; display: table; font-size: .58em; font-weight: 400; color: #77736c; text-decoration: none; margin-bottom: 14px; }
+.personal-letter__old-heading::after { content: ""; position: absolute; left: -2%; top: 52%; width: 104%; height: 2px; background: #a33820; transform: rotate(-2deg) scaleX(0); transform-origin: left center; animation: personal-letter-strike 550ms 400ms ease-out forwards; }
+.personal-letter__new-heading { display: block; animation: personal-letter-reveal 350ms 950ms both; }
+@keyframes personal-letter-strike { to { transform: rotate(-2deg) scaleX(1); } }
+@keyframes personal-letter-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .personal-letter__old-heading::after { animation: none; transform: rotate(-2deg); }
+  .personal-letter__new-heading { animation: none; }
+}
+
+.personal-letter__new-heading .wizpay-outro-highlight { color: inherit; }
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-header .personal-letter__subtitle { margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: #494943; }
+
+/* Reuse the NDA stamp's distressed red ink on the mailer. */
+.personal-envelope__cover .personal-envelope__stamp {
+  mask-image: url("/assets/invoice-folio/personal-stamp-mask.svg");
+  mask-repeat: no-repeat;
+  white-space: nowrap;
+  top: 19%;
+  right: 12%;
+  width: 57%;
+  height: auto;
+  aspect-ratio: 2.5;
+  border: 0;
+  border-radius: 0;
+  font-size: clamp(10px, 3vw, 14px);
+  letter-spacing: -.03em;
+  transform: rotate(-13deg);
+}
+
+/* One print format, arranged with the rhythm of the letter. */
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-paper .personal-letter__photo {
+  width: min(100%, 300px); max-width: 300px; margin: 0;
+}
+.folio-project-viewer[data-project="personal-letter"] .personal-letter__photo .folio-project-asset { aspect-ratio: 3 / 4; }
+.folio-project-viewer[data-project="personal-letter"] .personal-letter__photo img { width: 100%; height: 100%; object-fit: cover !important; }
+.personal-letter__photo-break { display: flex; margin: 36px 6px 40px; }
+.personal-letter__photo-break--left { justify-content: flex-start; transform: rotate(-2deg); }
+.personal-letter__photo-break--right { justify-content: flex-end; transform: rotate(2deg); }
+.personal-letter__photo-pairs { display: grid; grid-template-columns: minmax(0, 300px); justify-content: start; gap: 36px; width: min(100%, 440px); margin: 0 auto 48px; align-items: start; }
+.personal-letter__photo-pairs > figure:nth-child(odd) { transform: rotate(-2deg); }
+.personal-letter__photo-pairs > figure:nth-child(even) { transform: rotate(2deg); }
+@media (max-width: 700px) {
+  .personal-letter__photo-pairs { grid-template-columns: minmax(0, 300px); justify-content: start; gap: 36px; }
+  .personal-letter__photo-pairs > figure:nth-child(even) { transform: rotate(2deg); }
+}
+/* Crop the scan's black top and bottom edges inside its existing print. */
+.folio-project-viewer[data-project="personal-letter"] .personal-letter__photo .folio-project-asset:has(img[src$="/childhood.png"]) { overflow: hidden; }
+.folio-project-viewer[data-project="personal-letter"] .personal-letter__photo img[src$="/childhood.png"] { transform: scale(1.045); }
+
+.folio-project-viewer[data-project="personal-letter"] .personal-letter__photo-intro { width: min(100%, 440px); margin: 0 auto 36px; color: #494943; font: 400 13px / 1.6 "Geist Mono Variable", monospace; text-align: left; }
+
+.personal-photo-stack { width: min(100%, 440px); margin: 0 auto 48px; }
+.personal-photo-stack__pile { position: relative; width: min(92%, 300px); aspect-ratio: 300 / 410; isolation: isolate; }
+.personal-photo-stack__print { position: absolute; inset: 0; padding: 9px 9px 25px; background: #f3eee4; box-sizing: border-box; }
+.personal-photo-stack__print img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.personal-photo-stack__front { z-index: 3; cursor: grab; }
+.personal-photo-stack__front:active { cursor: grabbing; }
+.personal-photo-stack__controls { display: flex; gap: 12px; margin-top: 28px; }
+.personal-photo-stack__controls button { width: 40px; height: 40px; border: 1px solid #dedbd4; border-radius: 50%; background: transparent; color: #494943; font-size: 20px; cursor: pointer; }
+.personal-photo-stack__controls button:focus-visible { outline: 2px solid #494943; outline-offset: 3px; }
+.personal-photo-stack__announcement { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.personal-photo-stack__card { border: 0; border-radius: 0; cursor: grab; appearance: none; }
+.personal-photo-stack__card:active { cursor: grabbing; }
+.personal-photo-stack__card:focus-visible { outline: 2px solid #494943; outline-offset: 5px; }
+.personal-photo-stack__layer { position: absolute; inset: 0; }
+/* Keep the stack on the same reading column as its caption and letter. */
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-paper .personal-photo-stack {
+  width: min(100%, 440px);
+  max-width: 440px;
+  margin: 0 auto 48px;
+  align-self: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
 }
