@@ -403,7 +403,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                     initial={false}
                     transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.58, 1] }}
                   >
-                    I think <mark className="wall-folio__experience-mark">intention</mark> matters even more now that making things is getting easier. I’m still figuring out what’s worth making. But when I care about something, I want that to show in how it works and how it feels. <mark className="wall-folio__experience-mark">To make something that can delight, inspire</mark>, or just make someone feel considered.
+                    I think <mark className="wall-folio__experience-mark">intention</mark> matters even more now that making things is getting easier. The web has enough noise. I want to build things that push back against it.
                   </motion.p>
                 </div>
               </motion.div>
@@ -427,7 +427,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
                       I’ve spent the last <a className="wall-folio__experience-mark wall-folio__experience-link" href="#resume" tabIndex={designerExpanded ? 0 : -1}>3 years</a> designing across <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Edtech</mark> and <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">B2B SaaS</mark>, plus a small detour into <mark className="wall-folio__experience-mark wall-folio__experience-mark--green">Web3</mark>.
                     </p>
                     <p className="wall-folio__designer-recent">
-                      Lately, I’ve been going pretty deep into AI-led frontend development. I keep coming back to design systems and how things scale, and I’m slowly getting more bullish on product thinking too.
+                      Lately, I’ve been using AI to take my designs into working products, getting closer to the code and the decisions that come with shipping.
                     </p>
                   </motion.div>
                 </div>

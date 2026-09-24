@@ -5,6 +5,7 @@ export function PersonalEnvelope({ onOpen }: { onOpen: MouseEventHandler<HTMLBut
     <button className="personal-envelope__cover" aria-label="Open a letter from Parth — a little beyond work" aria-haspopup="dialog" onClick={onOpen}>
       <img className="personal-envelope__image" src="/assets/invoice-folio/personal-mailer-paper.png" alt="" draggable={false} width={1024} height={1536} />
       <span className="folio-bento-card__nda-stamp personal-envelope__stamp" aria-hidden="true">PAROSAYSHI</span>
+      <span className="personal-envelope__note" aria-hidden="true">a note about me…</span>
     </button>
   </section>;
 }

@@ -550,7 +550,7 @@ export function FolioProjectViewer({ onClose, project, reducedMotion }: FolioPro
 
       </motion.div>
 
-      {(!isPaper || mediaState === "error") && mediaState !== "ready" && <div className="folio-project-viewer__loading" role="status" aria-live="polite">
+      {!isPaper && mediaState !== "ready" && <div className="folio-project-viewer__loading" role="status" aria-live="polite">
         <p>{mediaState === "error" ? "Some media couldn’t load." : "Preparing project…"}</p>
         {mediaState === "error" && <button type="button" onClick={() => setMediaAttempt(attempt => attempt + 1)}>Retry loading media</button>}
       </div>}

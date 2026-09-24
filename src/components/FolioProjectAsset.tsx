@@ -130,6 +130,15 @@ export function FolioProjectAsset({ media, reducedMotion, onExpand }: { media: F
   }, [media.kind, media.playbackRate, source, reducedMotion]);
 
   useEffect(() => {
+    if (state !== "error") return;
+    const timer = window.setTimeout(() => {
+      setState("loading");
+      setAttempt(value => value + 1);
+    }, Math.min(30000, 1000 * 2 ** Math.min(attempt, 5)));
+    return () => window.clearTimeout(timer);
+  }, [state, attempt]);
+
+  useEffect(() => {
     const retryOnline = () => {
       if (state === "error") setAttempt((value) => value + 1);
     };
@@ -138,7 +147,7 @@ export function FolioProjectAsset({ media, reducedMotion, onExpand }: { media: F
   }, [state]);
 
   return (
-    <div className="folio-project-asset" data-media-state={state} aria-busy={state === "loading"}>
+    <div className="folio-project-asset" data-media-state={state} aria-busy={state === "loading" || state === "error"}>
       {media.kind === "image" ? (
         <img key={source} ref={imageRef} alt={media.alt} loading="eager" decoding="async" src={source}
           style={{ objectFit: media.fit, objectPosition: media.position, opacity: state === "ready" ? 1 : 0 }} />
@@ -155,16 +164,15 @@ export function FolioProjectAsset({ media, reducedMotion, onExpand }: { media: F
         onClick={(event) => onExpand(event.currentTarget)}
       />}
       {state !== "ready" && (
-        <div className={`folio-project-asset__status folio-project-asset__status--${state}`} role="status">
-          <span>{state === "loading" ? "Loading media…" : state === "blocked" ? "Tap to start video" : "This media couldn’t load."}</span>
-          {state !== "loading" && (
-            <button type="button" aria-label={`${state === "blocked" ? "Start" : "Retry"} ${label}`}
-              onClick={() => {
-                if (state === "blocked") resumeRef.current();
-                else { setState("loading"); setAttempt((value) => value + 1); }
-              }}>{state === "blocked" ? "Start video" : "Retry"}</button>
-          )}
-        </div>
+        state === "blocked" ? (
+          <div className="folio-project-asset__status" role="status">
+            <button type="button" aria-label={`Start ${label}`} onClick={() => resumeRef.current()}>Start video</button>
+          </div>
+        ) : (
+          <div className="folio-project-asset__loader" role="status" aria-label="Loading media">
+            <span aria-hidden="true" />
+          </div>
+        )
       )}
     </div>
   );

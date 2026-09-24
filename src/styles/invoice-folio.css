@@ -7425,7 +7425,7 @@ body.folio-project-viewer-open .folio-resume-sticker { display: none; }
 
 .personal-envelope { position: relative; z-index: 2; display: grid; place-items: center; margin: -48px 24px 220px; }
 /* Photographic paper mailer with a live ink label. */
-.personal-envelope__cover { position: relative; width: min(252px, 61.6vw); aspect-ratio: 2 / 3; padding: 0; border: 0; background: transparent; color: #34312c; transform: rotate(4deg); cursor: pointer; text-align: left; font-family: "Geist Mono Variable", monospace; isolation: isolate; }
+.personal-envelope__cover { position: relative; width: min(289.8px, 70.84vw); aspect-ratio: 2 / 3; padding: 0; border: 0; background: transparent; color: #34312c; transform: rotate(4deg); cursor: pointer; text-align: left; font-family: "Geist Mono Variable", monospace; isolation: isolate; }
 .personal-envelope__image { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .personal-envelope__card { position: absolute; top: 60%; left: 16%; right: 16%; color: #a33820; text-align: center; transform: rotate(-5deg); pointer-events: none; }
 .personal-envelope__card small { display: block; font-size: clamp(7px, 2vw, 9px); letter-spacing: .05em; margin-bottom: 14px; }
@@ -7474,18 +7474,25 @@ body.folio-project-viewer-open .folio-resume-sticker { display: none; }
 /* Reuse the NDA stamp's distressed red ink on the mailer. */
 .personal-envelope__cover .personal-envelope__stamp {
   mask-image: url("/assets/invoice-folio/personal-stamp-mask.svg");
-  mask-repeat: no-repeat;
+  mask-mode: luminance;
+  mask-size: 44px 44px;
+  mask-repeat: repeat;
   white-space: nowrap;
-  top: 19%;
-  right: 12%;
-  width: 57%;
+  top: 7%;
+  left: 10%;
+  right: auto;
+  justify-content: flex-start;
+  text-align: left;
+  width: 80%;
   height: auto;
-  aspect-ratio: 2.5;
+  aspect-ratio: auto;
+  padding: 0;
+  line-height: 1.1;
   border: 0;
   border-radius: 0;
-  font-size: clamp(10px, 3vw, 14px);
+  font-size: clamp(19px, 5.5vw, 25px);
   letter-spacing: -.03em;
-  transform: rotate(-13deg);
+  transform: none;
 }
 
 /* One print format, arranged with the rhythm of the letter. */
@@ -7532,4 +7539,45 @@ body.folio-project-viewer-open .folio-resume-sticker { display: none; }
   align-self: center;
   flex: 0 0 auto;
   box-sizing: border-box;
+}
+/* The personal title has two text lines, not the shared logo/title row. */
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-paper .folio-reading-header__identity { display: block; padding-right: 0; }
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-header__identity > div { width: 100%; min-width: 0; }
+.folio-project-viewer[data-project="personal-letter"] .folio-reading-paper .folio-reading-header__identity h1 { display: block; min-height: 0; width: 100%; }
+@media (max-width: 620px) {
+  .folio-project-viewer[data-project="personal-letter"] .folio-reading-paper .folio-reading-header__identity h1 { font-size: clamp(25px, 7vw, 30px); line-height: 1.2; }
+  .personal-letter__old-heading { font-size: 16px; max-width: 100%; }
+}
+
+.folio-project-asset__loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.folio-project-asset__loader > span {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgb(73 73 67 / 15%);
+  border-top-color: #77766e;
+  border-radius: 50%;
+  animation: folio-media-spin 0.9s linear infinite;
+}
+@keyframes folio-media-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .folio-project-asset__loader > span { animation: none; }
+}
+
+.personal-envelope__note {
+  position: absolute;
+  top: calc(7% + clamp(19px, 5.5vw, 25px) * 1.1 + 4px);
+  left: 10%;
+  right: 10%;
+  color: #b51f18;
+  mix-blend-mode: multiply;
+  font: 400 clamp(9px, 2.5vw, 11px)/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: left;
+  transform: none;
+  pointer-events: none;
 }
