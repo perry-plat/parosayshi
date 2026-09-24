@@ -658,17 +658,28 @@ button.folio-wiz-study { border: 0; padding: 0; text-align: left; font: inherit;
   .folio-wiz-study[data-folio-project="wizpay"] .folio-wiz-study__editorial-copy { left: 20px; right: 20px; bottom: 20px; }
 }
 
-.folio-bento-card__journal-tagline {
+.folio-bento-card__journal-copy {
   position: absolute;
   z-index: 2;
   left: 24px;
   right: 24px;
   bottom: 28px;
+  display: grid;
+  gap: 8px;
+  pointer-events: none;
+}
+.folio-bento-card__journal-tagline {
   margin: 0;
   color: #f7f5e9;
   font: 500 clamp(24px, 2.6vw, 36px) / 1.15 "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: -.035em;
-  pointer-events: none;
+}
+.folio-bento-card__journal-explainer {
+  max-width: 620px;
+  margin: 0;
+  color: rgb(247 245 233 / 68%);
+  font: 400 13px / 1.45 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
 }
 
 .folio-bento-card[data-project="journal-desk"] .folio-bento-card__logo {

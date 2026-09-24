@@ -38,12 +38,12 @@ const palettes: BirdPalette[] = [
   { normal: new THREE.Color(0x292a2d) },
 ];
 
-function createTree(scale = 1, foliageColor = 0x71835a) {
+function createTree(scale = 1, foliageColor = 0xf2c6d1) {
   const tree = new THREE.Group();
   const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x79604a, flatShading: true });
   const foliageMaterials = [
     new THREE.MeshLambertMaterial({ color: foliageColor, flatShading: true }),
-    new THREE.MeshLambertMaterial({ color: 0x87966a, flatShading: true }),
+    new THREE.MeshLambertMaterial({ color: 0xe9aebe, flatShading: true }),
   ];
 
   const trunk = new THREE.Mesh(new THREE.BoxGeometry(0.22, 1.4, 0.22), trunkMaterial);
@@ -551,66 +551,66 @@ export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps
     }
 
     [
-      { x: -5.05, z: -0.55, scale: 0.88, rotation: -0.18, color: 0x667d52 },
-      { x: -4.42, z: -1.62, scale: 0.63, rotation: 0.28, color: 0x7d8d62 },
-      { x: -3.78, z: -0.86, scale: 0.78, rotation: -0.26, color: 0x71845a },
-      { x: -3.14, z: -1.74, scale: 0.5, rotation: 0.18, color: 0x87966a },
-      { x: -2.02, z: -2.12, scale: 0.56, rotation: -0.12, color: 0x64784f },
-      { x: -0.92, z: -2.38, scale: 0.46, rotation: 0.32, color: 0x7b8c60 },
-      { x: 0.76, z: -2.42, scale: 0.52, rotation: -0.24, color: 0x6b8053 },
-      { x: 1.88, z: -2.08, scale: 0.44, rotation: 0.16, color: 0x829168 },
-      { x: 3.04, z: -1.7, scale: 0.58, rotation: -0.3, color: 0x65794f },
-      { x: 3.72, z: -0.94, scale: 0.82, rotation: 0.22, color: 0x76885b },
-      { x: 4.4, z: -1.58, scale: 0.62, rotation: -0.16, color: 0x87966a },
-      { x: 5.02, z: -0.48, scale: 0.78, rotation: 0.3, color: 0x6c8054 },
-      { x: -4.62, z: -2.78, scale: 0.48, rotation: 0.2, color: 0x718359 },
-      { x: -3.46, z: -3.04, scale: 0.55, rotation: -0.28, color: 0x829168 },
-      { x: -2.56, z: -2.86, scale: 0.4, rotation: 0.12, color: 0x65794f },
-      { x: -1.42, z: -3.18, scale: 0.5, rotation: -0.2, color: 0x798b60 },
-      { x: 1.34, z: -3.2, scale: 0.46, rotation: 0.26, color: 0x698054 },
-      { x: 2.48, z: -2.9, scale: 0.54, rotation: -0.12, color: 0x84946b },
-      { x: 3.4, z: -3.06, scale: 0.42, rotation: 0.3, color: 0x64784e },
-      { x: 4.56, z: -2.74, scale: 0.52, rotation: -0.24, color: 0x788b5d },
-      { x: -5.28, z: -3.72, scale: 0.38, rotation: -0.26, color: 0x74875a },
-      { x: -4.76, z: -4.46, scale: 0.46, rotation: 0.2, color: 0x65794f },
-      { x: -4.12, z: -3.84, scale: 0.34, rotation: -0.12, color: 0x84946a },
-      { x: -3.58, z: -4.64, scale: 0.5, rotation: 0.3, color: 0x708458 },
-      { x: -2.98, z: -3.7, scale: 0.42, rotation: -0.22, color: 0x798b60 },
-      { x: -2.34, z: -4.34, scale: 0.36, rotation: 0.14, color: 0x62764b },
-      { x: -1.76, z: -3.82, scale: 0.47, rotation: -0.3, color: 0x829168 },
-      { x: -1.12, z: -4.54, scale: 0.32, rotation: 0.24, color: 0x6b8052 },
-      { x: -0.56, z: -3.92, scale: 0.4, rotation: -0.16, color: 0x788a5c },
-      { x: -0.08, z: -4.68, scale: 0.35, rotation: 0.28, color: 0x64794d },
-      { x: 0.48, z: -3.9, scale: 0.38, rotation: -0.24, color: 0x839269 },
-      { x: 1.02, z: -4.58, scale: 0.44, rotation: 0.18, color: 0x667b50 },
-      { x: 1.62, z: -3.78, scale: 0.33, rotation: -0.1, color: 0x798c5f },
-      { x: 2.18, z: -4.4, scale: 0.48, rotation: 0.26, color: 0x718559 },
-      { x: 2.78, z: -3.74, scale: 0.37, rotation: -0.28, color: 0x86956c },
-      { x: 3.36, z: -4.62, scale: 0.43, rotation: 0.12, color: 0x62774b },
-      { x: 3.94, z: -3.86, scale: 0.35, rotation: -0.2, color: 0x7b8c61 },
-      { x: 4.46, z: -4.42, scale: 0.49, rotation: 0.3, color: 0x697e51 },
-      { x: 4.94, z: -3.7, scale: 0.34, rotation: -0.14, color: 0x829267 },
-      { x: 5.34, z: -4.22, scale: 0.41, rotation: 0.22, color: 0x65794e },
-      { x: -5.46, z: -0.54, scale: 0.64, rotation: -0.24, color: 0x71855a },
-      { x: -5.82, z: -1.46, scale: 0.5, rotation: 0.2, color: 0x839269 },
-      { x: -6.1, z: -2.44, scale: 0.58, rotation: -0.14, color: 0x64794e },
-      { x: -6.36, z: -0.82, scale: 0.74, rotation: 0.28, color: 0x798b5f },
-      { x: -6.62, z: -1.88, scale: 0.46, rotation: -0.3, color: 0x687e51 },
-      { x: -6.88, z: -3.08, scale: 0.55, rotation: 0.12, color: 0x86956c },
-      { x: -7.08, z: -0.48, scale: 0.68, rotation: -0.18, color: 0x657a4f },
-      { x: -7.3, z: -1.54, scale: 0.52, rotation: 0.3, color: 0x7d8e63 },
-      { x: -7.5, z: -2.62, scale: 0.43, rotation: -0.1, color: 0x708358 },
-      { x: -7.68, z: -3.56, scale: 0.58, rotation: 0.24, color: 0x829168 },
-      { x: 5.48, z: -0.58, scale: 0.62, rotation: 0.22, color: 0x687e52 },
-      { x: 5.8, z: -1.52, scale: 0.48, rotation: -0.26, color: 0x84936a },
-      { x: 6.08, z: -2.38, scale: 0.6, rotation: 0.14, color: 0x65794e },
-      { x: 6.34, z: -0.76, scale: 0.72, rotation: -0.3, color: 0x7b8c61 },
-      { x: 6.64, z: -1.94, scale: 0.45, rotation: 0.18, color: 0x708559 },
-      { x: 6.86, z: -3.02, scale: 0.56, rotation: -0.12, color: 0x87966c },
-      { x: 7.1, z: -0.5, scale: 0.66, rotation: 0.26, color: 0x647a4f },
-      { x: 7.32, z: -1.48, scale: 0.5, rotation: -0.22, color: 0x7f8f64 },
-      { x: 7.52, z: -2.58, scale: 0.44, rotation: 0.1, color: 0x6d8255 },
-      { x: 7.7, z: -3.5, scale: 0.57, rotation: -0.28, color: 0x83936a },
+      { x: -5.05, z: -0.55, scale: 0.88, rotation: -0.18, color: 0xf2c6d1 },
+      { x: -4.42, z: -1.62, scale: 0.63, rotation: 0.28, color: 0xe9aebe },
+      { x: -3.78, z: -0.86, scale: 0.78, rotation: -0.26, color: 0xf6d8df },
+      { x: -3.14, z: -1.74, scale: 0.5, rotation: 0.18, color: 0xd99aae },
+      { x: -2.02, z: -2.12, scale: 0.56, rotation: -0.12, color: 0xefbdca },
+      { x: -0.92, z: -2.38, scale: 0.46, rotation: 0.32, color: 0xf4ced7 },
+      { x: 0.76, z: -2.42, scale: 0.52, rotation: -0.24, color: 0xf2c6d1 },
+      { x: 1.88, z: -2.08, scale: 0.44, rotation: 0.16, color: 0xe9aebe },
+      { x: 3.04, z: -1.7, scale: 0.58, rotation: -0.3, color: 0xf6d8df },
+      { x: 3.72, z: -0.94, scale: 0.82, rotation: 0.22, color: 0xd99aae },
+      { x: 4.4, z: -1.58, scale: 0.62, rotation: -0.16, color: 0xefbdca },
+      { x: 5.02, z: -0.48, scale: 0.78, rotation: 0.3, color: 0xf4ced7 },
+      { x: -4.62, z: -2.78, scale: 0.48, rotation: 0.2, color: 0xf2c6d1 },
+      { x: -3.46, z: -3.04, scale: 0.55, rotation: -0.28, color: 0xe9aebe },
+      { x: -2.56, z: -2.86, scale: 0.4, rotation: 0.12, color: 0xf6d8df },
+      { x: -1.42, z: -3.18, scale: 0.5, rotation: -0.2, color: 0xd99aae },
+      { x: 1.34, z: -3.2, scale: 0.46, rotation: 0.26, color: 0xefbdca },
+      { x: 2.48, z: -2.9, scale: 0.54, rotation: -0.12, color: 0xf4ced7 },
+      { x: 3.4, z: -3.06, scale: 0.42, rotation: 0.3, color: 0xf2c6d1 },
+      { x: 4.56, z: -2.74, scale: 0.52, rotation: -0.24, color: 0xe9aebe },
+      { x: -5.28, z: -3.72, scale: 0.38, rotation: -0.26, color: 0xf6d8df },
+      { x: -4.76, z: -4.46, scale: 0.46, rotation: 0.2, color: 0xd99aae },
+      { x: -4.12, z: -3.84, scale: 0.34, rotation: -0.12, color: 0xefbdca },
+      { x: -3.58, z: -4.64, scale: 0.5, rotation: 0.3, color: 0xf4ced7 },
+      { x: -2.98, z: -3.7, scale: 0.42, rotation: -0.22, color: 0xf2c6d1 },
+      { x: -2.34, z: -4.34, scale: 0.36, rotation: 0.14, color: 0xe9aebe },
+      { x: -1.76, z: -3.82, scale: 0.47, rotation: -0.3, color: 0xf6d8df },
+      { x: -1.12, z: -4.54, scale: 0.32, rotation: 0.24, color: 0xd99aae },
+      { x: -0.56, z: -3.92, scale: 0.4, rotation: -0.16, color: 0xefbdca },
+      { x: -0.08, z: -4.68, scale: 0.35, rotation: 0.28, color: 0xf4ced7 },
+      { x: 0.48, z: -3.9, scale: 0.38, rotation: -0.24, color: 0xf2c6d1 },
+      { x: 1.02, z: -4.58, scale: 0.44, rotation: 0.18, color: 0xe9aebe },
+      { x: 1.62, z: -3.78, scale: 0.33, rotation: -0.1, color: 0xf6d8df },
+      { x: 2.18, z: -4.4, scale: 0.48, rotation: 0.26, color: 0xd99aae },
+      { x: 2.78, z: -3.74, scale: 0.37, rotation: -0.28, color: 0xefbdca },
+      { x: 3.36, z: -4.62, scale: 0.43, rotation: 0.12, color: 0xf4ced7 },
+      { x: 3.94, z: -3.86, scale: 0.35, rotation: -0.2, color: 0xf2c6d1 },
+      { x: 4.46, z: -4.42, scale: 0.49, rotation: 0.3, color: 0xe9aebe },
+      { x: 4.94, z: -3.7, scale: 0.34, rotation: -0.14, color: 0xf6d8df },
+      { x: 5.34, z: -4.22, scale: 0.41, rotation: 0.22, color: 0xd99aae },
+      { x: -5.46, z: -0.54, scale: 0.64, rotation: -0.24, color: 0xefbdca },
+      { x: -5.82, z: -1.46, scale: 0.5, rotation: 0.2, color: 0xf4ced7 },
+      { x: -6.1, z: -2.44, scale: 0.58, rotation: -0.14, color: 0xf2c6d1 },
+      { x: -6.36, z: -0.82, scale: 0.74, rotation: 0.28, color: 0xe9aebe },
+      { x: -6.62, z: -1.88, scale: 0.46, rotation: -0.3, color: 0xf6d8df },
+      { x: -6.88, z: -3.08, scale: 0.55, rotation: 0.12, color: 0xd99aae },
+      { x: -7.08, z: -0.48, scale: 0.68, rotation: -0.18, color: 0xefbdca },
+      { x: -7.3, z: -1.54, scale: 0.52, rotation: 0.3, color: 0xf4ced7 },
+      { x: -7.5, z: -2.62, scale: 0.43, rotation: -0.1, color: 0xf2c6d1 },
+      { x: -7.68, z: -3.56, scale: 0.58, rotation: 0.24, color: 0xe9aebe },
+      { x: 5.48, z: -0.58, scale: 0.62, rotation: 0.22, color: 0xf6d8df },
+      { x: 5.8, z: -1.52, scale: 0.48, rotation: -0.26, color: 0xd99aae },
+      { x: 6.08, z: -2.38, scale: 0.6, rotation: 0.14, color: 0xefbdca },
+      { x: 6.34, z: -0.76, scale: 0.72, rotation: -0.3, color: 0xf4ced7 },
+      { x: 6.64, z: -1.94, scale: 0.45, rotation: 0.18, color: 0xf2c6d1 },
+      { x: 6.86, z: -3.02, scale: 0.56, rotation: -0.12, color: 0xe9aebe },
+      { x: 7.1, z: -0.5, scale: 0.66, rotation: 0.26, color: 0xf6d8df },
+      { x: 7.32, z: -1.48, scale: 0.5, rotation: -0.22, color: 0xd99aae },
+      { x: 7.52, z: -2.58, scale: 0.44, rotation: 0.1, color: 0xefbdca },
+      { x: 7.7, z: -3.5, scale: 0.57, rotation: -0.28, color: 0xf4ced7 },
     ].forEach(({ x, z, scale, rotation, color }) => {
       const tree = createTree(scale * 1.44, color);
       tree.position.set(x, -0.05, z);
@@ -640,7 +640,8 @@ export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps
       scene.add(grass);
     });
 
-    const groveColors = [0x65794f, 0x71855a, 0x7d8e63, 0x839269, 0x687e51, 0x86956c];
+    const groveColors = [0xf2c6d1, 0xe9aebe, 0xf6d8df, 0xd99aae, 0xefbdca, 0xf4ced7];
+    const grassColors = [0x65794f, 0x71855a, 0x7d8e63, 0x839269, 0x687e51, 0x86956c];
     const additionalTrees = [
       ...Array.from({ length: 48 }, (_, index) => {
         const sideIndex = index % 24;
@@ -677,7 +678,7 @@ export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps
         x: side * (2.8 + (lane % 8) * 0.57),
         z: 0.28 - Math.floor(lane / 8) * 0.72 - (lane % 3) * 0.12,
         scale: 0.42 + (index % 5) * 0.09,
-        color: groveColors[(index + 4) % groveColors.length],
+        color: grassColors[(index + 4) % grassColors.length],
       };
     }).forEach(({ x, z, scale, color }, index) => {
       const grass = createGrassTuft(scale * 1.44, color);

@@ -58,7 +58,12 @@ export function FolioBentoCard({
           <p>A little of what I’ve designed and built with the Superr team. Most is under NDA. This bit’s yours to explore.</p>
         </div>
       ) : null}
-      {project.id === "journal-desk" && <p className="folio-bento-card__journal-tagline">Just write without AI for once</p>}
+      {project.id === "journal-desk" && (
+        <div className="folio-bento-card__journal-copy">
+          <p className="folio-bento-card__journal-tagline">Just write without AI for once</p>
+          <p className="folio-bento-card__journal-explainer">A local-first writing desk exploring how digital notes, paper movement, and highlighting can still feel physical.</p>
+        </div>
+      )}
       <button
         aria-label={`Open ${project.cardTitle} project`}
         aria-pressed={active}

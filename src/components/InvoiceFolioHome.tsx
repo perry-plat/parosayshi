@@ -5,7 +5,6 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { folioProjectOrder, folioProjects, type FolioProjectId } from "../data/folioProjects";
-import EnvelopeCursorHover from "./EnvelopeCursorHover";
 import { ContactBirdFlock } from "./ContactBirdFlock";
 // Temporarily hidden from the main view.
 // import { SuperrExperimentsCard } from "./superr-experiments/SuperrExperimentsCard";
@@ -307,11 +306,18 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
         wallColor={wallTheme === "night" ? "#0b0f18" : wallTheme === "evening" ? "#f0c7b1" : "#fffaf7"}
       />
       <PaperSurface />
-      <EnvelopeCursorHover className="folio-resume-sticker" reducedMotion={reducedMotion}>
+      <div className="folio-resume-sticker">
+        <svg aria-hidden="true" width="0" height="0" style={{ position: "absolute" }}>
+          <defs>
+            <clipPath id="resume-ribbon-outline" clipPathUnits="objectBoundingBox">
+              <path d="M0 0 H1 V.965 Q1 .999 .95 .98 L.525 .85 Q.5 .842 .475 .85 L.05 .98 Q0 .999 0 .965 Z" />
+            </clipPath>
+          </defs>
+        </svg>
         <a className="folio-resume-sticker__link" href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="View résumé">
           <span className="folio-resume-sticker__caption">Resume</span>
         </a>
-      </EnvelopeCursorHover>
+      </div>
 
       <section
         aria-label="Parosayshi introduction"

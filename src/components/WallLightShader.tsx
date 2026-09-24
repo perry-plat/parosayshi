@@ -47,20 +47,63 @@ function makeLeafTexture(blossom = false) {
   context.clearRect(0, 0, 128, 128);
   context.fillStyle = "#fff";
   if (blossom) {
-    // Five rounded petals, with a small notch at each tip.
-    context.translate(64, 64);
-    for (let petal = 0; petal < 5; petal += 1) {
+    // A loose cluster reads more like blossom-laden twigs in silhouette than
+    // one repeated flower stamp. Slightly different sizes keep the shadow
+    // organic once the texture is scattered across the procedural branches.
+    const flowers = [
+      { x: 34, y: 45, radius: 19, rotation: -0.18 },
+      { x: 66, y: 32, radius: 17, rotation: 0.12 },
+      { x: 91, y: 51, radius: 20, rotation: -0.06 },
+      { x: 49, y: 78, radius: 21, rotation: 0.2 },
+      { x: 82, y: 87, radius: 18, rotation: -0.22 },
+    ];
+    flowers.forEach(({ x, y, radius, rotation }) => {
       context.save();
-      context.rotate(petal * Math.PI * 2 / 5);
+      context.translate(x, y);
+      context.rotate(rotation);
+      for (let petal = 0; petal < 5; petal += 1) {
+        context.save();
+        context.rotate(petal * Math.PI * 2 / 5);
+        context.beginPath();
+        context.moveTo(0, radius * 0.08);
+        context.bezierCurveTo(
+          -radius * 0.46,
+          -radius * 0.12,
+          -radius * 0.42,
+          -radius * 0.88,
+          0,
+          -radius,
+        );
+        context.bezierCurveTo(
+          radius * 0.42,
+          -radius * 0.88,
+          radius * 0.46,
+          -radius * 0.12,
+          0,
+          radius * 0.08,
+        );
+        context.fill();
+        context.restore();
+      }
+      context.restore();
+    });
+    // Small petal-shaped openings let the wall colour shine through the
+    // cluster, giving the shadow a floral dapple without adding pink pigment.
+    context.globalCompositeOperation = "destination-out";
+    [
+      { x: 56, y: 55, rx: 4.2, ry: 8.2, rotation: -0.55 },
+      { x: 74, y: 62, rx: 3.8, ry: 7.4, rotation: 0.62 },
+      { x: 63, y: 88, rx: 3.4, ry: 6.8, rotation: 0.14 },
+    ].forEach(({ x, y, rx, ry, rotation }) => {
+      context.save();
+      context.translate(x, y);
+      context.rotate(rotation);
       context.beginPath();
-      context.moveTo(0, 7);
-      context.bezierCurveTo(-33, -8, -27, -52, -7, -54);
-      context.lineTo(0, -47);
-      context.lineTo(7, -54);
-      context.bezierCurveTo(27, -52, 33, -8, 0, 7);
+      context.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
       context.fill();
       context.restore();
-    }
+    });
+    context.globalCompositeOperation = "source-over";
   } else {
   context.beginPath();
   context.moveTo(63, 6);
@@ -94,7 +137,7 @@ function wallLuma(color: string) {
   return (red * 0.299 + green * 0.587 + blue * 0.114) / 255;
 }
 
-export function WallLightShader({ paused = false, blossom = false, glowColor, glowStrength, lightColor, reducedMotion, wallColor }: WallLightShaderProps) {
+export function WallLightShader({ paused = false, blossom = false, glowColor, glowStrength, reducedMotion, wallColor }: WallLightShaderProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(paused);
 
@@ -125,14 +168,35 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
 
     const lightWall = wallLuma(wallColor) > 0.55;
     const receiverMaterial = new THREE.ShadowMaterial({
-      color: blossom ? (lightWall ? 0x695066 : 0x211622) : (lightWall ? 0x171311 : 0x050403),
-      opacity: lightWall ? (blossom ? 0.18 : 0.165) : 0.1,
+      color: blossom ? (lightWall ? 0x5b5960 : 0x1f2024) : (lightWall ? 0x171311 : 0x050403),
+      opacity: lightWall ? (blossom ? 0.17 : 0.165) : 0.1,
       transparent: true,
       depthWrite: false,
     });
     const receiver = new THREE.Mesh(new THREE.PlaneGeometry(48, 36), receiverMaterial);
     receiver.receiveShadow = true;
     scene.add(receiver);
+
+    // A restrained accent pass receives shadows from blossom clusters only.
+    // Its small offset lets a blush edge peek out without tinting branches or
+    // turning the full canopy shadow pink.
+    const blossomAccentMaterial = blossom ? new THREE.ShadowMaterial({
+      color: new THREE.Color(glowColor),
+      opacity: lightWall ? Math.min(0.095 * glowStrength, 0.12) : 0.04,
+      transparent: true,
+      depthWrite: false,
+    }) : null;
+    const blossomAccentReceiver = blossomAccentMaterial
+      ? new THREE.Mesh(new THREE.PlaneGeometry(48, 36), blossomAccentMaterial)
+      : null;
+    if (blossomAccentReceiver) {
+      blossomAccentReceiver.position.z = -0.015;
+      blossomAccentReceiver.renderOrder = -1;
+      blossomAccentReceiver.receiveShadow = true;
+      blossomAccentReceiver.layers.set(1);
+      scene.add(blossomAccentReceiver);
+      camera.layers.enable(1);
+    }
 
     // This follows the accepted Journal Desk construction: actual leaf and
     // branch silhouettes cast through a softened directional-light shadow map.
@@ -155,6 +219,25 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
     sunlight.shadow.normalBias = 0.018;
     sunlight.shadow.radius = constrainedDevice ? 6.5 : 13;
     scene.add(sunlight, sunlight.target);
+
+    const blossomAccentLight = blossom ? new THREE.DirectionalLight(0xfff3dd, 2.2) : null;
+    if (blossomAccentLight) {
+      blossomAccentLight.position.copy(sunlight.position).add(new THREE.Vector3(-0.44, 0.26, 0));
+      blossomAccentLight.target.position.copy(sunlight.target.position);
+      blossomAccentLight.castShadow = true;
+      blossomAccentLight.layers.set(1);
+      blossomAccentLight.shadow.mapSize.set(constrainedDevice ? 512 : 1024, constrainedDevice ? 512 : 1024);
+      blossomAccentLight.shadow.camera.left = -16;
+      blossomAccentLight.shadow.camera.right = 16;
+      blossomAccentLight.shadow.camera.top = 14;
+      blossomAccentLight.shadow.camera.bottom = -14;
+      blossomAccentLight.shadow.camera.near = 1;
+      blossomAccentLight.shadow.camera.far = 44;
+      blossomAccentLight.shadow.bias = -0.00035;
+      blossomAccentLight.shadow.normalBias = 0.02;
+      blossomAccentLight.shadow.radius = constrainedDevice ? 8 : 13;
+      scene.add(blossomAccentLight, blossomAccentLight.target);
+    }
 
     const leafTexture = makeLeafTexture(blossom);
     if (!leafTexture) {
@@ -209,11 +292,11 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
       z: number,
       depth: number,
     ) => {
-      const count = blossom ? (depth === 0 ? 3 : 2) : (depth === 0 ? 5 : 3);
+      const count = blossom ? (depth === 0 ? 4 : 3) : (depth === 0 ? 5 : 3);
       for (let index = 0; index < count; index += 1) {
         const angle = branchAngle + (random() - 0.5) * 2.1;
         const distance = 0.16 + random() * 0.52;
-        const width = 0.48 + random() * 0.4;
+        const width = blossom ? 0.34 + random() * 0.32 : 0.48 + random() * 0.4;
         const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
         leaf.position.set(
           point.x + Math.cos(angle) * distance,
@@ -223,6 +306,7 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
         leaf.scale.set(width, width * (blossom ? (0.8 + random() * 0.2) : (0.3 + random() * 0.12)), 1);
         leaf.rotation.z = angle + (random() - 0.5) * 0.55;
         leaf.castShadow = true;
+        if (blossom) leaf.layers.enable(1);
         parent.add(leaf);
         movingLeaves.push({
           basePosition: leaf.position.clone(),
@@ -302,64 +386,6 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
       scene.add(canopy);
     });
 
-    // An art-directed transmission layer: soft rose pools between the shadows.
-    // One plane in the existing renderer, driven by the canopy's motion clock.
-    const blossomLight = blossom ? new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.ShaderMaterial({
-        transparent: true,
-        depthWrite: false,
-        uniforms: {
-          time: { value: 0 },
-          rose: { value: new THREE.Color(glowColor) },
-          sun: { value: new THREE.Color(lightColor) },
-          strength: { value: lightWall ? Math.min(glowStrength, 1.4) : 0.28 },
-        },
-        vertexShader: `varying vec2 uvLight;
-          void main() { uvLight = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-        fragmentShader: `
-          varying vec2 uvLight;
-          uniform float time;
-          uniform vec3 rose;
-          uniform vec3 sun;
-          uniform float strength;
-          void main() {
-            vec2 p = uvLight;
-            float pools = 0.0;
-            float halo = 0.0;
-            float gold = 0.0;
-            for (int i = 0; i < 18; i++) {
-              float n = float(i);
-              float phase = n * 2.4;
-              float breeze = sin(time * .72 + phase) * .68 + sin(time * .29 + phase * .7) * .32;
-              vec2 center = vec2(.08 + fract(n * .618) * .84, .1 + fract(n * .382 + .21) * .83);
-              center += vec2(breeze * .015, sin(time * .46 + phase) * .007);
-              vec2 d = (p - center) / vec2(.055 + fract(n * .37) * .085, .06 + fract(n * .23) * .07);
-              float edge = dot(d, d) * (1.0 + .16 * sin(d.x * 3.0 + n) * sin(d.y * 2.0));
-              float petal = exp(-edge * 1.8);
-              // Keep the centre quiet and let the rose colour gather at the
-              // edge, like sunlight catching the translucent petal rim.
-              float rim = exp(-abs(edge - 0.72) * 5.5);
-              pools += petal * (.22 + .10 * sin(n * 1.7));
-              halo += rim * (.62 + .18 * sin(n * 1.7));
-              gold += exp(-dot(d + vec2(.55, -.25), d + vec2(.55, -.25)) * 2.0) * .16;
-            }
-            // Leave the central reading area mostly cream.
-            float quietCenter = 1.0 - .68 * exp(-pow((p.x - .5) / .24, 2.0)) * smoothstep(.15, .4, p.y);
-            float alpha = clamp((pools * .14 + halo * .42) * quietCenter, 0.0, .34) * strength;
-            vec3 tint = mix(rose, sun, clamp(gold / max(pools, .001), .0, .65));
-            gl_FragColor = vec4(tint, alpha);
-            #include <tonemapping_fragment>
-            #include <colorspace_fragment>
-          }`,
-      }),
-    ) : null;
-    if (blossomLight) {
-      blossomLight.position.z = -0.02;
-      blossomLight.renderOrder = -1;
-      scene.add(blossomLight);
-    }
-
     let motionTime = 0;
     let previousFrameTime: number | null = null;
     let animationFrame = 0;
@@ -392,7 +418,6 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
         leaf.mesh.position.x = leaf.basePosition.x + flutter * 0.026 * airPulse;
         leaf.mesh.position.y = leaf.basePosition.y + tremble * 0.02 * airPulse;
       });
-      if (blossomLight) blossomLight.material.uniforms.time.value = time;
       renderer.render(scene, camera);
     };
 
@@ -417,7 +442,6 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
       const aspect = width / height;
       const sceneHeight = 12.5;
       const sceneWidth = sceneHeight * aspect;
-      if (blossomLight) blossomLight.scale.set(sceneWidth, sceneHeight, 1);
       camera.left = -sceneWidth / 2;
       camera.right = sceneWidth / 2;
       camera.top = sceneHeight / 2;
@@ -493,8 +517,8 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
       window.cancelAnimationFrame(animationFrame);
       window.cancelAnimationFrame(scrollFadeFrame);
       scene.clear();
-      blossomLight?.geometry.dispose();
-      blossomLight?.material.dispose();
+      blossomAccentReceiver?.geometry.dispose();
+      blossomAccentMaterial?.dispose();
       receiver.geometry.dispose();
       receiverMaterial.dispose();
       branchGeometry.dispose();
@@ -503,10 +527,11 @@ export function WallLightShader({ paused = false, blossom = false, glowColor, gl
       leafMaterial.dispose();
       leafTexture.dispose();
       sunlight.shadow.map?.dispose();
+      blossomAccentLight?.shadow.map?.dispose();
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [blossom, glowColor, glowStrength, lightColor, reducedMotion, wallColor]);
+  }, [blossom, glowColor, glowStrength, reducedMotion, wallColor]);
 
   return (
     <div
