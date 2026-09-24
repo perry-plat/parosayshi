@@ -7,6 +7,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { trackEvent } from "../lib/analytics";
 
 interface ContactBirdFlockProps {
   reducedMotion: boolean;
@@ -815,13 +816,13 @@ export function ContactBirdFlock({ reducedMotion, theme }: ContactBirdFlockProps
   return (
     <div className="folio-contact__flock" data-theme={theme} ref={hostRef}>
       <nav aria-label="Contact links" className="folio-contact__actions">
-        <a aria-label="View Parth Jha on LinkedIn" data-cursor-keep href="https://www.linkedin.com/in/parthjha03/" onPointerEnter={() => playChirp(0)} rel="noreferrer" target="_blank">
+        <a aria-label="View Parth Jha on LinkedIn" data-cursor-keep href="https://www.linkedin.com/in/parthjha03/" onClick={() => trackEvent("contact_click", { channel: "linkedin" })} onPointerEnter={() => playChirp(0)} rel="noreferrer" target="_blank">
           <span className="folio-contact__pill">View LinkedIn</span>
         </a>
-        <button aria-label="Copy Parth's email address" data-cursor-keep onClick={copyEmail} onPointerEnter={() => playChirp(1)} type="button">
+        <button aria-label="Copy Parth's email address" data-cursor-keep onClick={() => { trackEvent("contact_click", { channel: "email_copy" }); void copyEmail(); }} onPointerEnter={() => playChirp(1)} type="button">
           <span className="folio-contact__pill">{emailCopied ? "Copied!" : "Copy email"}</span>
         </button>
-        <a aria-label="Follow Parosayshi on X" data-cursor-keep href="https://x.com/parosayshi" onPointerEnter={() => playChirp(2)} rel="noreferrer" target="_blank">
+        <a aria-label="Follow Parosayshi on X" data-cursor-keep href="https://x.com/parosayshi" onClick={() => trackEvent("contact_click", { channel: "x" })} onPointerEnter={() => playChirp(2)} rel="noreferrer" target="_blank">
           <span className="folio-contact__pill">Follow on X</span>
         </a>
       </nav>

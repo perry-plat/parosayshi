@@ -14,6 +14,7 @@ import { FolioProjectViewer } from "./FolioProjectViewer";
 import { PaperSurface } from "./PaperSurface";
 import { SunlightPatchPill } from "./SunlightPatchPill";
 import { WallLightShader } from "./WallLightShader";
+import { trackEvent } from "../lib/analytics";
 
 interface InvoiceFolioHomeProps {
   onOpenPlay: () => void;
@@ -253,6 +254,10 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
   };
 
   const openFolioProject = (projectId: FolioProjectId, trigger: HTMLButtonElement) => {
+    trackEvent("project_open", {
+      project_id: projectId,
+      project_title: folioProjects[projectId].title,
+    });
     folioProjectTriggerRef.current = trigger;
     lastFolioProjectIdRef.current = projectId;
     const nextUrl = new URL(window.location.href);
@@ -313,7 +318,7 @@ export function InvoiceFolioHome({ reducedMotion }: InvoiceFolioHomeProps) {
             </clipPath>
           </defs>
         </svg>
-        <a className="folio-resume-sticker__link" href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="View résumé">
+        <a className="folio-resume-sticker__link" href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="View résumé" onClick={() => trackEvent("resume_click", { placement: "floating_badge" })}>
           <span className="folio-resume-sticker__caption">Resume</span>
         </a>
       </div>

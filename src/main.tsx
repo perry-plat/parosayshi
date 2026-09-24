@@ -17,6 +17,9 @@ import "./styles/folio-bento-grid.css";
 import "./styles/play-page.css";
 import "./styles/spotlight-cursor.css";
 import App from "./App";
+import { initializeAnalytics } from "./lib/analytics";
+
+initializeAnalytics();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
