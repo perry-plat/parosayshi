@@ -12,8 +12,9 @@ declare global {
 export function initializeAnalytics() {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = (...args: unknown[]) => {
-    window.dataLayer?.push(args);
+  window.gtag = function () {
+    // gtag commands must use Arguments; plain arrays are data-layer method calls.
+    window.dataLayer?.push(arguments);
   };
   window.gtag("js", new Date());
   window.gtag("config", MEASUREMENT_ID);
